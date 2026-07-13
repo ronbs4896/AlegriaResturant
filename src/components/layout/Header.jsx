@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { NavLink, useLocation } from 'react-router-dom'
 import { Menu, X, Phone } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
@@ -76,20 +77,24 @@ export default function Header() {
         </div>
       </div>
 
-      {/* דרואר מובייל */}
+      {/* דרואר מובייל — מרונדר ב-portal ל-body (backdrop-blur בהדר יוצר
+          containing block שכולא position:fixed בתוכו) */}
+      {createPortal(
       <AnimatePresence>
         {drawer && (
           <>
             <motion.div
-              className="fixed inset-0 z-50 bg-charcoal-950/60 lg:hidden"
+              className="fixed inset-0 z-[90] bg-charcoal-950/60 lg:hidden"
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setDrawer(false)}
             />
             <motion.div
-              className="fixed inset-y-0 z-50 flex w-[82%] max-w-xs flex-col bg-cream-50 p-6 shadow-warm-lg lg:hidden inset-inline-start-0"
-              style={{ insetInlineStart: 0 }}
+              className="fixed inset-y-0 end-0 z-[95] flex h-full w-[82%] max-w-xs flex-col overflow-y-auto bg-cream-50 p-6 shadow-warm-lg lg:hidden"
               initial={{ x: '-100%' }} animate={{ x: 0 }} exit={{ x: '-100%' }}
               transition={{ type: 'tween', duration: 0.28 }}
+              role="dialog"
+              aria-modal="true"
+              aria-label="תפריט ניווט"
             >
               <div className="mb-8 flex items-center justify-between">
                 <Logo size={44} />
@@ -124,7 +129,9 @@ export default function Header() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body
+      )}
     </header>
   )
 }

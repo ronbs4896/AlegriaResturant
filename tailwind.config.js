@@ -39,8 +39,8 @@ export default {
         display: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
       },
       fontSize: {
-        display: ['clamp(2.75rem, 8vw, 6rem)', { lineHeight: '0.98', letterSpacing: '-0.02em' }],
-        hero: ['clamp(2.25rem, 6vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.015em' }],
+        display: ['clamp(2.1rem, 5.5vw, 4.1rem)', { lineHeight: '1.04', letterSpacing: '-0.015em' }],
+        hero: ['clamp(1.9rem, 4.5vw, 3.3rem)', { lineHeight: '1.06', letterSpacing: '-0.01em' }],
       },
       maxWidth: {
         container: '1240px',

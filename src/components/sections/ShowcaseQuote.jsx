@@ -17,7 +17,7 @@ export default function ShowcaseQuote() {
       <Container className="relative text-center">
         <Reveal>
           <Quote size={48} className="mx-auto mb-6 text-orange" />
-          <p className="mx-auto max-w-3xl text-2xl font-black leading-snug text-cream sm:text-3xl lg:text-4xl">
+          <p className="mx-auto max-w-3xl text-xl font-black leading-snug text-cream sm:text-2xl lg:text-3xl">
             "אנחנו לא מבשלים אוכל מוסדי. אנחנו מבשלים אוכל של בית —
             רק בכמות שמספיקה למאות אנשים."
           </p>

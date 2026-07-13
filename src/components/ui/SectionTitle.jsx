@@ -14,7 +14,7 @@ export default function SectionTitle({
       <div className={`flex flex-col ${alignCls} ${className}`}>
         {eyebrow && <span className="eyebrow mb-3">{eyebrow}</span>}
         <h2
-          className={`text-3xl sm:text-4xl lg:text-5xl font-black max-w-3xl ${
+          className={`text-2xl sm:text-3xl lg:text-4xl font-black max-w-3xl ${
             light ? 'text-cream' : 'text-charcoal'
           }`}
         >

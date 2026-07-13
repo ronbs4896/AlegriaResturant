@@ -20,7 +20,7 @@ export default function FactoriesSplit() {
       <Container className="relative grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-2">
         <Reveal>
           <span className="eyebrow text-honey">הליבה שלנו</span>
-          <h2 className="mt-3 text-3xl font-black text-cream sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 text-2xl font-black text-cream sm:text-3xl lg:text-4xl">
             ספק ההסעדה שמפעלים
             <br />
             <span className="text-honey">סומכים עליו</span>

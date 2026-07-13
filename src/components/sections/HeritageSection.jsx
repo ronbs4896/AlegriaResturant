@@ -45,7 +45,7 @@ export default function HeritageSection() {
         {/* הסיפור */}
         <Reveal delay={0.12}>
           <span className="eyebrow">{heritage.eyebrow}</span>
-          <h2 className="mt-3 text-3xl font-black text-charcoal sm:text-4xl lg:text-5xl">
+          <h2 className="mt-3 text-2xl font-black text-charcoal sm:text-3xl lg:text-4xl">
             {heritage.title}
           </h2>
           <div className="mt-6 space-y-4 text-lg leading-relaxed text-charcoal-soft">
