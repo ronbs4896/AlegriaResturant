@@ -1,0 +1,45 @@
+// ============================================================
+//  ניווט — עליון + פוטר.
+// ============================================================
+
+export const mainNav = [
+  { label: 'בית', to: '/' },
+  { label: 'הסעדה למפעלים', to: '/factories' },
+  { label: 'מכירת שישי', to: '/friday' },
+  { label: 'שירותים', to: '/services' },
+  { label: 'גלריה', to: '/gallery' },
+  { label: 'המלצות', to: '/testimonials' },
+  { label: 'אודות', to: '/about' },
+  { label: 'צור קשר', to: '/contact' },
+]
+
+export const footerNav = {
+  services: {
+    title: 'שירותים',
+    links: [
+      { label: 'הסעדה למפעלים', to: '/factories' },
+      { label: 'מכירת שישי', to: '/friday' },
+      { label: 'קייטרינג לאירועים', to: '/services/event-catering' },
+      { label: 'ארוחות מסובסדות', to: '/services/subsidized-meals' },
+    ],
+  },
+  company: {
+    title: 'המסעדה',
+    links: [
+      { label: 'אודות', to: '/about' },
+      { label: 'גלריה', to: '/gallery' },
+      { label: 'המלצות', to: '/testimonials' },
+      { label: 'שאלות נפוצות', to: '/faq' },
+    ],
+  },
+  legal: {
+    title: 'מידע',
+    links: [
+      { label: 'צור קשר', to: '/contact' },
+      { label: 'הצהרת נגישות', to: '/accessibility' },
+      { label: 'מדיניות פרטיות', to: '/privacy' },
+    ],
+  },
+}
+
+export default mainNav

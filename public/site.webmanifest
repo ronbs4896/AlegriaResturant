@@ -1,0 +1,14 @@
+{
+  "name": "מסעדת אלגריה",
+  "short_name": "אלגריה",
+  "description": "הסעדה למפעלים, מכירת שישי וקייטרינג — אוכל ביתי טעים, טרי ואיכותי.",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F2EADE",
+  "theme_color": "#333333",
+  "icons": [
+    { "src": "/images/logo/logo.jpg", "sizes": "512x512", "type": "image/jpeg" }
+  ]
+}
