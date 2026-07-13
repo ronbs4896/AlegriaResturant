@@ -30,7 +30,13 @@ export default function About() {
       <section className="bg-cream py-20 sm:py-28">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
-            <Img src="/images/ambience/kitchen.jpg" fallback="/images/dishes/alegria-spread.jpg" alt="המטבח של אלגריה" ratio="4/3" className="shadow-warm-lg" />
+            <div className="relative">
+              <Img src="/images/ambience/kitchen.jpg" fallback="/images/dishes/alegria-spread.jpg" alt="המטבח של אלגריה" ratio="4/3" className="shadow-warm-lg" />
+              {/* האמבלם כחותמת מורשת על התמונה */}
+              <div className="absolute -bottom-8 w-32 overflow-hidden rounded-2xl bg-white p-2 shadow-warm-lg sm:w-40 inset-inline-start-6" style={{ insetInlineStart: '1.5rem' }}>
+                <img src="/images/logo/logo.jpg" alt="" aria-hidden="true" className="w-full" />
+              </div>
+            </div>
           </Reveal>
           <Reveal delay={0.1}>
             <h2 className="text-3xl font-black text-charcoal sm:text-4xl">מהמטבח שלנו — לשולחן שלכם</h2>

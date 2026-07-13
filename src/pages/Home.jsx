@@ -3,6 +3,7 @@ import Hero from '../components/sections/Hero.jsx'
 import Marquee from '../components/sections/Marquee.jsx'
 import ClientLogos from '../components/sections/ClientLogos.jsx'
 import ServicesGrid from '../components/sections/ServicesGrid.jsx'
+import HeritageSection from '../components/sections/HeritageSection.jsx'
 import FactoriesSplit from '../components/sections/FactoriesSplit.jsx'
 import FridayBand from '../components/sections/FridayBand.jsx'
 import Features from '../components/sections/Features.jsx'
@@ -21,6 +22,7 @@ export default function Home() {
       <Hero />
       <Marquee />
       <ClientLogos />
+      <HeritageSection />
       <ServicesGrid />
       <FactoriesSplit />
       <FridayBand />
