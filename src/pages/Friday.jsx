@@ -24,7 +24,7 @@ export default function Friday() {
       </PageHeader>
 
       {/* תמונה + תפריט */}
-      <section className="bg-cream py-20 sm:py-24">
+      <section className="bg-cream py-14 sm:py-16 lg:py-24">
         <Container className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
           <Reveal>
             <div className="lg:sticky lg:top-28">
@@ -62,7 +62,7 @@ export default function Friday() {
       </section>
 
       {/* איך מזמינים */}
-      <section className="bg-cream-50 py-20 sm:py-24">
+      <section className="bg-cream-50 py-14 sm:py-16 lg:py-24">
         <Container>
           <h2 className="text-center text-3xl font-black text-charcoal sm:text-4xl">איך מזמינים?</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">

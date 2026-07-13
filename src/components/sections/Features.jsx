@@ -6,7 +6,7 @@ import { features } from '../../data/features.js'
 // "למה אנחנו" — רשימה עריכתית ממוספרת.
 export default function Features() {
   return (
-    <section className="bg-cream-50 py-20 sm:py-28">
+    <section className="bg-cream-50 py-14 sm:py-20 lg:py-28">
       <Container>
         <SectionTitle eyebrow="למה אלגריה" title="הסיבות שבגללן נשארים איתנו" align="center" className="mx-auto" />
         <div className="mx-auto mt-12 max-w-4xl divide-y divide-charcoal/10">

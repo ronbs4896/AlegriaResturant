@@ -3,10 +3,11 @@ import { Link } from 'react-router-dom'
 const base =
   'inline-flex items-center justify-center gap-2 rounded-lg font-bold transition-all duration-200 focus-visible:outline-none disabled:opacity-60 disabled:pointer-events-none'
 
+// גדלים רספונסיביים — קומפקטי במובייל, מרווח בדסקטופ
 const sizes = {
   sm: 'px-4 py-2 text-sm',
-  md: 'px-6 py-3 text-base',
-  lg: 'px-8 py-4 text-lg',
+  md: 'px-5 py-2.5 text-sm sm:px-6 sm:py-3 sm:text-base',
+  lg: 'px-5 py-2.5 text-sm sm:px-7 sm:py-3.5 sm:text-base lg:px-8 lg:py-4 lg:text-lg',
 }
 
 const variants = {

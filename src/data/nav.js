@@ -4,14 +4,26 @@
 
 export const mainNav = [
   { label: 'בית', to: '/' },
-  { label: 'הסעדה למפעלים', to: '/factories' },
-  { label: 'מכירת שישי', to: '/friday' },
-  { label: 'שירותים', to: '/services' },
+  {
+    label: 'שירותים',
+    to: '/services',
+    // עמודי שירות מקובצים תחת dropdown
+    children: [
+      { label: 'הסעדה למפעלים', to: '/factories' },
+      { label: 'מכירת שישי', to: '/friday' },
+      { label: 'קייטרינג לאירועים', to: '/services/event-catering' },
+      { label: 'ארוחות מסובסדות לעובדים', to: '/services/subsidized-meals' },
+      { label: 'כל השירותים', to: '/services' },
+    ],
+  },
   { label: 'גלריה', to: '/gallery' },
   { label: 'המלצות', to: '/testimonials' },
   { label: 'אודות', to: '/about' },
   { label: 'צור קשר', to: '/contact' },
 ]
+
+// נתיבים שמדליקים את מצב ה"פעיל" של פריט השירותים
+export const servicesActivePaths = ['/services', '/factories', '/friday']
 
 export const footerNav = {
   services: {

@@ -14,7 +14,7 @@ export default function Accessibility() {
         <Container className="max-w-3xl">
           <div className="prose prose-lg max-w-none text-charcoal-soft prose-headings:font-black prose-headings:text-charcoal prose-strong:text-charcoal">
             <p>
-              אתר מסעדת אלגריה שואף לאפשר גלישה נוחה ונגישה לכלל המשתמשים, לרבות אנשים עם מוגבלויות,
+              אתר קייטרינג אלגריה שואף לאפשר גלישה נוחה ונגישה לכלל המשתמשים, לרבות אנשים עם מוגבלויות,
               בהתאם לתקן הישראלי (ת"י 5568) ולהנחיות <span dir="ltr" className="num">WCAG 2.1</span> ברמה AA.
             </p>
             <h2>מה עשינו כדי להנגיש את האתר</h2>

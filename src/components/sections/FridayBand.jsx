@@ -7,7 +7,7 @@ import Img from '../ui/Img.jsx'
 // רצועת מכירת שישי — רקע קרם-דבש חם ומעודן (לא כתום מלא).
 export default function FridayBand() {
   return (
-    <section className="relative overflow-hidden border-y-2 border-honey/40 py-20 sm:py-24"
+    <section className="relative overflow-hidden border-y-2 border-honey/40 py-14 sm:py-16 lg:py-24"
       style={{ background: 'linear-gradient(135deg, #F7F1E8 0%, #F2EADE 45%, #F5E7C8 100%)' }}
     >
       {/* הילת דבש עדינה */}

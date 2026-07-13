@@ -7,7 +7,7 @@ import { testimonials } from '../../data/testimonials.js'
 export default function TestimonialsSection({ limit }) {
   const list = limit ? testimonials.slice(0, limit) : testimonials
   return (
-    <section className="bg-cream-50 py-20 sm:py-28">
+    <section className="bg-cream-50 py-14 sm:py-20 lg:py-28">
       <Container>
         <SectionTitle
           eyebrow="מה אומרים עלינו"

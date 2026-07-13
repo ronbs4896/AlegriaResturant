@@ -10,7 +10,7 @@ import { site } from '../../data/site.js'
 export default function HeritageSection() {
   const reduce = useReducedMotion()
   return (
-    <section className="warm-grain relative overflow-hidden bg-cream py-20 sm:py-28">
+    <section className="warm-grain relative overflow-hidden bg-cream py-14 sm:py-20 lg:py-28">
       <Container className="relative grid items-center gap-12 lg:grid-cols-[1fr_1.15fr]">
         {/* האמבלם */}
         <Reveal>

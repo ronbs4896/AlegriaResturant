@@ -68,7 +68,7 @@ export default function ServiceDetail() {
         </Container>
       </section>
 
-      <section className="bg-cream py-20 sm:py-28">
+      <section className="bg-cream py-14 sm:py-20 lg:py-28">
         <Container>
           <h2 className="text-3xl font-black text-charcoal">מה כולל השירות</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">

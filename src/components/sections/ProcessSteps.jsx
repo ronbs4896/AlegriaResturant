@@ -6,7 +6,7 @@ import { process } from '../../data/process.js'
 // ציר זמן ממוספר.
 export default function ProcessSteps() {
   return (
-    <section className="bg-cream py-20 sm:py-28">
+    <section className="bg-cream py-14 sm:py-20 lg:py-28">
       <Container>
         <SectionTitle eyebrow="איך זה עובד" title="מהשיחה הראשונה — ועד הצלחת" />
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

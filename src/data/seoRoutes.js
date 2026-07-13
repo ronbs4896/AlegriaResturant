@@ -4,7 +4,7 @@
 // ============================================================
 import { services } from './services.js'
 
-const BRAND = 'מסעדת אלגריה'
+const BRAND = 'קייטרינג אלגריה'
 
 export const staticRoutes = [
   {
@@ -38,7 +38,7 @@ export const staticRoutes = [
   {
     path: '/gallery',
     title: `גלריה · ${BRAND}`,
-    description: 'הצצה למנות, לקייטרינג ולאווירה של מסעדת אלגריה — אוכל ביתי טעים, טרי ואיכותי.',
+    description: 'הצצה למנות, לקייטרינג ולאווירה של קייטרינג אלגריה — אוכל ביתי טעים, טרי ואיכותי.',
     lastmod: '2026-07-13',
   },
   {
@@ -68,13 +68,13 @@ export const staticRoutes = [
   {
     path: '/accessibility',
     title: `הצהרת נגישות · ${BRAND}`,
-    description: 'הצהרת הנגישות של אתר מסעדת אלגריה.',
+    description: 'הצהרת הנגישות של אתר קייטרינג אלגריה.',
     lastmod: '2026-07-13',
   },
   {
     path: '/privacy',
     title: `מדיניות פרטיות · ${BRAND}`,
-    description: 'מדיניות הפרטיות של אתר מסעדת אלגריה.',
+    description: 'מדיניות הפרטיות של אתר קייטרינג אלגריה.',
     lastmod: '2026-07-13',
   },
 ]

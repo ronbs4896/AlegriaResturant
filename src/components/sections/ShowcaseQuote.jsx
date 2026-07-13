@@ -21,7 +21,7 @@ export default function ShowcaseQuote() {
             "אנחנו לא מבשלים אוכל מוסדי. אנחנו מבשלים אוכל של בית —
             רק בכמות שמספיקה למאות אנשים."
           </p>
-          <p className="mt-6 font-bold text-honey">— מסעדת אלגריה</p>
+          <p className="mt-6 font-bold text-honey">— קייטרינג אלגריה</p>
         </Reveal>
       </Container>
     </section>

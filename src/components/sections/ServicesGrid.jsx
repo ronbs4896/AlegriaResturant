@@ -10,7 +10,7 @@ const ICONS = { Factory, CalendarHeart, PartyPopper, HandCoins }
 
 export default function ServicesGrid() {
   return (
-    <section className="bg-cream py-20 sm:py-28">
+    <section className="bg-cream py-14 sm:py-20 lg:py-28">
       <Container>
         <SectionTitle
           eyebrow="מה אנחנו עושים"

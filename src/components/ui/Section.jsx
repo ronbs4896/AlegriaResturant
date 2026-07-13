@@ -8,7 +8,7 @@ const tones = {
 
 export default function Section({ tone = 'cream', className = '', children, id }) {
   return (
-    <section id={id} className={`relative py-20 sm:py-28 ${tones[tone]} ${className}`}>
+    <section id={id} className={`relative py-14 sm:py-20 lg:py-28 ${tones[tone]} ${className}`}>
       {children}
     </section>
   )

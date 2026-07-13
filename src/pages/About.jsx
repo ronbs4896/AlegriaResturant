@@ -27,7 +27,7 @@ export default function About() {
         subtitle={site.tagline}
       />
 
-      <section className="bg-cream py-20 sm:py-28">
+      <section className="bg-cream py-14 sm:py-20 lg:py-28">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <div className="relative">
@@ -42,7 +42,7 @@ export default function About() {
             <h2 className="text-3xl font-black text-charcoal sm:text-4xl">מהמטבח שלנו — לשולחן שלכם</h2>
             <div className="mt-5 space-y-4 text-lg leading-relaxed text-charcoal-soft">
               <p>
-                מסעדת אלגריה נולדה מתוך אהבה פשוטה לאוכל טוב. כבר מעל 25 שנה אנחנו מבשלים אוכל ביתי
+                קייטרינג אלגריה נולד מתוך אהבה פשוטה לאוכל טוב. כבר מעל 25 שנה אנחנו מבשלים אוכל ביתי
                 אמיתי — טעים, טרי ואיכותי — ומגישים אותו למשפחות, לאירועים, ובעיקר למאות עובדים
                 בעשרות מפעלים ברחבי הארץ.
               </p>
@@ -60,7 +60,7 @@ export default function About() {
 
       <StatsBand />
 
-      <section className="bg-cream-50 py-20 sm:py-28">
+      <section className="bg-cream-50 py-14 sm:py-20 lg:py-28">
         <Container>
           <h2 className="text-center text-3xl font-black text-charcoal sm:text-4xl">הערכים שמנחים אותנו</h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">

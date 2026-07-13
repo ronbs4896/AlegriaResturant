@@ -14,7 +14,7 @@ export default function Privacy() {
         <Container className="max-w-3xl">
           <div className="prose prose-lg max-w-none text-charcoal-soft prose-headings:font-black prose-headings:text-charcoal prose-strong:text-charcoal">
             <p>
-              מסעדת אלגריה מכבדת את פרטיות המשתמשים באתר. מסמך זה מסביר איזה מידע נאסף וכיצד נעשה בו שימוש.
+              קייטרינג אלגריה מכבדת את פרטיות המשתמשים באתר. מסמך זה מסביר איזה מידע נאסף וכיצד נעשה בו שימוש.
             </p>
             <h2>איזה מידע אנחנו אוספים</h2>
             <p>

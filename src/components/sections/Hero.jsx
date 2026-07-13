@@ -44,12 +44,12 @@ export default function Hero() {
         />
       </div>
 
-      <Container className="relative py-28">
+      <Container className="relative py-16 sm:py-24">
         <motion.div className="max-w-3xl" variants={parent} initial="hidden" animate="show">
           {/* תגי מורשת */}
-          <motion.div variants={item} className="flex flex-wrap items-center gap-3">
-            <span className="ribbon">מעל 25 שנות ניסיון</span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-honey/50 px-4 py-1.5 text-sm font-bold text-honey">
+          <motion.div variants={item} className="flex flex-wrap items-center gap-2 sm:gap-3">
+            <span className="ribbon text-xs sm:text-sm">מעל 25 שנות ניסיון</span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-honey/50 px-3 py-1 text-xs font-bold text-honey sm:px-4 sm:py-1.5 sm:text-sm">
               מתכונים של בית · מסורת של דורות
             </span>
           </motion.div>
@@ -69,19 +69,19 @@ export default function Hero() {
             ואיכותי, בדיוק כמו בבית. עשרות מפעלים כבר סומכים עלינו.
           </motion.p>
 
-          <motion.div variants={item} className="mt-10 flex flex-wrap gap-3">
+          <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
             <Button variant="primary" size="lg" onClick={() => openLead()}>
-              קבלו הצעת מחיר <ChevronLeft size={20} />
+              קבלו הצעת מחיר <ChevronLeft size={18} />
             </Button>
             <Button variant="whatsapp" size="lg" href={buildWaLink()} target="_blank" rel="noopener noreferrer">
-              <MessageCircle size={20} /> וואטסאפ
+              <MessageCircle size={18} /> וואטסאפ
             </Button>
           </motion.div>
 
           {/* רצועת סטטיסטיקות */}
           <motion.div
             variants={item}
-            className="mt-16 grid max-w-2xl grid-cols-3 gap-4 border-t border-honey/25 pt-8"
+            className="mt-10 grid max-w-2xl grid-cols-3 gap-4 border-t border-honey/25 pt-6 sm:mt-16 sm:pt-8"
           >
             <Stat value={site.stats.years} suffix="+" label="שנות ניסיון" />
             <Stat value={site.stats.factories} suffix="+" label="מפעלים" />
@@ -113,7 +113,7 @@ export default function Hero() {
 function Stat({ value, suffix, label }) {
   return (
     <div>
-      <div className="text-3xl font-black text-honey sm:text-5xl">
+      <div className="text-2xl font-black text-honey sm:text-4xl">
         <CountUp to={value} suffix={suffix} />
       </div>
       <div className="mt-1 text-sm text-cream/70">{label}</div>

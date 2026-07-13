@@ -6,7 +6,7 @@ export default function NotFound() {
   return (
     <>
       <Helmet>
-        <title>הדף לא נמצא · מסעדת אלגריה</title>
+        <title>הדף לא נמצא · קייטרינג אלגריה</title>
         <meta name="robots" content="noindex" />
       </Helmet>
       <section className="flex min-h-[70vh] items-center bg-charcoal-950 text-cream">

@@ -62,7 +62,7 @@ export default function Factories() {
       </section>
 
       {/* יתרונות */}
-      <section className="bg-cream py-20 sm:py-28">
+      <section className="bg-cream py-14 sm:py-20 lg:py-28">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">למה מפעלים בוחרים בנו</span>
@@ -90,7 +90,7 @@ export default function Factories() {
       </section>
 
       {/* איך זה עובד */}
-      <section className="warm-grain relative bg-charcoal-950 py-20 text-cream sm:py-28">
+      <section className="warm-grain relative bg-charcoal-950 py-14 text-cream sm:py-20 lg:py-28">
         <Container className="relative">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>

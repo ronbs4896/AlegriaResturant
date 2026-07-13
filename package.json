@@ -3,7 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "אתר תדמית — מסעדת אלגריה · הסעדה למפעלים, מכירת שישי וקייטרינג",
+  "description": "אתר תדמית — קייטרינג אלגריה · הסעדה למפעלים, מכירת שישי וקייטרינג",
   "scripts": {
     "dev": "vite",
     "build": "vite build && node scripts/postbuild-seo.mjs",

@@ -22,7 +22,7 @@ export default function Contact() {
         subtitle="הכי מהיר בוואטסאפ — אבל אנחנו כאן בכל דרך שנוח לכם."
       />
 
-      <section className="bg-cream py-20 sm:py-28">
+      <section className="bg-cream py-14 sm:py-20 lg:py-28">
         <Container className="grid gap-10 lg:grid-cols-2">
           {/* פרטים */}
           <Reveal>

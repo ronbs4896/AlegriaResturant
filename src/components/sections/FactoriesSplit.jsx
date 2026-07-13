@@ -17,7 +17,7 @@ export default function FactoriesSplit() {
   const { openLead } = useLeadModal()
   return (
     <section className="warm-grain relative overflow-hidden bg-charcoal-950 text-cream">
-      <Container className="relative grid items-center gap-12 py-20 sm:py-28 lg:grid-cols-2">
+      <Container className="relative grid items-center gap-12 py-14 sm:py-20 lg:py-28 lg:grid-cols-2">
         <Reveal>
           <span className="eyebrow text-honey">הליבה שלנו</span>
           <h2 className="mt-3 text-2xl font-black text-cream sm:text-3xl lg:text-4xl">
