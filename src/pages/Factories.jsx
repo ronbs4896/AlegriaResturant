@@ -11,6 +11,7 @@ import Button from '../components/ui/Button.jsx'
 import Reveal from '../components/ui/Reveal.jsx'
 import Img from '../components/ui/Img.jsx'
 import ClientLogos from '../components/sections/ClientLogos.jsx'
+import TrustBar from '../components/sections/TrustBar.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { factoryValues, factorySteps, factoryTrust } from '../data/factories.js'
@@ -33,9 +34,9 @@ export default function Factories() {
       />
 
       <PageHeader
-        eyebrow="הליבה שלנו · B2B"
-        title="הסעדה למפעלים שאפשר לסמוך עליה"
-        subtitle="מפעל עם מאות עובדים צריך ספק מזון אחד — אמין, בזמן, ואיכותי. כבר 25 שנה זה אנחנו."
+        eyebrow="הסעדה למפעלים · הדרום"
+        title="המפעלים הגדולים בדרום כבר אוכלים אצלנו"
+        subtitle="מפעל עם מאות עובדים צריך ספק אחד שלא מאכזב — אמין, בזמן, באיכות של בית. כבר 25 שנה זה אנחנו."
       >
         <div className="mt-8 flex flex-wrap gap-3">
           <Button variant="primary" size="lg" onClick={() => openLead('factory')}>
@@ -48,13 +49,13 @@ export default function Factories() {
       </PageHeader>
 
       {/* פס אמון */}
-      <section className="bg-honey py-12">
-        <Container>
+      <section className="warm-grain relative bg-charcoal-950 py-12 text-cream">
+        <Container className="relative">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {factoryTrust.map((t) => (
               <div key={t.label} className="text-center">
-                <div className="text-3xl font-black text-charcoal-900 sm:text-4xl">{t.value}</div>
-                <div className="mt-1 font-bold text-charcoal-soft">{t.label}</div>
+                <div className="text-3xl font-black text-honey sm:text-4xl">{t.value}</div>
+                <div className="mt-1 font-bold text-cream/70">{t.label}</div>
               </div>
             ))}
           </div>
@@ -119,6 +120,7 @@ export default function Factories() {
         </Container>
       </section>
 
+      <TrustBar />
       <ClientLogos />
       <CTASection
         title="בואו נדבר על ההסעדה של המפעל שלכם"

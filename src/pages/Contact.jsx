@@ -73,16 +73,14 @@ export default function Contact() {
 function ContactRow({ icon: Icon, label, value, href, ltr, accent }) {
   const inner = (
     <div
-      className={`flex items-center gap-4 rounded-2xl p-5 shadow-warm transition-all ${
-        accent ? 'bg-[#25D366] text-white hover:-translate-y-0.5' : 'bg-cream-50 hover:-translate-y-0.5'
-      }`}
+      className="flex items-center gap-4 rounded-2xl bg-cream-50 p-5 shadow-warm transition-all hover:-translate-y-0.5"
     >
-      <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${accent ? 'bg-white/20' : 'bg-orange/10 text-orange'}`}>
+      <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${accent ? 'bg-[#25D366]/10 text-[#1fa855]' : 'bg-orange/10 text-orange'}`}>
         <Icon size={22} />
       </span>
       <div>
-        <div className={`text-sm ${accent ? 'text-white/80' : 'text-charcoal-soft'}`}>{label}</div>
-        <div className={`font-black ${accent ? 'text-white' : 'text-charcoal'} ${ltr ? 'num' : ''}`} dir={ltr ? 'ltr' : undefined}>
+        <div className="text-sm text-charcoal-soft">{label}</div>
+        <div className={`font-black text-charcoal ${ltr ? 'num' : ''}`} dir={ltr ? 'ltr' : undefined}>
           {value}
         </div>
       </div>

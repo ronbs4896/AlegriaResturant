@@ -17,21 +17,23 @@ export default {
           DEFAULT: '#333333',
           light: '#4A4A4A',
           soft: '#5C5C5C',
-          900: '#232323',
-          950: '#1A1A1A',
+          900: '#2A2624',
+          950: '#211D1B',
         },
+        // "טרקוטה עמוקה" — צבע המבטא היחיד (מחליף את הכתום הזרחני)
         orange: {
-          DEFAULT: '#F5871F',
-          400: '#F79A42',
-          500: '#F5871F',
-          600: '#E0740C',
-          700: '#BC5F08',
+          DEFAULT: '#B4511E',
+          400: '#C4622D',
+          500: '#B4511E',
+          600: '#9A4419',
+          700: '#7F3814',
         },
+        // "פליז מעומעם" — מיקרו-מבטא בלבד (כוכבים, מספרים על כהה, קווים)
         honey: {
-          DEFAULT: '#FCC50D',
-          400: '#FDD23F',
-          500: '#FCC50D',
-          600: '#E0AC00',
+          DEFAULT: '#C89B3C',
+          400: '#D5AE5C',
+          500: '#C89B3C',
+          600: '#A87E2F',
         },
       },
       fontFamily: {
@@ -46,9 +48,9 @@ export default {
         container: '1240px',
       },
       boxShadow: {
-        warm: '0 18px 50px -20px rgba(51, 51, 51, 0.28)',
-        'warm-lg': '0 30px 80px -28px rgba(51, 51, 51, 0.35)',
-        ribbon: '0 10px 30px -12px rgba(245, 135, 31, 0.5)',
+        warm: '0 18px 50px -20px rgba(42, 33, 27, 0.28)',
+        'warm-lg': '0 30px 80px -28px rgba(42, 33, 27, 0.35)',
+        ribbon: '0 10px 26px -12px rgba(180, 81, 30, 0.45)',
       },
       keyframes: {
         'ken-burns': {
@@ -57,7 +59,7 @@ export default {
         },
         marquee: {
           '0%': { transform: 'translateX(0)' },
-          '100%': { transform: 'translateX(50%)' },
+          '100%': { transform: 'translateX(-50%)' },
         },
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(20px)' },

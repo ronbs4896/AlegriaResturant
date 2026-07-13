@@ -21,13 +21,13 @@ export default function FactoriesSplit() {
         <Reveal>
           <span className="eyebrow text-honey">הליבה שלנו</span>
           <h2 className="mt-3 text-2xl font-black text-cream sm:text-3xl lg:text-4xl">
-            ספק ההסעדה שמפעלים
+            ספק ההסעדה
             <br />
-            <span className="text-honey">סומכים עליו</span>
+            <span className="text-honey">מס' 1 בדרום</span>
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-cream/75">
-            מפעל עם מאות עובדים צריך ספק אחד אמין — שמגיע בזמן, מבשל טוב, ולא מפתיע לרעה.
-            כבר 25 שנה אנחנו בדיוק הספק הזה לעשרות מפעלים ברחבי הארץ.
+            מפעל עם מאות עובדים צריך ספק אחד שלא מאכזב — מגיע בזמן, מבשל טוב, ולא מפתיע
+            לרעה. כבר 25 שנה אנחנו בדיוק הספק הזה לעשרות מפעלים בדרום.
           </p>
           <ul className="mt-7 space-y-3">
             {points.map((p) => (

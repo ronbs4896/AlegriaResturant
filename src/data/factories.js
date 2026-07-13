@@ -7,7 +7,7 @@ export const factoryValues = [
   {
     icon: 'ShieldCheck',
     title: 'אמינות שאפשר לסמוך עליה',
-    text: '25+ שנות ניסיון ועשרות מפעלים שעובדים איתנו לאורך שנים. אספקה בזמן, כל יום, בלי הפתעות.',
+    text: '25+ שנה שהמפעלים הגדולים בדרום סומכים עלינו. אספקה בזמן, כל יום, בלי הפתעות.',
   },
   {
     icon: 'Gauge',
@@ -51,7 +51,7 @@ export const clientLogos = [
 
 // נתוני אמון להצגה
 export const factoryTrust = [
-  { value: '25+', label: 'שנות ניסיון' },
+  { value: '25+', label: 'שנות ניסיון בדרום' },
   { value: 'עשרות', label: 'מפעלים קבועים' },
   { value: 'אלפי', label: 'מנות ביום' },
   { value: '100%', label: 'אספקה בזמן' },

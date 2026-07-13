@@ -15,12 +15,18 @@ export default function GalleryGrid() {
   )
   const slides = items.map((g) => ({ src: g.src, alt: g.alt }))
 
+  // מציגים רק קטגוריות שיש בהן תמונות (אין טאבים ריקים)
+  const visibleCategories = galleryCategories.filter(
+    (c) => c.key === 'all' || gallery.some((g) => g.cat === c.key)
+  )
+
   return (
     <section className="bg-cream py-16 sm:py-20">
       <Container>
-        {/* טאבים לסינון */}
+        {/* טאבים לסינון — רק אם יש יותר מקטגוריה אחת בפועל */}
+        {visibleCategories.length > 2 && (
         <div className="mb-8 flex flex-wrap justify-center gap-2">
-          {galleryCategories.map((c) => (
+          {visibleCategories.map((c) => (
             <button
               key={c.key}
               onClick={() => setFilter(c.key)}
@@ -34,6 +40,7 @@ export default function GalleryGrid() {
             </button>
           ))}
         </div>
+        )}
 
         {items.length === 0 ? (
           <p className="py-16 text-center text-charcoal-soft">בקרוב — תמונות נוספות בקטגוריה זו.</p>

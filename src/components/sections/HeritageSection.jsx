@@ -15,12 +15,6 @@ export default function HeritageSection() {
         {/* האמבלם */}
         <Reveal>
           <div className="relative mx-auto max-w-md">
-            {/* עיגולי רקע דקורטיביים בצבעי המותג */}
-            <div
-              className="absolute -inset-6 rounded-full opacity-60 blur-2xl"
-              style={{ background: 'radial-gradient(circle, rgba(252,197,13,0.35) 0%, transparent 70%)' }}
-              aria-hidden="true"
-            />
             <motion.div
               initial={reduce ? {} : { rotate: -2 }}
               whileInView={reduce ? {} : { rotate: 0 }}

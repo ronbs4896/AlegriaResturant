@@ -1,5 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { MessageCircle, ChevronLeft } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { MessageCircle, ChevronLeft, Factory, CalendarHeart, ArrowLeft } from 'lucide-react'
 import Container from '../ui/Container.jsx'
 import Button from '../ui/Button.jsx'
 import CountUp from '../ui/CountUp.jsx'
@@ -39,7 +40,7 @@ export default function Hero() {
         {/* הילה כתומה עדינה מאחורי הטקסט */}
         <div
           className="absolute top-1/2 h-[560px] w-[560px] -translate-y-1/2 rounded-full opacity-25 blur-3xl"
-          style={{ background: 'radial-gradient(circle, #F5871F 0%, transparent 65%)', insetInlineStart: '-6rem' }}
+          style={{ background: 'radial-gradient(circle, #B4511E 0%, transparent 65%)', insetInlineStart: '-6rem' }}
           aria-hidden="true"
         />
       </div>
@@ -48,25 +49,22 @@ export default function Hero() {
         <motion.div className="max-w-3xl" variants={parent} initial="hidden" animate="show">
           {/* תגי מורשת */}
           <motion.div variants={item} className="flex flex-wrap items-center gap-2 sm:gap-3">
-            <span className="ribbon text-xs sm:text-sm">מעל 25 שנות ניסיון</span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-honey/50 px-3 py-1 text-xs font-bold text-honey sm:px-4 sm:py-1.5 sm:text-sm">
-              מתכונים של בית · מסורת של דורות
-            </span>
+            <span className="ribbon text-xs sm:text-sm">קרית גת והדרום · מעל 25 שנה</span>
           </motion.div>
 
+          {/* h1 מאוחד — שתי השורות בתוך אלמנט כותרת אחד (סמנטיקה + SEO) */}
           <motion.h1 variants={item} className="mt-7 text-display font-black">
-            אוכל ביתי אמיתי,
+            <span className="block">המטבח שמאכיל</span>
+            <span className="block text-honey">את הדרום</span>
           </motion.h1>
-          <motion.div variants={item}>
-            <span className="text-display font-black text-honey">בקנה מידה של מפעל</span>
-          </motion.div>
 
           <motion.p
             variants={item}
             className="mt-7 max-w-xl text-lg leading-relaxed text-cream/85 sm:text-xl"
           >
-            הסעדה יומית למפעלים, מכירת שישי כל שבוע וקייטרינג לאירועים — טעים, טרי
-            ואיכותי, בדיוק כמו בבית. עשרות מפעלים כבר סומכים עלינו.
+            מעל 25 שנה, עשרות מפעלים, אלפי מנות ביום. הסעדה יומית לעובדים, מכירת
+            השישי הגדולה בדרום וקייטרינג לכל אירוע — אוכל ביתי אמיתי, בקנה מידה
+            שאין לאף אחד אחר באזור.
           </motion.p>
 
           <motion.div variants={item} className="mt-8 flex flex-wrap items-center gap-3 sm:mt-10">
@@ -76,6 +74,12 @@ export default function Hero() {
             <Button variant="whatsapp" size="lg" href={buildWaLink()} target="_blank" rel="noopener noreferrer">
               <MessageCircle size={18} /> וואטסאפ
             </Button>
+          </motion.div>
+
+          {/* פיצול קהלים — כל קהל למסלול שלו */}
+          <motion.div variants={item} className="mt-5 flex flex-wrap gap-2.5">
+            <AudiencePath to="/factories" icon={Factory} label="אני מפעל — הסעדה יומית" />
+            <AudiencePath to="/friday" icon={CalendarHeart} label="שישי ואירועים" />
           </motion.div>
 
           {/* רצועת סטטיסטיקות */}
@@ -107,6 +111,19 @@ export default function Hero() {
         </div>
       </motion.div>
     </section>
+  )
+}
+
+function AudiencePath({ to, icon: Icon, label }) {
+  return (
+    <Link
+      to={to}
+      className="group inline-flex items-center gap-2 rounded-full border border-cream/25 bg-white/5 px-4 py-2 text-sm font-bold text-cream/90 backdrop-blur-sm transition-all hover:border-honey/60 hover:text-honey"
+    >
+      <Icon size={16} className="text-honey" />
+      {label}
+      <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-0.5" />
+    </Link>
   )
 }
 

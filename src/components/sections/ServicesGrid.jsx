@@ -35,7 +35,10 @@ export default function ServicesGrid() {
                       ratio="16/10"
                       rounded="rounded-none"
                     />
-                    <span className="absolute top-4 font-black text-white/90 text-6xl leading-none num-outline inset-inline-start-5" style={{ insetInlineStart: '1.25rem' }}>
+                    <span
+                      className="absolute top-4 rounded-lg bg-charcoal-950/80 px-2.5 py-1 text-lg font-black text-honey backdrop-blur-sm"
+                      style={{ insetInlineStart: '1rem' }}
+                    >
                       0{i + 1}
                     </span>
                   </div>

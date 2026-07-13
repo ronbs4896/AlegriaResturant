@@ -6,7 +6,7 @@ import { footerNav } from '../../data/nav.js'
 import { buildWaLink } from '../../lib/whatsapp.js'
 
 export default function Footer() {
-  const year = 2026
+  const year = new Date().getFullYear()
   return (
     <footer className="warm-grain bg-charcoal-950 text-cream/85">
       <Container className="relative py-16">

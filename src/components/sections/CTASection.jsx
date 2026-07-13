@@ -12,18 +12,7 @@ export default function CTASection({
 }) {
   const { openLead } = useLeadModal()
   return (
-    <section className="warm-grain relative overflow-hidden bg-charcoal-950 py-20 text-cream sm:py-24">
-      {/* הילות חום עדינות */}
-      <div
-        className="absolute top-0 h-72 w-72 rounded-full opacity-20 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #F5871F 0%, transparent 70%)', insetInlineStart: '10%' }}
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 h-72 w-72 rounded-full opacity-15 blur-3xl"
-        style={{ background: 'radial-gradient(circle, #FCC50D 0%, transparent 70%)', insetInlineEnd: '8%' }}
-        aria-hidden="true"
-      />
+    <section className="warm-grain relative overflow-hidden bg-charcoal-950 py-14 text-cream sm:py-20 lg:py-24">
       <Container className="relative text-center">
         <Reveal>
           <span className="eyebrow justify-center text-honey">בואו נדבר</span>
