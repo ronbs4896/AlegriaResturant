@@ -18,7 +18,6 @@ import FAQAccordion from '../components/sections/FAQAccordion.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { localBusinessSchema } from '../data/structuredData.js'
-import { faq } from '../data/faq.js'
 
 export default function Home() {
   const seo = getSeo('/')
@@ -48,7 +47,7 @@ export default function Home() {
           />
         </Container>
         <div className="mt-8">
-          <FAQAccordion items={faq.slice(0, 3)} />
+          <FAQAccordion maxPerCategory={3} />
         </div>
         <div className="mt-6 text-center">
           <Link to="/faq" className="inline-flex items-center gap-1 font-bold text-orange link-underline">
