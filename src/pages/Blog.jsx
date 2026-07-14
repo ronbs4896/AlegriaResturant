@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft, CalendarDays } from 'lucide-react'
 import Seo from '../components/seo/Seo.jsx'
 import PageHeader from '../components/sections/PageHeader.jsx'
-import Container from '../components/ui/Container.jsx'
 import Reveal from '../components/ui/Reveal.jsx'
 import Img from '../components/ui/Img.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
@@ -28,8 +27,8 @@ export default function Blog() {
         subtitle="כל מה שכדאי לדעת על קייטרינג, הסעדה ואירוח — מהניסיון שלנו בדרום."
       />
 
-      <section className="bg-cream py-14 sm:py-20">
-        <Container>
+      <section className="bg-white py-14 sm:py-20">
+        <div className="mx-auto w-full max-w-[1360px] px-5 sm:px-8">
           {posts.length === 0 ? (
             <p className="py-16 text-center text-charcoal-soft">בקרוב — מאמרים חדשים.</p>
           ) : (
@@ -61,7 +60,7 @@ export default function Blog() {
               ))}
             </div>
           )}
-        </Container>
+        </div>
       </section>
 
       <CTASection />
