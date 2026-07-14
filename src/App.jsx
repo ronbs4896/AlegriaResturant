@@ -13,6 +13,8 @@ const ServiceDetail = lazy(() => import('./pages/ServiceDetail.jsx'))
 const Factories = lazy(() => import('./pages/Factories.jsx'))
 const Friday = lazy(() => import('./pages/Friday.jsx'))
 const Gallery = lazy(() => import('./pages/Gallery.jsx'))
+const Blog = lazy(() => import('./pages/Blog.jsx'))
+const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
 const Testimonials = lazy(() => import('./pages/Testimonials.jsx'))
 const Faq = lazy(() => import('./pages/Faq.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
@@ -35,6 +37,8 @@ export default function App() {
             <Route path="/factories" element={<Factories />} />
             <Route path="/friday" element={<Friday />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogPost />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/contact" element={<Contact />} />

@@ -2,17 +2,39 @@
 //  SPA-SEO — הזרקת head ייחודי לכל route + יצירת sitemap/robots.
 //  רץ אחרי `vite build`. ללא תלויות חיצוניות.
 // ============================================================
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { seoRoutes } from '../src/data/seoRoutes.js'
 import { site } from '../src/data/site.js'
 import { localBusinessSchema } from '../src/data/structuredData.js'
+import { parseFrontmatter } from '../src/lib/frontmatter.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const DIST = join(__dirname, '..', 'dist')
 const SITE_URL = site.siteUrl.replace(/\/$/, '')
+
+// --- קריאת פוסטי הבלוג (fs) — כדי להזריק head ולהכניס ל-sitemap ---
+const BLOG_DIR = join(__dirname, '..', 'src', 'content', 'blog')
+const blogPosts = existsSync(BLOG_DIR)
+  ? readdirSync(BLOG_DIR)
+      .filter((f) => f.endsWith('.md'))
+      .map((f) => {
+        const { data } = parseFrontmatter(readFileSync(join(BLOG_DIR, f), 'utf8'))
+        return { ...data, slug: data.slug || f.replace(/\.md$/, '') }
+      })
+      .filter((p) => !p.draft)
+  : []
+
+const blogRoutes = blogPosts.map((p) => ({
+  path: `/blog/${p.slug}`,
+  title: p.seoTitle || `${p.title} · ${site.name}`,
+  description: p.seoDescription || p.excerpt || '',
+  lastmod: p.date || '2026-07-14',
+}))
+
+const allRoutes = [...seoRoutes, ...blogRoutes]
 
 const template = readFileSync(join(DIST, 'index.html'), 'utf8')
 
@@ -54,7 +76,7 @@ function renderPage(route) {
 }
 
 let count = 0
-for (const route of seoRoutes) {
+for (const route of allRoutes) {
   const html = renderPage(route)
   if (route.path === '/') {
     writeFileSync(join(DIST, 'index.html'), html)
@@ -70,7 +92,7 @@ for (const route of seoRoutes) {
 const sitemap =
   `<?xml version="1.0" encoding="UTF-8"?>\n` +
   `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
-  seoRoutes
+  allRoutes
     .map((r) => {
       const url = `${SITE_URL}${r.path === '/' ? '' : r.path}`
       return `  <url>\n    <loc>${url}</loc>\n    <lastmod>${r.lastmod}</lastmod>\n    <changefreq>weekly</changefreq>\n  </url>`
