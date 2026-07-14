@@ -1,7 +1,9 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
+import { useState } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { CalendarDays, ArrowRight, User, Clock, MessageCircle, ChevronLeft } from 'lucide-react'
+import { getAuthor } from '../data/authors.js'
 import Seo from '../components/seo/Seo.jsx'
 import Button from '../components/ui/Button.jsx'
 import { getPost, posts } from '../lib/posts.js'
@@ -15,6 +17,27 @@ function formatDate(d) {
   } catch {
     return d
   }
+}
+
+// אווטאר כותב — תמונת פרופיל אם קיימת, אחרת אייקון fallback
+function AuthorAvatar({ name }) {
+  const author = getAuthor(name)
+  const [failed, setFailed] = useState(false)
+  if (author.avatar && !failed) {
+    return (
+      <img
+        src={author.avatar}
+        alt={name}
+        onError={() => setFailed(true)}
+        className="h-8 w-8 rounded-full object-cover"
+      />
+    )
+  }
+  return (
+    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-orange/10 text-orange">
+      <User size={16} />
+    </span>
+  )
 }
 
 export default function BlogPost() {
@@ -77,9 +100,7 @@ export default function BlogPost() {
               {/* מטא — כותב, תאריך, זמן קריאה */}
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-charcoal/10 py-4 text-sm text-charcoal-soft">
                 <span className="inline-flex items-center gap-2 font-bold text-charcoal">
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-orange/10 text-orange">
-                    <User size={16} />
-                  </span>
+                  <AuthorAvatar name={post.author} />
                   {post.author}
                 </span>
                 <span className="inline-flex items-center gap-1.5">
