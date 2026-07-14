@@ -1,10 +1,9 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { CalendarDays, ArrowRight, User, MessageCircle, ChevronLeft } from 'lucide-react'
+import { CalendarDays, ArrowRight, User, Clock, MessageCircle, ChevronLeft } from 'lucide-react'
 import Seo from '../components/seo/Seo.jsx'
 import Button from '../components/ui/Button.jsx'
-import Img from '../components/ui/Img.jsx'
 import { getPost, posts } from '../lib/posts.js'
 import { articleSchema, breadcrumbSchema } from '../data/structuredData.js'
 import { useLeadModal } from '../context/LeadModalContext.jsx'
@@ -43,32 +42,57 @@ export default function BlogPost() {
         ]}
       />
 
-      {/* כותרת — באנר כהה קצר */}
-      <section className="relative overflow-hidden bg-charcoal-950 pb-12 pt-[calc(var(--header-h)+2.25rem)] text-cream">
-        <div className="warm-grain absolute inset-0" />
-        <div className="relative mx-auto w-full max-w-[1360px] px-5 sm:px-8">
-          <nav className="mb-4 flex items-center gap-2 text-sm text-cream/60" aria-label="breadcrumb">
-            <Link to="/blog" className="hover:text-honey">בלוג</Link>
-            <ArrowRight size={14} />
-            <span className="text-honey">{post.category}</span>
-          </nav>
-          <h1 className="max-w-4xl text-3xl font-black leading-tight sm:text-4xl lg:text-5xl">{post.title}</h1>
-          <div className="mt-5 flex flex-wrap items-center gap-4 text-sm text-cream/70">
-            <span className="inline-flex items-center gap-1.5"><User size={15} /> {post.author}</span>
-            <span className="inline-flex items-center gap-1.5"><CalendarDays size={15} /> {formatDate(post.date)}</span>
-          </div>
-        </div>
+      {/* תמונת שער — hero רחב מלא ברוחב, מתחת להדר */}
+      <section className="relative w-full bg-charcoal-950">
+        <img
+          src={post.cover}
+          onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
+          alt={post.coverAlt || post.title}
+          className="h-[300px] w-full object-cover sm:h-[400px] lg:h-[460px]"
+        />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal-950/25 to-transparent" />
       </section>
 
-      {/* גוף — רקע לבן, פריסה רחבה: מאמר + סיידבר */}
+      {/* תוכן — רקע לבן, פריסה רחבה: מאמר + סיידבר */}
       <div className="bg-white">
         <div className="mx-auto w-full max-w-[1360px] px-5 py-12 sm:px-8 sm:py-16">
           <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-14">
             {/* מאמר */}
             <article>
-              <Img src={post.cover} alt={post.coverAlt || post.title} ratio="16/9" className="mb-10 shadow-warm-lg" priority />
+              {/* breadcrumb */}
+              <nav className="mb-4 flex items-center gap-2 text-sm text-charcoal-soft" aria-label="breadcrumb">
+                <Link to="/blog" className="hover:text-orange">בלוג</Link>
+                <ArrowRight size={14} />
+                <span className="font-bold text-orange">{post.category}</span>
+              </nav>
+
+              {/* כותרת */}
+              <h1 className="text-3xl font-black leading-tight text-charcoal sm:text-4xl lg:text-[2.75rem]">
+                {post.title}
+              </h1>
+              {post.excerpt && (
+                <p className="mt-4 text-lg leading-relaxed text-charcoal-soft">{post.excerpt}</p>
+              )}
+
+              {/* מטא — כותב, תאריך, זמן קריאה */}
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-charcoal/10 py-4 text-sm text-charcoal-soft">
+                <span className="inline-flex items-center gap-2 font-bold text-charcoal">
+                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-orange/10 text-orange">
+                    <User size={16} />
+                  </span>
+                  {post.author}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <CalendarDays size={15} className="text-orange" /> {formatDate(post.date)}
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Clock size={15} className="text-orange" /> {post.readingMinutes} דק׳ קריאה
+                </span>
+              </div>
+
+              {/* גוף המאמר */}
               <div
-                className="prose prose-lg max-w-none text-charcoal-soft
+                className="prose prose-lg mt-8 max-w-none text-charcoal-soft
                   prose-headings:font-black prose-headings:text-charcoal prose-headings:mt-10
                   prose-h2:text-2xl prose-h2:sm:text-3xl prose-h3:text-xl
                   prose-p:leading-relaxed prose-strong:text-charcoal
@@ -93,7 +117,6 @@ export default function BlogPost() {
 
             {/* סיידבר דביק */}
             <aside className="lg:sticky lg:top-24 lg:self-start">
-              {/* כרטיס CTA */}
               <div className="rounded-3xl bg-charcoal-950 p-7 text-cream shadow-warm">
                 <h2 className="text-xl font-black">מתכננים אירוע?</h2>
                 <p className="mt-2 text-sm text-cream/75">
@@ -109,7 +132,6 @@ export default function BlogPost() {
                 </div>
               </div>
 
-              {/* מאמרים נוספים */}
               {related.length > 0 && (
                 <div className="mt-6 rounded-3xl border border-charcoal/10 bg-cream-50 p-6">
                   <h2 className="mb-4 text-lg font-black text-charcoal">מאמרים נוספים</h2>
