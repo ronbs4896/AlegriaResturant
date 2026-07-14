@@ -17,7 +17,7 @@ export const mainNav = [
     ],
   },
   { label: 'גלריה', to: '/gallery' },
-  { label: 'המלצות', to: '/testimonials' },
+  { label: 'בלוג', to: '/blog' },
   { label: 'אודות', to: '/about' },
   { label: 'צור קשר', to: '/contact' },
 ]

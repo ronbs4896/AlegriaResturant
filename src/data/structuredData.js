@@ -54,6 +54,23 @@ export const faqSchema = (faq) => ({
   })),
 })
 
+export const articleSchema = (post) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.excerpt || post.seoDescription,
+  image: post.cover ? abs(post.cover) : abs('/images/logo/logo.jpg'),
+  datePublished: post.date,
+  dateModified: post.date,
+  author: { '@type': 'Organization', name: post.author || site.name },
+  publisher: {
+    '@type': 'Organization',
+    name: site.name,
+    logo: { '@type': 'ImageObject', url: abs('/images/logo/logo.jpg') },
+  },
+  mainEntityOfPage: abs(`/blog/${post.slug}`),
+})
+
 export const breadcrumbSchema = (items) => ({
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
