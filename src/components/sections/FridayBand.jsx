@@ -20,7 +20,7 @@ export default function FridayBand() {
           />
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="inline-flex items-center gap-2 rounded-full bg-orange/10 px-4 py-1.5 text-sm font-black text-orange-700">
+          <div className="inline-flex items-center gap-2 rounded-full bg-cream-200 px-4 py-1.5 text-sm font-black text-charcoal">
             <CalendarHeart size={18} /> כל יום שישי · קרית גת
           </div>
           <h2 className="mt-4 text-2xl font-black text-charcoal sm:text-3xl lg:text-4xl">
@@ -29,8 +29,9 @@ export default function FridayBand() {
             הגדולה בדרום
           </h2>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-charcoal-soft">
-            כל שבוע, מאות משפחות בדרום מגיעות לשולחן שבת עם האוכל שלנו. עוף בזיתים,
-            חריימה, מטבוחה, חלה טרייה — מתכונים של סבתא, בכמויות של אלגריה.
+            עוף בזיתים ולימון כבוש, חריימה, מטבוחה וחלות מהתנור. הכל מתבשל
+            בשישי בבוקר לפי ההזמנות, ומאות משפחות מהאזור כבר יודעות: מזמינים
+            עד רביעי, אוכלים כמו אצל סבתא.
           </p>
           <p className="mt-3 inline-block rounded-lg bg-charcoal-950 px-3 py-1.5 text-sm font-black text-honey">
             מזמינים עד יום רביעי בערב ⏰

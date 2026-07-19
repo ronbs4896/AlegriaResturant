@@ -5,10 +5,10 @@
 // ============================================================
 
 export const trust = [
-  { icon: 'BadgeCheck', label: 'כשרות בהשגחה', note: 'תעודה בתוקף' },
-  { icon: 'ShieldCheck', label: 'בטיחות מזון', note: 'נהלי HACCP' },
-  { icon: 'Award', label: '25+ שנות ניסיון', note: 'מאז שנות ה-90' },
-  { icon: 'Truck', label: 'אספקה יומית בזמן', note: 'בכל הדרום' },
+  { label: 'כשרות בהשגחה', note: 'תעודה בתוקף' },
+  { label: 'בטיחות מזון', note: 'שרשרת חום מבוקרת' },
+  { label: '25+ שנה', note: 'מאז שנות ה-90 בקרית גת' },
+  { label: '3,000 מנות ביום', note: 'אספקה בכל הדרום' },
 ]
 
 export default trust

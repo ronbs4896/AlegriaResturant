@@ -15,7 +15,7 @@ export const gallery = [
   {
     src: '/images/dishes/alegria-spread.jpg',
     cat: 'dishes',
-    alt: 'מגש מנות אלגריה — עוף בזיתים, מטבוחה, סלט חצילים וחלה',
+    alt: 'מגש מנות אלגריה: עוף בזיתים, מטבוחה, סלט חצילים וחלה',
     w: 1200,
     h: 1500,
   },

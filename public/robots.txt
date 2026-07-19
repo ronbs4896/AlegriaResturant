@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.alegria.co.il/sitemap.xml
+Sitemap: https://www.alegriacatering.co.il/sitemap.xml

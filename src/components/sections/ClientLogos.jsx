@@ -10,7 +10,7 @@ export default function ClientLogos() {
         <Container>
           <p className="text-center text-charcoal-soft">
             <span className="font-black text-charcoal">עשרות מפעלים</span> ברחבי הארץ בוחרים באלגריה
-            להסעדת העובדים שלהם — יום אחרי יום, כבר מעל 25 שנה.
+            להסעדת העובדים שלהם, יום אחרי יום, כבר מעל 25 שנה.
           </p>
         </Container>
       </section>

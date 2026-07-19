@@ -43,7 +43,7 @@ export default function GalleryGrid() {
         )}
 
         {items.length === 0 ? (
-          <p className="py-16 text-center text-charcoal-soft">בקרוב — תמונות נוספות בקטגוריה זו.</p>
+          <p className="py-16 text-center text-charcoal-soft">בקרוב יעלו תמונות נוספות בקטגוריה הזו.</p>
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3">
             {items.map((g, i) => (

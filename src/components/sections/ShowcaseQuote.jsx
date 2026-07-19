@@ -16,12 +16,12 @@ export default function ShowcaseQuote() {
       </div>
       <Container className="relative text-center">
         <Reveal>
-          <Quote size={48} className="mx-auto mb-6 text-orange" />
+          <Quote size={48} className="mx-auto mb-6 text-honey" />
           <p className="mx-auto max-w-3xl text-xl font-black leading-snug text-cream sm:text-2xl lg:text-3xl">
-            "אנחנו לא מבשלים אוכל מוסדי. אנחנו מבשלים אוכל של בית —
-            רק בכמות שמספיקה למאות אנשים."
+            "כל סיר שיוצא מהמטבח הזה מתבשל כמו אצל סבתא. גם כשהוא
+            מאכיל מפעל שלם."
           </p>
-          <p className="mt-6 font-bold text-honey">— קייטרינג אלגריה</p>
+          <p className="mt-6 font-bold text-honey">עמית בן שושן, קייטרינג אלגריה</p>
         </Reveal>
       </Container>
     </section>

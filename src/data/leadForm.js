@@ -21,7 +21,7 @@ export const leadSizeOptions = [
 
 export const leadCopy = {
   step1Title: 'מה מעניין אתכם?',
-  step1Sub: 'בחרו את סוג השירות — נמשיך משם',
+  step1Sub: 'בחרו את סוג השירות ונמשיך משם',
   step2Title: 'כמה פרטים על הבקשה',
   step2Sub: 'זה עוזר לנו להכין הצעה מדויקת (הכל רשות)',
   step3Title: 'לאן נחזור אליכם?',

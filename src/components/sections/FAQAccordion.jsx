@@ -66,7 +66,7 @@ export default function FAQAccordion({ items, withTabs = true, maxPerCategory })
                   <span className="text-lg font-black text-charcoal">{item.q}</span>
                   <ChevronDown
                     size={22}
-                    className={`shrink-0 text-orange transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
+                    className={`shrink-0 text-charcoal-soft transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}
                   />
                 </button>
                 <AnimatePresence initial={false}>

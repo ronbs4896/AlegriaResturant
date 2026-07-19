@@ -1,9 +1,4 @@
-import {
-  ChevronLeft, MessageCircle, ShieldCheck, Gauge, Salad,
-  BadgeCheck, Truck, Headset, CheckCircle2,
-} from 'lucide-react'
-
-const ICONS = { ShieldCheck, Gauge, Salad, BadgeCheck, Truck, Headset, CheckCircle2 }
+import { ChevronLeft, MessageCircle } from 'lucide-react'
 import Seo from '../components/seo/Seo.jsx'
 import PageHeader from '../components/sections/PageHeader.jsx'
 import Container from '../components/ui/Container.jsx'
@@ -36,7 +31,7 @@ export default function Factories() {
       <PageHeader
         eyebrow="הסעדה למפעלים · הדרום"
         title="המפעלים הגדולים בדרום כבר אוכלים אצלנו"
-        subtitle="מפעל עם מאות עובדים צריך ספק אחד שלא מאכזב — אמין, בזמן, באיכות של בית. כבר 25 שנה זה אנחנו."
+        subtitle="כשההפסקה של מאות עובדים תלויה בספק אחד, בוחרים אחד שמגיע בזמן כבר 25 שנה. שיחת היכרות, הצעה כתובה, ושבוע ניסיון לפני שמתחייבים."
       >
         <div className="mt-8 flex flex-wrap gap-3">
           <Button variant="primary" size="lg" onClick={() => openLead('factory')}>
@@ -71,21 +66,16 @@ export default function Factories() {
               כל מה שמנהל רכש מחפש בספק מזון
             </h2>
           </div>
-          <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {factoryValues.map((v, i) => {
-              const Icon = ICONS[v.icon] || CheckCircle2
-              return (
-                <Reveal key={v.title} delay={i * 0.06}>
-                  <div className="h-full rounded-2xl bg-cream-50 p-7 shadow-warm">
-                    <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange/10 text-orange">
-                      <Icon size={24} />
-                    </span>
-                    <h3 className="mt-4 text-xl font-black text-charcoal">{v.title}</h3>
-                    <p className="mt-2 text-charcoal-soft">{v.text}</p>
-                  </div>
-                </Reveal>
-              )
-            })}
+          <div className="mt-12 grid gap-x-10 gap-y-8 md:grid-cols-2 lg:grid-cols-3">
+            {factoryValues.map((v, i) => (
+              <Reveal key={v.title} delay={i * 0.06}>
+                <div className="h-full border-t-2 border-charcoal/15 pt-5">
+                  <span className="text-sm font-black tracking-widest text-charcoal/30">0{i + 1}</span>
+                  <h3 className="mt-2 text-xl font-black text-charcoal">{v.title}</h3>
+                  <p className="mt-2 leading-relaxed text-charcoal-soft">{v.text}</p>
+                </div>
+              </Reveal>
+            ))}
           </div>
         </Container>
       </section>
@@ -102,7 +92,7 @@ export default function Factories() {
               <ol className="mt-8 space-y-6">
                 {factorySteps.map((s) => (
                   <li key={s.n} className="flex gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-orange text-lg font-black text-white">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-honey/40 text-lg font-black text-honey">
                       {s.n}
                     </span>
                     <div>
@@ -123,8 +113,8 @@ export default function Factories() {
       <TrustBar />
       <ClientLogos />
       <CTASection
-        title="בואו נדבר על ההסעדה של המפעל שלכם"
-        subtitle="שיחה קצרה, הצעת מחיר מותאמת, ואוכל טוב שהעובדים יאהבו."
+        title="ההפסקה הבאה כבר יכולה להיות שלנו"
+        subtitle="שלחו את מספר העובדים, ותקבלו הצעה כתובה לרוב עוד באותו יום."
       />
     </>
   )

@@ -4,21 +4,20 @@ import Seo from '../components/seo/Seo.jsx'
 import Container from '../components/ui/Container.jsx'
 import SectionTitle from '../components/ui/SectionTitle.jsx'
 import Hero from '../components/sections/Hero.jsx'
-import Marquee from '../components/sections/Marquee.jsx'
 import TrustBar from '../components/sections/TrustBar.jsx'
-import HeritageSection from '../components/sections/HeritageSection.jsx'
 import ServicesGrid from '../components/sections/ServicesGrid.jsx'
 import FactoriesSplit from '../components/sections/FactoriesSplit.jsx'
+import PhotoStrip from '../components/sections/PhotoStrip.jsx'
 import FridayBand from '../components/sections/FridayBand.jsx'
-import ProcessSteps from '../components/sections/ProcessSteps.jsx'
-import ShowcaseQuote from '../components/sections/ShowcaseQuote.jsx'
-import Features from '../components/sections/Features.jsx'
+import HeritageSection from '../components/sections/HeritageSection.jsx'
 import TestimonialsSection from '../components/sections/TestimonialsSection.jsx'
 import FAQAccordion from '../components/sections/FAQAccordion.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { localBusinessSchema } from '../data/structuredData.js'
 
+// פלואו הבית: פתיחה צילומית -> הוכחות -> דלתות שירות -> B2B (הסקשן הכהה
+// היחיד) -> הפוגה צילומית -> שישי -> מורשת -> המלצות -> שאלות -> סגירה.
 export default function Home() {
   const seo = getSeo('/')
   return (
@@ -26,17 +25,14 @@ export default function Home() {
       <Seo title={seo.title} description={seo.description} path="/" jsonLd={localBusinessSchema()} />
       <Hero />
       <TrustBar />
-      <Marquee />
-      <HeritageSection />
       <ServicesGrid />
       <FactoriesSplit />
+      <PhotoStrip />
       <FridayBand />
-      <ProcessSteps />
-      <ShowcaseQuote />
-      <Features />
-      <TestimonialsSection limit={2} />
+      <HeritageSection />
+      <TestimonialsSection />
 
-      {/* FAQ מקוצר */}
+      {/* שאלות נפוצות מקוצר */}
       <section className="bg-cream py-14 sm:py-20">
         <Container>
           <SectionTitle
@@ -50,16 +46,13 @@ export default function Home() {
           <FAQAccordion maxPerCategory={3} />
         </div>
         <div className="mt-6 text-center">
-          <Link to="/faq" className="inline-flex items-center gap-1 font-bold text-orange link-underline">
+          <Link to="/faq" className="link-underline inline-flex items-center gap-1 font-bold text-charcoal">
             לכל השאלות והתשובות <ChevronLeft size={16} />
           </Link>
         </div>
       </section>
 
-      <CTASection
-        title="הדרום כבר אוכל אצלנו. עכשיו תורכם."
-        subtitle="ספרו לנו מה אתם צריכים — מפעל, אירוע או שולחן שבת — ונחזור עם הצעה מותאמת."
-      />
+      <CTASection />
     </>
   )
 }

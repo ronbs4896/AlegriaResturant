@@ -29,7 +29,7 @@ export default function Friday() {
           <Reveal>
             <div className="lg:sticky lg:top-28">
               <Img src="/images/dishes/friday.jpg" fallback="/images/dishes/alegria-spread.jpg" alt="ארוחת שישי של אלגריה" ratio="4/5" className="shadow-warm-lg" />
-              <div className="mt-6 rounded-2xl bg-orange/10 p-5 text-center">
+              <div className="mt-6 rounded-2xl bg-cream-200 p-5 text-center">
                 <p className="font-black text-charcoal">התפריט מתחלף מדי שבוע 🍽️</p>
                 <p className="mt-1 text-sm text-charcoal-soft">שלחו הודעה ונעדכן אתכם בתפריט של השבוע</p>
               </div>
@@ -41,10 +41,10 @@ export default function Friday() {
             <div className="mt-8 space-y-8">
               {fridayMenu.map((cat) => (
                 <div key={cat.category}>
-                  <h3 className="mb-3 flex items-center gap-3 text-xl font-black text-orange">
-                    <span className="h-px flex-1 bg-orange/30" />
+                  <h3 className="mb-3 flex items-center gap-3 text-xl font-black text-charcoal">
+                    <span className="h-px flex-1 bg-charcoal/20" />
                     {cat.category}
-                    <span className="h-px flex-1 bg-orange/30" />
+                    <span className="h-px flex-1 bg-charcoal/20" />
                   </h3>
                   <ul className="space-y-2">
                     {cat.items.map((item) => (
@@ -69,7 +69,7 @@ export default function Friday() {
             {fridayHow.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.08}>
                 <div className="rounded-2xl bg-cream p-7 text-center shadow-warm">
-                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-orange text-2xl font-black text-white shadow-ribbon">
+                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-950 text-2xl font-black text-honey">
                     {s.n}
                   </span>
                   <h3 className="mt-4 text-xl font-black text-charcoal">{s.title}</h3>
@@ -82,8 +82,8 @@ export default function Friday() {
       </section>
 
       <CTASection
-        title="שישי מתקרב — כבר הזמנתם?"
-        subtitle="שלחו הודעה ונדאג שיהיה לכם אוכל בית חם על השולחן."
+        title="רביעי בערב זה הדדליין"
+        subtitle="שלחו הודעה עכשיו ותפריט השבוע יחכה לכם בוואטסאפ."
       />
     </>
   )

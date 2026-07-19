@@ -34,7 +34,7 @@ function AuthorAvatar({ name }) {
     )
   }
   return (
-    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-orange/10 text-orange">
+    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cream-200 text-charcoal">
       <User size={16} />
     </span>
   )

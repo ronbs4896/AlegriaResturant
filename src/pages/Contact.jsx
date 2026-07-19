@@ -19,7 +19,7 @@ export default function Contact() {
       <PageHeader
         eyebrow="צור קשר"
         title="בואו נדבר"
-        subtitle="הכי מהיר בוואטסאפ — אבל אנחנו כאן בכל דרך שנוח לכם."
+        subtitle="הכי מהיר בוואטסאפ. טלפון ומייל עובדים בדיוק אותו דבר."
       />
 
       <section className="bg-cream py-14 sm:py-20 lg:py-28">
@@ -33,7 +33,7 @@ export default function Contact() {
               <ContactRow icon={MapPin} label="אזור שירות" value={site.serviceArea} />
               <div className="rounded-2xl bg-cream-50 p-6 shadow-warm">
                 <div className="mb-3 flex items-center gap-2 font-black text-charcoal">
-                  <Clock size={20} className="text-orange" /> שעות פעילות
+                  <Clock size={20} className="text-charcoal-soft" /> שעות פעילות
                 </div>
                 <ul className="space-y-2">
                   {site.hours.map((h) => (
@@ -52,7 +52,7 @@ export default function Contact() {
             <div className="flex h-full flex-col justify-center rounded-3xl bg-charcoal-950 p-8 text-cream sm:p-10">
               <h2 className="text-3xl font-black">מבקשים הצעת מחיר?</h2>
               <p className="mt-3 text-cream/75">
-                מלאו כמה פרטים ונחזור אליכם מהר עם הצעה מותאמת — להסעדת מפעל, קייטרינג או מכירת שישי.
+                שלוש שאלות קצרות, והבקשה יוצאת אלינו בוואטסאפ. הצעה כתובה חוזרת לרוב עוד באותו יום.
               </p>
               <div className="mt-8 space-y-3">
                 <Button variant="primary" size="lg" onClick={() => openLead()} className="w-full">
@@ -75,7 +75,7 @@ function ContactRow({ icon: Icon, label, value, href, ltr, accent }) {
     <div
       className="flex items-center gap-4 rounded-2xl bg-cream-50 p-5 shadow-warm transition-all hover:-translate-y-0.5"
     >
-      <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${accent ? 'bg-[#25D366]/10 text-[#1fa855]' : 'bg-orange/10 text-orange'}`}>
+      <span className={`flex h-12 w-12 items-center justify-center rounded-xl ${accent ? 'bg-[#25D366]/10 text-[#1fa855]' : 'bg-cream-200 text-charcoal'}`}>
         <Icon size={22} />
       </span>
       <div>

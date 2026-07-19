@@ -7,13 +7,12 @@ import StatsBand from '../components/sections/StatsBand.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { site } from '../data/site.js'
-import { Heart, Sparkles, Users, ShieldCheck } from 'lucide-react'
 
 const values = [
-  { icon: Heart, title: 'אוכל מהלב', text: 'מבשלים כמו שמבשלים בבית — באהבה, בסבלנות, עם מתכונים שעוברים במשפחה.' },
-  { icon: Sparkles, title: 'טרי ואיכותי', text: 'חומרי גלם טובים, בישול יומי, בלי קיצורי דרך. איכות שמרגישים בכל ביס.' },
-  { icon: Users, title: 'יחס אישי', text: 'לקוח זה לא מספר. מכירים, זמינים, וגמישים לכל בקשה — כמו שצריך.' },
-  { icon: ShieldCheck, title: 'אמינות', text: '25 שנה של אספקה בזמן, כל יום. עשרות מפעלים סומכים עלינו — וזה לא מובן מאליו.' },
+  { title: 'בישול, לא חימום', text: 'הסירים עולים על האש כל בוקר. מה שיוצא בצהריים התבשל באותו יום.' },
+  { title: 'מתכונים של המשפחה', text: 'העוף בזיתים מתבשל לפי המתכון של סבתא, שלוש שעות על אש קטנה. ככה זה נשאר.' },
+  { title: 'מכירים את הלקוחות בשם', text: 'מי שמתקשר מדבר עם מי שמכיר את ההזמנה שלו, בלי מוקד ובלי תסריט שיחה.' },
+  { title: 'מגיעים בזמן', text: '25 שנה של אספקה יומית למפעלים. ההפסקה לא מחכה, אז גם אנחנו לא.' },
 ]
 
 export default function About() {
@@ -39,19 +38,19 @@ export default function About() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="text-3xl font-black text-charcoal sm:text-4xl">מהמטבח שלנו — לשולחן שלכם</h2>
+            <h2 className="text-3xl font-black text-charcoal sm:text-4xl">מהמטבח בקרית גת לכל הדרום</h2>
             <div className="mt-5 space-y-4 text-lg leading-relaxed text-charcoal-soft">
               <p>
-                קייטרינג אלגריה נולד מתוך אהבה פשוטה לאוכל טוב. כבר מעל 25 שנה אנחנו מבשלים אוכל ביתי
-                אמיתי — טעים, טרי ואיכותי — ומגישים אותו למשפחות, לאירועים, ובעיקר למאות עובדים
-                בעשרות מפעלים ברחבי הארץ.
+                התחלנו לפני יותר מ-25 שנה עם מטבח קטן וכמה סירים. היום המטבח בקרית גת
+                מוציא כ-3,000 מנות ביום לעשרות מפעלים בדרום, ובכל שישי גם למאות משפחות
+                שאוספות את האוכל לשבת.
               </p>
               <p>
-                התחלנו קטנים, והיום אנחנו מטבח מרכזי שמסוגל לספק אלפי מנות ביום — בלי לוותר על הטעם
-                הביתי ועל היחס האישי שבזכותם לקוחות נשארים איתנו שנים.
+                הגודל השתנה, השיטה לא: מבשלים בבוקר, טועמים לפני שיוצא, ומכירים את
+                הלקוחות בשם פרטי.
               </p>
               <p className="font-black text-charcoal">
-                כי בסוף, אוכל טוב זה לא רק מה שאוכלים — זה איך שמרגישים אחרי.
+                מי שאכל אצלנו פעם אחת בדרך כלל חוזר. זו כל התוכנית העסקית.
               </p>
             </div>
           </Reveal>
@@ -66,12 +65,10 @@ export default function About() {
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.07}>
-                <div className="h-full rounded-2xl bg-cream p-6 shadow-warm">
-                  <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-orange/10 text-orange">
-                    <v.icon size={24} />
-                  </span>
-                  <h3 className="mt-4 text-xl font-black text-charcoal">{v.title}</h3>
-                  <p className="mt-2 text-charcoal-soft">{v.text}</p>
+                <div className="h-full border-t-2 border-charcoal/15 pt-5">
+                  <span className="text-sm font-black tracking-widest text-charcoal/30">0{i + 1}</span>
+                  <h3 className="mt-2 text-xl font-black text-charcoal">{v.title}</h3>
+                  <p className="mt-2 leading-relaxed text-charcoal-soft">{v.text}</p>
                 </div>
               </Reveal>
             ))}

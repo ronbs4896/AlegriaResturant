@@ -75,7 +75,7 @@ export default function ServiceDetail() {
             {service.benefits.map((b) => (
               <Reveal key={b}>
                 <div className="flex items-start gap-3 rounded-2xl bg-cream-50 p-5 shadow-warm">
-                  <CheckCircle2 size={24} className="mt-0.5 shrink-0 text-orange" />
+                  <CheckCircle2 size={24} className="mt-0.5 shrink-0 text-charcoal/50" />
                   <span className="font-bold text-charcoal">{b}</span>
                 </div>
               </Reveal>
@@ -89,11 +89,11 @@ export default function ServiceDetail() {
               <Link
                 key={o.slug}
                 to={`/services/${o.slug}`}
-                className="group rounded-2xl border-2 border-charcoal/10 bg-cream-50 p-5 transition-all hover:-translate-y-1 hover:border-orange"
+                className="group rounded-2xl border-2 border-charcoal/10 bg-cream-50 p-5 transition-all hover:-translate-y-1 hover:border-charcoal/30"
               >
                 <div className="font-black text-charcoal">{o.title}</div>
                 <div className="mt-1 text-sm text-charcoal-soft">{o.short}</div>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-orange group-hover:gap-2 transition-all">
+                <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-charcoal group-hover:gap-2 transition-all">
                   לפרטים <ChevronLeft size={16} />
                 </span>
               </Link>

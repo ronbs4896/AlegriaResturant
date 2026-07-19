@@ -7,8 +7,8 @@ import { buildWaLink } from '../../lib/whatsapp.js'
 
 // רצועת סיום — כהה וחמה עם הילת כתום עדינה (לא כתום מלא).
 export default function CTASection({
-  title = 'מוכנים לאוכל טוב, אמין, בכל כמות?',
-  subtitle = 'ספרו לנו מה אתם צריכים — ונחזור אליכם עם הצעת מחיר מותאמת, מהר.',
+  title = 'צריכים מטבח שיעמוד בקצב שלכם?',
+  subtitle = 'כתבו לנו כמה מנות ומתי, ותקבלו הצעת מחיר כתובה. לרוב עוד באותו יום.',
 }) {
   const { openLead } = useLeadModal()
   return (

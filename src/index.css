@@ -114,9 +114,16 @@
     box-shadow: 0 8px 20px -10px rgba(180, 81, 30, 0.5);
   }
 
-  /* eyebrow — תגית קטנה מעל כותרת */
+  /* eyebrow — תגית קטנה מעל כותרת (נייטרלית; הצבע שמור לפעולות בלבד) */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-orange;
+    @apply inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-charcoal-soft;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 1.5rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.5;
   }
 
   /* קו תחתון זהב שנמתח ב-hover (RTL-aware) */
