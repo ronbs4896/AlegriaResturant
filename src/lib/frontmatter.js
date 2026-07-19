@@ -8,6 +8,17 @@ function parseValue(raw) {
   const v = raw.trim()
   if (v === 'true') return true
   if (v === 'false') return false
+  // מחרוזת עטופה במרכאות כפולות — JSON.parse קודם, כדי שערכים כמו
+  // jsonLd: "{\"@context\":...}" ישוחזרו עם escape נכון של מרכאות פנימיות
+  if (v.startsWith('"') && v.endsWith('"')) {
+    try {
+      return JSON.parse(v)
+    } catch {
+      return v.slice(1, -1)
+    }
+  }
+  // מחרוזת עטופה במרכאות בודדות
+  if (v.startsWith("'") && v.endsWith("'")) return v.slice(1, -1)
   // מערך: [a, b, c]
   if (v.startsWith('[') && v.endsWith(']')) {
     return v
@@ -16,8 +27,7 @@ function parseValue(raw) {
       .map((s) => s.trim().replace(/^["']|["']$/g, ''))
       .filter(Boolean)
   }
-  // מחרוזת עטופה במרכאות
-  return v.replace(/^["']|["']$/g, '')
+  return v
 }
 
 export function parseFrontmatter(raw) {

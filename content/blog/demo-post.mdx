@@ -1,0 +1,27 @@
+---
+title: "מאמר דוגמה — בדיקת חוזה המערכת"
+description: "מאמר בדיקה לתשתית הבלוג: frontmatter מלא לפי חוזה המערכת החיצונית. draft: true ולכן לא מוצג באתר ולא ב-sitemap."
+date: 2026-07-19
+slug: demo-post
+tags: [בדיקה, תשתית]
+category: "כללי"
+author: "עמית בן שושן"
+cover: "https://www.alegriacatering.co.il/images/gallery/tagine-beef-couscous.jpg"
+coverAlt: "טאג'ין בקר עם קוסקוס — תמונת בדיקה"
+jsonLd: "{\"@context\":\"https://schema.org\",\"@type\":\"BlogPosting\",\"headline\":\"מאמר דוגמה — בדיקת חוזה המערכת\",\"datePublished\":\"2026-07-19\",\"author\":{\"@type\":\"Person\",\"name\":\"עמית בן שושן\"}}"
+draft: true
+---
+
+## זהו מאמר בדיקה
+
+הקובץ הזה מאמת שהתשתית קוראת **קבצי `.mdx`** עם כל מפתחות ה-frontmatter של
+מערכת המאמרים: כותרת, תיאור, תאריך, slug, תגיות, קטגוריה, כותב, תמונת שער
+עם ALT, נתונים מובנים (jsonLd) ודגל draft.
+
+- `draft: true` — המאמר לא מופיע ברשימת הבלוג ולא ב-sitemap
+- שינוי ל-`draft: false` יפרסם אותו אוטומטית ב-deploy הבא
+
+| בדיקה | סטטוס |
+| --- | --- |
+| טבלאות (GFM) | עובד |
+| עברית RTL | עובד |

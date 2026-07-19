@@ -55,10 +55,14 @@ export const site = {
     mealsPerDay: 3000,
   },
 
-  // --- אנליטיקס (no-op עד הדבקת מזהים) ---
+  // --- אנליטיקס — תג GA4 לעסק: alegria catering ---
+  // כבוי עד שמוגדר מזהה. איך מדליקים:
+  //   Vercel → Settings → Environment Variables → VITE_GA4_ID = G-XXXXXXXXXX → Redeploy
+  //   (או הדביקו את המזהה כ-fallback במקום המחרוזת הריקה למטה)
+  // הטעינה עצמה כבר מחוברת: AnalyticsTracker קורא initAnalytics + page_view בכל ניווט.
   analytics: {
-    ga4Id: '', // TODO: G-XXXXXXX
-    metaPixelId: '', // TODO
+    ga4Id: import.meta.env?.VITE_GA4_ID || '',
+    metaPixelId: import.meta.env?.VITE_META_PIXEL_ID || '',
   },
 }
 

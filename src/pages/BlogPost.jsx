@@ -50,13 +50,15 @@ export default function BlogPost() {
 
   return (
     <>
+      {/* חוזה המערכת: <title> = title, meta description = description.
+          jsonLd מה-frontmatter (מחרוזת) גובר על הסכימה שנבנית אוטומטית. */}
       <Seo
-        title={post.seoTitle || `${post.title} · קייטרינג אלגריה`}
-        description={post.seoDescription || post.excerpt}
+        title={post.seoTitle || post.title}
+        description={post.description}
         path={`/blog/${slug}`}
         image={post.cover}
         jsonLd={[
-          articleSchema(post),
+          post.jsonLd || articleSchema(post),
           breadcrumbSchema([
             { name: 'בית', path: '/' },
             { name: 'בלוג', path: '/blog' },
@@ -71,6 +73,10 @@ export default function BlogPost() {
           src={post.cover}
           onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
           alt={post.coverAlt || post.title}
+          width={1600}
+          height={900}
+          fetchpriority="high"
+          decoding="async"
           className="h-[300px] w-full object-cover sm:h-[400px] lg:h-[460px]"
         />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal-950/25 to-transparent" />

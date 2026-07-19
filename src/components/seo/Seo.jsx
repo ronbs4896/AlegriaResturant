@@ -4,7 +4,10 @@ import { site } from '../../data/site.js'
 // SEO ראש דינמי לכל עמוד (runtime). ה-head הסטטי מוזרק ב-postbuild.
 export default function Seo({ title, description, path = '', image, jsonLd }) {
   const url = `${site.siteUrl}${path}`
-  const img = image ? `${site.siteUrl}${image}` : `${site.siteUrl}/images/logo/logo.jpg`
+  // image יכול להיות נתיב יחסי (/images/...) או URL מלא (מערכת מאמרים חיצונית)
+  const img = image
+    ? /^https?:\/\//.test(image) ? image : `${site.siteUrl}${image}`
+    : `${site.siteUrl}/images/logo/logo.jpg`
   const desc = description || site.shortPitch
 
   return (
@@ -27,9 +30,9 @@ export default function Seo({ title, description, path = '', image, jsonLd }) {
       <meta name="twitter:image" content={img} />
 
       {jsonLd &&
-        (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).map((obj, i) => (
+        (Array.isArray(jsonLd) ? jsonLd : [jsonLd]).filter(Boolean).map((obj, i) => (
           <script key={i} type="application/ld+json">
-            {JSON.stringify(obj)}
+            {typeof obj === 'string' ? obj : JSON.stringify(obj)}
           </script>
         ))}
     </Helmet>
