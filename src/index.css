@@ -46,12 +46,14 @@
     --header-h: 76px;
   }
   html {
+    /* rem בסיס מוקטן — מכווץ את כל הטיפוגרפיה והריווח באתר פרופורציונלית */
+    font-size: 14.5px;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
     @apply bg-cream text-charcoal font-sans antialiased;
-    font-size: 15px;
+    font-size: 1rem;
     line-height: 1.65;
     text-rendering: optimizeLegibility;
   }

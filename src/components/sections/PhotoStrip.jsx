@@ -2,12 +2,14 @@
 // נעצר ב-hover, מכבד prefers-reduced-motion. RTL-safe (אנימציה פיזית).
 // מוכן לקלוט תמונות נוספות: פשוט להוסיף ל-STRIP.
 const STRIP = [
-  { src: '/images/dishes/alegria-spread.jpg', alt: 'מגש אירוח של אלגריה' },
-  { src: '/images/dishes/friday.jpg', alt: 'ארוחת שישי' },
-  { src: '/images/catering/factory-catering.jpg', alt: 'הסעדה למפעלים' },
-  { src: '/images/catering/event.jpg', alt: 'קייטרינג לאירוע' },
-  { src: '/images/ambience/kitchen.jpg', alt: 'המטבח בקרית גת' },
-  { src: '/images/ambience/team.jpg', alt: 'הצוות' },
+  { src: '/images/gallery/tagine-beef-couscous.jpg', alt: 'טאג׳ין בקר עם קוסקוס וחומוס' },
+  { src: '/images/gallery/shabbat-chicken-olives.jpg', alt: 'עוף בזיתים עם חלה וסלטים' },
+  { src: '/images/gallery/tagine-blue-beef.jpg', alt: 'טאג׳ין בקר עם ירקות' },
+  { src: '/images/gallery/beef-chickpeas-matbucha.jpg', alt: 'בשר עם גרגרי חומוס ומטבוחה' },
+  { src: '/images/gallery/tagine-couscous-orange.jpg', alt: 'טאג׳ין קוסקוס עם פירות יבשים' },
+  { src: '/images/gallery/daily-lunch-plate.jpg', alt: 'מנת צהריים: בשר, אורז ושעועית ירוקה' },
+  { src: '/images/gallery/glazed-chicken-rice.jpg', alt: 'עוף מזוגג עם אורז' },
+  { src: '/images/gallery/tagine-blue-vegetables.jpg', alt: 'טאג׳ין ירקות עם קוסקוס' },
 ]
 
 const FALLBACK = '/images/dishes/alegria-spread.jpg'
