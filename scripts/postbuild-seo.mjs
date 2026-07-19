@@ -16,22 +16,28 @@ const DIST = join(__dirname, '..', 'dist')
 const SITE_URL = site.siteUrl.replace(/\/$/, '')
 
 // --- קריאת פוסטי הבלוג (fs) — כדי להזריק head ולהכניס ל-sitemap ---
-const BLOG_DIR = join(__dirname, '..', 'src', 'content', 'blog')
+// חוזה מערכת המאמרים: קבצי .md/.mdx ב-content/blog (שורש הריפו), commit ל-main.
+// draft: true ⇒ לא ברשימות, לא ב-sitemap, ואין לו עמוד סטטי.
+const BLOG_DIR = join(__dirname, '..', 'content', 'blog')
 const blogPosts = existsSync(BLOG_DIR)
   ? readdirSync(BLOG_DIR)
-      .filter((f) => f.endsWith('.md'))
+      .filter((f) => /\.mdx?$/.test(f))
       .map((f) => {
         const { data } = parseFrontmatter(readFileSync(join(BLOG_DIR, f), 'utf8'))
-        return { ...data, slug: data.slug || f.replace(/\.md$/, '') }
+        return { ...data, slug: data.slug || f.replace(/\.mdx?$/, '') }
       })
       .filter((p) => !p.draft)
   : []
 
 const blogRoutes = blogPosts.map((p) => ({
   path: `/blog/${p.slug}`,
-  title: p.seoTitle || `${p.title} · ${site.name}`,
-  description: p.seoDescription || p.excerpt || '',
+  title: p.seoTitle || p.title,
+  description: p.description || p.seoDescription || p.excerpt || '',
   lastmod: p.date || '2026-07-14',
+  // cover יכול להיות URL מלא (מהמערכת) או נתיב יחסי
+  ogImage: p.cover ? (/^https?:\/\//.test(p.cover) ? p.cover : `${SITE_URL}${p.cover}`) : undefined,
+  ogType: 'article',
+  jsonLd: typeof p.jsonLd === 'string' && p.jsonLd.trim() ? p.jsonLd : undefined,
 }))
 
 const allRoutes = [...seoRoutes, ...blogRoutes]
@@ -48,16 +54,19 @@ function buildHead(route) {
   const url = `${SITE_URL}${route.path === '/' ? '' : route.path}`
   const tags = [
     `<link rel="canonical" href="${url}" />`,
-    `<meta property="og:type" content="website" />`,
+    `<meta property="og:type" content="${route.ogType || 'website'}" />`,
     `<meta property="og:site_name" content="${esc(site.name)}" />`,
     `<meta property="og:title" content="${esc(route.title)}" />`,
     `<meta property="og:description" content="${esc(route.description)}" />`,
     `<meta property="og:url" content="${url}" />`,
-    `<meta property="og:image" content="${ogImage}" />`,
+    `<meta property="og:image" content="${route.ogImage || ogImage}" />`,
     `<meta property="og:locale" content="he_IL" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<script type="application/ld+json">${businessLd}</script>`,
   ]
+  // נתונים מובנים מה-frontmatter של המאמר (מחרוזת JSON מוכנה מהמערכת).
+  // ב-JSON התו < מופיע רק בתוך מחרוזות, לכן escape גורף בטוח ומונע שבירת <script>
+  if (route.jsonLd) tags.push(`<script type="application/ld+json">${route.jsonLd.replace(/</g, '\\u003c')}</script>`)
   return tags.join('\n    ')
 }
 
@@ -65,9 +74,9 @@ function renderPage(route) {
   let html = template
   // כותרת
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(route.title)}</title>`)
-  // description
+  // description — התגית בקובץ המקור רב-שורתית, לכן [\s\S] ולא [^>]
   html = html.replace(
-    /<meta name="description"[^>]*>/,
+    /<meta\s+name="description"[\s\S]*?\/?>/,
     `<meta name="description" content="${esc(route.description)}" />`
   )
   // הזרקה לפני </head>
