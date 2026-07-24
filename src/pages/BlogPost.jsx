@@ -1,7 +1,8 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { trackViewContent } from '../lib/analytics.js'
 import { CalendarDays, ArrowRight, User, Clock, MessageCircle, ChevronLeft } from 'lucide-react'
 import { getAuthor } from '../data/authors.js'
 import Seo from '../components/seo/Seo.jsx'
@@ -44,6 +45,11 @@ export default function BlogPost() {
   const { slug } = useParams()
   const post = getPost(slug)
   const { openLead } = useLeadModal()
+
+  useEffect(() => {
+    if (post) trackViewContent({ content_type: 'article', content_name: post.title, content_category: post.category })
+  }, [post])
+
   if (!post) return <Navigate to="/blog" replace />
 
   const related = posts.filter((p) => p.slug !== slug).slice(0, 3)

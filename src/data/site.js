@@ -55,14 +55,16 @@ export const site = {
     mealsPerDay: 3000,
   },
 
-  // --- אנליטיקס — תג GA4 לעסק: alegria catering ---
-  // כבוי עד שמוגדר מזהה. איך מדליקים:
-  //   Vercel → Settings → Environment Variables → VITE_GA4_ID = G-XXXXXXXXXX → Redeploy
-  //   (או הדביקו את המזהה כ-fallback במקום המחרוזת הריקה למטה)
-  // הטעינה עצמה כבר מחוברת: AnalyticsTracker קורא initAnalytics + page_view בכל ניווט.
+  // --- מדידה: Google tag (GA4 + Google Ads), GTM, ו-Meta Pixel ---
+  // הכל env-driven וכבוי כברירת מחדל. הדלקה: Vercel → Settings →
+  // Environment Variables → הגדירו את המזהים הרלוונטיים → Redeploy.
+  // (לחלופין הדביקו מזהה כ-fallback במקום המחרוזת הריקה.)
+  // פרטים מלאים — מאיפה כל מזהה ואילו אירועים נשלחים — ב-src/lib/analytics.js.
   analytics: {
-    ga4Id: import.meta.env?.VITE_GA4_ID || '',
-    metaPixelId: import.meta.env?.VITE_META_PIXEL_ID || '',
+    ga4Id: import.meta.env?.VITE_GA4_ID || '', //         G-XXXXXXXXXX  (Google Analytics 4)
+    googleAdsId: import.meta.env?.VITE_GOOGLE_ADS_ID || '', // AW-XXXXXXXXX (Google tag / המרות Google Ads)
+    gtmId: import.meta.env?.VITE_GTM_ID || '', //          GTM-XXXXXXX  (Google Tag Manager — קונטיינר, רשות)
+    metaPixelId: import.meta.env?.VITE_META_PIXEL_ID || '1360351789609095', // מזהה Meta/Facebook Pixel (גלוי ממילא בצד-לקוח)
   },
 }
 

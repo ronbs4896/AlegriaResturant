@@ -8,6 +8,7 @@ import Button from '../ui/Button.jsx'
 import { mainNav, servicesActivePaths } from '../../data/nav.js'
 import { site } from '../../data/site.js'
 import { useLeadModal } from '../../context/LeadModalContext.jsx'
+import { trackContact } from '../../lib/analytics.js'
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false)
@@ -62,6 +63,7 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <a
             href={`tel:${site.phone.dial}`}
+            onClick={() => trackContact('phone', { source: 'header' })}
             className="hidden items-center gap-1.5 font-bold text-charcoal hover:text-orange xl:flex"
             aria-label="התקשרו אלינו"
           >
@@ -148,7 +150,7 @@ export default function Header() {
                 <Button variant="primary" size="md" onClick={() => { setDrawer(false); openLead() }} className="w-full">
                   קבלו הצעת מחיר
                 </Button>
-                <a href={`tel:${site.phone.dial}`} className="flex items-center justify-center gap-2 font-bold text-charcoal">
+                <a href={`tel:${site.phone.dial}`} onClick={() => trackContact('phone', { source: 'mobile_drawer' })} className="flex items-center justify-center gap-2 font-bold text-charcoal">
                   <Phone size={18} /> <span dir="ltr" className="num">{site.phone.display}</span>
                 </a>
               </div>

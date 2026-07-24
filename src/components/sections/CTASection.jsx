@@ -4,6 +4,7 @@ import Button from '../ui/Button.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import { useLeadModal } from '../../context/LeadModalContext.jsx'
 import { buildWaLink } from '../../lib/whatsapp.js'
+import { trackContact } from '../../lib/analytics.js'
 
 // רצועת סיום — כהה וחמה עם הילת כתום עדינה (לא כתום מלא).
 export default function CTASection({
@@ -22,7 +23,7 @@ export default function CTASection({
             <Button variant="primary" size="lg" onClick={() => openLead()}>
               קבלו הצעת מחיר <ChevronLeft size={20} />
             </Button>
-            <Button variant="outline-light" size="lg" href={buildWaLink()} target="_blank" rel="noopener noreferrer">
+            <Button variant="outline-light" size="lg" href={buildWaLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'cta_section' })}>
               <MessageCircle size={20} /> וואטסאפ
             </Button>
           </div>
