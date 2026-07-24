@@ -37,6 +37,7 @@ export const leadCopy = {
   successText: 'הפרטים אצלנו ונחזור אליכם בהקדם עם הצעה מותאמת. לשיחה כבר עכשיו, שלחו לנו הודעה בוואטסאפ.',
 }
 
-export const leadWhenOptions = ['בהקדם', 'תוך שבוע', 'תוך חודש', 'רק בודק/ת מחירים']
+export const leadWhenOptions = ['כמה שיותר מהר', 'בשבועיים הקרובים', 'בחודש הקרוב', 'עדיין בתכנון']
+export const leadWhenCustomLabel = 'תאריך מדויק'
 
 export default leadServiceOptions
