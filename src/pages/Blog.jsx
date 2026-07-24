@@ -28,11 +28,11 @@ export default function Blog() {
       />
 
       <section className="bg-white py-14 sm:py-20">
-        <div className="mx-auto w-full max-w-[1360px] px-5 sm:px-8">
+        <div className="mx-auto w-full max-w-[1480px] px-5 sm:px-8">
           {posts.length === 0 ? (
             <p className="py-16 text-center text-charcoal-soft">בקרוב מאמרים חדשים.</p>
           ) : (
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {posts.map((p, i) => (
                 <Reveal key={p.slug} delay={i * 0.06}>
                   <Link
