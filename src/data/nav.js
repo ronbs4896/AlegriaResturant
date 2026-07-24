@@ -36,7 +36,7 @@ export const footerNav = {
     ],
   },
   company: {
-    title: 'המסעדה',
+    title: 'אלגריה',
     links: [
       { label: 'אודות', to: '/about' },
       { label: 'גלריה', to: '/gallery' },
