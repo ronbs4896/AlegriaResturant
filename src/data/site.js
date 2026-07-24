@@ -64,7 +64,7 @@ export const site = {
     ga4Id: import.meta.env?.VITE_GA4_ID || '', //         G-XXXXXXXXXX  (Google Analytics 4)
     googleAdsId: import.meta.env?.VITE_GOOGLE_ADS_ID || '', // AW-XXXXXXXXX (Google tag / המרות Google Ads)
     gtmId: import.meta.env?.VITE_GTM_ID || '', //          GTM-XXXXXXX  (Google Tag Manager — קונטיינר, רשות)
-    metaPixelId: import.meta.env?.VITE_META_PIXEL_ID || '', // מזהה Meta/Facebook Pixel (15 ספרות)
+    metaPixelId: import.meta.env?.VITE_META_PIXEL_ID || '1360351789609095', // מזהה Meta/Facebook Pixel (גלוי ממילא בצד-לקוח)
   },
 }
 

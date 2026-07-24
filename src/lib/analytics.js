@@ -98,7 +98,25 @@ export function trackLead(detail = {}) {
   if (window.dataLayer && gtmId) window.dataLayer.push({ event: 'generate_lead', ...detail })
 }
 
-// אירוע כללי — לשימוש עתידי (לחיצת וואטסאפ, טלפון, וכו')
+// פנייה ישירה — וואטסאפ / טלפון. Meta: אירוע Contact הסטנדרטי
+// (method: 'whatsapp' | 'phone') כדי ש-Meta ייעל להמרות פנייה.
+export function trackContact(method, detail = {}) {
+  if (typeof window === 'undefined') return
+  const params = { method, ...detail }
+  if (window.gtag && ga4Id) window.gtag('event', 'contact', params)
+  if (window.fbq && metaPixelId) window.fbq('track', 'Contact', params)
+  if (window.dataLayer && gtmId) window.dataLayer.push({ event: 'contact', ...params })
+}
+
+// צפייה בתוכן — מאמר בלוג / עמוד שירות. Meta: ViewContent (לרימרקטינג).
+export function trackViewContent(detail = {}) {
+  if (typeof window === 'undefined') return
+  if (window.gtag && ga4Id) window.gtag('event', 'view_item', detail)
+  if (window.fbq && metaPixelId) window.fbq('track', 'ViewContent', detail)
+  if (window.dataLayer && gtmId) window.dataLayer.push({ event: 'view_content', ...detail })
+}
+
+// אירוע כללי — לשימוש עתידי (אירועים מותאמים אישית)
 export function trackEvent(name, params = {}) {
   if (typeof window === 'undefined') return
   if (window.gtag && (ga4Id || googleAdsId)) window.gtag('event', name, params)

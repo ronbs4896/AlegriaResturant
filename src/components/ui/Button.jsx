@@ -38,14 +38,14 @@ export default function Button({
 
   if (to) {
     return (
-      <Link to={to} className={cls} {...rest}>
+      <Link to={to} onClick={onClick} className={cls} {...rest}>
         {children}
       </Link>
     )
   }
   if (href) {
     return (
-      <a href={href} className={cls} {...rest}>
+      <a href={href} onClick={onClick} className={cls} {...rest}>
         {children}
       </a>
     )

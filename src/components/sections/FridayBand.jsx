@@ -4,6 +4,7 @@ import Button from '../ui/Button.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import Img from '../ui/Img.jsx'
 import { buildWaLink } from '../../lib/whatsapp.js'
+import { trackContact } from '../../lib/analytics.js'
 
 // רצועת מכירת שישי — קרם נקי, טרקוטה במבטאים, דדליין ברור.
 export default function FridayBand() {
@@ -40,7 +41,7 @@ export default function FridayBand() {
             <Button variant="primary" size="lg" to="/friday">
               לתפריט השישי <ChevronLeft size={18} />
             </Button>
-            <Button variant="whatsapp" size="lg" href={buildWaLink('שלום, אשמח להזמין ארוחת שישי 🍲')} target="_blank" rel="noopener noreferrer">
+            <Button variant="whatsapp" size="lg" href={buildWaLink('שלום, אשמח להזמין ארוחת שישי 🍲')} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'friday_band' })}>
               <MessageCircle size={18} /> הזמנה מהירה
             </Button>
           </div>

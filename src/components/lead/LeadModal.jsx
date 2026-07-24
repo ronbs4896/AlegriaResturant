@@ -116,7 +116,7 @@ export default function LeadModal() {
 
         <div className="overflow-y-auto px-6 py-6" aria-live="polite">
           {done ? (
-            <Success waUrl={waUrl} onClose={closeLead} />
+            <Success waUrl={waUrl} name={form.name} onClose={closeLead} />
           ) : (
             <AnimatePresence mode="wait">
               {step === 1 && (
@@ -261,21 +261,24 @@ function Field({ label, error, children }) {
   )
 }
 
-function Success({ waUrl, onClose }) {
+function Success({ waUrl, name, onClose }) {
+  const firstName = (name || '').trim().split(' ')[0]
   return (
     <div className="py-6 text-center">
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366]/15">
         <Check size={34} className="text-[#25D366]" />
       </div>
-      <h3 className="text-2xl font-black text-charcoal">{leadCopy.successTitle}</h3>
-      <p className="mx-auto mt-2 max-w-xs text-charcoal-soft">{leadCopy.successText}</p>
+      <h3 className="text-2xl font-black text-charcoal">
+        {firstName ? `תודה, ${firstName}! ${leadCopy.successTitle}` : leadCopy.successTitle}
+      </h3>
+      <p className="mx-auto mt-2 max-w-sm text-charcoal-soft">{leadCopy.successText}</p>
       <a
         href={waUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-6 py-3 font-bold text-white shadow-warm hover:bg-[#1fb457]"
       >
-        <MessageCircle size={18} /> פתיחת וואטסאפ
+        <MessageCircle size={18} /> שליחה בוואטסאפ
       </a>
       <button onClick={onClose} className="mt-3 block w-full text-sm font-bold text-charcoal-soft hover:text-charcoal">
         סגירה

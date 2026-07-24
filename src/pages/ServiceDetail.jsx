@@ -1,5 +1,7 @@
 import { useParams, Navigate, Link } from 'react-router-dom'
+import { useEffect } from 'react'
 import { CheckCircle2, ChevronLeft, ArrowRight } from 'lucide-react'
+import { trackViewContent } from '../lib/analytics.js'
 import Seo from '../components/seo/Seo.jsx'
 import Container from '../components/ui/Container.jsx'
 import Button from '../components/ui/Button.jsx'
@@ -22,6 +24,10 @@ export default function ServiceDetail() {
   const { slug } = useParams()
   const service = getService(slug)
   const { openLead } = useLeadModal()
+
+  useEffect(() => {
+    if (service) trackViewContent({ content_type: 'service', content_name: service.title })
+  }, [service])
 
   if (!service) return <Navigate to="/services" replace />
 

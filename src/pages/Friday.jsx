@@ -9,6 +9,7 @@ import CTASection from '../components/sections/CTASection.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { fridayIntro, fridayMenu, fridayHow } from '../data/friday.js'
 import { buildWaLink } from '../lib/whatsapp.js'
+import { trackContact } from '../lib/analytics.js'
 
 export default function Friday() {
   const seo = getSeo('/friday')
@@ -17,7 +18,7 @@ export default function Friday() {
       <Seo title={seo.title} description={seo.description} path="/friday" />
       <PageHeader eyebrow={fridayIntro.kicker} title={fridayIntro.title} subtitle={fridayIntro.lead}>
         <div className="mt-8">
-          <Button variant="whatsapp" size="lg" href={buildWaLink('שלום, אשמח להזמין ארוחת שישי 🍲')} target="_blank" rel="noopener noreferrer">
+          <Button variant="whatsapp" size="lg" href={buildWaLink('שלום, אשמח להזמין ארוחת שישי 🍲')} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'friday_page' })}>
             <MessageCircle size={20} /> הזמנה בוואטסאפ
           </Button>
         </div>

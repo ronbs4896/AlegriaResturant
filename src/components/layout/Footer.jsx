@@ -4,6 +4,7 @@ import Container from '../ui/Container.jsx'
 import { site } from '../../data/site.js'
 import { footerNav } from '../../data/nav.js'
 import { buildWaLink } from '../../lib/whatsapp.js'
+import { trackContact } from '../../lib/analytics.js'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -22,6 +23,7 @@ export default function Footer() {
             <p className="mt-2 max-w-xs text-cream/60">{site.tagline}</p>
             <div className="mt-5 flex gap-3">
               <a href={buildWaLink()} target="_blank" rel="noopener noreferrer" aria-label="וואטסאפ"
+                 onClick={() => trackContact('whatsapp', { source: 'footer' })}
                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 hover:bg-[#25D366]">
                 <MessageCircle size={19} />
               </a>
@@ -59,10 +61,10 @@ export default function Footer() {
 
         {/* פרטי קשר */}
         <div className="mt-12 grid gap-4 border-t border-white/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-4">
-          <a href={`tel:${site.phone.dial}`} className="flex items-center gap-2 hover:text-honey">
+          <a href={`tel:${site.phone.dial}`} onClick={() => trackContact('phone', { source: 'footer' })} className="flex items-center gap-2 hover:text-honey">
             <Phone size={16} className="text-orange" /> <span dir="ltr" className="num">{site.phone.display}</span>
           </a>
-          <a href={`mailto:${site.email}`} className="flex items-center gap-2 hover:text-honey">
+          <a href={`mailto:${site.email}`} onClick={() => trackContact('email', { source: 'footer' })} className="flex items-center gap-2 hover:text-honey">
             <Mail size={16} className="text-orange" /> {site.email}
           </a>
           <span className="flex items-center gap-2">
