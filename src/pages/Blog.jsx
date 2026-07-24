@@ -24,13 +24,13 @@ export default function Blog() {
       <PageHeader
         eyebrow="הבלוג של אלגריה"
         title="טיפים, מדריכים והשראה"
-        subtitle="כל מה שכדאי לדעת על קייטרינג, הסעדה ואירוח — מהניסיון שלנו בדרום."
+        subtitle="מה שלמדנו על קייטרינג, הסעדה ואירוח ב-25 שנה של מטבח בקרית גת."
       />
 
       <section className="bg-white py-14 sm:py-20">
         <div className="mx-auto w-full max-w-[1360px] px-5 sm:px-8">
           {posts.length === 0 ? (
-            <p className="py-16 text-center text-charcoal-soft">בקרוב — מאמרים חדשים.</p>
+            <p className="py-16 text-center text-charcoal-soft">בקרוב מאמרים חדשים.</p>
           ) : (
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {posts.map((p, i) => (

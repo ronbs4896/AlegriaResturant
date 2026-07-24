@@ -12,7 +12,7 @@ export default function Gallery() {
       <PageHeader
         eyebrow="גלריה"
         title="קצת מהטעם שלנו"
-        subtitle="מנות, קייטרינג ואווירה — אוכל ביתי טעים, טרי ואיכותי."
+        subtitle="מנות, קייטרינג ואווירה מהמטבח שלנו בקרית גת."
       />
       <GalleryGrid />
       <CTASection />

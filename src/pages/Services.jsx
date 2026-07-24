@@ -13,7 +13,7 @@ export default function Services() {
       <PageHeader
         eyebrow="השירותים שלנו"
         title="כל פתרונות ההסעדה במקום אחד"
-        subtitle="מהסעדה יומית למפעלים ועד ארוחת שישי ביתית — בחרו את מה שמתאים לכם."
+        subtitle="מהסעדה יומית למפעלים ועד ארוחת שישי ביתית. בחרו את מה שמתאים לכם."
       />
       <ServicesGrid />
       <ProcessSteps />
