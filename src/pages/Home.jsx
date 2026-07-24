@@ -13,6 +13,7 @@ import HeritageSection from '../components/sections/HeritageSection.jsx'
 import TestimonialsSection from '../components/sections/TestimonialsSection.jsx'
 import FAQAccordion from '../components/sections/FAQAccordion.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
+import BlogTeaser from '../components/sections/BlogTeaser.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { localBusinessSchema } from '../data/structuredData.js'
 
@@ -53,6 +54,7 @@ export default function Home() {
       </section>
 
       <CTASection />
+      <BlogTeaser />
     </>
   )
 }
