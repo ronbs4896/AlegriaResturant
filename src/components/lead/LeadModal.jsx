@@ -59,6 +59,13 @@ export default function LeadModal() {
     const url = buildWaLink(msg)
     setWaUrl(url)
     trackLead({ service: form.service, city: form.city })
+    // שליחת מייל בשרת — הליד נשמר גם אם המבקר לא משלים את הוואטסאפ.
+    // fire-and-forget: לא חוסם את ה-UX, וגם אם נכשל הוואטסאפ עדיין עובד.
+    fetch('/api/lead', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    }).catch(() => {})
     setDone(true)
     window.open(url, '_blank', 'noopener,noreferrer')
   }
