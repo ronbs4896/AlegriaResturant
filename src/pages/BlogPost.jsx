@@ -168,14 +168,25 @@ export default function BlogPost() {
               {related.length > 0 && (
                 <div className="mt-6 rounded-3xl border border-charcoal/10 bg-cream-50 p-6">
                   <h2 className="mb-4 text-lg font-black text-charcoal">מאמרים נוספים</h2>
-                  <ul className="space-y-4">
+                  <ul className="space-y-5">
                     {related.map((p) => (
                       <li key={p.slug}>
-                        <Link to={`/blog/${p.slug}`} className="group block">
-                          <span className="text-xs font-bold text-orange-700">{p.category}</span>
-                          <span className="mt-0.5 block font-bold leading-snug text-charcoal group-hover:text-orange">
-                            {p.title}
-                          </span>
+                        <Link to={`/blog/${p.slug}`} className="group flex items-center gap-3">
+                          <img
+                            src={p.cover}
+                            onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
+                            alt={p.coverAlt || p.title}
+                            loading="lazy"
+                            width={64}
+                            height={64}
+                            className="h-16 w-16 shrink-0 rounded-xl object-cover"
+                          />
+                          <div className="min-w-0">
+                            <span className="text-xs font-bold text-orange-700">{p.category}</span>
+                            <span className="mt-0.5 block font-bold leading-snug text-charcoal group-hover:text-orange line-clamp-2">
+                              {p.title}
+                            </span>
+                          </div>
                         </Link>
                       </li>
                     ))}
