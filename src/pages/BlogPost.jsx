@@ -20,23 +20,33 @@ function formatDate(d) {
   }
 }
 
+// תאריך קצר לכרטיסים (בלי שנה) — נכנס יפה בפוטר הכרטיס
+function formatDateShort(d) {
+  try {
+    return new Date(d).toLocaleDateString('he-IL', { day: 'numeric', month: 'long' })
+  } catch {
+    return d
+  }
+}
+
 // אווטאר כותב — תמונת פרופיל אם קיימת, אחרת אייקון fallback
-function AuthorAvatar({ name }) {
+function AuthorAvatar({ name, small }) {
   const author = getAuthor(name)
   const [failed, setFailed] = useState(false)
+  const box = small ? 'h-6 w-6' : 'h-8 w-8'
   if (author.avatar && !failed) {
     return (
       <img
         src={author.avatar}
         alt={name}
         onError={() => setFailed(true)}
-        className="h-8 w-8 rounded-full object-cover"
+        className={`${box} rounded-full object-cover`}
       />
     )
   }
   return (
-    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-cream-200 text-charcoal">
-      <User size={16} />
+    <span className={`flex ${box} items-center justify-center rounded-full bg-cream-200 text-charcoal`}>
+      <User size={small ? 13 : 16} />
     </span>
   )
 }
@@ -52,7 +62,7 @@ export default function BlogPost() {
 
   if (!post) return <Navigate to="/blog" replace />
 
-  const related = posts.filter((p) => p.slug !== slug).slice(0, 3)
+  const related = posts.filter((p) => p.slug !== slug).slice(0, 4)
 
   return (
     <>
@@ -164,37 +174,57 @@ export default function BlogPost() {
                   </Button>
                 </div>
               </div>
-
-              {related.length > 0 && (
-                <div className="mt-6 rounded-3xl border border-charcoal/10 bg-cream-50 p-6">
-                  <h2 className="mb-4 text-lg font-black text-charcoal">מאמרים נוספים</h2>
-                  <ul className="space-y-5">
-                    {related.map((p) => (
-                      <li key={p.slug}>
-                        <Link to={`/blog/${p.slug}`} className="group flex items-center gap-3">
-                          <img
-                            src={p.cover}
-                            onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
-                            alt={p.coverAlt || p.title}
-                            loading="lazy"
-                            width={64}
-                            height={64}
-                            className="h-16 w-16 shrink-0 rounded-xl object-cover"
-                          />
-                          <div className="min-w-0">
-                            <span className="text-xs font-bold text-orange-700">{p.category}</span>
-                            <span className="mt-0.5 block font-bold leading-snug text-charcoal group-hover:text-orange line-clamp-2">
-                              {p.title}
-                            </span>
-                          </div>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
             </aside>
           </div>
+
+          {/* מאמרים נוספים לקריאה — סקשן רחב בתחתית, 4 כרטיסים */}
+          {related.length > 0 && (
+            <section className="mt-16 border-t border-charcoal/10 pt-12">
+              <h2 className="mb-8 text-2xl font-black text-charcoal sm:text-3xl">מאמרים נוספים לקריאה</h2>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+                {related.map((p) => (
+                  <Link
+                    key={p.slug}
+                    to={`/blog/${p.slug}`}
+                    className="group flex flex-col overflow-hidden rounded-3xl bg-cream-50 shadow-warm transition-all hover:-translate-y-1 hover:shadow-warm-lg"
+                  >
+                    <div className="relative">
+                      <img
+                        src={p.cover}
+                        onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
+                        alt={p.coverAlt || p.title}
+                        loading="lazy"
+                        className="aspect-[16/10] w-full object-cover"
+                      />
+                      {p.category && (
+                        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-charcoal shadow-sm backdrop-blur">
+                          {p.category}
+                        </span>
+                      )}
+                    </div>
+                    <div className="flex flex-1 flex-col p-5">
+                      <h3 className="font-black leading-snug text-charcoal transition-colors group-hover:text-orange line-clamp-2">
+                        {p.title}
+                      </h3>
+                      <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-soft line-clamp-2">
+                        {p.excerpt || p.description}
+                      </p>
+                      <div className="mt-4 flex items-center justify-between gap-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal-soft">
+                        <span className="inline-flex min-w-0 items-center gap-2 font-bold text-charcoal">
+                          <AuthorAvatar name={p.author} small />
+                          <span className="truncate">{p.author}</span>
+                        </span>
+                        <span className="inline-flex shrink-0 items-center gap-2">
+                          <span>{formatDateShort(p.date)}</span>
+                          <span className="inline-flex items-center gap-1"><Clock size={12} /> {p.readingMinutes} דק׳</span>
+                        </span>
+                      </div>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </>
