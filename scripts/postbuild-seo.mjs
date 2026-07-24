@@ -1,10 +1,25 @@
 // ============================================================
-//  SPA-SEO — הזרקת head ייחודי לכל route + יצירת sitemap/robots.
-//  רץ אחרי `vite build`. ללא תלויות חיצוניות.
+//  SEO סטטי — הזרקת head ייחודי לכל route + פרה-רינדור גוף המאמרים
+//  ל-HTML + יצירת sitemap/robots. רץ אחרי `vite build`.
+//
+//  פרה-רינדור (SSG): גוף המאמר וה-/blog index מרונדרים ב-Node עם
+//  react-dom/server + react-markdown (בלי דפדפן, בלי תלויות חדשות),
+//  ומוזרקים לתוך #root. כך התוכן + meta + JSON-LD קיימים כבר בתגובת
+//  ה-HTML הראשונית (גוגל + קוראי שיתוף), לא רק אחרי הרצת JS.
+//  React (createRoot) מחליף את #root בטעינה — אין hydration mismatch.
+//
+//  אבטחה: react-markdown מטפל בתוכן כ-DATA (בורח מ-HTML/JSX גולמי),
+//  לכן מאמרים שהמערכת דוחפת ישירות ל-main אינם יכולים להריץ קוד
+//  בזמן ה-build — בשונה מקומפילציית MDX ל-JSX.
 // ============================================================
 import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+
+import React from 'react'
+import { renderToStaticMarkup } from 'react-dom/server'
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 import { seoRoutes } from '../src/data/seoRoutes.js'
 import { site } from '../src/data/site.js'
@@ -19,15 +34,18 @@ const SITE_URL = site.siteUrl.replace(/\/$/, '')
 // חוזה מערכת המאמרים: קבצי .md/.mdx ב-content/blog (שורש הריפו), commit ל-main.
 // draft: true ⇒ לא ברשימות, לא ב-sitemap, ואין לו עמוד סטטי.
 const BLOG_DIR = join(__dirname, '..', 'content', 'blog')
-const blogPosts = existsSync(BLOG_DIR)
+const blogPosts = (existsSync(BLOG_DIR)
   ? readdirSync(BLOG_DIR)
       .filter((f) => /\.mdx?$/.test(f))
       .map((f) => {
-        const { data } = parseFrontmatter(readFileSync(join(BLOG_DIR, f), 'utf8'))
-        return { ...data, slug: data.slug || f.replace(/\.mdx?$/, '') }
+        const { data, body } = parseFrontmatter(readFileSync(join(BLOG_DIR, f), 'utf8'))
+        return { ...data, body, slug: data.slug || f.replace(/\.mdx?$/, '') }
       })
       .filter((p) => !p.draft)
   : []
+).sort((a, b) => String(b.date).localeCompare(String(a.date))) // חדש → ישן
+
+const absUrl = (u) => (u ? (/^https?:\/\//.test(u) ? u : `${SITE_URL}${u}`) : undefined)
 
 const blogRoutes = blogPosts.map((p) => ({
   path: `/blog/${p.slug}`,
@@ -35,9 +53,10 @@ const blogRoutes = blogPosts.map((p) => ({
   description: p.description || p.seoDescription || p.excerpt || '',
   lastmod: p.date || '2026-07-14',
   // cover יכול להיות URL מלא (מהמערכת) או נתיב יחסי
-  ogImage: p.cover ? (/^https?:\/\//.test(p.cover) ? p.cover : `${SITE_URL}${p.cover}`) : undefined,
+  ogImage: absUrl(p.cover),
   ogType: 'article',
   jsonLd: typeof p.jsonLd === 'string' && p.jsonLd.trim() ? p.jsonLd : undefined,
+  post: p, // לפרה-רינדור הגוף
 }))
 
 const allRoutes = [...seoRoutes, ...blogRoutes]
@@ -70,6 +89,52 @@ function buildHead(route) {
   return tags.join('\n    ')
 }
 
+// --- פרה-רינדור גוף המאמר (מרונדר בדיוק כמו בצד-לקוח: react-markdown+gfm) ---
+function markdownToHtml(md) {
+  return renderToStaticMarkup(
+    React.createElement(ReactMarkdown, { remarkPlugins: [remarkGfm] }, String(md || ''))
+  )
+}
+
+function articleSnapshot(p) {
+  const cover = absUrl(p.cover) || ogImage
+  const words = String(p.body || '').trim().split(/\s+/).filter(Boolean).length
+  const minutes = Math.max(1, Math.round(words / 200))
+  const tags =
+    Array.isArray(p.tags) && p.tags.length
+      ? `<ul class="post-tags">${p.tags.map((t) => `<li>#${esc(t)}</li>`).join('')}</ul>`
+      : ''
+  return (
+    `<main><article dir="rtl" lang="he">` +
+    `<img src="${esc(cover)}" alt="${esc(p.coverAlt || p.title)}" width="1600" height="900" />` +
+    `<nav aria-label="breadcrumb"><a href="${SITE_URL}/blog">בלוג</a>${p.category ? ` &#8250; <span>${esc(p.category)}</span>` : ''}</nav>` +
+    `<h1>${esc(p.title)}</h1>` +
+    (p.description ? `<p>${esc(p.description)}</p>` : '') +
+    `<p><span>${esc(p.author || 'עמית בן שושן')}</span> &#183; <time datetime="${esc(p.date || '')}">${esc(p.date || '')}</time> &#183; ${minutes} דק׳ קריאה</p>` +
+    `<div class="prose">${markdownToHtml(p.body)}</div>` +
+    tags +
+    `</article></main>`
+  )
+}
+
+function blogIndexSnapshot() {
+  const cards = blogPosts
+    .map((p) => {
+      const cover = absUrl(p.cover) || ogImage
+      return (
+        `<li><a href="${SITE_URL}/blog/${esc(p.slug)}">` +
+        `<img src="${esc(cover)}" alt="${esc(p.coverAlt || p.title)}" width="1200" height="750" loading="lazy" />` +
+        (p.category ? `<span>${esc(p.category)}</span>` : '') +
+        `<h2>${esc(p.title)}</h2>` +
+        (p.description ? `<p>${esc(p.description)}</p>` : '') +
+        `<time datetime="${esc(p.date || '')}">${esc(p.date || '')}</time>` +
+        `</a></li>`
+      )
+    })
+    .join('')
+  return `<main><h1>הבלוג של אלגריה</h1><ul class="blog-index">${cards}</ul></main>`
+}
+
 function renderPage(route) {
   let html = template
   // כותרת
@@ -81,6 +146,13 @@ function renderPage(route) {
   )
   // הזרקה לפני </head>
   html = html.replace('</head>', `    ${buildHead(route)}\n  </head>`)
+
+  // פרה-רינדור הגוף לתוך #root (SEO snapshot — React מחליף בטעינה)
+  let snapshot = ''
+  if (route.post) snapshot = articleSnapshot(route.post)
+  else if (route.path === '/blog') snapshot = blogIndexSnapshot()
+  if (snapshot) html = html.replace('<div id="root"></div>', `<div id="root">${snapshot}</div>`)
+
   return html
 }
 
