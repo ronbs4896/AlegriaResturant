@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import {
-  X, ArrowLeft, ArrowRight, Check, Factory, CalendarHeart,
-  PartyPopper, HandCoins, HelpCircle, MessageCircle,
-} from 'lucide-react'
+import { X, ArrowLeft, ArrowRight, Check, MessageCircle } from 'lucide-react'
 import { useLeadModal } from '../../context/LeadModalContext.jsx'
-import { leadServiceOptions, leadSizeOptions, leadWhenOptions, leadCopy } from '../../data/leadForm.js'
+import { leadServiceOptions, leadSizeOptions, leadWhenOptions, leadWhenCustomLabel, leadCopy } from '../../data/leadForm.js'
 import { buildLeadMessage, buildWaLink } from '../../lib/whatsapp.js'
 import { trackLead } from '../../lib/analytics.js'
 import CityCombobox from './CityCombobox.jsx'
+import DatePicker from './DatePicker.jsx'
 
-const ICONS = { Factory, CalendarHeart, PartyPopper, HandCoins, HelpCircle }
+const formatDate = (d) => d.toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
 
 export default function LeadModal() {
   const { closeLead, preselect } = useLeadModal()
@@ -19,6 +17,8 @@ export default function LeadModal() {
   const [step, setStep] = useState(preselect ? 2 : 1)
   const [done, setDone] = useState(false)
   const [waUrl, setWaUrl] = useState('#')
+  const [pickDate, setPickDate] = useState(false)
+  const [dateValue, setDateValue] = useState(null)
   const [form, setForm] = useState({
     service: preselect ? leadServiceOptions.find((o) => o.key === preselect)?.label || '' : '',
     size: '', when: '', notes: '', name: '', phone: '', city: '',
@@ -124,19 +124,15 @@ export default function LeadModal() {
                   <h3 className="text-2xl font-black text-charcoal">{leadCopy.step1Title}</h3>
                   <p className="mt-1 mb-5 text-charcoal-soft">{leadCopy.step1Sub}</p>
                   <div className="grid grid-cols-2 gap-3">
-                    {leadServiceOptions.map((o) => {
-                      const Icon = ICONS[o.icon] || HelpCircle
-                      return (
-                        <button
-                          key={o.key}
-                          onClick={() => pickService(o.label)}
-                          className="group flex flex-col items-center gap-2 rounded-2xl border-2 border-charcoal/10 bg-white p-5 text-center transition-all hover:-translate-y-1 hover:border-orange hover:shadow-warm"
-                        >
-                          <Icon size={30} className="text-orange" />
-                          <span className="font-bold text-charcoal">{o.label}</span>
-                        </button>
-                      )
-                    })}
+                    {leadServiceOptions.map((o) => (
+                      <button
+                        key={o.key}
+                        onClick={() => pickService(o.label)}
+                        className="flex items-center justify-center rounded-2xl border-2 border-charcoal/10 bg-white px-4 py-6 text-center font-bold text-charcoal transition-all hover:-translate-y-1 hover:border-orange hover:shadow-warm"
+                      >
+                        {o.label}
+                      </button>
+                    ))}
                   </div>
                 </motion.div>
               )}
@@ -156,13 +152,40 @@ export default function LeadModal() {
                   </div>
 
                   <label className="mb-1.5 block text-sm font-bold">{leadCopy.whenLabel}</label>
-                  <div className="mb-4 flex flex-wrap gap-2">
+                  <div className="mb-3 flex flex-wrap gap-2">
                     {leadWhenOptions.map((w) => (
-                      <Chip key={w} active={form.when === w} onClick={() => set('when', form.when === w ? '' : w)}>
+                      <Chip
+                        key={w}
+                        active={!pickDate && form.when === w}
+                        onClick={() => { setPickDate(false); set('when', form.when === w ? '' : w) }}
+                      >
                         {w}
                       </Chip>
                     ))}
+                    <Chip
+                      active={pickDate}
+                      onClick={() => {
+                        const next = !pickDate
+                        setPickDate(next)
+                        if (next && leadWhenOptions.includes(form.when)) set('when', dateValue ? formatDate(dateValue) : '')
+                      }}
+                    >
+                      {leadWhenCustomLabel}
+                    </Chip>
                   </div>
+                  {pickDate && (
+                    <div className="mb-4">
+                      <DatePicker
+                        value={dateValue}
+                        onChange={(d) => { setDateValue(d); set('when', formatDate(d)) }}
+                      />
+                      {dateValue && (
+                        <p className="mt-2 text-center text-sm font-bold text-charcoal">
+                          נבחר: {dateValue.toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
+                        </p>
+                      )}
+                    </div>
+                  )}
 
                   <label className="mb-1.5 block text-sm font-bold">{leadCopy.notesLabel}</label>
                   <textarea
