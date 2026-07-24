@@ -10,6 +10,16 @@ import DatePicker from './DatePicker.jsx'
 
 const formatDate = (d) => d.toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
 
+// מקור הליד — מאיזה עמוד הגיע (מאמר בבלוג מול טופס רגיל). נכנס לנושא המייל.
+function leadSource() {
+  if (typeof window === 'undefined') return 'טופס באתר'
+  const path = window.location.pathname
+  const title = (document.title || '').split(/[·|]/)[0].trim()
+  if (path.startsWith('/blog/')) return `מאמר: ${title}`
+  if (path === '/') return 'טופס · עמוד הבית'
+  return `טופס · ${title || path}`
+}
+
 export default function LeadModal() {
   const { closeLead, preselect } = useLeadModal()
   const reduce = useReducedMotion()
@@ -58,13 +68,14 @@ export default function LeadModal() {
     const msg = buildLeadMessage(form)
     const url = buildWaLink(msg)
     setWaUrl(url)
-    trackLead({ service: form.service, city: form.city })
+    const source = leadSource()
+    trackLead({ service: form.service, city: form.city, source })
     // שליחת מייל בשרת — הליד נשמר גם אם המבקר לא משלים את הוואטסאפ.
     // fire-and-forget: לא חוסם את ה-UX, וגם אם נכשל הוואטסאפ עדיין עובד.
     fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
+      body: JSON.stringify({ ...form, source }),
     }).catch(() => {})
     setDone(true)
     window.open(url, '_blank', 'noopener,noreferrer')
