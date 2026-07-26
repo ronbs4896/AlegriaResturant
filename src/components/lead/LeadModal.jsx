@@ -10,6 +10,14 @@ import DatePicker from './DatePicker.jsx'
 
 const formatDate = (d) => d.toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
 
+// סגנון שדה אחיד — rounded-xl בהתאם לכלל הרדיוס, ורקע מהפלטה (לא לבן)
+const FIELD_CLS = (invalid) =>
+  `w-full rounded-xl border bg-cream-50 px-4 py-3 outline-none transition-colors ${
+    invalid
+      ? 'border-danger focus:border-danger'
+      : 'border-charcoal/20 focus:border-orange'
+  }`
+
 // מקור הליד — מאיזה עמוד הגיע (מאמר בבלוג מול טופס רגיל). נכנס לנושא המייל.
 function leadSource() {
   if (typeof window === 'undefined') return 'טופס באתר'
@@ -48,17 +56,40 @@ export default function LeadModal() {
     }
   }, [closeLead])
 
-  const set = (k, v) => setForm((f) => ({ ...f, [k]: v }))
+  const set = (k, v) => {
+    setForm((f) => ({ ...f, [k]: v }))
+    // ניקוי השגיאה ברגע שהערך נעשה תקין — משוב חיובי מיידי
+    setErrors((prev) => (prev[k] && !fieldError(k, v) ? { ...prev, [k]: undefined } : prev))
+  }
 
   const pickService = (label) => {
     set('service', label)
     setStep(2)
   }
 
+  // ולידציה פר-שדה — משמשת גם לשליחה וגם לבדיקה חיה ב-blur (Baymard:
+  // ולידציה חיה מונעת ציד שגיאות אחרי הלחיצה על "שליחה").
+  const fieldError = (key, value) => {
+    if (key === 'name') return value.trim() ? '' : 'נא למלא שם'
+    if (key === 'phone') {
+      return /^0\d{1,2}-?\d{7}$|^0\d{9}$/.test(value.replace(/[\s-]/g, ''))
+        ? ''
+        : 'נא למלא מספר טלפון תקין'
+    }
+    return ''
+  }
+
+  const validateField = (key) => {
+    const msg = fieldError(key, form[key] || '')
+    setErrors((prev) => ({ ...prev, [key]: msg || undefined }))
+  }
+
   const validate = () => {
     const e = {}
-    if (!form.name.trim()) e.name = 'נא למלא שם'
-    if (!/^0\d{1,2}-?\d{7}$|^0\d{9}$/.test(form.phone.replace(/[\s-]/g, ''))) e.phone = 'נא למלא טלפון תקין'
+    for (const key of ['name', 'phone']) {
+      const msg = fieldError(key, form[key] || '')
+      if (msg) e[key] = msg
+    }
     setErrors(e)
     return Object.keys(e).length === 0
   }
@@ -231,24 +262,41 @@ export default function LeadModal() {
                   <p className="mt-1 mb-5 text-charcoal-soft">{leadCopy.step3Sub}</p>
 
                   <div className="space-y-4">
-                    <Field label={leadCopy.nameLabel + ' *'} error={errors.name}>
-                      <input
-                        type="text"
-                        value={form.name}
-                        onChange={(e) => set('name', e.target.value)}
-                        className="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 outline-none focus:border-orange"
-                        placeholder="השם שלך"
-                      />
+                    <Field id="lead-name" label={leadCopy.nameLabel} error={errors.name} required>
+                      {({ id, errorId, invalid }) => (
+                        <input
+                          id={id}
+                          type="text"
+                          name="name"
+                          autoComplete="name"
+                          value={form.name}
+                          onChange={(e) => set('name', e.target.value)}
+                          onBlur={() => validateField('name')}
+                          aria-invalid={invalid}
+                          aria-describedby={invalid ? errorId : undefined}
+                          className={FIELD_CLS(invalid)}
+                          placeholder="השם שלך"
+                        />
+                      )}
                     </Field>
-                    <Field label={leadCopy.phoneLabel + ' *'} error={errors.phone}>
-                      <input
-                        type="tel"
-                        dir="ltr"
-                        value={form.phone}
-                        onChange={(e) => set('phone', e.target.value)}
-                        className="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 text-end outline-none focus:border-orange"
-                        placeholder="050-0000000"
-                      />
+                    <Field id="lead-phone" label={leadCopy.phoneLabel} error={errors.phone} required>
+                      {({ id, errorId, invalid }) => (
+                        <input
+                          id={id}
+                          type="tel"
+                          name="tel"
+                          autoComplete="tel"
+                          inputMode="tel"
+                          dir="ltr"
+                          value={form.phone}
+                          onChange={(e) => set('phone', e.target.value)}
+                          onBlur={() => validateField('phone')}
+                          aria-invalid={invalid}
+                          aria-describedby={invalid ? errorId : undefined}
+                          className={`${FIELD_CLS(invalid)} text-end`}
+                          placeholder="050-0000000"
+                        />
+                      )}
                     </Field>
                     <CityCombobox value={form.city} onChange={(v) => set('city', v)} label={leadCopy.cityLabel} />
                   </div>
@@ -292,12 +340,28 @@ function Chip({ active, onClick, children }) {
   )
 }
 
-function Field({ label, error, children }) {
+// ============================================================
+//  שדה טופס נגיש (Baymard):
+//  · תווית מעל השדה, מקושרת ב-htmlFor/id (קורא מסך מזהה את הקשר)
+//  · סימון "חובה" *וגם* "רשות" — סימון רק של אחד מהם מייצר 32% כשל
+//  · הודעת השגיאה מקושרת לשדה ב-aria-describedby, ו-aria-invalid מתעדכן
+// ============================================================
+function Field({ id, label, error, required = false, children }) {
+  const errorId = `${id}-error`
   return (
     <div>
-      <label className="mb-1.5 block text-meta font-bold text-charcoal">{label}</label>
-      {children}
-      {error && <p className="mt-1 text-meta font-bold text-danger">{error}</p>}
+      <label htmlFor={id} className="mb-1.5 block text-meta font-bold text-charcoal">
+        {label}{' '}
+        <span className="font-normal text-charcoal-muted">
+          {required ? '(חובה)' : '(רשות)'}
+        </span>
+      </label>
+      {children({ id, errorId, invalid: Boolean(error) })}
+      {error && (
+        <p id={errorId} role="alert" className="mt-1.5 text-meta font-bold text-danger">
+          {error}
+        </p>
+      )}
     </div>
   )
 }

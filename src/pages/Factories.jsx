@@ -2,12 +2,14 @@ import { ChevronLeft, MessageCircle } from 'lucide-react'
 import Seo from '../components/seo/Seo.jsx'
 import PageHeader from '../components/sections/PageHeader.jsx'
 import Container from '../components/ui/Container.jsx'
+import Section from '../components/ui/Section.jsx'
 import Button from '../components/ui/Button.jsx'
 import Reveal from '../components/ui/Reveal.jsx'
 import Img from '../components/ui/Img.jsx'
-import ClientLogos from '../components/sections/ClientLogos.jsx'
 import TrustBar from '../components/sections/TrustBar.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
+import Certifications from '../components/sections/Certifications.jsx'
+import CaseStudy from '../components/sections/CaseStudy.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { factoryValues, factorySteps, factoryTrust } from '../data/factories.js'
 import { serviceSchema } from '../data/structuredData.js'
@@ -44,21 +46,28 @@ export default function Factories() {
       </PageHeader>
 
       {/* פס אמון */}
-      <section className="warm-grain relative bg-charcoal-950 py-12 text-cream">
+      <Section tone="dark" size="sm" className="warm-grain">
         <Container className="relative">
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {factoryTrust.map((t) => (
               <div key={t.label} className="text-center">
-                <div className="text-stat stat-num text-honey">{t.value}</div>
+                {/* הפנים הטבלאית לספרות בלבד — ערך בעברית נשאר בגופן המותג */}
+                <div
+                  className={`text-stat text-honey ${
+                    /^[\d.,:%+\-\s]+$/.test(t.value) ? 'stat-num' : 'font-black'
+                  }`}
+                >
+                  {t.value}
+                </div>
                 <div className="mt-1 font-bold text-cream/70">{t.label}</div>
               </div>
             ))}
           </div>
         </Container>
-      </section>
+      </Section>
 
       {/* יתרונות */}
-      <section className="bg-cream py-14 sm:py-20 lg:py-28">
+      <Section tone="cream" size="lg">
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">למה מפעלים בוחרים בנו</span>
@@ -78,10 +87,13 @@ export default function Factories() {
             ))}
           </div>
         </Container>
-      </section>
+      </Section>
+
+      {/* תעודות ואישורים — תיק הספק */}
+      <Certifications />
 
       {/* איך זה עובד */}
-      <section className="warm-grain relative bg-charcoal-950 py-14 text-cream sm:py-20 lg:py-28">
+      <Section tone="dark" size="lg" className="warm-grain">
         <Container className="relative">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
@@ -108,10 +120,12 @@ export default function Factories() {
             </Reveal>
           </div>
         </Container>
-      </section>
+      </Section>
+
+      {/* מקרה לקוח — הראיה החזקה ביותר, רלוונטית כאן אף יותר מהבית */}
+      <CaseStudy />
 
       <TrustBar />
-      <ClientLogos />
       <CTASection
         title="ההפסקה הבאה כבר יכולה להיות שלנו"
         subtitle="שלחו את מספר העובדים, ותקבלו הצעה כתובה לרוב עוד באותו יום."

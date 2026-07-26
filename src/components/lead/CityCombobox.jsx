@@ -39,20 +39,24 @@ export default function CityCombobox({ value, onChange, label = 'עיר' }) {
 
   return (
     <div className="relative" ref={ref}>
-      <label className="mb-1.5 block text-meta font-bold text-charcoal">{label}</label>
+      <label htmlFor="lead-city" className="mb-1.5 block text-meta font-bold text-charcoal">
+        {label} <span className="font-normal text-charcoal-muted">(רשות)</span>
+      </label>
       <input
+        id="lead-city"
+        name="city"
         type="text"
         role="combobox"
         aria-expanded={open}
         aria-controls={listId}
         aria-autocomplete="list"
-        autoComplete="off"
+        autoComplete="address-level2"
         value={value || ''}
         onChange={(e) => { onChange(e.target.value); setOpen(true); setActive(0) }}
         onFocus={() => setOpen(true)}
         onKeyDown={onKey}
         placeholder="הקלד/י עיר…"
-        className="w-full rounded-lg border border-charcoal/20 bg-white px-4 py-3 text-charcoal outline-none focus:border-orange"
+        className="w-full rounded-xl border border-charcoal/20 bg-cream-50 px-4 py-3 text-charcoal outline-none transition-colors focus:border-orange"
       />
       {open && matches.length > 0 && (
         <ul
