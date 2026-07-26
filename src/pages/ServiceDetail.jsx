@@ -7,6 +7,7 @@ import Container from '../components/ui/Container.jsx'
 import Button from '../components/ui/Button.jsx'
 import Img from '../components/ui/Img.jsx'
 import Reveal from '../components/ui/Reveal.jsx'
+import Illustration from '../components/ui/Illustration.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import { getService, services } from '../data/services.js'
 import { getSeo } from '../data/seoRoutes.js'
@@ -52,8 +53,18 @@ export default function ServiceDetail() {
       />
 
       <section className="relative overflow-hidden bg-charcoal-950 pb-16 pt-[calc(var(--header-h)+3rem)] text-cream">
+        {/* איור ענק ברקע — נותן לעמוד סימן זיהוי בלי להוסיף עוד טקסט */}
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute -bottom-12 opacity-[0.07]"
+          style={{ insetInlineStart: '-3rem' }}
+        >
+          <Illustration name={service.art} size={260} strokeWidth={1} />
+        </span>
+        {/* קו קו-השירות — מפריד את ההירו מהתוכן בצבע של השירות עצמו */}
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-1" style={{ background: service.accent }} />
         <Container className="relative grid items-center gap-10 lg:grid-cols-2">
-          <Reveal>
+          <Reveal from="start">
             <nav className="mb-4 flex items-center gap-2 text-meta text-cream/60" aria-label="breadcrumb">
               <Link to="/services" className="hover:text-honey">שירותים</Link>
               <ArrowRight size={14} />
@@ -68,7 +79,7 @@ export default function ServiceDetail() {
               </Button>
             </div>
           </Reveal>
-          <Reveal delay={0.12}>
+          <Reveal delay={0.12} from="end">
             <Img src={service.image} fallback={service.imageFallback} alt={service.title} ratio="4/3" className="shadow-warm-lg" priority />
           </Reveal>
         </Container>
@@ -81,7 +92,7 @@ export default function ServiceDetail() {
             {service.benefits.map((b) => (
               <Reveal key={b}>
                 <div className="flex items-start gap-3 rounded-2xl bg-cream-50 p-5 shadow-warm">
-                  <CheckCircle2 size={24} className="mt-0.5 shrink-0 text-charcoal/50" />
+                  <CheckCircle2 size={24} className="mt-0.5 shrink-0" style={{ color: service.accent }} />
                   <span className="font-bold text-charcoal">{b}</span>
                 </div>
               </Reveal>
@@ -95,13 +106,21 @@ export default function ServiceDetail() {
               <Link
                 key={o.slug}
                 to={`/services/${o.slug}`}
-                className="group rounded-2xl border-2 border-charcoal/10 bg-cream-50 p-5 transition-all hover:-translate-y-1 hover:border-charcoal/30"
+                className="group overflow-hidden rounded-2xl border border-charcoal/12 bg-cream-50 transition-all hover:-translate-y-1 hover:border-charcoal/30"
               >
-                <div className="font-black text-charcoal">{o.title}</div>
+                <span aria-hidden="true" className="block h-1 w-full" style={{ background: o.accent }} />
+                <div className="p-5">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="font-black text-charcoal">{o.title}</div>
+                  <span className="shrink-0 opacity-55" style={{ color: o.accent }}>
+                    <Illustration name={o.art} size={22} strokeWidth={1.8} />
+                  </span>
+                </div>
                 <div className="mt-1 text-meta text-charcoal-soft">{o.short}</div>
                 <span className="mt-3 inline-flex items-center gap-1 text-meta font-bold text-charcoal group-hover:gap-2 transition-all">
                   לפרטים <ChevronLeft size={16} />
                 </span>
+                </div>
               </Link>
             ))}
           </div>

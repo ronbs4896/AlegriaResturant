@@ -89,11 +89,20 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
+        // אדים — לולאה איטית, לא לופ מכני. שלושה קווים באותו keyframe
+        // בהיסט זמן, כך שהתנועה נקראת אקראית בלי לחשב אקראיות.
+        steam: {
+          '0%': { opacity: '0', transform: 'translateY(6px) scaleY(0.75)' },
+          '28%': { opacity: '0.8' },
+          '70%': { opacity: '0.3' },
+          '100%': { opacity: '0', transform: 'translateY(-12px) scaleY(1.1)' },
+        },
       },
       animation: {
         'ken-burns': 'ken-burns 22s ease-out infinite alternate',
         marquee: 'marquee 60s linear infinite',
         'fade-up': 'fade-up 0.7s ease-out both',
+        steam: 'steam 3.4s ease-in-out infinite',
       },
     },
   },

@@ -1,6 +1,10 @@
 // ============================================================
 //  שירותי הדגל — 4 סוגים. כל שירות מייצר כרטיס בבית + עמוד /services/:slug
 //  image: נתיב יחסי מ-public. החלף/הוסף תמונות ב-public/images/*
+//
+//  accent = צבע קו השירות. משפחה נפרדת מהכתום במכוון:
+//  #B4511E נשאר צבע הפעולה היחיד באתר (CTA, קישור, פוקוס),
+//  ולכן אף שירות לא מקבל אותו. art = שם איור מ-ui/Illustration.jsx
 // ============================================================
 
 const FALLBACK = '/images/dishes/alegria-spread.jpg'
@@ -8,6 +12,9 @@ const FALLBACK = '/images/dishes/alegria-spread.jpg'
 export const services = [
   {
     slug: 'factory-catering',
+    accent: '#4F5B31',
+    accentName: 'זית',
+    art: 'truck',
     title: 'הסעדה יומית למפעלים',
     short: 'ארוחה חמה לעובדים, כל יום לפני ההפסקה',
     sellingPoint: 'עשרות מפעלים בדרום',
@@ -25,6 +32,9 @@ export const services = [
   },
   {
     slug: 'friday-meals',
+    accent: '#8E3B39',
+    accentName: 'רימון',
+    art: 'pot',
     title: 'מכירת שישי',
     short: 'אוכל של שבת, מוכן לאיסוף בשישי בבוקר',
     sellingPoint: 'מזמינים עד רביעי בערב',
@@ -42,6 +52,9 @@ export const services = [
   },
   {
     slug: 'event-catering',
+    accent: '#7E5D14',
+    accentName: 'פליז',
+    art: 'tray',
     title: 'קייטרינג לאירועים',
     short: 'מיום גיבוש ועד שבע ברכות, בכל הדרום',
     sellingPoint: 'מ-20 עד 300 אורחים',
@@ -59,6 +72,9 @@ export const services = [
   },
   {
     slug: 'subsidized-meals',
+    accent: '#44515C',
+    accentName: 'פלדה',
+    art: 'clock',
     title: 'ארוחות מסובסדות לעובדים',
     short: 'המעסיק משתתף, העובד משלם מחיר מוזל',
     sellingPoint: 'דיווח חודשי מסודר לשכר',

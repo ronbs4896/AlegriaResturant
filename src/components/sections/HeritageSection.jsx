@@ -15,7 +15,7 @@ import { site } from '../../data/site.js'
 export default function HeritageSection() {
   const reduce = useReducedMotion()
   return (
-    <Section tone="cream" size="lg" className="warm-grain overflow-hidden">
+    <Section tone="cream" size="lg" divider="wheat" className="warm-grain overflow-hidden">
       <Container className="relative">
         {/* אמבלם ממורכז — הבאדג' בזרימה רגילה מתחת, בלי מיקום אבסולוטי
             (transform פיזי לא מתנהג נכון תחת RTL וכיסה את הדיוקן) */}
