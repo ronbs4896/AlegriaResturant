@@ -32,17 +32,17 @@ export default function Friday() {
               <Img src="/images/dishes/friday.jpg" fallback="/images/dishes/alegria-spread.jpg" alt="ארוחת שישי של אלגריה" ratio="4/5" className="shadow-warm-lg" />
               <div className="mt-6 rounded-2xl bg-cream-200 p-5 text-center">
                 <p className="font-black text-charcoal">התפריט מתחלף מדי שבוע 🍽️</p>
-                <p className="mt-1 text-sm text-charcoal-soft">שלחו הודעה ונעדכן אתכם בתפריט של השבוע</p>
+                <p className="mt-1 text-meta text-charcoal-soft">שלחו הודעה ונעדכן אתכם בתפריט של השבוע</p>
               </div>
             </div>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="text-3xl font-black text-charcoal">תפריט שישי לדוגמה</h2>
+            <h2 className="text-h2 font-black text-charcoal">תפריט שישי לדוגמה</h2>
             <div className="mt-8 space-y-8">
               {fridayMenu.map((cat) => (
                 <div key={cat.category}>
-                  <h3 className="mb-3 flex items-center gap-3 text-xl font-black text-charcoal">
+                  <h3 className="mb-3 flex items-center gap-3 text-h3 font-black text-charcoal">
                     <span className="h-px flex-1 bg-charcoal/20" />
                     {cat.category}
                     <span className="h-px flex-1 bg-charcoal/20" />
@@ -51,7 +51,7 @@ export default function Friday() {
                     {cat.items.map((item) => (
                       <li key={item.name} className="flex items-baseline justify-between gap-3 border-b border-dashed border-charcoal/15 pb-2">
                         <span className="font-bold text-charcoal">{item.name}</span>
-                        {item.note && <span className="text-sm text-charcoal-soft">{item.note}</span>}
+                        {item.note && <span className="text-meta text-charcoal-soft">{item.note}</span>}
                       </li>
                     ))}
                   </ul>
@@ -65,15 +65,15 @@ export default function Friday() {
       {/* איך מזמינים */}
       <section className="bg-cream-50 py-14 sm:py-16 lg:py-24">
         <Container>
-          <h2 className="text-center text-3xl font-black text-charcoal sm:text-4xl">איך מזמינים?</h2>
+          <h2 className="text-center text-h2 font-black text-charcoal">איך מזמינים?</h2>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {fridayHow.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.08}>
                 <div className="rounded-2xl bg-cream p-7 text-center shadow-warm">
-                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-950 text-2xl font-black text-honey">
+                  <span className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-charcoal-950 text-h3 font-black text-honey">
                     {s.n}
                   </span>
-                  <h3 className="mt-4 text-xl font-black text-charcoal">{s.title}</h3>
+                  <h3 className="mt-4 text-h3 font-black text-charcoal">{s.title}</h3>
                   <p className="mt-2 text-charcoal-soft">{s.text}</p>
                 </div>
               </Reveal>

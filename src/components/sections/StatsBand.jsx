@@ -19,7 +19,7 @@ export default function StatsBand() {
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.06}>
               <div className="text-center">
-                <div className="text-3xl font-black text-honey sm:text-4xl">
+                <div className="text-stat stat-num text-honey">
                   <CountUp to={s.to} suffix={s.suffix} />
                 </div>
                 <div className="mt-1 font-bold text-cream/70">{s.label}</div>

@@ -21,20 +21,20 @@ export default function FridayBand() {
           />
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="inline-flex items-center gap-2 rounded-full bg-cream-200 px-4 py-1.5 text-sm font-black text-charcoal">
+          <div className="inline-flex items-center gap-2 rounded-full bg-cream-200 px-4 py-1.5 text-meta font-black text-charcoal">
             <CalendarHeart size={18} /> כל יום שישי · קרית גת
           </div>
-          <h2 className="mt-4 text-2xl font-black text-charcoal sm:text-3xl lg:text-4xl">
+          <h2 className="mt-4 text-h2 font-black text-charcoal">
             מכירת השישי
             <br />
             הגדולה בדרום
           </h2>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-charcoal-soft">
+          <p className="mt-5 max-w-lg text-lead leading-relaxed text-charcoal-soft">
             עוף בזיתים ולימון כבוש, חריימה, מטבוחה וחלות מהתנור. הכל מתבשל
             בשישי בבוקר לפי ההזמנות, ומאות משפחות מהאזור כבר יודעות: מזמינים
             עד רביעי, אוכלים כמו אצל סבתא.
           </p>
-          <p className="mt-3 inline-block rounded-lg bg-charcoal-950 px-3 py-1.5 text-sm font-black text-honey">
+          <p className="mt-3 inline-block rounded-lg bg-charcoal-950 px-3 py-1.5 text-meta font-black text-honey">
             מזמינים עד יום רביעי בערב ⏰
           </p>
           <div className="mt-7 flex flex-wrap gap-3">

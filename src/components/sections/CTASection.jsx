@@ -17,8 +17,8 @@ export default function CTASection({
       <Container className="relative text-center">
         <Reveal>
           <span className="eyebrow justify-center text-honey">בואו נדבר</span>
-          <h2 className="mx-auto mt-3 max-w-2xl text-2xl font-black sm:text-3xl lg:text-4xl">{title}</h2>
-          <p className="mx-auto mt-4 max-w-xl text-lg text-cream/70">{subtitle}</p>
+          <h2 className="mx-auto mt-3 max-w-2xl text-h2 font-black">{title}</h2>
+          <p className="mx-auto mt-4 max-w-xl text-lead text-cream/70">{subtitle}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button variant="primary" size="lg" onClick={() => openLead()}>
               קבלו הצעת מחיר <ChevronLeft size={20} />

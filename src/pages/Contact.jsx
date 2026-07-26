@@ -50,7 +50,7 @@ export default function Contact() {
           {/* CTA */}
           <Reveal delay={0.12}>
             <div className="flex h-full flex-col justify-center rounded-3xl bg-charcoal-950 p-8 text-cream sm:p-10">
-              <h2 className="text-3xl font-black">מבקשים הצעת מחיר?</h2>
+              <h2 className="text-h2 font-black">מבקשים הצעת מחיר?</h2>
               <p className="mt-3 text-cream/75">
                 שלוש שאלות קצרות, והבקשה יוצאת אלינו בוואטסאפ. הצעה כתובה חוזרת לרוב עוד באותו יום.
               </p>
@@ -79,7 +79,7 @@ function ContactRow({ icon: Icon, label, value, href, ltr, accent }) {
         <Icon size={22} />
       </span>
       <div>
-        <div className="text-sm text-charcoal-soft">{label}</div>
+        <div className="text-meta text-charcoal-soft">{label}</div>
         <div className={`font-black text-charcoal ${ltr ? 'num' : ''}`} dir={ltr ? 'ltr' : undefined}>
           {value}
         </div>

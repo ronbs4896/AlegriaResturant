@@ -64,7 +64,7 @@ export default function DatePicker({ value, onChange }) {
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 text-center text-xs font-bold text-charcoal-soft">
+      <div className="grid grid-cols-7 gap-1 text-center text-micro font-bold text-charcoal-soft">
         {WEEKDAYS.map((w) => (
           <div key={w} className="py-1">
             {w}
@@ -82,9 +82,9 @@ export default function DatePicker({ value, onChange }) {
               type="button"
               disabled={isDisabled(d)}
               onClick={() => onChange(new Date(view.y, view.m, d))}
-              className={`aspect-square rounded-lg text-sm font-bold transition-colors ${
+              className={`aspect-square rounded-lg text-meta font-bold transition-colors ${
                 isSelected(d)
-                  ? 'bg-orange text-white shadow-ribbon'
+                  ? 'bg-charcoal text-cream'
                   : isDisabled(d)
                     ? 'cursor-not-allowed text-charcoal/25'
                     : 'text-charcoal hover:bg-cream-200'

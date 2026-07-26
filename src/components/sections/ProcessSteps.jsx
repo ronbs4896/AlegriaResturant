@@ -13,11 +13,11 @@ export default function ProcessSteps() {
           {process.map((step, i) => (
             <Reveal key={step.n} delay={i * 0.08}>
               <div className="relative h-full rounded-2xl border-2 border-charcoal/10 bg-cream-50 p-6">
-                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-charcoal-950 text-xl font-black text-honey">
+                <span className="flex h-12 w-12 items-center justify-center rounded-full bg-charcoal-950 text-h3 font-black text-honey">
                   {step.n}
                 </span>
-                <h3 className="mt-4 text-lg font-black text-charcoal">{step.title}</h3>
-                <p className="mt-2 text-sm text-charcoal-soft">{step.text}</p>
+                <h3 className="mt-4 text-lead font-black text-charcoal">{step.title}</h3>
+                <p className="mt-2 text-meta text-charcoal-soft">{step.text}</p>
               </div>
             </Reveal>
           ))}

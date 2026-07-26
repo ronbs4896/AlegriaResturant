@@ -39,7 +39,7 @@ export default function CityCombobox({ value, onChange, label = 'עיר' }) {
 
   return (
     <div className="relative" ref={ref}>
-      <label className="mb-1.5 block text-sm font-bold text-charcoal">{label}</label>
+      <label className="mb-1.5 block text-meta font-bold text-charcoal">{label}</label>
       <input
         type="text"
         role="combobox"

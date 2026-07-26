@@ -34,7 +34,7 @@ export default function Accessibility() {
               <br />
               אימייל: <a href={`mailto:${site.email}`}>{site.email}</a>
             </p>
-            <p className="text-sm">הצהרה זו עודכנה לאחרונה בחודש יולי 2026.</p>
+            <p className="text-meta">הצהרה זו עודכנה לאחרונה בחודש יולי 2026.</p>
           </div>
         </Container>
       </section>

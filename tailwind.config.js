@@ -4,45 +4,69 @@ export default {
   theme: {
     extend: {
       colors: {
-        // מותג אלגריה — פלטת ספר המותג
+        // ============================================================
+        //  פלטת אלגריה — חוקי שימוש (מחייבים):
+        //  orange  = פעולה בלבד. CTA ראשי, קישור בטקסט, טבעת פוקוס.
+        //            אסור למצב "פעיל", לאייקון דקורטיבי או לשגיאה.
+        //  honey   = מבטא על רקע כהה בלבד (מספרים, eyebrow, כוכבים).
+        //  charcoal= טקסט, מצבים פעילים, ומשטחים כהים.
+        //  semantic= success / danger — משוב בלבד, לא עיצוב.
+        // ============================================================
         cream: {
           DEFAULT: '#F2EADE',
           50: '#FBF8F3',
           100: '#F7F1E8',
-          200: '#F2EADE',
+          200: '#EDE3D4',
           300: '#E8DBC7',
-          400: '#DCC9AC',
         },
+        // גוונים חמים — תוקן מאפור טהור (#333) שהתנגש עם הקרם החם
         charcoal: {
-          DEFAULT: '#333333',
-          light: '#4A4A4A',
-          soft: '#5C5C5C',
+          DEFAULT: '#2E2A27',
+          soft: '#635C55',
+          muted: '#8A817A',
           900: '#2A2624',
           950: '#211D1B',
         },
-        // "טרקוטה עמוקה" — צבע המבטא היחיד (מחליף את הכתום הזרחני)
+        // "טרקוטה עמוקה" — צבע הפעולה היחיד
         orange: {
           DEFAULT: '#B4511E',
-          400: '#C4622D',
           500: '#B4511E',
           600: '#9A4419',
           700: '#7F3814',
         },
-        // "פליז מעומעם" — מיקרו-מבטא בלבד (כוכבים, מספרים על כהה, קווים)
+        // "פליז מעומעם" — מבטא על כהה בלבד
         honey: {
           DEFAULT: '#C89B3C',
           400: '#D5AE5C',
           500: '#C89B3C',
-          600: '#A87E2F',
         },
+        // שכבה סמנטית — משוב למשתמש בלבד
+        success: { DEFAULT: '#2E7D4F', soft: '#EAF3ED' },
+        danger: { DEFAULT: '#A32B1C', soft: '#F8ECEA' },
       },
       fontFamily: {
         sans: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
         display: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
+        // פנים למספרים ומטא־דאטה — ספרות טבלאיות, חתימה עריכתית
+        num: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
+      // ============================================================
+      //  סולם טיפוגרפי — 6 מדרגות עם קפיצות גדולות.
+      //  יחס כותרת:גוף ~2.5x (היה 1.5x — שם נולדה תחושת ה"תבנית").
+      // ============================================================
       fontSize: {
-        display: ['clamp(2.1rem, 5.5vw, 4.1rem)', { lineHeight: '1.04', letterSpacing: '-0.015em' }],
-        hero: ['clamp(1.9rem, 4.5vw, 3.3rem)', { lineHeight: '1.06', letterSpacing: '-0.01em' }],
+        // גוף ומטא
+        micro: ['0.75rem', { lineHeight: '1.5' }], //          12px
+        meta: ['0.8125rem', { lineHeight: '1.6' }], //         13px
+        body: ['0.9375rem', { lineHeight: '1.75' }], //        15px — תקן עברית
+        lead: ['1.0625rem', { lineHeight: '1.7' }], //         17px
+        // כותרות
+        h3: ['clamp(1.125rem, 1.6vw, 1.375rem)', { lineHeight: '1.3', letterSpacing: '-0.005em' }],
+        h2: ['clamp(1.875rem, 3.6vw, 3rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        display: ['clamp(2.5rem, 6vw, 4.5rem)', { lineHeight: '1.02', letterSpacing: '-0.03em' }],
+        hero: ['clamp(2.125rem, 5vw, 3.75rem)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+        // מספרים גדולים (סטטיסטיקות)
+        stat: ['clamp(2rem, 4.5vw, 3.25rem)', { lineHeight: '1', letterSpacing: '-0.02em' }],
       },
       maxWidth: {
         container: '1240px',

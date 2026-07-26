@@ -41,15 +41,15 @@ export default function Blog() {
                   >
                     <Img src={p.cover} alt={p.coverAlt || p.title} ratio="16/10" rounded="rounded-none" />
                     <div className="flex flex-1 flex-col p-6">
-                      <div className="mb-3 flex items-center gap-3 text-xs font-bold text-charcoal-soft">
+                      <div className="mb-3 flex items-center gap-3 text-micro font-bold text-charcoal-soft">
                         {p.category && (
-                          <span className="rounded-full bg-orange/10 px-3 py-1 text-orange-700">{p.category}</span>
+                          <span className="rounded-full bg-cream-200 px-3 py-1 text-charcoal">{p.category}</span>
                         )}
                         <span className="inline-flex items-center gap-1">
                           <CalendarDays size={14} /> {formatDate(p.date)}
                         </span>
                       </div>
-                      <h2 className="text-xl font-black leading-snug text-charcoal">{p.title}</h2>
+                      <h2 className="text-h3 font-black leading-snug text-charcoal">{p.title}</h2>
                       <p className="mt-2 flex-1 text-charcoal-soft">{p.excerpt}</p>
                       <span className="mt-4 inline-flex items-center gap-1 font-bold text-orange transition-all group-hover:gap-2">
                         קראו עוד <ArrowLeft size={18} />

@@ -32,7 +32,7 @@ export default function Privacy() {
             <p>
               בכל שאלה בנושא פרטיות ניתן לפנות אלינו במייל <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
-            <p className="text-sm">מדיניות זו עודכנה לאחרונה בחודש יולי 2026.</p>
+            <p className="text-meta">מדיניות זו עודכנה לאחרונה בחודש יולי 2026.</p>
           </div>
         </Container>
       </section>

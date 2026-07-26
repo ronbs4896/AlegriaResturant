@@ -32,9 +32,9 @@ export default function FAQAccordion({ items, withTabs = true, maxPerCategory })
               key={c.key}
               onClick={() => pick(c.key)}
               aria-pressed={cat === c.key}
-              className={`rounded-full px-5 py-2 text-sm font-bold transition-all ${
+              className={`rounded-full px-5 py-2 text-meta font-bold transition-all ${
                 cat === c.key
-                  ? 'bg-orange text-white shadow-ribbon'
+                  ? 'bg-charcoal text-cream'
                   : 'bg-cream-50 text-charcoal hover:bg-cream-200'
               }`}
             >
@@ -63,7 +63,7 @@ export default function FAQAccordion({ items, withTabs = true, maxPerCategory })
                   aria-expanded={isOpen}
                   className="flex w-full items-center justify-between gap-4 px-6 py-5 text-start"
                 >
-                  <span className="text-lg font-black text-charcoal">{item.q}</span>
+                  <span className="text-lead font-black text-charcoal">{item.q}</span>
                   <ChevronDown
                     size={22}
                     className={`shrink-0 text-charcoal-soft transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}

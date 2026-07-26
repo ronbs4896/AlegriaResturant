@@ -54,14 +54,14 @@ export default function ServiceDetail() {
       <section className="relative overflow-hidden bg-charcoal-950 pb-16 pt-[calc(var(--header-h)+3rem)] text-cream">
         <Container className="relative grid items-center gap-10 lg:grid-cols-2">
           <Reveal>
-            <nav className="mb-4 flex items-center gap-2 text-sm text-cream/60" aria-label="breadcrumb">
+            <nav className="mb-4 flex items-center gap-2 text-meta text-cream/60" aria-label="breadcrumb">
               <Link to="/services" className="hover:text-honey">שירותים</Link>
               <ArrowRight size={14} />
               <span className="text-honey">{service.title}</span>
             </nav>
             <span className="ribbon mb-4">{service.sellingPoint}</span>
-            <h1 className="text-4xl font-black sm:text-5xl">{service.title}</h1>
-            <p className="mt-4 max-w-lg text-lg leading-relaxed text-cream/80">{service.description}</p>
+            <h1 className="text-hero font-black">{service.title}</h1>
+            <p className="mt-4 max-w-lg text-lead leading-relaxed text-cream/80">{service.description}</p>
             <div className="mt-8">
               <Button variant="primary" size="lg" onClick={() => openLead(leadKeyBySlug[slug])}>
                 קבלו הצעת מחיר <ChevronLeft size={20} />
@@ -76,7 +76,7 @@ export default function ServiceDetail() {
 
       <section className="bg-cream py-14 sm:py-20 lg:py-28">
         <Container>
-          <h2 className="text-3xl font-black text-charcoal">מה כולל השירות</h2>
+          <h2 className="text-h2 font-black text-charcoal">מה כולל השירות</h2>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
             {service.benefits.map((b) => (
               <Reveal key={b}>
@@ -89,7 +89,7 @@ export default function ServiceDetail() {
           </div>
 
           {/* שירותים נוספים */}
-          <h3 className="mt-16 text-2xl font-black text-charcoal">שירותים נוספים</h3>
+          <h3 className="mt-16 text-h3 font-black text-charcoal">שירותים נוספים</h3>
           <div className="mt-6 grid gap-4 sm:grid-cols-3">
             {others.map((o) => (
               <Link
@@ -98,8 +98,8 @@ export default function ServiceDetail() {
                 className="group rounded-2xl border-2 border-charcoal/10 bg-cream-50 p-5 transition-all hover:-translate-y-1 hover:border-charcoal/30"
               >
                 <div className="font-black text-charcoal">{o.title}</div>
-                <div className="mt-1 text-sm text-charcoal-soft">{o.short}</div>
-                <span className="mt-3 inline-flex items-center gap-1 text-sm font-bold text-charcoal group-hover:gap-2 transition-all">
+                <div className="mt-1 text-meta text-charcoal-soft">{o.short}</div>
+                <span className="mt-3 inline-flex items-center gap-1 text-meta font-bold text-charcoal group-hover:gap-2 transition-all">
                   לפרטים <ChevronLeft size={16} />
                 </span>
               </Link>

@@ -49,8 +49,12 @@ export default function Header() {
                 to={item.to}
                 end={item.to === '/'}
                 className={({ isActive }) =>
-                  `link-underline text-[15px] font-bold transition-colors ${
-                    isActive ? 'text-orange' : 'text-charcoal hover:text-orange'
+                  // מצב פעיל נבדל במשקל וקו תחתון קבוע, לא בצבע —
+                  // הכתום שמור לפעולה בלבד.
+                  `relative text-body transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:rounded-full after:transition-all ${
+                    isActive
+                      ? 'font-black text-charcoal after:bg-charcoal'
+                      : 'font-bold text-charcoal-soft after:bg-transparent hover:text-charcoal'
                   }`
                 }
               >
@@ -111,7 +115,7 @@ export default function Header() {
                 {mainNav.map((item) =>
                   item.children ? (
                     <div key={item.label} className="py-1">
-                      <div className="px-3 pb-1 pt-2 text-xs font-black uppercase tracking-wider text-charcoal-soft">
+                      <div className="px-3 pb-1 pt-2 text-micro font-black uppercase tracking-wider text-charcoal-soft">
                         {item.label}
                       </div>
                       {item.children.map((c) => (
@@ -136,7 +140,7 @@ export default function Header() {
                       to={item.to}
                       end={item.to === '/'}
                       className={({ isActive }) =>
-                        `rounded-lg px-3 py-2.5 text-base font-bold ${
+                        `rounded-lg px-3 py-2.5 text-body font-bold ${
                           isActive ? 'bg-cream-200 text-orange' : 'text-charcoal hover:bg-cream-100'
                         }`
                       }
@@ -193,8 +197,10 @@ function ServicesDropdown({ item, pathname }) {
         aria-haspopup="true"
         onClick={() => setOpen((v) => !v)}
         onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false) }}
-        className={`link-underline inline-flex items-center gap-1 text-[15px] font-bold transition-colors ${
-          active ? 'text-orange' : 'text-charcoal hover:text-orange'
+        className={`relative inline-flex items-center gap-1 text-body transition-colors after:absolute after:inset-x-0 after:-bottom-1.5 after:h-0.5 after:rounded-full after:transition-all ${
+          active
+            ? 'font-black text-charcoal after:bg-charcoal'
+            : 'font-bold text-charcoal-soft after:bg-transparent hover:text-charcoal'
         }`}
       >
         {item.label}
