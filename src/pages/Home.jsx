@@ -14,6 +14,8 @@ import TestimonialsSection from '../components/sections/TestimonialsSection.jsx'
 import FAQAccordion from '../components/sections/FAQAccordion.jsx'
 import CTASection from '../components/sections/CTASection.jsx'
 import BlogTeaser from '../components/sections/BlogTeaser.jsx'
+import OperationsProof from '../components/sections/OperationsProof.jsx'
+import CaseStudy from '../components/sections/CaseStudy.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 import { localBusinessSchema } from '../data/structuredData.js'
 
@@ -28,6 +30,8 @@ export default function Home() {
       <TrustBar />
       <ServicesGrid />
       <FactoriesSplit />
+      <OperationsProof />
+      <CaseStudy />
       <PhotoStrip />
       <FridayBand />
       <HeritageSection />

@@ -17,13 +17,15 @@ const FALLBACK = '/images/dishes/alegria-spread.jpg'
 export default function PhotoStrip() {
   const row = [...STRIP, ...STRIP] // שכפול x2 ללופ חלק (translateX -50%)
   return (
-    <section className="overflow-hidden border-y border-charcoal/10 bg-charcoal-950 py-3" aria-hidden="true">
+    // רקע בהיר — הפסקה צילומית בין הבלוק ה-B2B לבלוק ה-B2C.
+    // קודם היה כהה בדיוק כמו הסקשן שמעליו, ולכן נקרא כזנב שלו ולא כהפוגה.
+    <section className="overflow-hidden bg-cream py-4 sm:py-6" aria-hidden="true">
       <div
-        className="no-scrollbar flex w-max gap-3 animate-marquee hover:[animation-play-state:paused]"
+        className="no-scrollbar flex w-max gap-4 animate-marquee hover:[animation-play-state:paused]"
         style={{ direction: 'ltr', animationDuration: '48s' }}
       >
         {row.map((img, i) => (
-          <div key={i} className="h-40 w-60 shrink-0 overflow-hidden rounded-xl sm:h-48 sm:w-72">
+          <div key={i} className="h-40 w-60 shrink-0 overflow-hidden rounded-2xl sm:h-52 sm:w-80">
             <img
               src={img.src}
               onError={(e) => { e.currentTarget.src = FALLBACK }}

@@ -77,9 +77,19 @@ export default function TestimonialsSection({ limit }) {
               <blockquote className="mt-4 flex-1 text-lead leading-relaxed text-charcoal">
                 "{t.quote}"
               </blockquote>
-              <figcaption className="mt-5 border-t border-charcoal/10 pt-4">
-                <div className="font-black text-charcoal">{t.name}</div>
-                <div className="text-meta text-charcoal-soft">{t.role} · {t.city}</div>
+              <figcaption className="mt-5 flex items-center gap-3 border-t border-charcoal/10 pt-4">
+                {/* ראשי תיבות — פנים למחבר ההמלצה. CXL: המלצה עם דמות
+                    מנצחת משמעותית המלצה בלי. יוחלף בתצלום כשיהיה. */}
+                <span
+                  aria-hidden="true"
+                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-cream-200 text-meta font-black text-charcoal"
+                >
+                  {t.name.trim().charAt(0)}
+                </span>
+                <span className="min-w-0">
+                  <span className="block font-black text-charcoal">{t.name}</span>
+                  <span className="block text-meta text-charcoal-soft">{t.role} · {t.city}</span>
+                </span>
               </figcaption>
             </figure>
           ))}

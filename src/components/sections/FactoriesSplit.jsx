@@ -58,7 +58,7 @@ export default function FactoriesSplit() {
               className="shadow-warm-lg"
             />
             <div className="absolute bottom-5 rounded-2xl bg-honey px-5 py-4 text-charcoal-900 shadow-ribbon inset-inline-start-[-1rem]" style={{ insetInlineStart: '-1rem' }}>
-              <div className="text-stat stat-num">עשרות</div>
+              <div className="text-stat font-black">עשרות</div>
               <div className="text-meta font-bold">מפעלים קבועים</div>
             </div>
           </div>
