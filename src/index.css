@@ -46,21 +46,19 @@
     --header-h: 76px;
   }
   html {
-    /* rem בסיס מוקטן — מכווץ את כל הטיפוגרפיה והריווח באתר פרופורציונלית */
-    font-size: 14.5px;
+    /* שורש תקני — מכבד את העדפת גודל הגופן של המשתמש (נגישות).
+       ההקטנה נעשית פר-אלמנט דרך הסולם ב-tailwind.config, לא בכפייה גלובלית. */
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
   body {
-    @apply bg-cream text-charcoal font-sans antialiased;
-    font-size: 1rem;
-    line-height: 1.65;
+    @apply bg-cream text-charcoal font-sans antialiased text-body;
     text-rendering: optimizeLegibility;
   }
+  /* כותרות: משקל נקבע ברמת הרכיב, לא נכפה גלובלית — כך נוצרת היררכיה */
   h1, h2, h3, h4 {
-    @apply font-display font-black;
-    line-height: 1.05;
-    letter-spacing: -0.01em;
+    @apply font-display font-bold;
+    text-wrap: balance;
   }
   ::selection {
     background: #B4511E;
@@ -72,11 +70,12 @@
     outline-offset: 2px;
     border-radius: 4px;
   }
-  /* מספרים/טלפונים LTR בתוך RTL */
+  /* מספרים/טלפונים LTR בתוך RTL — isolate מונע היפוך ספרות (באג bidi קלאסי) */
   .num,
   [dir='ltr'] {
     direction: ltr;
     unicode-bidi: isolate;
+    font-variant-numeric: tabular-nums;
   }
 }
 
@@ -102,30 +101,33 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
   }
 
-  /* סרט/באנר בהשראת הלוגו — טרקוטה סולידית, בלי גרדיאנט */
+  /* צ'יפ עדין על רקע כהה — קו מתאר, לא מילוי כתום (הכתום שמור לפעולה) */
   .ribbon {
     position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.35rem 1rem;
-    background: #B4511E;
-    color: #fff;
+    padding: 0.4rem 0.95rem;
+    border: 1px solid rgba(242, 234, 222, 0.28);
+    border-radius: 9999px;
+    color: #F2EADE;
+    font-size: 0.8125rem;
     font-weight: 700;
-    border-radius: 4px;
-    box-shadow: 0 8px 20px -10px rgba(180, 81, 30, 0.5);
+    letter-spacing: 0.04em;
+    backdrop-filter: blur(6px);
   }
 
-  /* eyebrow — תגית קטנה מעל כותרת (נייטרלית; הצבע שמור לפעולות בלבד) */
+  /* eyebrow — תווית מעל כותרת. בלי uppercase (חסר משמעות בעברית),
+     tracking מתון אחד לכל האתר, ומספרים בפנים הטבלאית. */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-sm font-bold uppercase tracking-[0.18em] text-charcoal-soft;
+    @apply inline-flex items-center gap-2.5 text-meta font-bold tracking-[0.08em] text-charcoal-muted;
   }
   .eyebrow::before {
     content: '';
-    width: 1.5rem;
+    width: 1.75rem;
     height: 1px;
     background: currentColor;
-    opacity: 0.5;
+    opacity: 0.45;
   }
 
   /* קו תחתון זהב שנמתח ב-hover (RTL-aware) */
@@ -146,16 +148,23 @@
     width: 100%;
   }
 
-  /* מספרים בקו-מתאר (חתימה עריכתית) */
-  .num-outline {
-    -webkit-text-stroke: 1.5px rgba(180, 81, 30, 0.6);
-    color: transparent;
-    font-weight: 900;
+  /* מספר סטטיסטי — ספרות טבלאיות, חתימה עריכתית */
+  .stat-num {
+    @apply font-num font-bold tracking-tight;
+    font-variant-numeric: tabular-nums;
   }
 
-  /* קווי חתך עדינים ברקע כהה */
-  .hairline-top {
-    border-top: 1px solid rgba(242, 234, 222, 0.14);
+  /* קו שיער — מפריד מובנה שמחליף צללים רכים (כיוון 2026) */
+  .hairline {
+    border-top: 1px solid rgb(46 42 39 / 0.12);
+  }
+  .hairline-light {
+    border-top: 1px solid rgb(242 234 222 / 0.16);
+  }
+
+  /* פסקת פתיחה — משקל 300 הוא מה שיוצר אלגנטיות (עד היום נטען ולא נוצל) */
+  .lead {
+    @apply text-lead font-light text-charcoal-soft;
   }
 }
 

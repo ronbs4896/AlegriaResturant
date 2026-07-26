@@ -36,7 +36,7 @@ export default function Hero() {
       <div className="relative mx-auto w-full max-w-[1500px] px-5 py-16 sm:px-10 sm:py-20">
         <motion.div className="max-w-2xl" variants={parent} initial="hidden" animate="show">
           <motion.div variants={item}>
-            <span className="ribbon text-xs sm:text-sm">קרית גת והדרום · מעל 25 שנה</span>
+            <span className="ribbon text-micro sm:text-meta">קרית גת והדרום · מעל 25 שנה</span>
           </motion.div>
 
           <motion.h1 variants={item} className="mt-5 text-hero font-black">
@@ -46,7 +46,7 @@ export default function Hero() {
 
           <motion.p
             variants={item}
-            className="mt-5 max-w-xl text-base leading-relaxed text-cream/85 sm:text-lg"
+            className="mt-5 max-w-xl text-body leading-relaxed text-cream/85 sm:text-lead"
           >
             כל בוקר יוצאות מהמטבח שלנו בקרית גת אלפי מנות חמות: הסעדה יומית
             למפעלים, קייטרינג לאירועים, וכל שישי, מכירת האוכל הביתי הגדולה בדרום.
@@ -70,18 +70,18 @@ function Stat({ value, suffix, label, delay = 0 }) {
   const reduce = useReducedMotion()
   return (
     <div className="relative flex flex-col items-center px-6 py-4 text-center sm:px-9 sm:py-5 [&:not(:first-child)]:border-e-0 [&:not(:first-child)]:border-s [&:not(:first-child)]:border-cream/10">
-      <div className="text-3xl font-black leading-none text-honey sm:text-4xl">
+      <div className="text-stat stat-num leading-none text-honey sm:text-4xl">
         <CountUp to={value} suffix={suffix} duration={1800} />
       </div>
       {/* קו פליז שנמתח — חתימה מיתוגית */}
       <motion.div
-        className="mt-2.5 h-0.5 w-8 rounded-full bg-orange"
+        className="mt-2.5 h-0.5 w-8 rounded-full bg-honey"
         initial={reduce ? {} : { scaleX: 0 }}
         whileInView={reduce ? {} : { scaleX: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
       />
-      <div className="mt-2 text-xs font-bold tracking-wide text-cream/70 sm:text-sm">{label}</div>
+      <div className="mt-2 text-micro font-bold tracking-wide text-cream/70 sm:text-meta">{label}</div>
     </div>
   )
 }

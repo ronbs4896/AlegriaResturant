@@ -11,9 +11,9 @@ export default function Marquee() {
     <div className="overflow-hidden border-y border-charcoal/10 bg-cream-50 py-3.5" aria-hidden="true">
       <div className="no-scrollbar flex w-max animate-marquee whitespace-nowrap" style={{ direction: 'ltr' }}>
         {row.map((t, i) => (
-          <span key={i} dir="rtl" className="mx-5 inline-flex items-center gap-5 text-base font-bold text-charcoal/80">
+          <span key={i} dir="rtl" className="mx-5 inline-flex items-center gap-5 text-body font-bold text-charcoal/80">
             {t}
-            <span className="text-xs text-orange">●</span>
+            <span className="text-micro text-orange">●</span>
           </span>
         ))}
       </div>

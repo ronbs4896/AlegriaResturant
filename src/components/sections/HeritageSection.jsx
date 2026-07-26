@@ -30,8 +30,8 @@ export default function HeritageSection() {
             </motion.div>
             {/* חותמת שנים */}
             <div className="absolute -bottom-4 rounded-full bg-charcoal-950 px-5 py-3 text-center shadow-warm-lg inset-inline-end-2" style={{ insetInlineEnd: '0.5rem' }}>
-              <span className="block text-2xl font-black leading-none text-honey">25+</span>
-              <span className="text-xs font-bold text-cream/80">שנות מסורת</span>
+              <span className="block text-h3 font-black leading-none text-honey">25+</span>
+              <span className="text-micro font-bold text-cream/80">שנות מסורת</span>
             </div>
           </div>
         </Reveal>
@@ -39,23 +39,23 @@ export default function HeritageSection() {
         {/* הסיפור */}
         <Reveal delay={0.12}>
           <span className="eyebrow">{heritage.eyebrow}</span>
-          <h2 className="mt-3 text-2xl font-black text-charcoal sm:text-3xl lg:text-4xl">
+          <h2 className="mt-3 text-h2 font-black text-charcoal">
             {heritage.title}
           </h2>
-          <div className="mt-6 space-y-4 text-lg leading-relaxed text-charcoal-soft">
+          <div className="mt-6 space-y-4 text-lead leading-relaxed text-charcoal-soft">
             {heritage.paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
 
-          <blockquote className="mt-7 border-orange border-s-4 ps-5 text-xl font-black leading-snug text-charcoal">
+          <blockquote className="mt-7 border-charcoal/25 border-s-4 ps-5 text-h3 font-black leading-snug text-charcoal">
             "{heritage.quote}"
           </blockquote>
 
           <ul className="mt-7 space-y-3">
             {heritage.points.map((p) => (
               <li key={p} className="flex items-start gap-3">
-                <CheckCircle2 size={22} className="mt-0.5 shrink-0 text-orange" />
+                <CheckCircle2 size={22} className="mt-0.5 shrink-0 text-charcoal/45" />
                 <span className="font-bold text-charcoal">{p}</span>
               </li>
             ))}

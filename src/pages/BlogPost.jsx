@@ -105,31 +105,31 @@ export default function BlogPost() {
             {/* מאמר */}
             <article>
               {/* breadcrumb */}
-              <nav className="mb-4 flex items-center gap-2 text-sm text-charcoal-soft" aria-label="breadcrumb">
+              <nav className="mb-4 flex items-center gap-2 text-meta text-charcoal-soft" aria-label="breadcrumb">
                 <Link to="/blog" className="hover:text-orange">בלוג</Link>
                 <ArrowRight size={14} />
-                <span className="font-bold text-orange">{post.category}</span>
+                <span className="font-bold text-charcoal">{post.category}</span>
               </nav>
 
               {/* כותרת */}
-              <h1 className="text-3xl font-black leading-tight text-charcoal sm:text-4xl lg:text-[2.75rem]">
+              <h1 className="text-hero font-black leading-tight text-charcoal">
                 {post.title}
               </h1>
               {post.excerpt && (
-                <p className="mt-4 text-lg leading-relaxed text-charcoal-soft">{post.excerpt}</p>
+                <p className="mt-4 text-lead leading-relaxed text-charcoal-soft">{post.excerpt}</p>
               )}
 
               {/* מטא — כותב, תאריך, זמן קריאה */}
-              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-charcoal/10 py-4 text-sm text-charcoal-soft">
+              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-charcoal/10 py-4 text-meta text-charcoal-soft">
                 <span className="inline-flex items-center gap-2 font-bold text-charcoal">
                   <AuthorAvatar name={post.author} />
                   {post.author}
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <CalendarDays size={15} className="text-orange" /> {formatDate(post.date)}
+                  <CalendarDays size={15} className="text-charcoal-muted" /> {formatDate(post.date)}
                 </span>
                 <span className="inline-flex items-center gap-1.5">
-                  <Clock size={15} className="text-orange" /> {post.readingMinutes} דק׳ קריאה
+                  <Clock size={15} className="text-charcoal-muted" /> {post.readingMinutes} דק׳ קריאה
                 </span>
               </div>
 
@@ -137,11 +137,11 @@ export default function BlogPost() {
               <div
                 className="prose prose-lg mt-8 max-w-none text-charcoal-soft
                   prose-headings:font-black prose-headings:text-charcoal prose-headings:mt-10
-                  prose-h2:text-2xl prose-h2:sm:text-3xl prose-h3:text-xl
+                  prose-h2:text-h2 prose-h3:text-h3
                   prose-p:leading-relaxed prose-strong:text-charcoal
                   prose-a:text-orange prose-a:font-bold prose-a:no-underline hover:prose-a:underline
                   prose-li:marker:text-orange
-                  prose-table:text-sm prose-th:bg-cream-200 prose-th:text-charcoal prose-td:border-charcoal/10
+                  prose-table:text-meta prose-th:bg-cream-200 prose-th:text-charcoal prose-td:border-charcoal/10
                   prose-img:rounded-2xl"
               >
                 <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
@@ -150,7 +150,7 @@ export default function BlogPost() {
               {Array.isArray(post.tags) && post.tags.length > 0 && (
                 <div className="mt-10 flex flex-wrap gap-2 border-t border-charcoal/10 pt-6">
                   {post.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-cream-100 px-3 py-1 text-sm font-bold text-charcoal-soft">
+                    <span key={t} className="rounded-full bg-cream-100 px-3 py-1 text-meta font-bold text-charcoal-soft">
                       #{t}
                     </span>
                   ))}
@@ -161,8 +161,8 @@ export default function BlogPost() {
             {/* סיידבר דביק */}
             <aside className="lg:sticky lg:top-24 lg:self-start">
               <div className="rounded-3xl bg-charcoal-950 p-7 text-cream shadow-warm">
-                <h2 className="text-xl font-black">מתכננים אירוע?</h2>
-                <p className="mt-2 text-sm text-cream/75">
+                <h2 className="text-h3 font-black">מתכננים אירוע?</h2>
+                <p className="mt-2 text-meta text-cream/75">
                   נבנה לכם תפריט וכמויות מדויקות לאירוע שלכם. קבלו הצעת מחיר מהירה ומותאמת.
                 </p>
                 <div className="mt-5 space-y-2.5">
@@ -180,7 +180,7 @@ export default function BlogPost() {
           {/* מאמרים נוספים לקריאה — סקשן רחב בתחתית, 4 כרטיסים */}
           {related.length > 0 && (
             <section className="mt-16 border-t border-charcoal/10 pt-12">
-              <h2 className="mb-8 text-2xl font-black text-charcoal sm:text-3xl">מאמרים נוספים לקריאה</h2>
+              <h2 className="mb-8 text-h2 font-black text-charcoal">מאמרים נוספים לקריאה</h2>
               <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {related.map((p) => (
                   <Link
@@ -197,7 +197,7 @@ export default function BlogPost() {
                         className="aspect-[16/10] w-full object-cover"
                       />
                       {p.category && (
-                        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold text-charcoal shadow-sm backdrop-blur">
+                        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-micro font-bold text-charcoal shadow-sm backdrop-blur">
                           {p.category}
                         </span>
                       )}
@@ -206,10 +206,10 @@ export default function BlogPost() {
                       <h3 className="font-black leading-snug text-charcoal transition-colors group-hover:text-orange line-clamp-2">
                         {p.title}
                       </h3>
-                      <p className="mt-2 flex-1 text-sm leading-relaxed text-charcoal-soft line-clamp-2">
+                      <p className="mt-2 flex-1 text-meta leading-relaxed text-charcoal-soft line-clamp-2">
                         {p.excerpt || p.description}
                       </p>
-                      <div className="mt-4 flex items-center justify-between gap-2 border-t border-charcoal/10 pt-3 text-xs text-charcoal-soft">
+                      <div className="mt-4 flex items-center justify-between gap-2 border-t border-charcoal/10 pt-3 text-micro text-charcoal-soft">
                         <span className="inline-flex min-w-0 items-center gap-2 font-bold text-charcoal">
                           <AuthorAvatar name={p.author} small />
                           <span className="truncate">{p.author}</span>

@@ -14,7 +14,7 @@ export default function Logo({ className = '', size = 56, withText = false }) {
         style={{ width: size, height: size }}
       />
       {withText && (
-        <span className="font-black text-xl leading-none">{site.name}</span>
+        <span className="font-black text-h3 leading-none">{site.name}</span>
       )}
     </Link>
   )

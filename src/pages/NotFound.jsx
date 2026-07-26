@@ -11,8 +11,8 @@ export default function NotFound() {
       </Helmet>
       <section className="flex min-h-[70vh] items-center bg-charcoal-950 text-cream">
         <Container className="text-center">
-          <div className="text-8xl font-black text-orange">404</div>
-          <h1 className="mt-4 text-3xl font-black sm:text-4xl">אופס, הדף לא נמצא</h1>
+          <div className="text-display font-black text-charcoal/20">404</div>
+          <h1 className="mt-4 text-h2 font-black">אופס, הדף לא נמצא</h1>
           <p className="mx-auto mt-3 max-w-md text-cream/70">
             כנראה שהמנה הזו כבר נגמרה. בואו נחזור לתפריט הראשי.
           </p>

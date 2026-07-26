@@ -20,12 +20,12 @@ export default function FactoriesSplit() {
       <Container className="relative grid items-center gap-12 py-14 sm:py-20 lg:py-28 lg:grid-cols-2">
         <Reveal>
           <span className="eyebrow text-honey">הליבה שלנו</span>
-          <h2 className="mt-3 text-2xl font-black text-cream sm:text-3xl lg:text-4xl">
+          <h2 className="mt-3 text-h2 font-black text-cream">
             ספק ההסעדה
             <br />
             <span className="text-honey">מס' 1 בדרום</span>
           </h2>
-          <p className="mt-5 max-w-lg text-lg leading-relaxed text-cream/75">
+          <p className="mt-5 max-w-lg text-lead leading-relaxed text-cream/75">
             כשההפסקה של 200 עובדים תלויה במשאית אחת, אין מקום לספק שמאחר.
             כבר 25 שנה המשאיות שלנו יוצאות מקרית גת כל בוקר, ועשרות מפעלים
             בדרום יודעים בדיוק מתי הן מגיעות.
@@ -58,8 +58,8 @@ export default function FactoriesSplit() {
               className="shadow-warm-lg"
             />
             <div className="absolute bottom-5 rounded-2xl bg-honey px-5 py-4 text-charcoal-900 shadow-ribbon inset-inline-start-[-1rem]" style={{ insetInlineStart: '-1rem' }}>
-              <div className="text-3xl font-black">עשרות</div>
-              <div className="text-sm font-bold">מפעלים קבועים</div>
+              <div className="text-stat stat-num">עשרות</div>
+              <div className="text-meta font-bold">מפעלים קבועים</div>
             </div>
           </div>
         </Reveal>

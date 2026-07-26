@@ -1,5 +1,10 @@
 import Reveal from './Reveal.jsx'
 
+// ============================================================
+//  כותרת סקשן — הרכיב היחיד שמייצר h2 באתר.
+//  הסולם החדש (text-h2) נותן יחס כותרת:גוף של ~2.5x, שם נוצרת
+//  ההיררכיה שהייתה חסרה. פסקת המשנה במשקל 300 (.lead).
+// ============================================================
 export default function SectionTitle({
   eyebrow,
   title,
@@ -7,23 +12,24 @@ export default function SectionTitle({
   align = 'start',
   light = false,
   className = '',
+  as: Tag = 'h2',
 }) {
   const alignCls = align === 'center' ? 'text-center items-center' : 'text-start items-start'
   return (
     <Reveal>
       <div className={`flex flex-col ${alignCls} ${className}`}>
-        {eyebrow && <span className="eyebrow mb-3">{eyebrow}</span>}
-        <h2
-          className={`text-2xl sm:text-3xl lg:text-4xl font-black max-w-3xl ${
-            light ? 'text-cream' : 'text-charcoal'
-          }`}
+        {eyebrow && (
+          <span className={`eyebrow mb-4 ${light ? 'text-cream/55' : ''}`}>{eyebrow}</span>
+        )}
+        <Tag
+          className={`text-h2 font-black max-w-[20ch] ${light ? 'text-cream' : 'text-charcoal'}`}
         >
           {title}
-        </h2>
+        </Tag>
         {subtitle && (
           <p
-            className={`mt-4 text-lg max-w-2xl leading-relaxed ${
-              light ? 'text-cream/75' : 'text-charcoal-soft'
+            className={`mt-5 text-lead font-light max-w-[52ch] ${
+              light ? 'text-cream/70' : 'text-charcoal-soft'
             }`}
           >
             {subtitle}

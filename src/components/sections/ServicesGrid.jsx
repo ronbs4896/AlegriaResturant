@@ -33,17 +33,17 @@ export default function ServicesGrid() {
                     imgClassName="transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                   />
                   <span
-                    className="absolute top-4 rounded-lg bg-charcoal-950/80 px-2.5 py-1 text-lg font-black text-honey backdrop-blur-sm"
+                    className="absolute top-4 rounded-lg bg-charcoal-950/80 px-2.5 py-1 text-lead font-black text-honey backdrop-blur-sm"
                     style={{ insetInlineStart: '1rem' }}
                   >
                     0{i + 1}
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col p-6">
-                  <span className="mb-3 self-start rounded-full bg-cream-200 px-3 py-1 text-xs font-black text-charcoal">
+                  <span className="mb-3 self-start rounded-full bg-cream-200 px-3 py-1 text-micro font-black text-charcoal">
                     {s.sellingPoint}
                   </span>
-                  <h3 className="text-2xl font-black text-charcoal">{s.title}</h3>
+                  <h3 className="text-h3 font-black text-charcoal">{s.title}</h3>
                   <p className="mt-2 flex-1 text-charcoal-soft">{s.short}</p>
                   <span className="link-underline mt-4 inline-flex items-center gap-1 self-start font-bold text-charcoal transition-colors group-hover:text-orange">
                     פרטים נוספים <ArrowLeft size={18} />

@@ -74,12 +74,12 @@ export default function TestimonialsSection({ limit }) {
               className="flex w-[85%] shrink-0 snap-center flex-col rounded-3xl bg-cream p-7 shadow-warm sm:w-[460px]"
             >
               <Stars rating={t.rating} />
-              <blockquote className="mt-4 flex-1 text-lg leading-relaxed text-charcoal">
+              <blockquote className="mt-4 flex-1 text-lead leading-relaxed text-charcoal">
                 "{t.quote}"
               </blockquote>
               <figcaption className="mt-5 border-t border-charcoal/10 pt-4">
                 <div className="font-black text-charcoal">{t.name}</div>
-                <div className="text-sm text-charcoal-soft">{t.role} · {t.city}</div>
+                <div className="text-meta text-charcoal-soft">{t.role} · {t.city}</div>
               </figcaption>
             </figure>
           ))}
@@ -93,7 +93,7 @@ export default function TestimonialsSection({ limit }) {
               onClick={() => goTo(i)}
               aria-label={`המלצה ${i + 1}`}
               className={`h-2 rounded-full transition-all ${
-                i === active ? 'w-6 bg-orange' : 'w-2 bg-charcoal/20 hover:bg-charcoal/40'
+                i === active ? "w-7 bg-charcoal" : 'w-2 bg-charcoal/20 hover:bg-charcoal/40'
               }`}
             />
           ))}

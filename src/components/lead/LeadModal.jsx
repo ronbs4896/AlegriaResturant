@@ -125,7 +125,7 @@ export default function LeadModal() {
               <div
                 key={s}
                 className={`h-1.5 flex-1 rounded-full transition-colors ${
-                  s <= step ? 'bg-orange' : 'bg-cream/20'
+                  s <= step ? 'bg-honey' : 'bg-cream/20'
                 }`}
               />
             ))}
@@ -139,7 +139,7 @@ export default function LeadModal() {
             <AnimatePresence mode="wait">
               {step === 1 && (
                 <motion.div key="s1" {...anim}>
-                  <h3 className="text-2xl font-black text-charcoal">{leadCopy.step1Title}</h3>
+                  <h3 className="text-h3 font-black text-charcoal">{leadCopy.step1Title}</h3>
                   <p className="mt-1 mb-5 text-charcoal-soft">{leadCopy.step1Sub}</p>
                   <div className="grid grid-cols-2 gap-3">
                     {leadServiceOptions.map((o) => (
@@ -157,10 +157,10 @@ export default function LeadModal() {
 
               {step === 2 && (
                 <motion.div key="s2" {...anim}>
-                  <h3 className="text-2xl font-black text-charcoal">{leadCopy.step2Title}</h3>
+                  <h3 className="text-h3 font-black text-charcoal">{leadCopy.step2Title}</h3>
                   <p className="mt-1 mb-5 text-charcoal-soft">{leadCopy.step2Sub}</p>
 
-                  <label className="mb-1.5 block text-sm font-bold">{leadCopy.sizeLabel}</label>
+                  <label className="mb-1.5 block text-meta font-bold">{leadCopy.sizeLabel}</label>
                   <div className="mb-4 flex flex-wrap gap-2">
                     {leadSizeOptions.map((s) => (
                       <Chip key={s} active={form.size === s} onClick={() => set('size', form.size === s ? '' : s)}>
@@ -169,7 +169,7 @@ export default function LeadModal() {
                     ))}
                   </div>
 
-                  <label className="mb-1.5 block text-sm font-bold">{leadCopy.whenLabel}</label>
+                  <label className="mb-1.5 block text-meta font-bold">{leadCopy.whenLabel}</label>
                   <div className="mb-3 flex flex-wrap gap-2">
                     {leadWhenOptions.map((w) => (
                       <Chip
@@ -198,14 +198,14 @@ export default function LeadModal() {
                         onChange={(d) => { setDateValue(d); set('when', formatDate(d)) }}
                       />
                       {dateValue && (
-                        <p className="mt-2 text-center text-sm font-bold text-charcoal">
+                        <p className="mt-2 text-center text-meta font-bold text-charcoal">
                           נבחר: {dateValue.toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}
                         </p>
                       )}
                     </div>
                   )}
 
-                  <label className="mb-1.5 block text-sm font-bold">{leadCopy.notesLabel}</label>
+                  <label className="mb-1.5 block text-meta font-bold">{leadCopy.notesLabel}</label>
                   <textarea
                     value={form.notes}
                     onChange={(e) => set('notes', e.target.value)}
@@ -227,7 +227,7 @@ export default function LeadModal() {
 
               {step === 3 && (
                 <motion.div key="s3" {...anim}>
-                  <h3 className="text-2xl font-black text-charcoal">{leadCopy.step3Title}</h3>
+                  <h3 className="text-h3 font-black text-charcoal">{leadCopy.step3Title}</h3>
                   <p className="mt-1 mb-5 text-charcoal-soft">{leadCopy.step3Sub}</p>
 
                   <div className="space-y-4">
@@ -254,7 +254,7 @@ export default function LeadModal() {
                   </div>
 
                   {/* סיכום */}
-                  <div className="mt-5 rounded-xl bg-cream-200 p-4 text-sm text-charcoal-soft">
+                  <div className="mt-5 rounded-xl bg-cream-200 p-4 text-meta text-charcoal-soft">
                     <strong className="text-charcoal">סיכום:</strong>{' '}
                     {[form.service, form.size, form.when].filter(Boolean).join(' · ') || 'פנייה כללית'}
                   </div>
@@ -281,9 +281,9 @@ function Chip({ active, onClick, children }) {
   return (
     <button
       onClick={onClick}
-      className={`rounded-full border-2 px-4 py-2 text-sm font-bold transition-all ${
+      className={`rounded-full border-2 px-4 py-2 text-meta font-bold transition-all ${
         active
-          ? 'border-orange bg-orange text-white'
+          ? 'border-charcoal bg-charcoal text-cream'
           : 'border-charcoal/15 bg-white text-charcoal hover:border-orange'
       }`}
     >
@@ -295,9 +295,9 @@ function Chip({ active, onClick, children }) {
 function Field({ label, error, children }) {
   return (
     <div>
-      <label className="mb-1.5 block text-sm font-bold text-charcoal">{label}</label>
+      <label className="mb-1.5 block text-meta font-bold text-charcoal">{label}</label>
       {children}
-      {error && <p className="mt-1 text-sm font-bold text-orange-600">{error}</p>}
+      {error && <p className="mt-1 text-meta font-bold text-danger">{error}</p>}
     </div>
   )
 }
@@ -309,7 +309,7 @@ function Success({ waUrl, name, onClose }) {
       <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-[#25D366]/15">
         <Check size={34} className="text-[#25D366]" />
       </div>
-      <h3 className="text-2xl font-black text-charcoal">
+      <h3 className="text-h3 font-black text-charcoal">
         {firstName ? `תודה, ${firstName}! ${leadCopy.successTitle}` : leadCopy.successTitle}
       </h3>
       <p className="mx-auto mt-2 max-w-sm text-charcoal-soft">{leadCopy.successText}</p>
@@ -321,7 +321,7 @@ function Success({ waUrl, name, onClose }) {
       >
         <MessageCircle size={18} /> שליחה בוואטסאפ
       </a>
-      <button onClick={onClose} className="mt-3 block w-full text-sm font-bold text-charcoal-soft hover:text-charcoal">
+      <button onClick={onClose} className="mt-3 block w-full text-meta font-bold text-charcoal-soft hover:text-charcoal">
         סגירה
       </button>
     </div>

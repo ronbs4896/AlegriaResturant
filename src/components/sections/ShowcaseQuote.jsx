@@ -17,7 +17,7 @@ export default function ShowcaseQuote() {
       <Container className="relative text-center">
         <Reveal>
           <Quote size={48} className="mx-auto mb-6 text-honey" />
-          <p className="mx-auto max-w-3xl text-xl font-black leading-snug text-cream sm:text-2xl lg:text-3xl">
+          <p className="mx-auto max-w-3xl text-h3 font-black leading-snug text-cream">
             "כל סיר שיוצא מהמטבח הזה מתבשל כמו אצל סבתא. גם כשהוא
             מאכיל מפעל שלם."
           </p>

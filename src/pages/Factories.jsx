@@ -49,7 +49,7 @@ export default function Factories() {
           <div className="grid grid-cols-2 gap-6 lg:grid-cols-4">
             {factoryTrust.map((t) => (
               <div key={t.label} className="text-center">
-                <div className="text-3xl font-black text-honey sm:text-4xl">{t.value}</div>
+                <div className="text-stat stat-num text-honey">{t.value}</div>
                 <div className="mt-1 font-bold text-cream/70">{t.label}</div>
               </div>
             ))}
@@ -62,7 +62,7 @@ export default function Factories() {
         <Container>
           <div className="mx-auto max-w-2xl text-center">
             <span className="eyebrow">למה מפעלים בוחרים בנו</span>
-            <h2 className="mt-3 text-3xl font-black text-charcoal sm:text-4xl">
+            <h2 className="mt-3 text-h2 font-black text-charcoal">
               כל מה שמנהל רכש מחפש בספק מזון
             </h2>
           </div>
@@ -70,8 +70,8 @@ export default function Factories() {
             {factoryValues.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.06}>
                 <div className="h-full border-t-2 border-charcoal/15 pt-5">
-                  <span className="text-sm font-black tracking-widest text-charcoal/30">0{i + 1}</span>
-                  <h3 className="mt-2 text-xl font-black text-charcoal">{v.title}</h3>
+                  <span className="text-meta font-black tracking-widest text-charcoal/30">0{i + 1}</span>
+                  <h3 className="mt-2 text-h3 font-black text-charcoal">{v.title}</h3>
                   <p className="mt-2 leading-relaxed text-charcoal-soft">{v.text}</p>
                 </div>
               </Reveal>
@@ -86,17 +86,17 @@ export default function Factories() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <Reveal>
               <span className="eyebrow text-honey">איך מתחילים</span>
-              <h2 className="mt-3 text-3xl font-black text-cream sm:text-4xl">
+              <h2 className="mt-3 text-h2 font-black text-cream">
                 תהליך פשוט, בלי כאב ראש
               </h2>
               <ol className="mt-8 space-y-6">
                 {factorySteps.map((s) => (
                   <li key={s.n} className="flex gap-4">
-                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-honey/40 text-lg font-black text-honey">
+                    <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-honey/40 text-lead font-black text-honey">
                       {s.n}
                     </span>
                     <div>
-                      <h3 className="text-lg font-black text-cream">{s.title}</h3>
+                      <h3 className="text-lead font-black text-cream">{s.title}</h3>
                       <p className="mt-1 text-cream/70">{s.text}</p>
                     </div>
                   </li>

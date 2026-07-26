@@ -38,8 +38,8 @@ export default function About() {
             </div>
           </Reveal>
           <Reveal delay={0.1}>
-            <h2 className="text-3xl font-black text-charcoal sm:text-4xl">מהמטבח בקרית גת לכל הדרום</h2>
-            <div className="mt-5 space-y-4 text-lg leading-relaxed text-charcoal-soft">
+            <h2 className="text-h2 font-black text-charcoal">מהמטבח בקרית גת לכל הדרום</h2>
+            <div className="mt-5 space-y-4 text-lead leading-relaxed text-charcoal-soft">
               <p>
                 התחלנו לפני יותר מ-25 שנה עם מטבח קטן וכמה סירים. היום המטבח בקרית גת
                 מוציא כ-3,000 מנות ביום לעשרות מפעלים בדרום, ובכל שישי גם למאות משפחות
@@ -61,13 +61,13 @@ export default function About() {
 
       <section className="bg-cream-50 py-14 sm:py-20 lg:py-28">
         <Container>
-          <h2 className="text-center text-3xl font-black text-charcoal sm:text-4xl">הערכים שמנחים אותנו</h2>
+          <h2 className="text-center text-h2 font-black text-charcoal">הערכים שמנחים אותנו</h2>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {values.map((v, i) => (
               <Reveal key={v.title} delay={i * 0.07}>
                 <div className="h-full border-t-2 border-charcoal/15 pt-5">
-                  <span className="text-sm font-black tracking-widest text-charcoal/30">0{i + 1}</span>
-                  <h3 className="mt-2 text-xl font-black text-charcoal">{v.title}</h3>
+                  <span className="text-meta font-black tracking-widest text-charcoal/30">0{i + 1}</span>
+                  <h3 className="mt-2 text-h3 font-black text-charcoal">{v.title}</h3>
                   <p className="mt-2 leading-relaxed text-charcoal-soft">{v.text}</p>
                 </div>
               </Reveal>

@@ -19,7 +19,7 @@ export default function Footer() {
               alt={site.name}
               className="mb-4 h-16 w-16 rounded-full object-cover"
             />
-            <p className="text-xl font-black text-cream">{site.name}</p>
+            <p className="text-h3 font-black text-cream">{site.name}</p>
             <p className="mt-2 max-w-xs text-cream/60">{site.tagline}</p>
             <div className="mt-5 flex gap-3">
               <a href={buildWaLink()} target="_blank" rel="noopener noreferrer" aria-label="וואטסאפ"
@@ -60,22 +60,22 @@ export default function Footer() {
         </div>
 
         {/* פרטי קשר */}
-        <div className="mt-12 grid gap-4 border-t border-white/10 pt-8 text-sm sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid gap-4 border-t border-white/10 pt-8 text-meta sm:grid-cols-2 lg:grid-cols-4">
           <a href={`tel:${site.phone.dial}`} onClick={() => trackContact('phone', { source: 'footer' })} className="flex items-center gap-2 hover:text-honey">
-            <Phone size={16} className="text-orange" /> <span dir="ltr" className="num">{site.phone.display}</span>
+            <Phone size={16} className="text-cream/45" /> <span dir="ltr" className="num">{site.phone.display}</span>
           </a>
           <a href={`mailto:${site.email}`} onClick={() => trackContact('email', { source: 'footer' })} className="flex items-center gap-2 hover:text-honey">
-            <Mail size={16} className="text-orange" /> {site.email}
+            <Mail size={16} className="text-cream/45" /> {site.email}
           </a>
           <span className="flex items-center gap-2">
-            <MapPin size={16} className="text-orange" /> {site.serviceArea}
+            <MapPin size={16} className="text-cream/45" /> {site.serviceArea}
           </span>
           <span className="flex items-center gap-2">
-            <Clock size={16} className="text-orange" /> {site.hours[0].days}: {site.hours[0].time}
+            <Clock size={16} className="text-cream/45" /> {site.hours[0].days}: {site.hours[0].time}
           </span>
         </div>
 
-        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-sm text-cream/50 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-white/10 pt-6 text-meta text-cream/50 sm:flex-row">
           <p>© {year} {site.name}. כל הזכויות שמורות.</p>
           <div className="flex gap-4">
             <Link to="/accessibility" className="hover:text-honey">הצהרת נגישות</Link>

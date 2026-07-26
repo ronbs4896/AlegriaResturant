@@ -19,7 +19,7 @@ export default function ClientLogos() {
   return (
     <section className="border-y border-charcoal/10 bg-cream-50 py-12">
       <Container>
-        <p className="mb-8 text-center text-sm font-black uppercase tracking-widest text-charcoal-soft">
+        <p className="mb-8 text-center text-meta font-black uppercase tracking-widest text-charcoal-soft">
           מפעלים שעובדים איתנו
         </p>
         <div className="flex flex-wrap items-center justify-center gap-x-12 gap-y-6 opacity-70">

@@ -30,9 +30,9 @@ export default function GalleryGrid() {
             <button
               key={c.key}
               onClick={() => setFilter(c.key)}
-              className={`rounded-full px-5 py-2 text-sm font-bold transition-all ${
+              className={`rounded-full px-5 py-2 text-meta font-bold transition-all ${
                 filter === c.key
-                  ? 'bg-orange text-white shadow-ribbon'
+                  ? 'bg-charcoal text-cream'
                   : 'bg-cream-50 text-charcoal hover:bg-cream-200'
               }`}
             >

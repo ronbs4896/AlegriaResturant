@@ -15,7 +15,7 @@ export default function Testimonials() {
       <PageHeader eyebrow="המלצות" title="לקוחות מספרים">
         <div className="mt-6 flex items-center gap-3">
           <Stars rating={5} size={24} />
-          <span className="text-lg font-black text-cream">
+          <span className="text-lead font-black text-cream">
             {ratingSummary.average.toFixed(1)} · {ratingSummary.count}+ ממליצים
           </span>
         </div>

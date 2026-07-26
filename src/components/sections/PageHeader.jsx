@@ -9,8 +9,8 @@ export default function PageHeader({ eyebrow, title, subtitle, children }) {
       <Container className="relative">
         <Reveal>
           {eyebrow && <span className="eyebrow text-honey">{eyebrow}</span>}
-          <h1 className="mt-3 text-3xl font-black text-cream sm:text-4xl lg:text-5xl">{title}</h1>
-          {subtitle && <p className="mt-4 max-w-2xl text-lg text-cream/75">{subtitle}</p>}
+          <h1 className="mt-3 text-hero font-black text-cream">{title}</h1>
+          {subtitle && <p className="mt-4 max-w-2xl text-lead text-cream/75">{subtitle}</p>}
           {children}
         </Reveal>
       </Container>
