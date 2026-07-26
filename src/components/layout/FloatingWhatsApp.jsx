@@ -11,7 +11,8 @@ export default function FloatingWhatsApp() {
       rel="noopener noreferrer"
       aria-label="שליחת הודעת וואטסאפ"
       onClick={() => trackContact('whatsapp', { source: 'floating_button' })}
-      className="fixed bottom-4 z-40 flex h-12 w-12 items-center justify-center rounded-full bg-[#25D366] text-white shadow-warm-lg transition-transform hover:scale-110 sm:bottom-5 sm:h-14 sm:w-14"
+      // מוסתר במובייל — שם MobileActionBar משרת (טלפון + וואטסאפ), כדי לא לכפול
+      className="fixed bottom-5 z-40 hidden h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-warm-lg transition-transform hover:scale-110 sm:flex"
       style={{ insetInlineStart: '1rem' }}
     >
       <MessageCircle size={24} className="fill-white/10 sm:hidden" />
