@@ -1,0 +1,64 @@
+@import 'tailwindcss';
+
+/* ============================================================
+   מערכת פנימית: נסרקת ומופעלת, לא נקראת מלמעלה למטה.
+   לכן צפופה יותר מאתר השיווק, עם צבע ששומר על משמעות אחת:
+   כתום = פעולה. ירוק/ענבר/אדום = מצב, ולא קישוט.
+   ============================================================ */
+@theme {
+  --color-ground: #f6f3ee;
+  --color-surface: #ffffff;
+  --color-raised: #fbf9f6;
+  --color-ink: #23201d;
+  --color-muted: #6e665e;
+  --color-faint: #9a9088;
+  --color-line: #e4ded5;
+
+  --color-action: #b4511e;
+  --color-action-soft: #fbeee7;
+
+  --color-ok: #2e7d4f;
+  --color-ok-soft: #eaf4ee;
+  --color-warn: #92610f;
+  --color-warn-soft: #fbf1de;
+  --color-danger: #a32b1c;
+  --color-danger-soft: #fbecea;
+  --color-steel: #46525d;
+  --color-steel-soft: #eef1f4;
+
+  --font-sans: 'Segoe UI', Rubik, 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif;
+  --font-num: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+html { color-scheme: light; }
+
+body {
+  background: var(--color-ground);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* עברית צריכה יותר אוויר בין שורות מאנגלית */
+  line-height: 1.65;
+}
+
+/* ספרות מיושרות בעמודה — סכומים חייבים להיקרא בסריקה אנכית */
+.num {
+  font-family: var(--font-num);
+  font-variant-numeric: tabular-nums;
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* פוקוס נראה תמיד. מערכת שמפעילים במקלדת חייבת את זה. */
+:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-action);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

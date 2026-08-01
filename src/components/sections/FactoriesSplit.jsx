@@ -3,6 +3,7 @@ import Container from '../ui/Container.jsx'
 import Button from '../ui/Button.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import Img from '../ui/Img.jsx'
+import Illustration from '../ui/Illustration.jsx'
 import { useLeadModal } from '../../context/LeadModalContext.jsx'
 
 const points = [
@@ -18,8 +19,11 @@ export default function FactoriesSplit() {
   return (
     <section className="warm-grain relative overflow-hidden bg-charcoal-950 text-cream">
       <Container className="relative grid items-center gap-12 py-14 sm:py-20 lg:py-28 lg:grid-cols-2">
-        <Reveal>
-          <span className="eyebrow text-honey">הליבה שלנו</span>
+        <Reveal from="start">
+          <span className="eyebrow text-honey">
+            <Illustration name="truck" size={17} strokeWidth={2.4} />
+            הליבה שלנו
+          </span>
           <h2 className="mt-3 text-h2 font-black text-cream">
             ספק ההסעדה
             <br />
@@ -48,16 +52,22 @@ export default function FactoriesSplit() {
           </div>
         </Reveal>
 
-        <Reveal delay={0.15}>
+        <Reveal delay={0.15} from="end">
           <div className="relative">
+            {/* רצועת הקשר הופכת צילום מנה לראיה תפעולית: אותה תמונה,
+                אבל עם שעה עליה היא עונה על השאלה שמנהל רכש באמת שואל. */}
             <Img
               src="/images/catering/factory-catering.jpg"
               fallback="/images/dishes/alegria-spread.jpg"
-              alt="הסעדה יומית למפעלים — אלגריה"
+              alt="הסעדה יומית למפעלים, קייטרינג אלגריה"
               ratio="4/5"
               className="shadow-warm-lg"
+              captionKicker="05:30"
+              caption="המטבח נדלק, והמשאיות יוצאות לפני שמונה"
             />
-            <div className="absolute bottom-5 rounded-2xl bg-honey px-5 py-4 text-charcoal-900 shadow-ribbon inset-inline-start-[-1rem]" style={{ insetInlineStart: '-1rem' }}>
+            {/* הבאדג' עלה למעלה — למטה יושבת עכשיו רצועת הקשר, ושניהם
+                באותה פינה היו מכסים זה את זה */}
+            <div className="absolute top-6 rounded-2xl bg-honey px-5 py-4 text-charcoal-900 shadow-ribbon" style={{ insetInlineStart: '-1rem' }}>
               <div className="text-stat font-black">עשרות</div>
               <div className="text-meta font-bold">מפעלים קבועים</div>
             </div>

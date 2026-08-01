@@ -3,12 +3,18 @@ import Container from '../ui/Container.jsx'
 import SectionTitle from '../ui/SectionTitle.jsx'
 import Reveal from '../ui/Reveal.jsx'
 import Img from '../ui/Img.jsx'
+import CountUp from '../ui/CountUp.jsx'
 import { operationsHeadline, operationsLead, operationsItems } from '../../data/operations.js'
 
 // הפנים הטבלאית היא לטיני/ספרות בלבד — לערך בעברית ("רבנות") אין בה
 // גליפים והדפדפן נופל לגופן מערכת שנראה זר. לכן: מונו למספרים, מותג לטקסט.
 const isNumeric = (v) => /^[\d.,:%+\-\s]+$/.test(String(v))
 const valueFont = (v) => (isNumeric(v) ? 'stat-num' : 'font-black')
+
+// מספר שיודע לספור. countTo בדאטה מסמן מה ראוי לספירה:
+// 3,000 ו-25 נבנים לאורך זמן, 05:30 הוא שעה ולכן נשאר קבוע.
+const Value = ({ item }) =>
+  item.countTo ? <CountUp to={item.countTo} suffix={item.countSuffix || ''} /> : item.value
 
 // ============================================================
 //  ראיות תפעוליות — גריד bento א-סימטרי.
@@ -22,6 +28,8 @@ export default function OperationsProof() {
       <Container>
         <SectionTitle
           eyebrow={operationsHeadline.eyebrow}
+          art="clock"
+          rule
           title={operationsHeadline.title}
           subtitle={operationsHeadline.subtitle}
         />
@@ -31,7 +39,7 @@ export default function OperationsProof() {
           <Reveal className="sm:col-span-2">
             <article className="flex h-full flex-col justify-between gap-6 bg-cream-50 p-7 sm:p-9">
               <div className="flex items-baseline gap-3">
-                <span className={`text-display text-charcoal ${valueFont(operationsLead.value)}`}>{operationsLead.value}</span>
+                <span className={`text-display text-charcoal ${valueFont(operationsLead.value)}`}><Value item={operationsLead} /></span>
                 <span className="text-meta font-bold text-charcoal-muted">{operationsLead.unit}</span>
               </div>
               <div>
@@ -48,7 +56,7 @@ export default function OperationsProof() {
                   <Img src={item.image} alt="" ratio="16/10" rounded="rounded-xl" className="mb-1" />
                 )}
                 <div className="flex items-baseline gap-2.5">
-                  <span className={`text-stat text-charcoal ${valueFont(item.value)}`}>{item.value}</span>
+                  <span className={`text-stat text-charcoal ${valueFont(item.value)}`}><Value item={item} /></span>
                   <span className="text-meta font-bold text-charcoal-muted">{item.unit}</span>
                 </div>
                 <div>
