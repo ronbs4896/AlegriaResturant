@@ -5,7 +5,8 @@ export const metadata: Metadata = {
   title: 'חשבוניות · קייטרינג אלגריה',
   description: 'מערכת פנימית לאיסוף מסמכי הוצאה',
   robots: { index: false, follow: false },
-  manifest: '/manifest.webmanifest',
+  // metadata לא מקבל את basePath אוטומטית, לכן הנתיב מפורש.
+  manifest: `${process.env.BASE_PATH ?? ''}/manifest.webmanifest`,
 }
 
 export const viewport: Viewport = {

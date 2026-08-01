@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { withBase } from '@/lib/url'
 
 type Stage = 'email' | 'code'
 
@@ -24,7 +25,7 @@ export default function LoginPage() {
     setBusy(true)
     setError(null)
     try {
-      const res = await fetch('/api/auth/request', {
+      const res = await fetch(withBase('/api/auth/request'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
@@ -48,7 +49,7 @@ export default function LoginPage() {
     setBusy(true)
     setError(null)
     try {
-      const res = await fetch('/api/auth/verify', {
+      const res = await fetch(withBase('/api/auth/verify'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code }),

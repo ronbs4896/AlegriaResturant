@@ -2,7 +2,17 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
-  "rewrites": [{ "source": "/((?!api/)(?!.*\\.).*)", "destination": "/index.html" }],
+  "rewrites": [
+    {
+      "source": "/books",
+      "destination": "https://alegriabooks-ronbs4896s-projects.vercel.app/books"
+    },
+    {
+      "source": "/books/:path*",
+      "destination": "https://alegriabooks-ronbs4896s-projects.vercel.app/books/:path*"
+    },
+    { "source": "/((?!api/)(?!.*\\.).*)", "destination": "/index.html" }
+  ],
   "headers": [
     {
       "source": "/fonts/(.*)",
