@@ -33,6 +33,23 @@ export function objectPath(sha256: string, mime: string, when = new Date()): str
 
 const useBlob = () => Boolean(process.env.BLOB_READ_WRITE_TOKEN)
 
+/** נזרקת כשאין חנות Blob בייצור. נתפסת ומתורגמת לתשובת API. */
+export class StorageNotConfigured extends Error {
+  readonly code = 'storage_not_configured'
+  constructor() {
+    super('BLOB_READ_WRITE_TOKEN חסר. בייצור חייבים חנות Blob פרטית.')
+  }
+}
+
+/**
+ * הנפילה חזרה לדיסק המקומי היא מנגנון פיתוח בלבד. בייצור מערכת
+ * הקבצים של הפונקציה לקריאה בלבד, וגם אם לא הייתה — היא נמחקת
+ * בין הפעלות. עדיף להיכשל ברור מלכתוב קובץ שייעלם.
+ */
+function assertLocalAllowed(): void {
+  if (process.env.NODE_ENV === 'production') throw new StorageNotConfigured()
+}
+
 /** כותב פעם אחת. אם הנתיב כבר קיים, לא כותב שוב. */
 export async function putObject(
   bytes: Uint8Array,
@@ -54,6 +71,7 @@ export async function putObject(
     return stored
   }
 
+  assertLocalAllowed()
   const { writeFile, mkdir, access } = await import('node:fs/promises')
   const { join, dirname } = await import('node:path')
   const full = join(localRoot(), path)
@@ -86,6 +104,7 @@ export async function putBytes(
     })
     return
   }
+  assertLocalAllowed()
   const { writeFile, mkdir } = await import('node:fs/promises')
   const { join, dirname } = await import('node:path')
   const full = join(localRoot(), path)
@@ -102,6 +121,7 @@ export async function getObjectBytes(path: string): Promise<Uint8Array> {
     const buf = await new Response(result.stream).arrayBuffer()
     return new Uint8Array(buf)
   }
+  assertLocalAllowed()
   const { readFile } = await import('node:fs/promises')
   const { join } = await import('node:path')
   return new Uint8Array(await readFile(join(localRoot(), path)))

@@ -3,7 +3,7 @@ import { z } from 'zod'
 import { eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { handler, requireUser } from '@/lib/session'
-import { putObject } from '@/lib/storage'
+import { putObject, StorageNotConfigured } from '@/lib/storage'
 import { isAcceptedMime, MIN_ATTACHMENT_BYTES, DOC_TYPES, EXPENSE_CATEGORIES } from '@/lib/constants'
 import { processDocument } from '@/lib/pipeline'
 import { validateDocument, classifyExpense, hasBlockingFlag } from '@/lib/validate'
@@ -39,7 +39,17 @@ export const POST = handler(async (req) => {
   }
 
   const bytes = new Uint8Array(await file.arrayBuffer())
-  const stored = await putObject(bytes, mime)
+
+  let stored
+  try {
+    stored = await putObject(bytes, mime)
+  } catch (err) {
+    if (err instanceof StorageNotConfigured) {
+      console.error('[documents]', err.message)
+      return Response.json({ error: err.code }, { status: 503 })
+    }
+    throw err
+  }
 
   const db = await getDb()
 
