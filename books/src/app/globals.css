@@ -75,6 +75,18 @@ body {
   unicode-bidi: isolate;
 }
 
+/* ============================================================
+   תנועה: קצרה, ומשרתת הבנה — לא קישוט.
+   כניסת תוכן רכה מונעת את הקפיצה שמרגישה כמו טעינה מחדש.
+   ============================================================ */
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+main > * {
+  animation: rise 220ms ease-out both;
+}
+
 /* פוקוס נראה תמיד. מערכת שמפעילים במקלדת חייבת את זה. */
 :where(a, button, input, select, textarea, [tabindex]):focus-visible {
   outline: 2px solid var(--color-action);

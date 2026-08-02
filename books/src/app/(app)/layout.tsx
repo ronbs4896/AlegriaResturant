@@ -1,9 +1,11 @@
+import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { eq, sql } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
 import Sidebar, { type NavItem } from '@/components/nav/Sidebar'
 import BottomTabs from '@/components/nav/BottomTabs'
+import Brand from '@/components/nav/Brand'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await currentUser()
@@ -29,6 +31,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           { href: '/suppliers', label: 'ספקים' },
           { href: '/customers', label: 'לקוחות' },
           { href: '/reports', label: 'דוחות וייצוא' },
+          { href: '/users', label: 'משתמשים' },
           { href: '/settings', label: 'הגדרות' },
         ]
       : []),
@@ -36,15 +39,22 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[232px_minmax(0,1fr)]">
-      <Sidebar items={items} email={user.email} />
+      <Sidebar items={items} email={user.email} role={user.role} />
 
       <div className="flex min-h-dvh flex-col">
-        {/* מובייל: סרגל עליון דק לזהות בלבד; הניווט למטה */}
+        {/* מובייל: סרגל עליון עם הלוגו והפרופיל; הניווט למטה */}
         <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur lg:hidden">
-          <div className="flex items-center justify-between px-4 py-3">
-            <span className="font-bold">
-              אלגריה <span className="text-xs font-semibold text-muted">· הנהלת חשבונות</span>
-            </span>
+          <div className="flex items-center justify-between gap-3 px-4 py-2.5">
+            <Link href="/dashboard">
+              <Brand size="sm" />
+            </Link>
+            <Link
+              href="/profile"
+              aria-label="הפרופיל שלי"
+              className="num flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-steel-soft text-xs font-bold text-steel"
+            >
+              {user.email.slice(0, 2).toUpperCase()}
+            </Link>
           </div>
         </header>
 
