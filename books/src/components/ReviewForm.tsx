@@ -37,6 +37,7 @@ export default function ReviewForm({
   const [f, setF] = useState<Fields>(initial)
   const [flags, setFlags] = useState(initialFlags)
   const [busy, setBusy] = useState(false)
+  const [reBusy, setReBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
   const set = (k: keyof Fields, v: string) =>
@@ -75,6 +76,29 @@ export default function ReviewForm({
       setError('אין חיבור לשרת.')
     } finally {
       setBusy(false)
+    }
+  }
+
+  // מריץ את המסמך שוב דרך החילוץ. שימושי אחרי תקלה שנפתרה
+  // (מפתח, אחסון) או כשהקריאה הראשונה יצאה חלקית.
+  async function reExtract() {
+    setReBusy(true)
+    setError(null)
+    try {
+      const res = await fetch(withBase('/api/extract'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      })
+      if (!res.ok) {
+        setError('הרצת החילוץ נכשלה. נסו שוב.')
+        return
+      }
+      // הערכים החדשים מגיעים מהשרת — טעינה מחדש במקום סנכרון ידני.
+      window.location.reload()
+    } catch {
+      setError('אין חיבור לשרת.')
+      setReBusy(false)
     }
   }
 
@@ -167,6 +191,14 @@ export default function ReviewForm({
           דחייה
         </button>
       </div>
+
+      <button
+        onClick={reExtract}
+        disabled={busy || reBusy}
+        className="mt-3 w-full rounded-xl border border-line bg-surface px-4 py-2.5 text-sm font-semibold text-muted disabled:opacity-45"
+      >
+        {reBusy ? 'מריץ חילוץ…' : 'הרצת חילוץ מחדש'}
+      </button>
     </div>
   )
 }

@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { desc, eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
+import RetryFailedButton from '@/components/RetryFailedButton'
 
 export const metadata = { title: 'תור בדיקה' }
 export const dynamic = 'force-dynamic'
@@ -18,12 +19,18 @@ export default async function ReviewQueue() {
     .orderBy(desc(schema.documents.createdAt))
     .limit(200)
 
+  const failedCount = rows.filter((r) =>
+    r.validationFlags.some((f) => f.code === 'extraction_failed'),
+  ).length
+
   return (
     <div>
       <h1 className="text-xl font-bold">תור בדיקה</h1>
       <p className="mt-1 mb-6 text-sm text-muted">
         מסמכים שהמערכת לא הכריעה לבדה. אף אחד מהם לא ייכנס לייצוא לפני שאישרתם.
       </p>
+
+      {failedCount > 0 && <RetryFailedButton count={failedCount} />}
 
       {rows.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-line bg-surface px-6 py-14 text-center">

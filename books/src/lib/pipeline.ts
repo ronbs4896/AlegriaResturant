@@ -102,9 +102,9 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
     extraction = await extractDocument(bytes, doc.mime)
   } catch (err) {
     // כישלון חילוץ לא מאבד את המסמך — הוא נוחת בתור בדיקה עם
-    // הסיבה כתובה, וניתן למלא ידנית.
-    const message =
-      err instanceof ExtractionError ? err.message : 'החילוץ נכשל'
+    // הסיבה כתובה, וניתן למלא ידנית או להריץ שוב.
+    console.error('[pipeline] חילוץ נכשל', doc.id, err)
+    const message = failureMessage(err)
     const flags: ValidationFlag[] = [
       { code: 'extraction_failed', level: 'error', message },
     ]
@@ -151,6 +151,17 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
     .where(eq(schema.documents.id, doc.id))
 
   return outcome
+}
+
+/**
+ * הסיבה האמיתית לכישלון נשמרת ומוצגת, לא נבלעת. "החילוץ נכשל"
+ * בלי פירוט הופך כל תקלה — מפתח, אחסון, רשת — לאותו מסך.
+ */
+export function failureMessage(err: unknown): string {
+  if (err instanceof ExtractionError) return err.message
+  const detail =
+    err instanceof Error ? err.message.replace(/\s+/g, ' ').slice(0, 160) : String(err)
+  return `החילוץ נכשל (${detail})`
 }
 
 /** ברירת המחדל של הספק גוברת — היא נקבעה בידי אדם. */
