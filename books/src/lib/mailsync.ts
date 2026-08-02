@@ -109,8 +109,10 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
 
     // סריקה ראשונה של תיבה ותיקה יכולה להיות אלפי הודעות.
     // מגבילים למנה אחת בכל הרצה, וה-cron מתקדם בהדרגה.
+    // since גודר את חלון הזמן: תיבה אישית מחזיקה שנים של קבצים
+    // שאין להם שום קשר להוצאות, ואין סיבה לגעת בהם.
     const messages = client.fetch(
-      { uid: `${since}:*` },
+      { uid: `${since}:*`, since: box.since },
       { uid: true, envelope: true, bodyStructure: true },
       { uid: true },
     )
@@ -121,11 +123,13 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
       result.scanned++
 
       const from = extractAddress(msg.envelope?.from?.[0]?.address ?? '')
-      if (isBlockedSender(from)) {
+      // "כל הדואר" כולל גם דואר יוצא. מה שהתיבה עצמה שלחה הוא
+      // לעולם לא הוצאה נכנסת.
+      if (from === box.user.toLowerCase() || isBlockedSender(from)) {
         result.skipped++
         continue
       }
-      if (!hasUsefulAttachment(msg.bodyStructure)) {
+      if (!hasUsefulAttachment(msg.bodyStructure, box.images)) {
         result.skipped++
         continue
       }
@@ -147,7 +151,7 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
           result.skipped++
           continue
         }
-        if (!isAcceptedMime(mime) || bytes.byteLength < MIN_ATTACHMENT_BYTES) {
+        if (!mimeAllowed(mime, box.images) || bytes.byteLength < MIN_ATTACHMENT_BYTES) {
           result.skipped++
           continue
         }
@@ -200,10 +204,21 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
 }
 
 /**
+ * ממייל מושכים PDF בלבד, אלא אם התיבה הוגדרה אחרת במפורש:
+ * חשבונית שנשלחת במייל היא כמעט תמיד PDF, ותמונה בתיבה אישית
+ * היא כמעט תמיד תמונה פרטית. צילומי קבלות עולים מהטלפון.
+ */
+export function mimeAllowed(mime: string, images: boolean): boolean {
+  if (!isAcceptedMime(mime)) return false
+  if (images) return true
+  return mime === 'application/pdf'
+}
+
+/**
  * בדיקה זולה על מבנה ההודעה, לפני שמורידים אותה. הודעה בלי
  * קובץ מצורף מתאים כלל לא נמשכת מהשרת.
  */
-function hasUsefulAttachment(node: unknown): boolean {
+export function hasUsefulAttachment(node: unknown, images: boolean): boolean {
   if (!node || typeof node !== 'object') return false
   const part = node as {
     type?: string
@@ -214,13 +229,13 @@ function hasUsefulAttachment(node: unknown): boolean {
   }
 
   const type = (part.type ?? '').toLowerCase()
-  if (isAcceptedMime(type)) {
+  if (mimeAllowed(type, images)) {
     const inlineLogo = part.disposition === 'inline' && Boolean(part.id)
     const bigEnough = (part.size ?? 0) >= MIN_ATTACHMENT_BYTES
     if (!inlineLogo && bigEnough) return true
   }
 
-  return (part.childNodes ?? []).some(hasUsefulAttachment)
+  return (part.childNodes ?? []).some((child) => hasUsefulAttachment(child, images))
 }
 
 async function saveCursor(key: string, cursor: MailboxCursor): Promise<void> {
