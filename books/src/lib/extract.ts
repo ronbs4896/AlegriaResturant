@@ -1,6 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { z } from 'zod'
-import { DOC_TYPES, EXPENSE_CATEGORIES } from './constants'
+import { DOC_KINDS, EXPENSE_CATEGORIES, isDocKind } from './constants'
 
 // ============================================================
 //  חילוץ שדות ממסמך.
@@ -16,15 +16,33 @@ import { DOC_TYPES, EXPENSE_CATEGORIES } from './constants'
 
 const MODEL = 'claude-opus-5'
 
-const DOC_TYPE_KEYS = Object.keys(DOC_TYPES)
+const DOC_KIND_KEYS = Object.keys(DOC_KINDS)
 const CATEGORY_KEYS = Object.keys(EXPENSE_CATEGORIES)
+
+/** השדות שמקבלים ודאות נפרדת — אלה שטעות בהם עולה כסף. */
+const CONFIDENCE_FIELDS = [
+  'document_kind',
+  'supplier_name',
+  'supplier_tax_id',
+  'recipient_name',
+  'recipient_tax_id',
+  'doc_number',
+  'doc_date',
+  'total_amount',
+] as const
 
 /** נכתב ידנית ולא נגזר מ-zod, כדי לא להיתלות בתאימות helper לגרסה. */
 const OUTPUT_SCHEMA = {
   type: 'object',
   additionalProperties: false,
   required: [
-    'doc_type',
+    'is_financial_document',
+    'document_kind',
+    'kind_reason',
+    'document_language',
+    'looks_like_multiple_documents',
+    'image_quality_ok',
+    'field_confidence',
     'supplier_name',
     'supplier_tax_id',
     'recipient_name',
@@ -42,9 +60,24 @@ const OUTPUT_SCHEMA = {
     'notes',
   ],
   properties: {
+    // ── קודם כל: מה זה בכלל ────────────────────────────────
+    is_financial_document: { type: 'boolean' },
     // ל-enum עם null יש שתי צורות כתיבה; anyOf היא החד-משמעית מול
     // הוולידטור של structured outputs, אז רק בה משתמשים.
-    doc_type: { anyOf: [{ type: 'string', enum: DOC_TYPE_KEYS }, { type: 'null' }] },
+    document_kind: { anyOf: [{ type: 'string', enum: DOC_KIND_KEYS }, { type: 'null' }] },
+    kind_reason: { type: 'string' },
+    document_language: { type: ['string', 'null'] },
+    looks_like_multiple_documents: { type: 'boolean' },
+    image_quality_ok: { type: 'boolean' },
+    field_confidence: {
+      type: 'object',
+      additionalProperties: false,
+      required: [...CONFIDENCE_FIELDS],
+      properties: Object.fromEntries(
+        CONFIDENCE_FIELDS.map((f) => [f, { type: 'number', minimum: 0, maximum: 1 }]),
+      ),
+    },
+    // ── ואז: מה כתוב בו ────────────────────────────────────
     supplier_name: { type: ['string', 'null'] },
     supplier_tax_id: { type: ['string', 'null'] },
     recipient_name: { type: ['string', 'null'] },
@@ -64,7 +97,13 @@ const OUTPUT_SCHEMA = {
 } as const
 
 const Extracted = z.object({
-  doc_type: z.string().nullable(),
+  is_financial_document: z.boolean(),
+  document_kind: z.string().nullable(),
+  kind_reason: z.string(),
+  document_language: z.string().nullable(),
+  looks_like_multiple_documents: z.boolean(),
+  image_quality_ok: z.boolean(),
+  field_confidence: z.record(z.string(), z.number()),
   supplier_name: z.string().nullable(),
   supplier_tax_id: z.string().nullable(),
   recipient_name: z.string().nullable(),
@@ -84,20 +123,47 @@ const Extracted = z.object({
 
 export type ExtractedFields = z.infer<typeof Extracted>
 
-const SYSTEM = `אתה מחלץ שדות ממסמכי הנהלת חשבונות ישראליים: חשבוניות מס, קבלות, חשבוניות עסקה ותעודות משלוח.
-המסמך יכול להיות הוצאה של העסק (ספק הנפיק לו) או הכנסה שלו (העסק הנפיק ללקוח). אל תניח צד — חלץ מנפיק ונמען בדיוק כפי שהם מופיעים.
+const SYSTEM = `אתה בודק מסמכים עבור מערכת הנהלת חשבונות של עסק ישראלי.
+העבודה שלך היא בשני שלבים, ובסדר הזה.
 
-כללים:
-- החזר בדיוק את מה שכתוב במסמך. אל תחשב, אל תשלים ואל תנחש.
-- שדה שאינו מופיע במסמך, או שאינך קורא בוודאות — החזר null. null עדיף על ניחוש.
-- תאריכים בפורמט YYYY-MM-DD. מסמך ישראלי כותב לרוב DD/MM/YYYY.
-- סכומים כמספרים, בלי סימן מטבע ובלי מפרידי אלפים.
+## שלב 1 — מה המסמך הזה?
+זו המשימה החשובה. רוב הקבצים שמגיעים אליך אינם חשבוניות: הם חוזים, הצעות מחיר, תעודות משלוח, דוחות, חומר שיווקי או צילומי מסך. סיווג שגוי שלהם כחשבונית מכניס נתונים שקריים לספרי העסק.
+
+is_financial_document = true רק כאשר מדובר במסמך שמתעד תשלום או חיוב בפועל: חשבונית מס, חשבונית מס-קבלה, קבלה, חשבונית זיכוי, חשבונית מחו"ל, חשבון עסקה או דרישת תשלום.
+
+is_financial_document = false לכל השאר. במיוחד שים לב להבחנות האלה:
+- **הצעת מחיר** (quote) — כתוב "הצעת מחיר", "הצעה", "Quotation", "Estimate", לרוב עם תוקף להצעה או "בכפוף לאישור". אינה חשבונית גם כשיש בה סכומים ומע"מ.
+- **הזמנת רכש / אישור הזמנה** (purchase_order / order_confirmation) — "הזמנה", "Order", "PO". מתעדת כוונה, לא חיוב.
+- **תעודת משלוח** (delivery_note) — "תעודת משלוח", "משלוח", "Delivery Note". מתעדת סחורה שנמסרה, לרוב בלי סכומים או בלי מע"מ.
+- **חוזה, הסכם, דוח, קטלוג, תפריט, מצגת, חומר שיווקי, כרטיס טיסה, דף חשבון בנק, צילום מסך** — לא מסמכים פיננסיים.
+- **לוגו או חתימת מייל** (signature_or_logo) — תמונה קטנה עם סמל בלבד, בלי תוכן מסמך.
+- אם אינך מצליח לקרוא את המסמך או שאינו מתאים לאף קטגוריה — document_kind = "unknown".
+
+ההבחנה בין חשבונית מס לבין חשבון עסקה קריטית: "חשבון עסקה" או "חשבונית עסקה" (proforma) אינה מסמך מס ואינה מזכה בניכוי. אל תסווג אותה כחשבונית מס גם אם היא נראית זהה.
+
+kind_reason: משפט קצר אחד בעברית שמסביר על סמך מה הכרעת. ייקרא בידי אדם כשהמסמך נדחה, אז כתוב מה ראית: "כתוב בראש המסמך 'הצעת מחיר' ויש תוקף להצעה".
+
+## שלב 2 — חילוץ השדות
+רק אם המסמך פיננסי. במסמך שאינו פיננסי החזר null בכל שדות התוכן.
+
+- החזר בדיוק את מה שכתוב. אל תחשב, אל תשלים ואל תנחש.
+- שדה שאינו מופיע, או שאינך קורא בוודאות — null. **null עדיף על ניחוש.** מספר מומצא גרוע פי כמה משדה ריק.
+- תאריכים YYYY-MM-DD. מסמך ישראלי כותב לרוב DD/MM/YYYY.
+- סכומים כמספרים, בלי מטבע ובלי מפרידי אלפים.
 - ח.פ. / ע.מ. — ספרות בלבד.
-- "מספר הקצאה" הוא מספר בן 9 ספרות ממודל חשבוניות ישראל, ומופיע בנפרד ממספר המסמך. אל תבלבל ביניהם.
-- שים לב מי המנפיק ומי הנמען. במסמך ישראלי המנפיק הוא בדרך כלל בראש, והנמען מופיע ליד "לכבוד".
-- expense_category ממולא רק כשהמסמך נראה כהוצאה של מסעדה/קייטרינג. בחשבונית שהעסק הנפיק ללקוח — null.
-- confidence הוא מספר בין 0 ל-1: כמה אתה בטוח בקריאה הכוללת. צילום מטושטש או חתוך מקבל ערך נמוך.
-- notes: משפט קצר בעברית רק אם יש משהו חריג שאדם צריך לדעת.`
+- "מספר הקצאה" הוא בן 9 ספרות ממודל חשבוניות ישראל, ונפרד ממספר המסמך. אל תבלבל.
+- המנפיק בדרך כלל בראש המסמך; הנמען ליד "לכבוד" או "Bill To". אל תניח מי מהם העסק — חלץ את שניהם כפי שהם.
+- בחשבונית זיכוי החזר את הסכומים כפי שמופיעים במסמך, בלי להפוך סימן.
+- expense_category רק כשזו הוצאה של עסק הסעדה. אחרת null.
+
+## ודאות
+field_confidence: מספר בין 0 ל-1 לכל שדה — כמה אתה בטוח **באותו שדה**. שדה שקראת מטקסט ברור מקבל ערך גבוה; שדה שנחתך, מטושטש או שהסקת אותו מהקשר מקבל ערך נמוך. אל תיתן ערך גבוה לשדה שלא ראית.
+confidence: הערכה כוללת לקריאת המסמך.
+
+image_quality_ok = false כשהצילום מטושטש, חתוך, כהה או מסונוור עד שאי אפשר לקרוא ממנו בביטחון. במקרה כזה עדיף לבקש צילום מחדש מאשר להחזיר מספרים מנוחשים.
+looks_like_multiple_documents = true כשבקובץ יש יותר ממסמך אחד (למשל שתי חשבוניות שונות, או חשבונית וקבלה נפרדת).
+document_language: קוד שפה עיקרי, למשל "he" או "en".
+notes: משפט קצר בעברית רק אם יש משהו חריג שאדם צריך לדעת.`
 
 export class ExtractionError extends Error {
   constructor(readonly code: string, message: string) {
@@ -254,6 +320,15 @@ function normalize(f: ExtractedFields): ExtractedFields {
     // תאריך שאינו ISO תקין נזרק ומטופל כחסר, במקום להישמר שבור.
     doc_date: f.doc_date && /^\d{4}-\d{2}-\d{2}$/.test(f.doc_date) ? f.doc_date : null,
     currency: trim(f.currency)?.toUpperCase() ?? null,
-    confidence: Math.min(1, Math.max(0, f.confidence)),
+    confidence: clamp(f.confidence),
+    // סוג לא מוכר נחשב "לא זוהה" ולא ערך חופשי שיזלוג הלאה.
+    document_kind: isDocKind(f.document_kind) ? f.document_kind : 'unknown',
+    kind_reason: trim(f.kind_reason) ?? '',
+    document_language: trim(f.document_language),
+    field_confidence: Object.fromEntries(
+      Object.entries(f.field_confidence ?? {}).map(([k, v]) => [k, clamp(Number(v))]),
+    ),
   }
 }
+
+const clamp = (n: number) => (Number.isFinite(n) ? Math.min(1, Math.max(0, n)) : 0)
