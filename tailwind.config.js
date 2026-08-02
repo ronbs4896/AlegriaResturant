@@ -45,9 +45,11 @@ export default {
         danger: { DEFAULT: '#A32B1C', soft: '#F8ECEA' },
       },
       fontFamily: {
-        sans: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
-        display: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
-        // פנים למספרים ומטא־דאטה — ספרות טבלאיות, חתימה עריכתית
+        // Rubik תופס עברית וספרות (unicode-range ב-index.css);
+        // אנגלית נופלת ל-Birzia שאחריו.
+        sans: ['Rubik', 'Birzia', 'system-ui', 'sans-serif'],
+        display: ['Rubik', 'Birzia', 'system-ui', 'sans-serif'],
+        // נשמר לתאימות; .stat-num כבר לא משתמש בו
         num: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },
       // ============================================================

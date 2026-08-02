@@ -3,7 +3,36 @@
 @tailwind utilities;
 
 /* ============================================================
-   Birzia — פונט המותג (עצמי-מארח, font-display: swap)
+   Rubik — הפונט לעברית ולספרות (עצמי-מארח, וריאבילי 300-900).
+
+   unicode-range מגביל אותו לעברית, לספרות ול-₪ בלבד: תו לטיני
+   אינו בטווח ולכן נופל אוטומטית ל-Birzia שאחריו במחסנית.
+   כך עברית ומספרים מקבלים את הפונט החדש, ואנגלית נשארת כפי שהיא —
+   בלי קלאסים ובלי שינוי ב-DOM.
+
+   שני קבצים כי Google מחלקת את Rubik לתת-קבוצות: העברית בקובץ
+   אחד, הספרות יושבות בקובץ הלטיני. ה-unicode-range על הקובץ
+   הלטיני מצומצם לספרות בלבד — האותיות הלטיניות שבו לא בשימוש.
+   ============================================================ */
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/Rubik-Variable-hebrew.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0590-05FF, U+FB1D-FB4F, U+20AA;
+}
+@font-face {
+  font-family: 'Rubik';
+  src: url('/fonts/Rubik-Variable-latin.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039, U+0025, U+002B; /* ספרות, %, + */
+}
+
+/* ============================================================
+   Birzia — נשאר לאנגלית ולכל מה שמחוץ לטווח של Rubik
    ============================================================ */
 @font-face {
   font-family: 'Birzia';
@@ -148,10 +177,13 @@
     width: 100%;
   }
 
-  /* מספר סטטיסטי — ספרות טבלאיות, חתימה עריכתית */
+  /* מספר סטטיסטי — ספרות טבלאיות בפונט המותג, לא במונוספייס:
+     הספרות נלקחות מ-Rubik דרך ה-unicode-range, כמו בכל האתר.
+     ה-isolate מונע היפוך של מחרוזות כמו "25+" בתוך משפט עברי. */
   .stat-num {
-    @apply font-num font-bold tracking-tight;
+    @apply font-sans font-bold tracking-tight;
     font-variant-numeric: tabular-nums;
+    unicode-bidi: isolate;
   }
 
   /* קו שיער — מפריד מובנה שמחליף צללים רכים (כיוון 2026) */
