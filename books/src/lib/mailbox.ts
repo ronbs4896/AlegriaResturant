@@ -21,7 +21,17 @@ export interface MailboxConfig {
    * התיקייה שהשרת מסמן כ-\All, ונופלים ל-INBOX אם אין כזו.
    */
   folder: string | null
+  /** לא מושכים הודעות ישנות מזה. ברירת מחדל: שנה אחורה. */
+  since: Date
+  /**
+   * האם למשוך גם תמונות. ברירת מחדל לא: חשבונית שמגיעה במייל
+   * היא כמעט תמיד PDF, ותמונה בתיבה אישית היא כמעט תמיד תמונה
+   * פרטית. צילומי קבלות נייר עולים מהטלפון, לא מהמייל.
+   */
+  images: boolean
 }
+
+const DEFAULT_LOOKBACK_DAYS = 365
 
 /** שרתי IMAP של הספקים הנפוצים בישראל, כדי לחסוך שדה. */
 const HOST_BY_DOMAIN: Record<string, string> = {
@@ -55,7 +65,10 @@ export function pickAllMailFolder(
   return all?.path ?? 'INBOX'
 }
 
-export function readMailboxes(env: NodeJS.ProcessEnv = process.env): MailboxConfig[] {
+export function readMailboxes(
+  env: NodeJS.ProcessEnv = process.env,
+  now: Date = new Date(),
+): MailboxConfig[] {
   const boxes: MailboxConfig[] = []
 
   for (let i = 1; i <= 10; i++) {
@@ -75,10 +88,21 @@ export function readMailboxes(env: NodeJS.ProcessEnv = process.env): MailboxConf
       host,
       port: Number(env[`MAILBOX_${i}_PORT`] ?? 993),
       folder: env[`MAILBOX_${i}_FOLDER`]?.trim() || null,
+      since: parseSince(env[`MAILBOX_${i}_SINCE`], now),
+      images: env[`MAILBOX_${i}_IMAGES`] === 'true',
     })
   }
 
   return boxes
+}
+
+/** תאריך תחילת הסריקה. ערך לא תקין נופל לברירת המחדל, לא לאפס. */
+function parseSince(raw: string | undefined, now: Date): Date {
+  if (raw && /^\d{4}-\d{2}-\d{2}$/.test(raw.trim())) {
+    const d = new Date(raw.trim() + 'T00:00:00Z')
+    if (!Number.isNaN(d.getTime())) return d
+  }
+  return new Date(now.getTime() - DEFAULT_LOOKBACK_DAYS * 86_400_000)
 }
 
 /** מפתח נקודת החידוש ב-ingest_state, לכל תיבה ותיקייה בנפרד. */

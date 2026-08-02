@@ -38,9 +38,9 @@ describe('הכרעת הצינור', () => {
     assert.equal(r.flags.filter((f) => f.level === 'error').length, 0)
   })
 
-  test('חשבונית שאנחנו הנפקנו יוצאת מהתיק', () => {
-    const r = run({ supplier_tax_id: ALEGRIA, recipient_tax_id: SUPPLIER })
-    assert.equal(r.status, 'not_expense')
+  test('חשבונית ספק מסומנת כהוצאה', () => {
+    const r = run({})
+    assert.equal(r.direction, 'expense')
   })
 
   test('חשבונית מעל 5,000 בלי מספר הקצאה — לבדיקה, לא לאישור', () => {
@@ -82,6 +82,7 @@ describe('הכרעת הצינור', () => {
   test('ח.פ. של אלגריה לא זוהה באף צד — לא מכריעים לבד', () => {
     const r = run({ recipient_tax_id: '520013954' })
     assert.equal(r.status, 'review')
+    assert.equal(r.direction, null)
   })
 
   test('חסר ח.פ. נמען — לבדיקה ולא אישור', () => {
@@ -130,5 +131,48 @@ describe('הכרעת הצינור', () => {
     const r = run({ doc_type: 'receipt' })
     assert.equal(r.status, 'approved')
     assert.ok(r.flags.some((f) => f.code === 'doc_type_not_deductible'))
+  })
+})
+
+// חשבוניות שהעסק הנפיק: נרשמות כהכנסה באותו מסלול, לא נזרקות.
+const income = (over: Partial<ExtractedFields>) =>
+  run({
+    supplier_name: 'קייטרינג אלגריה',
+    supplier_tax_id: ALEGRIA,
+    recipient_name: 'מפעל הצפון בע״מ',
+    recipient_tax_id: SUPPLIER,
+    expense_category: null,
+    ...over,
+  })
+
+describe('הכרעת הצינור — צד ההכנסות', () => {
+  test('חשבונית שהנפקנו ללקוח עסקי — מאושרת כהכנסה', () => {
+    const r = income({})
+    assert.equal(r.status, 'approved')
+    assert.equal(r.direction, 'income')
+  })
+
+  test('הכנסה מעל הסף בלי מספר הקצאה — מאושרת עם אזהרה', () => {
+    const r = income({ net_amount: 6000, vat_amount: 1080, total_amount: 7080 })
+    assert.equal(r.status, 'approved')
+    assert.ok(r.flags.some((f) => f.code === 'missing_allocation_number_income'))
+  })
+
+  test('קבלה ללקוח פרטי בלי ח.פ. — הכנסה מאושרת: המנפיק לבדו מכריע', () => {
+    const r = income({ doc_type: 'receipt', recipient_tax_id: null, recipient_name: 'לקוח פרטי' })
+    assert.equal(r.status, 'approved')
+    assert.equal(r.direction, 'income')
+    assert.ok(r.flags.some((f) => f.code === 'missing_customer_taxid'))
+  })
+
+  test('סכומים שלא מסתדרים חוסמים גם הכנסה', () => {
+    const r = income({ total_amount: 9999 })
+    assert.equal(r.status, 'review')
+    assert.equal(r.direction, 'income')
+  })
+
+  test('ביטחון נמוך שולח הכנסה לבדיקה', () => {
+    const r = income({ confidence: 0.5 })
+    assert.equal(r.status, 'review')
   })
 })

@@ -42,7 +42,9 @@ const OUTPUT_SCHEMA = {
     'notes',
   ],
   properties: {
-    doc_type: { type: ['string', 'null'], enum: [...DOC_TYPE_KEYS, null] },
+    // ל-enum עם null יש שתי צורות כתיבה; anyOf היא החד-משמעית מול
+    // הוולידטור של structured outputs, אז רק בה משתמשים.
+    doc_type: { anyOf: [{ type: 'string', enum: DOC_TYPE_KEYS }, { type: 'null' }] },
     supplier_name: { type: ['string', 'null'] },
     supplier_tax_id: { type: ['string', 'null'] },
     recipient_name: { type: ['string', 'null'] },
@@ -55,7 +57,7 @@ const OUTPUT_SCHEMA = {
     currency: { type: ['string', 'null'] },
     allocation_number: { type: ['string', 'null'] },
     payment_method: { type: ['string', 'null'] },
-    expense_category: { type: ['string', 'null'], enum: [...CATEGORY_KEYS, null] },
+    expense_category: { anyOf: [{ type: 'string', enum: CATEGORY_KEYS }, { type: 'null' }] },
     confidence: { type: 'number' },
     notes: { type: ['string', 'null'] },
   },
@@ -83,6 +85,7 @@ const Extracted = z.object({
 export type ExtractedFields = z.infer<typeof Extracted>
 
 const SYSTEM = `אתה מחלץ שדות ממסמכי הנהלת חשבונות ישראליים: חשבוניות מס, קבלות, חשבוניות עסקה ותעודות משלוח.
+המסמך יכול להיות הוצאה של העסק (ספק הנפיק לו) או הכנסה שלו (העסק הנפיק ללקוח). אל תניח צד — חלץ מנפיק ונמען בדיוק כפי שהם מופיעים.
 
 כללים:
 - החזר בדיוק את מה שכתוב במסמך. אל תחשב, אל תשלים ואל תנחש.
@@ -92,6 +95,7 @@ const SYSTEM = `אתה מחלץ שדות ממסמכי הנהלת חשבונות 
 - ח.פ. / ע.מ. — ספרות בלבד.
 - "מספר הקצאה" הוא מספר בן 9 ספרות ממודל חשבוניות ישראל, ומופיע בנפרד ממספר המסמך. אל תבלבל ביניהם.
 - שים לב מי המנפיק ומי הנמען. במסמך ישראלי המנפיק הוא בדרך כלל בראש, והנמען מופיע ליד "לכבוד".
+- expense_category ממולא רק כשהמסמך נראה כהוצאה של מסעדה/קייטרינג. בחשבונית שהעסק הנפיק ללקוח — null.
 - confidence הוא מספר בין 0 ל-1: כמה אתה בטוח בקריאה הכוללת. צילום מטושטש או חתוך מקבל ערך נמוך.
 - notes: משפט קצר בעברית רק אם יש משהו חריג שאדם צריך לדעת.`
 
@@ -99,6 +103,38 @@ export class ExtractionError extends Error {
   constructor(readonly code: string, message: string) {
     super(message)
   }
+}
+
+/**
+ * שגיאת API הופכת להודעה שאדם יכול לפעול לפיה. בלי המיפוי הזה
+ * המסך מציג "החילוץ נכשל" וכל תקלה — מפתח שגוי, עומס, רשת —
+ * נראית אותו דבר.
+ */
+export function describeApiFailure(err: unknown): ExtractionError | null {
+  if (!(err instanceof Anthropic.APIError)) return null
+  const status = typeof err.status === 'number' ? err.status : null
+
+  if (status === 401 || status === 403) {
+    return new ExtractionError(
+      `api_${status}`,
+      `מפתח ה-API נדחה (${status}). בדקו את ANTHROPIC_API_KEY בהגדרות הפרויקט ב-Vercel`,
+    )
+  }
+  if (status === 429) {
+    return new ExtractionError('api_429', 'עומס זמני על שירות החילוץ (429). נסו שוב בעוד דקה')
+  }
+  if (status === 413) {
+    return new ExtractionError('api_413', 'הקובץ גדול מדי לחילוץ (413)')
+  }
+  if (status !== null && status >= 500) {
+    return new ExtractionError(`api_${status}`, `תקלה זמנית בשירות החילוץ (${status}). נסו שוב`)
+  }
+  if (status !== null) {
+    // 400 וכדומה: תחילת הודעת השרת נשמרת — היא אומרת מה בדיוק נדחה.
+    const detail = err.message.replace(/\s+/g, ' ').slice(0, 160)
+    return new ExtractionError(`api_${status}`, `הבקשה נדחתה (${status}): ${detail}`)
+  }
+  return new ExtractionError('api_network', 'אין חיבור לשירות החילוץ. תקלת רשת או timeout')
 }
 
 export interface ExtractionResult {
@@ -115,7 +151,9 @@ export async function extractDocument(
     throw new ExtractionError('no_api_key', 'ANTHROPIC_API_KEY חסר — אי אפשר לחלץ שדות')
   }
 
-  const client = new Anthropic()
+  // timeout קצר מ-maxDuration של ה-route (120), כדי שהכישלון יירשם
+  // במסד במקום שהפונקציה תמות בשקט. תקלות רשת ועומס נרפאות ב-retry.
+  const client = new Anthropic({ timeout: 90_000, maxRetries: 3 })
   const data = Buffer.from(bytes).toString('base64')
 
   const source =
@@ -133,25 +171,33 @@ export async function extractDocument(
           },
         })
 
-  const response = await client.messages.create({
-    model: MODEL,
-    // תקרה נדיבה: ב-Opus 5 החשיבה דלוקה כברירת מחדל ונספרת כאן.
-    max_tokens: 8000,
-    system: SYSTEM,
-    output_config: {
-      effort: 'low',
-      format: { type: 'json_schema', schema: OUTPUT_SCHEMA },
-    },
-    messages: [
-      {
-        role: 'user',
-        content: [source, { type: 'text', text: 'חלץ את שדות המסמך.' }],
+  let response: Anthropic.Message
+  try {
+    response = await client.messages.create({
+      model: MODEL,
+      // תקרה נדיבה: ב-Opus 5 החשיבה דלוקה כברירת מחדל ונספרת כאן.
+      max_tokens: 16_000,
+      system: SYSTEM,
+      output_config: {
+        effort: 'low',
+        format: { type: 'json_schema', schema: OUTPUT_SCHEMA },
       },
-    ],
-  })
+      messages: [
+        {
+          role: 'user',
+          content: [source, { type: 'text', text: 'חלץ את שדות המסמך.' }],
+        },
+      ],
+    })
+  } catch (err) {
+    throw describeApiFailure(err) ?? err
+  }
 
   if (response.stop_reason === 'refusal') {
     throw new ExtractionError('refused', 'הבקשה נדחתה על ידי המודל')
+  }
+  if (response.stop_reason === 'max_tokens') {
+    throw new ExtractionError('max_tokens', 'התשובה נקטעה באמצע. נסו שוב')
   }
 
   const text = response.content

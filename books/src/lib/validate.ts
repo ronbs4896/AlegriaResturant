@@ -62,11 +62,19 @@ export interface DocumentFacts {
   allocationNumber: string | null
 }
 
+export type Direction = 'expense' | 'income'
+
 export interface ValidationContext {
   /** ח.פ. של אלגריה — מכריע הוצאה מול הכנסה. */
   businessTaxId: string
   /** תאריך הבדיקה, להשוואת "תאריך בעתיד". ברירת מחדל: היום. */
   today?: string
+  /**
+   * צד הספר. קובע אילו בדיקות רלוונטיות: בהוצאה מספר הקצאה חסר
+   * חוסם (הניכוי שלנו בסכנה); בהכנסה זו בעיה של מערכת ההנפקה,
+   * ולכן רק אזהרה. ברירת מחדל: הוצאה — הצד השמרני.
+   */
+  direction?: Direction
 }
 
 const money = (n: number) => n.toFixed(2)
@@ -81,12 +89,13 @@ export function validateDocument(
 ): ValidationFlag[] {
   const flags: ValidationFlag[] = []
   const today = ctx.today ?? new Date().toISOString().slice(0, 10)
+  const direction = ctx.direction ?? 'expense'
 
   // ── שדות חובה ────────────────────────────────────────────
   if (!d.docDate) {
     flags.push({ code: 'missing_date', level: 'error', message: 'חסר תאריך מסמך' })
   }
-  if (!d.supplierTaxId) {
+  if (direction === 'expense' && !d.supplierTaxId) {
     flags.push({ code: 'missing_supplier_taxid', level: 'error', message: 'חסר ח.פ. של הספק' })
   }
   if (d.totalAmount == null) {
@@ -150,16 +159,27 @@ export function validateDocument(
   // ── מספר הקצאה: הבדיקה ששווה כסף ─────────────────────────
   // הסף חל על סכום ללא מע״מ. אם אין נטו, ניפול לברוטו — עדיף
   // להתריע מיותר מאשר לפספס חשבונית שלא תזכה בניכוי.
+  // בהוצאה זו שגיאה חוסמת: הניכוי שלנו על הכף. בהכנסה אנחנו
+  // המנפיקים — מספר חסר הוא תקלה במערכת ההנפקה וסיכון של הלקוח,
+  // ולכן מוצג ולא חוסם.
   if (d.docDate && d.docType && DOC_TYPES[d.docType].deductible) {
     const threshold = allocationThresholdOn(d.docDate)
     const base = d.netAmount ?? d.totalAmount
     if (threshold != null && base != null && base >= threshold) {
       if (!d.allocationNumber) {
-        flags.push({
-          code: 'missing_allocation_number',
-          level: 'error',
-          message: `חשבונית על ${money(base)} ₪ מעל סף ${threshold.toLocaleString('he-IL')} ₪ ללא מספר הקצאה — לא תזכה בניכוי מס תשומות`,
-        })
+        flags.push(
+          direction === 'expense'
+            ? {
+                code: 'missing_allocation_number',
+                level: 'error',
+                message: `חשבונית על ${money(base)} ₪ מעל סף ${threshold.toLocaleString('he-IL')} ₪ ללא מספר הקצאה — לא תזכה בניכוי מס תשומות`,
+              }
+            : {
+                code: 'missing_allocation_number_income',
+                level: 'warn',
+                message: `חשבונית שהנפקנו על ${money(base)} ₪ מעל הסף ללא מספר הקצאה — הלקוח לא יוכל לנכות. לבדוק במערכת ההנפקה`,
+              },
+        )
       } else if (!/^\d{9}$/.test(d.allocationNumber.replace(/\D/g, ''))) {
         flags.push({
           code: 'malformed_allocation_number',
@@ -170,22 +190,51 @@ export function validateDocument(
     }
   }
 
-  // ── החשבונית חייבת להיות על שם העסק (סעיף 38) ────────────
-  if (d.recipientTaxId && !sameTaxId(d.recipientTaxId, ctx.businessTaxId)) {
-    flags.push({
-      code: 'recipient_not_business',
-      level: 'warn',
-      message: 'המסמך אינו על שם העסק — ניכוי מס התשומות עלול להיפסל',
-    })
-  }
+  if (direction === 'expense') {
+    // ── החשבונית חייבת להיות על שם העסק (סעיף 38) ──────────
+    if (d.recipientTaxId && !sameTaxId(d.recipientTaxId, ctx.businessTaxId)) {
+      flags.push({
+        code: 'recipient_not_business',
+        level: 'warn',
+        message: 'המסמך אינו על שם העסק — ניכוי מס התשומות עלול להיפסל',
+      })
+    }
 
-  // ── סוג מסמך שאינו מזכה בניכוי ───────────────────────────
-  if (d.docType && !DOC_TYPES[d.docType].deductible) {
-    flags.push({
-      code: 'doc_type_not_deductible',
-      level: 'info',
-      message: `${DOC_TYPES[d.docType].he} אינה מזכה בניכוי מס תשומות בפני עצמה`,
-    })
+    // ── סוג מסמך שאינו מזכה בניכוי ─────────────────────────
+    if (d.docType && !DOC_TYPES[d.docType].deductible) {
+      flags.push({
+        code: 'doc_type_not_deductible',
+        level: 'info',
+        message: `${DOC_TYPES[d.docType].he} אינה מזכה בניכוי מס תשומות בפני עצמה`,
+      })
+    }
+  } else {
+    // ── הכנסה: המנפיק חייב להיות העסק ──────────────────────
+    if (d.supplierTaxId && !sameTaxId(d.supplierTaxId, ctx.businessTaxId)) {
+      flags.push({
+        code: 'issuer_not_business',
+        level: 'error',
+        message: 'המנפיק במסמך אינו העסק — זו אינה הכנסה שלנו',
+      })
+    }
+    if (!d.supplierTaxId) {
+      flags.push({ code: 'missing_issuer_taxid', level: 'warn', message: 'חסר ח.פ. המנפיק' })
+    }
+    // ח.פ. לקוח חסר אינו חוסם: קבלה ללקוח פרטי לגיטימית בלעדיו.
+    if (!d.recipientTaxId) {
+      flags.push({
+        code: 'missing_customer_taxid',
+        level: 'warn',
+        message: 'חסר ח.פ. הלקוח. תקין ללקוח פרטי',
+      })
+    }
+    if (d.docType === 'receipt') {
+      flags.push({
+        code: 'receipt_only_income',
+        level: 'info',
+        message: 'קבלה בלבד. תיעוד תשלום, לא חשבונית מס',
+      })
+    }
   }
 
   // ── מטבע ─────────────────────────────────────────────────
@@ -200,21 +249,21 @@ export function validateDocument(
   return flags
 }
 
-export type ExpenseVerdict = 'expense' | 'not_expense' | 'unclear'
+export type DirectionVerdict = Direction | 'unclear'
 
 /**
  * ההכרעה היחידה שלא ניתנת להטעיה: מי מופיע במסמך כמנפיק ומי כנמען.
- * שולח המייל לא נחשב כאן — הוא רק פילטר מקדים שחוסך קריאות API.
+ * שולח המייל לא נחשב כאן — רק ההשוואה לח.פ. של העסק.
  */
-export function classifyExpense(
+export function classifyDirection(
   d: Pick<DocumentFacts, 'supplierTaxId' | 'recipientTaxId'>,
   businessTaxId: string,
-): { verdict: ExpenseVerdict; reason: string } {
+): { verdict: DirectionVerdict; reason: string } {
   const issuerIsUs = sameTaxId(d.supplierTaxId, businessTaxId)
   const recipientIsUs = sameTaxId(d.recipientTaxId, businessTaxId)
 
   if (issuerIsUs && !recipientIsUs) {
-    return { verdict: 'not_expense', reason: 'אנחנו המנפיקים — זו הכנסה, לא הוצאה' }
+    return { verdict: 'income', reason: 'אנחנו המנפיקים — הכנסה' }
   }
   if (recipientIsUs && !issuerIsUs) {
     return { verdict: 'expense', reason: 'המסמך על שמנו וספק אחר הנפיק אותו' }

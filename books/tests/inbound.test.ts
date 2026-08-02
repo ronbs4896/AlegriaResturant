@@ -2,12 +2,7 @@ import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
 import { createHmac } from 'node:crypto'
 import { verifyWebhook } from '../src/lib/webhook'
-import {
-  extractAddress,
-  parseInbound,
-  isBlockedSender,
-  shouldFetch,
-} from '../src/lib/inbound'
+import { extractAddress, parseInbound, shouldFetch } from '../src/lib/inbound'
 
 // ── חתימה ─────────────────────────────────────────────────────
 
@@ -112,25 +107,10 @@ describe('פענוח המטען', () => {
 
 // ── סינון ─────────────────────────────────────────────────────
 
+// אין חסימת שולחים: חשבונית שמערכת ההנפקה שלחה היא הכנסה
+// שנקלטת, וההבחנה נעשית על המסמך עצמו לפי ח.פ.
+
 describe('סינון', () => {
-  const blocked = ['@alegriacatering.co.il', 'noreply@greeninvoice.co.il']
-
-  test('דומיין חסום — נדחה', () => {
-    assert.equal(isBlockedSender('ron@alegriacatering.co.il', blocked), true)
-  })
-
-  test('כתובת מדויקת חסומה — נדחית', () => {
-    assert.equal(isBlockedSender('noreply@greeninvoice.co.il', blocked), true)
-  })
-
-  test('ספק רגיל עובר', () => {
-    assert.equal(isBlockedSender('billing@tnuva.co.il', blocked), false)
-  })
-
-  test('רשימה ריקה לא חוסמת אף אחד', () => {
-    assert.equal(isBlockedSender('billing@tnuva.co.il', []), false)
-  })
-
   test('PDF מצורף נמשך', () => {
     assert.equal(
       shouldFetch({ id: 'a1', filename: 'i.pdf', contentType: 'application/pdf', contentDisposition: 'attachment', contentId: null }),

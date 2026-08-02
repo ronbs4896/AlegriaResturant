@@ -6,8 +6,9 @@ import { handler, requireUser } from '@/lib/session'
 import { putObject, StorageNotConfigured } from '@/lib/storage'
 import { isAcceptedMime, MIN_ATTACHMENT_BYTES, DOC_TYPES, EXPENSE_CATEGORIES } from '@/lib/constants'
 import { processDocument } from '@/lib/pipeline'
-import { validateDocument, classifyExpense, hasBlockingFlag } from '@/lib/validate'
+import { validateDocument, classifyDirection, hasBlockingFlag, type Direction } from '@/lib/validate'
 import { matchOrCreateSupplier } from '@/lib/suppliers'
+import { matchOrCreateCustomer } from '@/lib/customers'
 import { isDocType } from '@/lib/constants'
 
 export const runtime = 'nodejs'
@@ -103,6 +104,7 @@ export const POST = handler(async (req) => {
 //  שמשאיר דגל חוסם לא יאשר את המסמך.
 // ============================================================
 const EDITABLE = {
+  direction: z.enum(['expense', 'income']).nullable(),
   docType: z.enum(Object.keys(DOC_TYPES) as [string, ...string[]]).nullable(),
   supplierName: z.string().max(200).nullable(),
   supplierTaxId: z.string().max(20).nullable(),
@@ -120,7 +122,7 @@ const EDITABLE = {
 
 const Patch = z.object({
   id: z.string().uuid(),
-  status: z.enum(['pending', 'review', 'approved', 'rejected', 'not_expense']).optional(),
+  status: z.enum(['pending', 'review', 'approved', 'rejected']).optional(),
   fields: z.object(EDITABLE).partial().optional(),
 })
 
@@ -173,11 +175,25 @@ export const PATCH = handler(async (req) => {
     currency: merged.currency,
     allocationNumber: merged.allocationNumber,
   }
-  const flags = validateDocument(facts, { businessTaxId })
-  const classified = classifyExpense(facts, businessTaxId)
+  // צד הספר: בחירה ידנית גוברת; בלעדיה ההשוואה לח.פ. העסק
+  // מכריעה. ההכרעה האוטומטית נרשמת ביומן כמו כל שינוי.
+  const classified = classifyDirection(facts, businessTaxId)
+  let direction = (merged.direction ?? null) as Direction | null
+  if (!direction && classified.verdict !== 'unclear') {
+    direction = classified.verdict
+    if (direction !== row.direction) {
+      update.direction = direction
+      auditRows.push({ field: 'direction', oldValue: row.direction, newValue: direction })
+    }
+  }
+
+  const flags = validateDocument(facts, {
+    businessTaxId,
+    direction: direction ?? 'expense',
+  })
   update.validationFlags = flags
 
-  let nextStatus = parsed.data.status ?? row.status
+  const nextStatus = parsed.data.status ?? row.status
   // אישור ידני נחסם כל עוד יש דגל חוסם. זה הכלל שלא נשבר,
   // וגם אדם לא עוקף אותו בטעות.
   if (nextStatus === 'approved' && hasBlockingFlag(flags)) {
@@ -189,8 +205,9 @@ export const PATCH = handler(async (req) => {
       { status: 409 },
     )
   }
-  if (classified.verdict === 'not_expense' && !parsed.data.status) {
-    nextStatus = 'not_expense'
+  // מסמך מאושר חייב צד: הדוחות בנויים על ההבחנה הזו.
+  if (nextStatus === 'approved' && !direction) {
+    return Response.json({ error: 'direction_required' }, { status: 409 })
   }
 
   if (nextStatus !== row.status) {
@@ -200,11 +217,23 @@ export const PATCH = handler(async (req) => {
 
   if (auditRows.length === 0) return Response.json({ ok: true, unchanged: true, flags })
 
-  // תיקון ידני של ח.פ. הוא בדיוק הרגע שבו כדאי ללמוד את הספק:
-  // מכאן והלאה כל מסמך שיגיע ממנו כבר מגיע מקושר.
-  if (update.supplierTaxId !== undefined || update.supplierName !== undefined) {
+  // תיקון ידני של ח.פ. הוא בדיוק הרגע שבו כדאי ללמוד את הצד
+  // השני: מכאן והלאה כל מסמך שיגיע ממנו כבר מגיע מקושר.
+  if (
+    direction !== 'income' &&
+    (update.supplierTaxId !== undefined || update.supplierName !== undefined)
+  ) {
     const supplier = await matchOrCreateSupplier(merged.supplierTaxId, merged.supplierName)
     if (supplier && supplier.id !== row.supplierId) update.supplierId = supplier.id
+  }
+  if (
+    direction === 'income' &&
+    (update.recipientTaxId !== undefined ||
+      update.recipientName !== undefined ||
+      update.direction !== undefined)
+  ) {
+    const customer = await matchOrCreateCustomer(merged.recipientTaxId, merged.recipientName)
+    if (customer && customer.id !== row.customerId) update.customerId = customer.id
   }
 
   update.reviewedBy = user.uid

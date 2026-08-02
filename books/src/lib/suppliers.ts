@@ -47,3 +47,27 @@ export async function matchOrCreateSupplier(
 
   return inserted[0] ?? null
 }
+
+/**
+ * לומד את דומיין השולח של הספק. אחרי מסמך אחד מהמייל, ההגדרות
+ * של הספק כבר יודעות מאיפה המסמכים שלו מגיעים.
+ */
+export async function learnSender(supplierId: string, sender: string): Promise<void> {
+  const domain = sender.split('@')[1]?.trim().toLowerCase()
+  if (!domain) return
+
+  const db = await getDb()
+  const rows = await db
+    .select()
+    .from(schema.suppliers)
+    .where(eq(schema.suppliers.id, supplierId))
+    .limit(1)
+
+  const supplier = rows[0]
+  if (!supplier || supplier.knownSenders.includes(domain)) return
+
+  await db
+    .update(schema.suppliers)
+    .set({ knownSenders: [...supplier.knownSenders, domain] })
+    .where(eq(schema.suppliers.id, supplierId))
+}

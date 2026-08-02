@@ -62,6 +62,23 @@ export const suppliers = pgTable(
 )
 
 // ============================================================
+//  לקוחות. הצד השני של המטבע: מי שאלגריה הנפיקה לו מסמך.
+//  אותו עיקרון כמו ספקים — התאמה לפי ח.פ., שורה נוצרת רק
+//  כשיש מספר תקין.
+// ============================================================
+export const customers = pgTable(
+  'customers',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    name: text('name').notNull(),
+    taxId: text('tax_id'),
+    notes: text('notes'),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [uniqueIndex('customers_tax_id_idx').on(t.taxId)],
+)
+
+// ============================================================
 //  מסמכים. הליבה.
 //
 //  שדות האינדקס שנספח ז׳ להוראות ניהול פנקסים דורש — סוג מסמך,
@@ -92,14 +109,21 @@ export const documents = pgTable(
 
     // ── מצב ────────────────────────────────────────────────
     status: text('status', {
-      enum: ['pending', 'review', 'approved', 'rejected', 'not_expense'],
+      enum: ['pending', 'review', 'approved', 'rejected'],
     })
       .notNull()
       .default('pending'),
 
+    /**
+     * צד הספר: הוצאה שקיבלנו או הכנסה שהנפקנו. null עד שהצנרת
+     * או אדם מכריעים; אישור בלי הכרעה נחסם ב-API.
+     */
+    direction: text('direction', { enum: ['expense', 'income'] }),
+
     // ── שדות המסמך ─────────────────────────────────────────
     docType: text('doc_type'),
     supplierId: uuid('supplier_id').references(() => suppliers.id),
+    customerId: uuid('customer_id').references(() => customers.id),
     supplierName: text('supplier_name'),
     supplierTaxId: text('supplier_tax_id'),
     recipientName: text('recipient_name'),
@@ -138,6 +162,8 @@ export const documents = pgTable(
     index('documents_supplier_tax_id_idx').on(t.supplierTaxId),
     index('documents_doc_type_idx').on(t.docType),
     index('documents_status_idx').on(t.status, t.createdAt),
+    // הדשבורד והדוחות שולפים לפי צד, סטטוס ותאריך — ביחד.
+    index('documents_direction_idx').on(t.direction, t.status, t.docDate),
   ],
 )
 
@@ -190,5 +216,6 @@ export const ingestState = pgTable('ingest_state', {
 
 export type User = typeof users.$inferSelect
 export type Supplier = typeof suppliers.$inferSelect
+export type Customer = typeof customers.$inferSelect
 export type Document = typeof documents.$inferSelect
 export type NewDocument = typeof documents.$inferInsert

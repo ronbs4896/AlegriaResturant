@@ -4,7 +4,7 @@ import {
   isValidIsraeliTaxId,
   sameTaxId,
   validateDocument,
-  classifyExpense,
+  classifyDirection,
   hasBlockingFlag,
   type DocumentFacts,
 } from '../src/lib/validate'
@@ -170,27 +170,74 @@ describe('ולידציית מסמך', () => {
 
 describe('סיווג הוצאה מול הכנסה', () => {
   test('ספק הנפיק לנו — הוצאה', () => {
-    const r = classifyExpense({ supplierTaxId: '520000118', recipientTaxId: ALEGRIA }, ALEGRIA)
+    const r = classifyDirection({ supplierTaxId: '520000118', recipientTaxId: ALEGRIA }, ALEGRIA)
     assert.equal(r.verdict, 'expense')
   })
 
-  test('אנחנו הנפקנו ללקוח — לא הוצאה', () => {
-    const r = classifyExpense({ supplierTaxId: ALEGRIA, recipientTaxId: '520000118' }, ALEGRIA)
-    assert.equal(r.verdict, 'not_expense')
+  test('אנחנו הנפקנו ללקוח — הכנסה', () => {
+    const r = classifyDirection({ supplierTaxId: ALEGRIA, recipientTaxId: '520000118' }, ALEGRIA)
+    assert.equal(r.verdict, 'income')
   })
 
   test('אף צד לא זוהה — לא מכריעים לבד', () => {
-    const r = classifyExpense({ supplierTaxId: '520000118', recipientTaxId: '520013954' }, ALEGRIA)
+    const r = classifyDirection({ supplierTaxId: '520000118', recipientTaxId: '520013954' }, ALEGRIA)
     assert.equal(r.verdict, 'unclear')
   })
 
   test('חסר ח.פ. נמען — לא מכריעים לבד', () => {
-    const r = classifyExpense({ supplierTaxId: '520000118', recipientTaxId: null }, ALEGRIA)
+    const r = classifyDirection({ supplierTaxId: '520000118', recipientTaxId: null }, ALEGRIA)
     assert.equal(r.verdict, 'unclear')
   })
 
   test('שני הצדדים אלגריה — לא מכריעים לבד', () => {
-    const r = classifyExpense({ supplierTaxId: ALEGRIA, recipientTaxId: ALEGRIA }, ALEGRIA)
+    const r = classifyDirection({ supplierTaxId: ALEGRIA, recipientTaxId: ALEGRIA }, ALEGRIA)
     assert.equal(r.verdict, 'unclear')
+  })
+})
+
+describe('ולידציה בצד ההכנסות', () => {
+  const incomeCtx = { ...ctx, direction: 'income' as const }
+  const income = {
+    ...base,
+    supplierTaxId: ALEGRIA,
+    recipientTaxId: '520000118',
+  }
+
+  test('חשבונית שהנפקנו ללקוח עסקי — בלי דגלים חוסמים', () => {
+    const flags = validateDocument(income, incomeCtx)
+    assert.equal(flags.filter((f) => f.level === 'error').length, 0)
+  })
+
+  test('המנפיק אינו העסק — שגיאה חוסמת', () => {
+    const flags = validateDocument({ ...income, supplierTaxId: '520000118' }, incomeCtx)
+    assert.ok(has(flags, 'issuer_not_business'))
+  })
+
+  test('ח.פ. לקוח חסר — אזהרה בלבד, לקוח פרטי לגיטימי', () => {
+    const flags = validateDocument({ ...income, recipientTaxId: null }, incomeCtx)
+    const flag = flags.find((f) => f.code === 'missing_customer_taxid')
+    assert.equal(flag?.level, 'warn')
+    assert.equal(flags.filter((f) => f.level === 'error').length, 0)
+  })
+
+  test('מעל הסף בלי מספר הקצאה — אזהרה, לא חסימה: אנחנו המנפיקים', () => {
+    const flags = validateDocument(
+      { ...income, netAmount: 6000, vatAmount: 1080, totalAmount: 7080 },
+      incomeCtx,
+    )
+    const flag = flags.find((f) => f.code === 'missing_allocation_number_income')
+    assert.equal(flag?.level, 'warn')
+    assert.ok(!has(flags, 'missing_allocation_number'))
+  })
+
+  test('בדיקות ההוצאה לא דולפות להכנסה', () => {
+    const flags = validateDocument(income, incomeCtx)
+    assert.ok(!has(flags, 'recipient_not_business'))
+    assert.ok(!has(flags, 'missing_supplier_taxid'))
+  })
+
+  test('קבלה בהכנסה מסומנת כתיעוד תשלום בלבד', () => {
+    const flags = validateDocument({ ...income, docType: 'receipt' }, incomeCtx)
+    assert.ok(has(flags, 'receipt_only_income'))
   })
 })

@@ -10,10 +10,9 @@ import { isAcceptedMime, MIN_ATTACHMENT_BYTES } from './constants'
 //  Attachments API עם קישור שפג אחרי שעה — כך Resend תומך
 //  בקבצים גדולים בלי לחרוג ממגבלת גוף הבקשה של פונקציה.
 //
-//  ההגנה מפני חשבוניות שאלגריה הנפיקה אינה כאן. היא בהשוואת
-//  ח.פ. על המסמך עצמו (classifyExpense), שעובדת גם על ספק
-//  ששולח מ-Gmail אקראי. חסימת שולחים כאן חוסכת קריאות API,
-//  ותו לא.
+//  אין כאן סינון לפי שולח: חשבונית שאלגריה הנפיקה היא הכנסה
+//  שנקלטת, וההבחנה הכנסה/הוצאה נעשית על המסמך עצמו — השוואת
+//  ח.פ. ב-classifyDirection, שעובדת גם על שולח לא מוכר.
 // ============================================================
 
 const ATTACHMENTS_ENDPOINT = (emailId: string) =>
@@ -75,28 +74,6 @@ export function parseInbound(payload: unknown): InboundEmail | null {
 }
 
 // ── סינון ─────────────────────────────────────────────────────
-
-/**
- * שולחים שמהם לא קולטים: הדומיין שלנו, ומערכת ההנפקה. חשבונית
- * שאלגריה הוציאה ללקוח אינה הוצאה, וקליטתה היא דיווח שגוי.
- *
- * הרשימה ב-env ולא בקוד, כי הכתובות המדויקות של מערכת ההנפקה
- * מתגלות מהודעה אמיתית אחת ולא מניחוש.
- */
-export function blockedSenders(): string[] {
-  return (process.env.ISSUER_SENDERS ?? '')
-    .split(',')
-    .map((s) => s.trim().toLowerCase())
-    .filter(Boolean)
-}
-
-export function isBlockedSender(from: string, blocked = blockedSenders()): boolean {
-  if (!from) return false
-  const domain = from.split('@')[1] ?? ''
-  return blocked.some((entry) =>
-    entry.startsWith('@') ? domain === entry.slice(1) : from === entry,
-  )
-}
 
 /**
  * חלק inline עם Content-ID הוא כמעט תמיד לוגו מחתימת מייל.
@@ -162,7 +139,7 @@ export async function listRemoteAttachments(
 // ── קליטה ─────────────────────────────────────────────────────
 
 export interface IngestOutcome {
-  status: 'stored' | 'blocked_sender' | 'already_processed' | 'no_documents'
+  status: 'stored' | 'already_processed' | 'no_documents'
   documentIds: string[]
   skipped: number
 }
@@ -171,10 +148,6 @@ const seenKey = (emailId: string) => `inbound:${emailId}`
 
 export async function ingestEmail(email: InboundEmail): Promise<IngestOutcome> {
   const db = await getDb()
-
-  if (isBlockedSender(email.from)) {
-    return { status: 'blocked_sender', documentIds: [], skipped: email.attachments.length }
-  }
 
   // ספק webhook חוזר על עצמו בכישלון זמני. בלי הסימון הזה אותו
   // מייל היה נמשך שוב, וגם אם ה-sha256 מונע כפילות ברשומות,

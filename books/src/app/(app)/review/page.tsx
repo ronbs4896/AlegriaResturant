@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { desc, eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
+import RetryFailedButton from '@/components/RetryFailedButton'
+import { DirectionPill } from '@/components/StatusPill'
 
 export const metadata = { title: 'תור בדיקה' }
 export const dynamic = 'force-dynamic'
@@ -18,12 +20,18 @@ export default async function ReviewQueue() {
     .orderBy(desc(schema.documents.createdAt))
     .limit(200)
 
+  const failedCount = rows.filter((r) =>
+    r.validationFlags.some((f) => f.code === 'extraction_failed'),
+  ).length
+
   return (
     <div>
       <h1 className="text-xl font-bold">תור בדיקה</h1>
       <p className="mt-1 mb-6 text-sm text-muted">
         מסמכים שהמערכת לא הכריעה לבדה. אף אחד מהם לא ייכנס לייצוא לפני שאישרתם.
       </p>
+
+      {failedCount > 0 && <RetryFailedButton count={failedCount} />}
 
       {rows.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-line bg-surface px-6 py-14 text-center">
@@ -45,9 +53,12 @@ export default async function ReviewQueue() {
                       <div className="truncate font-semibold">
                         {r.supplierName ?? r.originalFilename ?? 'מסמך ללא שם'}
                       </div>
-                      <div className="mt-0.5 text-xs text-muted">
-                        {r.docDate ?? 'תאריך לא זוהה'}
-                        {r.docType && ` · ${DOC_TYPES[r.docType as DocType]?.he ?? r.docType}`}
+                      <div className="mt-0.5 flex items-center gap-2 text-xs text-muted">
+                        <DirectionPill direction={r.direction} />
+                        <span>
+                          {r.docDate ?? 'תאריך לא זוהה'}
+                          {r.docType && ` · ${DOC_TYPES[r.docType as DocType]?.he ?? r.docType}`}
+                        </span>
                       </div>
                     </div>
                     <span className="num shrink-0 font-bold">{money(r.totalAmount)} ₪</span>

@@ -1,53 +1,62 @@
-import Link from 'next/link'
-
 import { redirect } from 'next/navigation'
+import { eq, sql } from 'drizzle-orm'
+import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
-import LogoutButton from '@/components/LogoutButton'
-import MobileCta from '@/components/MobileCta'
+import Sidebar, { type NavItem } from '@/components/nav/Sidebar'
+import BottomTabs from '@/components/nav/BottomTabs'
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await currentUser()
   if (!user) redirect('/login')
 
+  // תג אחד משרת את הסיידבר ואת הסרגל התחתון: כמה מחכה לבדיקה.
+  let reviewCount = 0
+  if (user.role === 'admin') {
+    const db = await getDb()
+    const rows = await db
+      .select({ count: sql<number>`count(*)` })
+      .from(schema.documents)
+      .where(eq(schema.documents.status, 'review'))
+    reviewCount = Number(rows[0]?.count ?? 0)
+  }
+
+  const items: NavItem[] = [
+    { href: '/dashboard', label: 'דשבורד' },
+    { href: '/documents', label: 'מסמכים' },
+    ...(user.role === 'admin'
+      ? [
+          { href: '/review', label: 'בדיקה', badge: reviewCount },
+          { href: '/suppliers', label: 'ספקים' },
+          { href: '/customers', label: 'לקוחות' },
+          { href: '/reports', label: 'דוחות וייצוא' },
+        ]
+      : []),
+  ]
+
   return (
-    <div className="flex min-h-dvh flex-col">
-      <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur">
-        {/* חמישה פריטים ויציאה לא נכנסים ל-390px. הניווט מקבל
-            גלילה משלו, כדי שהעמוד עצמו לעולם לא יזוז לצדדים. */}
-        <div className="mx-auto flex max-w-5xl items-center gap-2 px-4 py-3 sm:gap-4">
-          <Link href="/documents" className="shrink-0 font-bold">
-            חשבוניות
-          </Link>
-          <nav className="-mx-1 flex min-w-0 flex-1 items-center gap-0.5 overflow-x-auto px-1 text-sm [scrollbar-width:none] sm:gap-1 [&::-webkit-scrollbar]:hidden">
-            <Link href="/documents" className="shrink-0 rounded-lg px-2 py-1.5 hover:bg-raised sm:px-3">
-              מסמכים
-            </Link>
-            <Link href="/upload" className="shrink-0 rounded-lg px-2 py-1.5 hover:bg-raised sm:px-3">
-              העלאה
-            </Link>
-            {user.role === 'admin' && (
-              <>
-                <Link href="/review" className="shrink-0 rounded-lg px-2 py-1.5 hover:bg-raised sm:px-3">
-                  בדיקה
-                </Link>
-                <Link href="/exports" className="shrink-0 rounded-lg px-2 py-1.5 hover:bg-raised sm:px-3">
-                  ייצוא
-                </Link>
-              </>
-            )}
-          </nav>
-          <div className="flex shrink-0 items-center gap-3">
-            <span className="hidden text-xs text-faint sm:inline" dir="ltr">
-              {user.email}
+    <div className="min-h-dvh lg:grid lg:grid-cols-[232px_minmax(0,1fr)]">
+      <Sidebar items={items} email={user.email} />
+
+      <div className="flex min-h-dvh flex-col">
+        {/* מובייל: סרגל עליון דק לזהות בלבד; הניווט למטה */}
+        <header className="sticky top-0 z-20 border-b border-line bg-surface/95 backdrop-blur lg:hidden">
+          <div className="flex items-center justify-between px-4 py-3">
+            <span className="font-bold">
+              אלגריה <span className="text-xs font-semibold text-muted">· הנהלת חשבונות</span>
             </span>
-            <LogoutButton />
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 pb-24 sm:pb-6">{children}</main>
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-[calc(88px+env(safe-area-inset-bottom))] lg:px-8 lg:py-8 lg:pb-8">
+          {children}
+        </main>
+      </div>
 
-      <MobileCta />
+      <BottomTabs
+        items={items}
+        moreItems={[]}
+        email={user.email}
+      />
     </div>
   )
 }

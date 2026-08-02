@@ -35,6 +35,15 @@ CREATE TABLE IF NOT EXISTS suppliers (
 );
 CREATE UNIQUE INDEX IF NOT EXISTS suppliers_tax_id_idx ON suppliers (tax_id);
 
+CREATE TABLE IF NOT EXISTS customers (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  name text NOT NULL,
+  tax_id text,
+  notes text,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE UNIQUE INDEX IF NOT EXISTS customers_tax_id_idx ON customers (tax_id);
+
 CREATE TABLE IF NOT EXISTS documents (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   sha256 text NOT NULL,
@@ -47,8 +56,10 @@ CREATE TABLE IF NOT EXISTS documents (
   source_sender text,
   uploaded_by uuid REFERENCES users(id),
   status text NOT NULL DEFAULT 'pending',
+  direction text,
   doc_type text,
   supplier_id uuid REFERENCES suppliers(id),
+  customer_id uuid REFERENCES customers(id),
   supplier_name text,
   supplier_tax_id text,
   recipient_name text,
@@ -77,6 +88,16 @@ CREATE INDEX IF NOT EXISTS documents_doc_date_idx ON documents (doc_date);
 CREATE INDEX IF NOT EXISTS documents_supplier_tax_id_idx ON documents (supplier_tax_id);
 CREATE INDEX IF NOT EXISTS documents_doc_type_idx ON documents (doc_type);
 CREATE INDEX IF NOT EXISTS documents_status_idx ON documents (status, created_at);
+
+-- מסד פיתוח ותיק: העמודות החדשות מתווספות לפני האינדקס שנשען
+-- עליהן, וסטטוס 'לא הוצאה' הישן ממופה להכנסה בתור בדיקה.
+-- אידמפוטנטי לפי IF NOT EXISTS ותנאי ה-WHERE.
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS direction text;
+ALTER TABLE documents ADD COLUMN IF NOT EXISTS customer_id uuid REFERENCES customers(id);
+CREATE INDEX IF NOT EXISTS documents_direction_idx ON documents (direction, status, doc_date);
+UPDATE documents SET direction = 'income', status = 'review',
+  classify_reason = 'סווג מחדש כהכנסה — ממתין לבדיקה'
+  WHERE status = 'not_expense';
 
 CREATE TABLE IF NOT EXISTS audit_log (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
