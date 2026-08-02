@@ -2,6 +2,7 @@ import { eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { putObject } from './storage'
 import { isAcceptedMime, MIN_ATTACHMENT_BYTES } from './constants'
+import { triageAttachment } from './triage'
 
 // ============================================================
 //  קליטת מסמכים מהמייל.
@@ -86,8 +87,17 @@ export function parseInbound(payload: unknown): InboundEmail | null {
  */
 export function shouldFetch(att: InboundAttachment): boolean {
   if (!att.id) return false
-  if (att.contentDisposition === 'inline' && att.contentId) return false
-  return isAcceptedMime(att.contentType ?? '')
+  // אותם כללים בדיוק כמו במסלול ה-IMAP, מאותה פונקציה — כדי
+  // ששני המסלולים לא ייפרדו עם הזמן. תמונות מותרות כאן: ה-webhook
+  // משמש גם להעברה ידנית של צילום קבלה.
+  return triageAttachment(
+    {
+      filename: att.filename,
+      mime: att.contentType,
+      inlineWithCid: att.contentDisposition === 'inline' && Boolean(att.contentId),
+    },
+    true,
+  ).ok
 }
 
 // ── משיכת הקבצים ──────────────────────────────────────────────
