@@ -26,6 +26,8 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     ...(user.role === 'admin'
       ? [
           { href: '/review', label: 'בדיקה', badge: reviewCount },
+          { href: '/suppliers', label: 'ספקים' },
+          { href: '/customers', label: 'לקוחות' },
           { href: '/exports', label: 'ייצוא' },
         ]
       : []),
