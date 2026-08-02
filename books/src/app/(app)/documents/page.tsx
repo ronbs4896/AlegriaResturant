@@ -1,20 +1,15 @@
 import Link from 'next/link'
-import { desc, eq, and, like, type SQL } from 'drizzle-orm'
+import { desc, eq, and, or, like, ilike, isNull, gte, lt, type SQL } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
-import StatusPill from '@/components/StatusPill'
+import { monthKey, shiftMonth } from '@/lib/reports'
 import MailSyncPanel from '@/components/MailSyncPanel'
-import { DOC_TYPES, type DocType } from '@/lib/constants'
+import DocumentList from '@/components/DocumentList'
 
 export const metadata = { title: 'מסמכים' }
 export const dynamic = 'force-dynamic'
 
 const MONTH_FMT = new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric' })
-
-function currentPeriod(): string {
-  const d = new Date()
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-}
 
 function periodLabel(period: string): string {
   const [y, m] = period.split('-').map(Number)
@@ -22,149 +17,229 @@ function periodLabel(period: string): string {
   return MONTH_FMT.format(new Date(Date.UTC(y, m - 1, 1)))
 }
 
-const money = (v: string | null) =>
-  v == null ? '—' : Number(v).toLocaleString('he-IL', { minimumFractionDigits: 2 })
+const money = (n: number) => n.toLocaleString('he-IL', { minimumFractionDigits: 2 })
+
+interface Filters {
+  period: string
+  direction?: string
+  status?: string
+  q?: string
+}
+
+/** בונה כתובת עם הפילטרים, בלי ריקים — הכתובת היא ה-state. */
+function href(f: Filters): string {
+  const params = new URLSearchParams()
+  params.set('period', f.period)
+  if (f.direction) params.set('direction', f.direction)
+  if (f.status) params.set('status', f.status)
+  if (f.q) params.set('q', f.q)
+  return `/documents?${params.toString()}`
+}
 
 export default async function DocumentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ period?: string; status?: string }>
+  searchParams: Promise<{ period?: string; direction?: string; status?: string; q?: string }>
 }) {
   const params = await searchParams
   const user = await currentUser()
-  const period = params.period ?? currentPeriod()
-  const status = params.status
+
+  const period = /^\d{4}-\d{2}$/.test(params.period ?? '') ? params.period! : monthKey(new Date())
+  const direction = ['expense', 'income'].includes(params.direction ?? '')
+    ? params.direction
+    : undefined
+  const status = ['pending', 'review', 'approved', 'rejected'].includes(params.status ?? '')
+    ? params.status
+    : undefined
+  const q = (params.q ?? '').trim().slice(0, 80) || undefined
+  const current: Filters = { period, direction, status, q }
 
   const db = await getDb()
 
-  const filters: SQL[] = [like(schema.documents.blobPath, `raw/${period}/%`)]
+  // החודש לפי תאריך המסמך — אותו חודש שהייצוא והדוחות רואים.
+  // מסמך בלי תאריך (עוד בעיבוד, או שהחילוץ לא קרא) משויך לפי
+  // מועד הקליטה, כדי ששום מסמך לא ייעלם מהרשימה.
+  const [y, m] = period.split('-').map(Number)
+  const monthStart = new Date(Date.UTC(y!, m! - 1, 1))
+  const monthEnd = new Date(Date.UTC(y!, m!, 1))
+
+  const filters: SQL[] = [
+    or(
+      like(schema.documents.docDate, `${period}%`),
+      and(
+        isNull(schema.documents.docDate),
+        gte(schema.documents.createdAt, monthStart),
+        lt(schema.documents.createdAt, monthEnd),
+      ),
+    )!,
+  ]
+  if (direction) filters.push(eq(schema.documents.direction, direction as 'expense'))
   if (status) filters.push(eq(schema.documents.status, status as 'pending'))
+  if (q) {
+    filters.push(
+      or(
+        ilike(schema.documents.supplierName, `%${q}%`),
+        ilike(schema.documents.recipientName, `%${q}%`),
+        ilike(schema.documents.docNumber, `%${q}%`),
+      )!,
+    )
+  }
 
   const rows = await db
     .select()
     .from(schema.documents)
-    .where(filters.length === 1 ? filters[0] : and(...filters))
+    .where(and(...filters))
     .orderBy(desc(schema.documents.createdAt))
     .limit(300)
 
+  const approved = rows.filter((r) => r.status === 'approved')
+  const incomeTotal = approved
+    .filter((r) => r.direction === 'income')
+    .reduce((s, r) => s + Number(r.totalAmount ?? 0), 0)
+  const expenseTotal = approved
+    .filter((r) => r.direction === 'expense')
+    .reduce((s, r) => s + Number(r.totalAmount ?? 0), 0)
   const needsAttention = rows.filter(
-    (r) => r.validationFlags.some((f) => f.level === 'error') || r.status === 'review',
+    (r) => r.status === 'review' || r.validationFlags.some((f) => f.level === 'error'),
   ).length
-
-  const approvedTotal = rows
-    .filter((r) => r.status === 'approved')
-    .reduce((sum, r) => sum + Number(r.totalAmount ?? 0), 0)
 
   return (
     <div>
       {user?.role === 'admin' && <MailSyncPanel />}
 
-      <div className="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+      <div className="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
         <h1 className="text-xl font-bold">{periodLabel(period)}</h1>
         <span className="text-sm text-muted">
           {rows.length} מסמכים
-          {approvedTotal > 0 && (
+          {incomeTotal > 0 && (
             <>
-              {' · '}
-              <span className="num">{money(String(approvedTotal))}</span> ₪ מאושרים
+              {' · הכנסות '}
+              <span className="num text-ok">{money(incomeTotal)}</span> ₪
+            </>
+          )}
+          {expenseTotal > 0 && (
+            <>
+              {' · הוצאות '}
+              <span className="num">{money(expenseTotal)}</span> ₪
             </>
           )}
         </span>
       </div>
 
       {needsAttention > 0 && (
-        <div className="mb-5 rounded-xl border border-warn/25 bg-warn-soft px-4 py-3 text-sm text-warn">
+        <div className="mb-4 rounded-xl border border-warn/25 bg-warn-soft px-4 py-3 text-sm text-warn">
           <b>{needsAttention}</b> מסמכים ממתינים לבדיקה שלכם.
         </div>
       )}
 
-      <PeriodNav period={period} status={status} />
+      {/* חודש קודם/הבא — הפילטרים נשמרים במעבר */}
+      <div className="mb-4 flex items-center gap-2 text-sm">
+        <Link
+          href={href({ ...current, period: shiftMonth(period, -1) })}
+          className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
+        >
+          חודש קודם
+        </Link>
+        <Link
+          href={href({ ...current, period: shiftMonth(period, 1) })}
+          className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
+        >
+          חודש הבא
+        </Link>
+        <Link href="/documents" className="ms-auto text-muted underline underline-offset-4">
+          לחודש הנוכחי
+        </Link>
+      </div>
+
+      {/* צד הספר: הכול / הוצאות / הכנסות */}
+      <div className="mb-3 grid grid-cols-3 gap-1 rounded-xl border border-line bg-raised p-1 sm:inline-grid sm:min-w-72">
+        {(
+          [
+            [undefined, 'הכול'],
+            ['expense', 'הוצאות'],
+            ['income', 'הכנסות'],
+          ] as const
+        ).map(([value, label]) => (
+          <Link
+            key={label}
+            href={href({ ...current, direction: value })}
+            aria-current={direction === value ? 'page' : undefined}
+            className={`rounded-lg px-3 py-2 text-center text-sm font-semibold ${
+              direction === value ? 'bg-surface text-ink shadow-sm' : 'text-muted'
+            }`}
+          >
+            {label}
+          </Link>
+        ))}
+      </div>
+
+      <div className="mb-4 flex flex-wrap items-center gap-2">
+        {(
+          [
+            [undefined, 'כל המצבים'],
+            ['review', 'בבדיקה'],
+            ['approved', 'מאושרים'],
+            ['pending', 'בעיבוד'],
+            ['rejected', 'נדחו'],
+          ] as const
+        ).map(([value, label]) => (
+          <Link
+            key={label}
+            href={href({ ...current, status: value })}
+            className={`rounded-full border px-3 py-1 text-xs font-semibold ${
+              status === value
+                ? 'border-action bg-action-soft text-action'
+                : 'border-line text-muted hover:bg-raised'
+            }`}
+          >
+            {label}
+          </Link>
+        ))}
+
+        {/* חיפוש: טופס GET — הכתובת נשארת ברת-שיתוף */}
+        <form action="/documents" className="ms-auto flex w-full items-center gap-2 sm:w-auto">
+          <input type="hidden" name="period" value={period} />
+          {direction && <input type="hidden" name="direction" value={direction} />}
+          {status && <input type="hidden" name="status" value={status} />}
+          <label htmlFor="doc-search" className="sr-only">
+            חיפוש
+          </label>
+          <input
+            id="doc-search"
+            name="q"
+            defaultValue={q ?? ''}
+            placeholder="חיפוש ספק, לקוח או מספר מסמך"
+            className="min-h-9 w-full rounded-lg border border-line bg-surface px-3 text-sm outline-none focus:border-action sm:w-64"
+          />
+          {q && (
+            <Link href={href({ ...current, q: undefined })} className="text-xs text-muted underline">
+              ניקוי
+            </Link>
+          )}
+        </form>
+      </div>
 
       {rows.length === 0 ? (
         <div className="rounded-2xl border border-dashed border-line bg-surface px-6 py-14 text-center">
-          <p className="font-semibold">אין עדיין מסמכים בחודש הזה</p>
-          <p className="mt-1 text-sm text-muted">
-            צלמו קבלה ראשונה, והיא תופיע כאן מיד.
+          <p className="font-semibold">
+            {q || status || direction ? 'אין מסמכים שעונים לסינון' : 'אין עדיין מסמכים בחודש הזה'}
           </p>
-          <Link
-            href="/upload"
-            className="mt-5 inline-block rounded-xl bg-action px-5 py-3 font-bold text-white"
-          >
-            העלאת מסמך
-          </Link>
+          <p className="mt-1 text-sm text-muted">
+            {q || status || direction
+              ? 'נסו להרחיב: לנקות את החיפוש או לעבור ל"הכול".'
+              : 'צלמו קבלה ראשונה, והיא תופיע כאן מיד.'}
+          </p>
+          {!q && !status && !direction && (
+            <Link
+              href="/upload"
+              className="mt-5 inline-block rounded-xl bg-action px-5 py-3 font-bold text-white"
+            >
+              העלאת מסמך
+            </Link>
+          )}
         </div>
       ) : (
-        <>
-          {/* מובייל: כרטיסים. דסקטופ: טבלה שנסרקת בעמודה. */}
-          <ul className="space-y-2 sm:hidden">
-            {rows.map((r) => (
-              <li key={r.id} className="rounded-xl border border-line bg-surface p-4">
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <div className="truncate font-semibold">
-                      {r.supplierName ?? r.originalFilename ?? 'מסמך ללא שם'}
-                    </div>
-                    <div className="mt-0.5 text-xs text-muted">
-                      {r.docDate ?? 'תאריך לא זוהה'}
-                      {r.docType && ` · ${DOC_TYPES[r.docType as DocType]?.he ?? r.docType}`}
-                    </div>
-                  </div>
-                  <StatusPill status={r.status} />
-                </div>
-                <div className="mt-3 flex items-center justify-between">
-                  <span className="num text-lg font-bold">{money(r.totalAmount)} ₪</span>
-                  <Flags flags={r.validationFlags} />
-                </div>
-              </li>
-            ))}
-          </ul>
-
-          <div className="hidden overflow-x-auto rounded-2xl border border-line bg-surface sm:block">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line text-xs text-faint">
-                  <Th>תאריך</Th>
-                  <Th>ספק</Th>
-                  <Th>סוג</Th>
-                  <Th align="left">סכום</Th>
-                  <Th>מצב</Th>
-                  <Th>הערות</Th>
-                </tr>
-              </thead>
-              <tbody>
-                {rows.map((r) => (
-                  <tr key={r.id} className="border-b border-line/60 last:border-0">
-                    <Td>
-                      <span className="num text-xs">{r.docDate ?? '—'}</span>
-                    </Td>
-                    <Td>
-                      <div className="font-semibold">
-                        {r.supplierName ?? r.originalFilename ?? '—'}
-                      </div>
-                      {r.supplierTaxId && (
-                        <div className="num text-xs text-faint">{r.supplierTaxId}</div>
-                      )}
-                    </Td>
-                    <Td>
-                      <span className="text-xs text-muted">
-                        {r.docType ? (DOC_TYPES[r.docType as DocType]?.he ?? r.docType) : '—'}
-                      </span>
-                    </Td>
-                    <Td align="left">
-                      <span className="num font-bold">{money(r.totalAmount)}</span>
-                    </Td>
-                    <Td>
-                      <StatusPill status={r.status} />
-                    </Td>
-                    <Td>
-                      <Flags flags={r.validationFlags} />
-                    </Td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </>
+        <DocumentList docs={rows} linkRows={user?.role === 'admin'} />
       )}
 
       {user?.role !== 'admin' && (
@@ -172,63 +247,6 @@ export default async function DocumentsPage({
           מוצגים המסמכים של החודש. אישור ושינוי סטטוס שמורים למנהל.
         </p>
       )}
-    </div>
-  )
-}
-
-function Th({ children, align }: { children: React.ReactNode; align?: 'left' }) {
-  return (
-    <th className={`px-4 py-2.5 font-semibold ${align === 'left' ? 'text-left' : 'text-right'}`}>
-      {children}
-    </th>
-  )
-}
-function Td({ children, align }: { children: React.ReactNode; align?: 'left' }) {
-  return (
-    <td className={`px-4 py-3 align-top ${align === 'left' ? 'text-left' : 'text-right'}`}>
-      {children}
-    </td>
-  )
-}
-
-function Flags({ flags }: { flags: { code: string; level: string; message: string }[] }) {
-  const errors = flags.filter((f) => f.level === 'error')
-  const warns = flags.filter((f) => f.level === 'warn')
-  if (errors.length === 0 && warns.length === 0) {
-    return <span className="text-xs text-faint">—</span>
-  }
-  const first = errors[0] ?? warns[0]
-  return (
-    <span
-      title={flags.map((f) => f.message).join('\n')}
-      className={`text-xs ${errors.length ? 'text-danger' : 'text-warn'}`}
-    >
-      {first?.message}
-      {flags.length > 1 && ` (+${flags.length - 1})`}
-    </span>
-  )
-}
-
-function PeriodNav({ period, status }: { period: string; status?: string }) {
-  const [y, m] = period.split('-').map(Number)
-  if (!y || !m) return null
-  const shift = (delta: number) => {
-    const d = new Date(Date.UTC(y, m - 1 + delta, 1))
-    return `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`
-  }
-  const qs = (p: string) => `/documents?period=${p}${status ? `&status=${status}` : ''}`
-
-  return (
-    <div className="mb-4 flex items-center gap-2 text-sm">
-      <Link href={qs(shift(-1))} className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised">
-        חודש קודם
-      </Link>
-      <Link href={qs(shift(1))} className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised">
-        חודש הבא
-      </Link>
-      <Link href="/documents" className="ms-auto text-muted underline underline-offset-4">
-        לחודש הנוכחי
-      </Link>
     </div>
   )
 }
