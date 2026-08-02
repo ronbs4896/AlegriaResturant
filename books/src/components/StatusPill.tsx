@@ -3,6 +3,9 @@ const MAP = {
   review: { he: 'בבדיקה', cls: 'bg-warn-soft text-warn' },
   approved: { he: 'מאושר', cls: 'bg-ok-soft text-ok' },
   rejected: { he: 'נדחה', cls: 'bg-danger-soft text-danger' },
+  not_financial: { he: 'לא מסמך פיננסי', cls: 'bg-steel-soft text-steel' },
+  awaiting_final: { he: 'ממתין למסמך סופי', cls: 'bg-warn-soft text-warn' },
+  duplicate: { he: 'חשד לכפילות', cls: 'bg-warn-soft text-warn' },
 } as const
 
 export type DocStatus = keyof typeof MAP

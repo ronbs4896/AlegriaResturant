@@ -19,6 +19,7 @@ import {
 } from './constants'
 import { matchOrCreateSupplier, learnSender } from './suppliers'
 import { matchOrCreateCustomer } from './customers'
+import { findDuplicate } from './duplicates'
 
 // ============================================================
 //  הצינור: ממסמך גולמי לסטטוס סופי.
@@ -299,6 +300,7 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       status: outcome.status,
       direction: outcome.direction,
       docKind: outcome.kind,
+      duplicateOfId: null,
       kindReason: f.kind_reason || null,
       docLanguage: f.document_language,
       fieldConfidence: f.field_confidence,
@@ -330,6 +332,39 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       extractedAt: new Date(),
     })
     .where(eq(schema.documents.id, doc.id))
+
+  // בדיקת כפילות רצה על המסמך אחרי שנשמר, כי היא משווה שדות
+  // מחולצים. מסמך שאינו פיננסי לא נבדק — אין לו מה לשכפל.
+  if (booked && outcome.status !== 'awaiting_final') {
+    const fresh = await db
+      .select()
+      .from(schema.documents)
+      .where(eq(schema.documents.id, doc.id))
+      .limit(1)
+    const hit = fresh[0] ? await findDuplicate(fresh[0]) : null
+
+    if (hit) {
+      const flags: ValidationFlag[] = [
+        ...outcome.flags,
+        {
+          code: 'possible_duplicate',
+          level: 'error',
+          message: `נראה זהה למסמך שכבר קיים (${hit.matched.join(', ')}). צריך להכריע`,
+        },
+      ]
+      const reason = 'חשד לכפילות מול מסמך קיים'
+      await db
+        .update(schema.documents)
+        .set({
+          status: 'duplicate',
+          duplicateOfId: hit.document.id,
+          validationFlags: flags,
+          classifyReason: reason,
+        })
+        .where(eq(schema.documents.id, doc.id))
+      return { ...outcome, status: 'duplicate', flags, reason }
+    }
+  }
 
   return outcome
 }

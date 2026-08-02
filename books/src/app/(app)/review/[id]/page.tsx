@@ -6,6 +6,7 @@ import { signedViewUrl } from '@/lib/storage'
 import { requireUser } from '@/lib/session'
 import DocumentViewer from '@/components/DocumentViewer'
 import ReviewForm from '@/components/ReviewForm'
+import { DOC_KINDS, isDocKind } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
 
@@ -47,6 +48,10 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
           <ReviewForm
             id={doc.id}
             flags={doc.validationFlags}
+            kindLabel={isDocKind(doc.docKind) ? DOC_KINDS[doc.docKind].he : null}
+            kindReason={doc.kindReason}
+            fieldConfidence={doc.fieldConfidence}
+            duplicateOfId={doc.duplicateOfId}
             initial={{
               direction: doc.direction,
               docType: doc.docType,

@@ -141,6 +141,25 @@ CREATE TABLE IF NOT EXISTS exports (
   created_at timestamptz NOT NULL DEFAULT now()
 );
 
+CREATE TABLE IF NOT EXISTS ingest_log (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  source text NOT NULL,
+  mailbox text,
+  message_ref text,
+  sender text,
+  subject text,
+  filename text,
+  mime text,
+  size_bytes integer,
+  decision text NOT NULL,
+  reason_code text NOT NULL,
+  reason text NOT NULL,
+  document_id uuid REFERENCES documents(id) ON DELETE SET NULL,
+  at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS ingest_log_at_idx ON ingest_log (at);
+CREATE INDEX IF NOT EXISTS ingest_log_decision_idx ON ingest_log (decision, at);
+
 CREATE TABLE IF NOT EXISTS ingest_state (
   key text PRIMARY KEY,
   value jsonb NOT NULL,

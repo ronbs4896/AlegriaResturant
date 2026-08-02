@@ -48,7 +48,15 @@ export default async function DocumentsPage({
   const direction = ['expense', 'income'].includes(params.direction ?? '')
     ? params.direction
     : undefined
-  const status = ['pending', 'review', 'approved', 'rejected'].includes(params.status ?? '')
+  const status = [
+    'pending',
+    'review',
+    'approved',
+    'rejected',
+    'not_financial',
+    'awaiting_final',
+    'duplicate',
+  ].includes(params.status ?? '')
     ? params.status
     : undefined
   const q = (params.q ?? '').trim().slice(0, 80) || undefined
@@ -180,6 +188,9 @@ export default async function DocumentsPage({
             ['review', 'בבדיקה'],
             ['approved', 'מאושרים'],
             ['pending', 'בעיבוד'],
+            ['duplicate', 'כפילויות'],
+            ['awaiting_final', 'ממתין למסמך סופי'],
+            ['not_financial', 'לא פיננסיים'],
             ['rejected', 'נדחו'],
           ] as const
         ).map(([value, label]) => (
