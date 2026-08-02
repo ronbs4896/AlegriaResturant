@@ -2,7 +2,7 @@ import { eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { putObject } from './storage'
 import { isAcceptedMime, MIN_ATTACHMENT_BYTES } from './constants'
-import { isBlockedSender, extractAddress } from './inbound'
+import { extractAddress } from './inbound'
 import {
   readMailboxes,
   cursorKey,
@@ -123,9 +123,9 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
       result.scanned++
 
       const from = extractAddress(msg.envelope?.from?.[0]?.address ?? '')
-      // "כל הדואר" כולל גם דואר יוצא. מה שהתיבה עצמה שלחה הוא
-      // לעולם לא הוצאה נכנסת.
-      if (from === box.user.toLowerCase() || isBlockedSender(from)) {
+      // "כל הדואר" כולל גם דואר יוצא. מה שהתיבה עצמה שלחה מדולג;
+      // חשבוניות שמערכת ההנפקה שלחה דווקא נקלטות — אלה ההכנסות.
+      if (from === box.user.toLowerCase()) {
         result.skipped++
         continue
       }

@@ -93,7 +93,10 @@ npx tsc --noEmit # טיפוסים
    cron בתדירות גבוהה מפעם ביום (נדרש לשלב 4).
 3. Vercel Blob, **חנות פרטית**. ה-token נכנס ל-`BLOB_READ_WRITE_TOKEN`.
 4. Neon Postgres, ואז `npm run db:push` עם `DATABASE_URL`.
-5. משתני הסביבה מ-`.env.example`, כולם.
+5. **שדרוג להכנסות+הוצאות** (חד-פעמי): להריץ את
+   `drizzle/0001_income.sql` ב-SQL Editor של Neon. אידמפוטנטי —
+   הרצה חוזרת לא משנה כלום.
+6. משתני הסביבה מ-`.env.example`, כולם.
 6. תת-דומיין, למשל `books.alegriacatering.co.il`, על הפרויקט הזה בלבד.
 
 כדי ששינוי באתר לא יבנה מחדש את המערכת ולהפך, ב-Settings → Git →

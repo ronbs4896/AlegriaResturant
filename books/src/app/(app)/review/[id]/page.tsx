@@ -48,6 +48,7 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
             id={doc.id}
             flags={doc.validationFlags}
             initial={{
+              direction: doc.direction,
               docType: doc.docType,
               supplierName: doc.supplierName,
               supplierTaxId: doc.supplierTaxId,

@@ -4,13 +4,15 @@ import { getObjectBytes } from './storage'
 import { extractDocument, ExtractionError, type ExtractedFields } from './extract'
 import {
   validateDocument,
-  classifyExpense,
+  classifyDirection,
   hasBlockingFlag,
   type ValidationFlag,
   type DocumentFacts,
+  type Direction,
 } from './validate'
 import { isDocType, isExpenseCategory } from './constants'
-import { matchOrCreateSupplier } from './suppliers'
+import { matchOrCreateSupplier, learnSender } from './suppliers'
+import { matchOrCreateCustomer } from './customers'
 
 // ============================================================
 //  הצינור: ממסמך גולמי לסטטוס סופי.
@@ -22,10 +24,12 @@ import { matchOrCreateSupplier } from './suppliers'
 /** מתחת לזה לא מאשרים לבד, גם כשהכל נראה תקין. */
 export const CONFIDENCE_THRESHOLD = 0.85
 
-export type DocStatus = 'pending' | 'review' | 'approved' | 'rejected' | 'not_expense'
+export type DocStatus = 'pending' | 'review' | 'approved' | 'rejected'
 
 export interface PipelineOutcome {
   status: DocStatus
+  /** צד הספר. null כשההשוואה לח.פ. העסק לא הכריעה. */
+  direction: Direction | null
   flags: ValidationFlag[]
   reason: string
 }
@@ -51,32 +55,36 @@ export function decide(
     allocationNumber: fields.allocation_number,
   }
 
-  const classified = classifyExpense(facts, businessTaxId)
+  // הכנסה והוצאה עוברות את אותו מסלול: ולידציה, סף ביטחון,
+  // ורק אז אישור. מסמך שהעסק הנפיק הוא הכנסה שנרשמת, לא מסמך
+  // שנזרק הצידה.
+  const classified = classifyDirection(facts, businessTaxId)
+  const direction = classified.verdict === 'unclear' ? null : classified.verdict
 
-  // מסמך שאנחנו הנפקנו יוצא מהתיק לפני כל בדיקה אחרת — אין טעם
-  // להתריע על מספר הקצאה בחשבונית שלנו ללקוח.
-  if (classified.verdict === 'not_expense') {
-    return { status: 'not_expense', flags: [], reason: classified.reason }
+  // כשהצד לא הוכרע, הוולידציה רצה במצב הוצאה — הצד השמרני.
+  const flags = validateDocument(facts, {
+    businessTaxId,
+    today,
+    direction: direction ?? 'expense',
+  })
+
+  if (!direction) {
+    return { status: 'review', direction, flags, reason: classified.reason }
   }
-
-  const flags = validateDocument(facts, { businessTaxId, today })
-
   if (hasBlockingFlag(flags)) {
     const first = flags.find((f) => f.level === 'error')
-    return { status: 'review', flags, reason: first?.message ?? 'נדרשת בדיקה' }
-  }
-  if (classified.verdict === 'unclear') {
-    return { status: 'review', flags, reason: classified.reason }
+    return { status: 'review', direction, flags, reason: first?.message ?? 'נדרשת בדיקה' }
   }
   if (fields.confidence < CONFIDENCE_THRESHOLD) {
     return {
       status: 'review',
+      direction,
       flags,
       reason: `הקריאה מהמסמך אינה ודאית (${Math.round(fields.confidence * 100)}%)`,
     }
   }
 
-  return { status: 'approved', flags, reason: classified.reason }
+  return { status: 'approved', direction, flags, reason: classified.reason }
 }
 
 /** מריץ מסמך יחיד מ-pending לסטטוס סופי ושומר. */
@@ -112,22 +120,38 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       .update(schema.documents)
       .set({ status: 'review', validationFlags: flags, classifyReason: message })
       .where(eq(schema.documents.id, doc.id))
-    return { status: 'review', flags, reason: message }
+    return { status: 'review', direction: null, flags, reason: message }
   }
 
   const f = extraction.fields
   const outcome = decide(f, businessTaxId)
 
+  // הצד השני של המסמך נרשם לפי הכיוון: בהוצאה הספק (המנפיק),
+  // בהכנסה הלקוח (הנמען). כשהצד לא הוכרע לא נרשם אף אחד —
+  // אין טעם למלא את הטבלאות בישויות של מסמכים זרים.
+  const supplier =
+    outcome.direction === 'expense'
+      ? await matchOrCreateSupplier(f.supplier_tax_id, f.supplier_name)
+      : null
+  const customer =
+    outcome.direction === 'income'
+      ? await matchOrCreateCustomer(f.recipient_tax_id, f.recipient_name)
+      : null
+
   // ספק מוכר תורם קטגוריה, כך שאחרי סיווג ידני אחד כל מסמך הבא
-  // ממנו מגיע כבר מסווג.
-  const supplier = await matchOrCreateSupplier(f.supplier_tax_id, f.supplier_name)
+  // ממנו מגיע כבר מסווג. דומיין השולח נלמד מאותה סיבה.
+  if (supplier && doc.source === 'email' && doc.sourceSender) {
+    await learnSender(supplier.id, doc.sourceSender)
+  }
 
   await db
     .update(schema.documents)
     .set({
       status: outcome.status,
+      direction: outcome.direction,
       docType: isDocType(f.doc_type) ? f.doc_type : null,
       supplierId: supplier?.id ?? null,
+      customerId: customer?.id ?? null,
       supplierName: f.supplier_name,
       supplierTaxId: f.supplier_tax_id,
       recipientName: f.recipient_name,
@@ -140,7 +164,11 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       currency: f.currency ?? 'ILS',
       allocationNumber: f.allocation_number,
       paymentMethod: f.payment_method,
-      expenseCategory: pickCategory(f.expense_category, supplier?.defaultCategory ?? null),
+      // קטגוריית הוצאה היא מושג של צד ההוצאות בלבד.
+      expenseCategory:
+        outcome.direction === 'income'
+          ? null
+          : pickCategory(f.expense_category, supplier?.defaultCategory ?? null),
       confidence: f.confidence.toFixed(3),
       validationFlags: outcome.flags,
       classifyReason: outcome.reason,

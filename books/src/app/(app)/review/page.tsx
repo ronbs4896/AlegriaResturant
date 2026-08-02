@@ -3,6 +3,7 @@ import { desc, eq } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
 import RetryFailedButton from '@/components/RetryFailedButton'
+import { DirectionPill } from '@/components/StatusPill'
 
 export const metadata = { title: 'תור בדיקה' }
 export const dynamic = 'force-dynamic'
@@ -52,9 +53,12 @@ export default async function ReviewQueue() {
                       <div className="truncate font-semibold">
                         {r.supplierName ?? r.originalFilename ?? 'מסמך ללא שם'}
                       </div>
-                      <div className="mt-0.5 text-xs text-muted">
-                        {r.docDate ?? 'תאריך לא זוהה'}
-                        {r.docType && ` · ${DOC_TYPES[r.docType as DocType]?.he ?? r.docType}`}
+                      <div className="mt-0.5 flex items-center gap-2 text-xs text-muted">
+                        <DirectionPill direction={r.direction} />
+                        <span>
+                          {r.docDate ?? 'תאריך לא זוהה'}
+                          {r.docType && ` · ${DOC_TYPES[r.docType as DocType]?.he ?? r.docType}`}
+                        </span>
                       </div>
                     </div>
                     <span className="num shrink-0 font-bold">{money(r.totalAmount)} ₪</span>
