@@ -147,6 +147,33 @@ export async function signedViewUrl(path: string, ttlSeconds = 300): Promise<str
   return withBase(`/api/files/${encodeURIComponent(path)}`)
 }
 
+/**
+ * מחיקת כל הקבצים תחת קידומת. משמש רק את פעולת האיפוס היזומה
+ * של המנהל — אין בקוד שום מסלול שמוחק קבצים מעצמו.
+ */
+export async function deletePrefix(prefix: string): Promise<number> {
+  if (useBlob()) {
+    const { list, del } = await import('@vercel/blob')
+    let cursor: string | undefined
+    let removed = 0
+    do {
+      const page = await list({ prefix, cursor, limit: 1000 })
+      if (page.blobs.length > 0) {
+        await del(page.blobs.map((b) => b.url))
+        removed += page.blobs.length
+      }
+      cursor = page.cursor
+    } while (cursor)
+    return removed
+  }
+
+  assertLocalAllowed()
+  const { rm } = await import('node:fs/promises')
+  const { join } = await import('node:path')
+  await rm(join(localRoot(), prefix), { recursive: true, force: true })
+  return 0
+}
+
 function localRoot(): string {
   return process.env.LOCAL_STORAGE_DIR ?? '.storage'
 }

@@ -35,6 +35,20 @@ CREATE TABLE IF NOT EXISTS suppliers (
 );
 CREATE UNIQUE INDEX IF NOT EXISTS suppliers_tax_id_idx ON suppliers (tax_id);
 
+CREATE TABLE IF NOT EXISTS business_profile (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  legal_name text NOT NULL,
+  trade_names jsonb NOT NULL DEFAULT '[]'::jsonb,
+  tax_id text,
+  vat_number text,
+  addresses jsonb NOT NULL DEFAULT '[]'::jsonb,
+  emails jsonb NOT NULL DEFAULT '[]'::jsonb,
+  phones jsonb NOT NULL DEFAULT '[]'::jsonb,
+  bank_accounts jsonb NOT NULL DEFAULT '[]'::jsonb,
+  default_currency text NOT NULL DEFAULT 'ILS',
+  updated_at timestamptz NOT NULL DEFAULT now()
+);
+
 CREATE TABLE IF NOT EXISTS customers (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
   name text NOT NULL,
@@ -58,6 +72,11 @@ CREATE TABLE IF NOT EXISTS documents (
   status text NOT NULL DEFAULT 'pending',
   direction text,
   doc_type text,
+  doc_kind text,
+  kind_reason text,
+  field_confidence jsonb,
+  doc_language text,
+  duplicate_of_id uuid,
   supplier_id uuid REFERENCES suppliers(id),
   customer_id uuid REFERENCES customers(id),
   supplier_name text,
