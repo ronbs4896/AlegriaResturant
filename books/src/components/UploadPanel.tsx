@@ -2,6 +2,7 @@
 
 import { useRef, useState, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
+import { withBase } from '@/lib/url'
 
 // ============================================================
 //  הקטנת התמונה רצה ב-Web Worker.
@@ -112,7 +113,7 @@ export default function UploadPanel() {
 
           const form = new FormData()
           form.append('file', file)
-          const res = await fetch('/api/documents', { method: 'POST', body: form })
+          const res = await fetch(withBase('/api/documents'), { method: 'POST', body: form })
           const data = await res.json().catch(() => ({}))
 
           if (!res.ok) {

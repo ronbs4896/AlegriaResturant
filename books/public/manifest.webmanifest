@@ -1,14 +1,23 @@
 {
   "name": "חשבוניות אלגריה",
   "short_name": "חשבוניות",
-  "start_url": "/documents",
+  "start_url": "/books/documents",
   "display": "standalone",
   "background_color": "#f6f3ee",
   "theme_color": "#23201d",
   "lang": "he",
   "dir": "rtl",
   "icons": [
-    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
-    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
-  ]
+    {
+      "src": "/books/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/books/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "scope": "/books/"
 }

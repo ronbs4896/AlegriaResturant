@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { withBase } from '@/lib/url'
 
 type Stage = 'email' | 'code'
 
@@ -24,14 +25,15 @@ export default function LoginPage() {
     setBusy(true)
     setError(null)
     try {
-      const res = await fetch('/api/auth/request', {
+      const res = await fetch(withBase('/api/auth/request'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        setError('שליחת הקוד נכשלה. נסו שוב בעוד רגע.')
+        const reason = data.reason || data.error || `http_${res.status}`
+        setError(`שליחת הקוד נכשלה. נסו שוב בעוד רגע. (${reason})`)
         return
       }
       if (data.devCode) setDevCode(data.devCode)
@@ -48,7 +50,7 @@ export default function LoginPage() {
     setBusy(true)
     setError(null)
     try {
-      const res = await fetch('/api/auth/verify', {
+      const res = await fetch(withBase('/api/auth/verify'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, code }),

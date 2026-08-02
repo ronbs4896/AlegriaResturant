@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto'
 import { EXT_BY_MIME } from './constants'
+import { withBase } from './url'
 
 // ============================================================
 //  אחסון הקבצים המקוריים.
@@ -95,7 +96,7 @@ export async function signedViewUrl(path: string, ttlSeconds = 300): Promise<str
     })
     return presignedUrl
   }
-  return `/api/files/${encodeURIComponent(path)}`
+  return withBase(`/api/files/${encodeURIComponent(path)}`)
 }
 
 function localRoot(): string {

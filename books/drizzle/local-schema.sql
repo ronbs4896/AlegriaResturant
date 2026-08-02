@@ -1,5 +1,8 @@
--- DDL אידמפוטנטי לפיתוח מקומי מול PGlite.
--- בייצור המיגרציות מנוהלות ב-drizzle-kit מול Neon.
+-- סכימת הבסיס, DDL אידמפוטנטי. Postgres רגיל, בלי תלות בסביבה.
+--
+-- בפיתוח: נטען אוטומטית ל-PGlite בהרצה הראשונה.
+-- בייצור: אפשר להדביק אותו ב-SQL Editor של Neon כדי ליצור את
+-- הטבלאות בפעם הראשונה. שינויי סכימה בהמשך דרך drizzle-kit.
 
 CREATE TABLE IF NOT EXISTS users (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),

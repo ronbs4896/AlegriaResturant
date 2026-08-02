@@ -183,7 +183,9 @@ const sitemap =
 writeFileSync(join(DIST, 'sitemap.xml'), sitemap)
 
 // robots.txt
-const robots = `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
+// /books היא מערכת פנימית שמוגשת דרך rewrite ב-vercel.json.
+// היא חסומה גם בכותרת X-Robots-Tag אצלה, וזו השכבה השנייה.
+const robots = `User-agent: *\nAllow: /\nDisallow: /books\n\nSitemap: ${SITE_URL}/sitemap.xml\n`
 writeFileSync(join(DIST, 'robots.txt'), robots)
 
 console.log(`✓ postbuild-seo: הוזרק head ל-${count} עמודים + sitemap.xml + robots.txt`)

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { DOC_TYPES, EXPENSE_CATEGORIES } from '@/lib/constants'
 import type { ValidationFlag } from '@/lib/validate'
+import { withBase } from '@/lib/url'
 
 interface Fields {
   docType: string | null
@@ -51,7 +52,7 @@ export default function ReviewForm({
     }
 
     try {
-      const res = await fetch('/api/documents', {
+      const res = await fetch(withBase('/api/documents'), {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id, status, fields }),

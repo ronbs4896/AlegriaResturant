@@ -71,11 +71,15 @@ export function decodeSession(token: string | undefined): SessionPayload | null 
   }
 }
 
+// הנתיב מגיע מ-basePath. המערכת חולקת דומיין עם אתר השיווק, ובלי
+// ההגבלה הזו עוגיית ההתחברות הייתה נשלחת בכל בקשה לעמוד ציבורי.
+export const SESSION_COOKIE_PATH = process.env.BASE_PATH || '/'
+
 export const sessionCookieOptions = {
   httpOnly: true,
   secure: process.env.NODE_ENV === 'production',
   sameSite: 'lax' as const,
-  path: '/',
+  path: SESSION_COOKIE_PATH,
   maxAge: SESSION_TTL_DAYS * 86_400,
 }
 
