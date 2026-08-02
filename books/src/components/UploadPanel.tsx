@@ -117,7 +117,7 @@ export default function UploadPanel() {
           const data = await res.json().catch(() => ({}))
 
           if (!res.ok) {
-            patch(original, { state: 'error', detail: errorText(data.error) })
+            patch(original, { state: 'error', detail: errorText(data.error, res.status) })
             continue
           }
           patch(original, {
@@ -239,7 +239,7 @@ function StateDot({ state }: { state: ItemState }) {
   return <span className={`h-2.5 w-2.5 shrink-0 rounded-full ${s.cls}`} aria-label={s.label} />
 }
 
-function errorText(code: unknown): string {
+function errorText(code: unknown, status: number): string {
   switch (code) {
     case 'unsupported_type':
       return 'סוג קובץ לא נתמך. מותר PDF או תמונה.'
@@ -247,7 +247,11 @@ function errorText(code: unknown): string {
       return 'הקובץ גדול מדי. שלחו אותו במייל במקום.'
     case 'too_small':
       return 'הקובץ קטן מדי מכדי להיות מסמך.'
+    case 'storage_not_configured':
+      return 'האחסון לא מוגדר. צריך לחבר חנות Blob פרטית לפרויקט.'
     default:
-      return 'ההעלאה נכשלה. נסו שוב.'
+      // קוד השגיאה נשאר על המסך. בלעדיו כל תקלה נראית זהה,
+      // והאבחון תלוי ביכולת לפתוח את יומן השרת.
+      return `ההעלאה נכשלה. (${code ?? `http_${status}`})`
   }
 }
