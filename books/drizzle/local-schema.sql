@@ -88,12 +88,13 @@ CREATE INDEX IF NOT EXISTS documents_doc_date_idx ON documents (doc_date);
 CREATE INDEX IF NOT EXISTS documents_supplier_tax_id_idx ON documents (supplier_tax_id);
 CREATE INDEX IF NOT EXISTS documents_doc_type_idx ON documents (doc_type);
 CREATE INDEX IF NOT EXISTS documents_status_idx ON documents (status, created_at);
-CREATE INDEX IF NOT EXISTS documents_direction_idx ON documents (direction, status, doc_date);
 
--- מסד פיתוח ותיק: העמודות החדשות מתווספות, וסטטוס 'לא הוצאה'
--- הישן ממופה להכנסה בתור בדיקה. אידמפוטנטי לפי תנאי ה-WHERE.
+-- מסד פיתוח ותיק: העמודות החדשות מתווספות לפני האינדקס שנשען
+-- עליהן, וסטטוס 'לא הוצאה' הישן ממופה להכנסה בתור בדיקה.
+-- אידמפוטנטי לפי IF NOT EXISTS ותנאי ה-WHERE.
 ALTER TABLE documents ADD COLUMN IF NOT EXISTS direction text;
 ALTER TABLE documents ADD COLUMN IF NOT EXISTS customer_id uuid REFERENCES customers(id);
+CREATE INDEX IF NOT EXISTS documents_direction_idx ON documents (direction, status, doc_date);
 UPDATE documents SET direction = 'income', status = 'review',
   classify_reason = 'סווג מחדש כהכנסה — ממתין לבדיקה'
   WHERE status = 'not_expense';
