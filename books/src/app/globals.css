@@ -1,6 +1,30 @@
 @import 'tailwindcss';
 
 /* ============================================================
+   Rubik — לעברית, לספרות ול-₪ בלבד, דרך unicode-range.
+   אות לטינית אינה בטווח ולכן נופלת הלאה במחסנית (Segoe UI
+   וחברים) — אנגלית נשארת כפי שהייתה, בלי קלאס ובלי תנאי.
+   הנתיבים כוללים /books כי ה-basePath לא משכתב URL בתוך CSS.
+   ============================================================ */
+@font-face {
+  font-family: 'Rubik';
+  src: url('/books/fonts/Rubik-Variable-hebrew.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0590-05FF, U+FB1D-FB4F, U+20AA;
+}
+/* קובץ הלטינית משרת ספרות בלבד — הטווח המוצהר מצמצם אותו */
+@font-face {
+  font-family: 'Rubik';
+  src: url('/books/fonts/Rubik-Variable-latin.woff2') format('woff2');
+  font-weight: 300 900;
+  font-style: normal;
+  font-display: swap;
+  unicode-range: U+0030-0039;
+}
+
+/* ============================================================
    מערכת פנימית: נסרקת ומופעלת, לא נקראת מלמעלה למטה.
    לכן צפופה יותר מאתר השיווק, עם צבע ששומר על משמעות אחת:
    כתום = פעולה. ירוק/ענבר/אדום = מצב, ולא קישוט.
@@ -26,7 +50,8 @@
   --color-steel: #46525d;
   --color-steel-soft: #eef1f4;
 
-  --font-sans: 'Segoe UI', Rubik, 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif;
+  /* Rubik ראשון: תופס עברית וספרות לפי ה-unicode-range למעלה */
+  --font-sans: Rubik, 'Segoe UI', 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif;
   --font-num: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 }
 
@@ -41,9 +66,10 @@ body {
   line-height: 1.65;
 }
 
-/* ספרות מיושרות בעמודה — סכומים חייבים להיקרא בסריקה אנכית */
+/* ספרות מיושרות בעמודה — סכומים חייבים להיקרא בסריקה אנכית.
+   הפונט יורש מהמחסנית הראשית (Rubik תופס את הספרות), והיישור
+   נשמר עם ספרות טבלאיות במקום מונוספייס נפרד. */
 .num {
-  font-family: var(--font-num);
   font-variant-numeric: tabular-nums;
   direction: ltr;
   unicode-bidi: isolate;
