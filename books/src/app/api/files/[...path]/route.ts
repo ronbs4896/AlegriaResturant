@@ -15,18 +15,24 @@ export const GET = handler(async (req) => {
   const url = new URL(req.url)
   const path = decodeURIComponent(url.pathname.replace(/^\/api\/files\//, ''))
 
-  // חוסם יציאה מהתיקייה גם אם מישהו יבנה נתיב בעצמו
-  if (path.includes('..') || !path.startsWith('raw/')) {
+  // חוסם יציאה מהתיקייה גם אם מישהו יבנה נתיב בעצמו.
+  // raw = מסמכי מקור, exports = חבילות חודשיות.
+  const allowed = path.startsWith('raw/') || path.startsWith('exports/')
+  if (path.includes('..') || !allowed) {
     return Response.json({ error: 'bad_path' }, { status: 400 })
+  }
+
+  const TYPES: Record<string, string> = {
+    pdf: 'application/pdf',
+    png: 'image/png',
+    zip: 'application/zip',
   }
 
   try {
     const bytes = await getObjectBytes(path)
     const ext = path.split('.').pop() ?? ''
-    const type =
-      ext === 'pdf' ? 'application/pdf' : ext === 'png' ? 'image/png' : 'image/jpeg'
     return new Response(Buffer.from(bytes), {
-      headers: { 'Content-Type': type, 'Cache-Control': 'private, max-age=300' },
+      headers: { 'Content-Type': TYPES[ext] ?? 'image/jpeg', 'Cache-Control': 'private, max-age=300' },
     })
   } catch {
     return Response.json({ error: 'not_found' }, { status: 404 })

@@ -65,6 +65,34 @@ export async function putObject(
   return stored
 }
 
+/**
+ * כתיבה לנתיב נתון, לתוצרים שאינם מסמכי מקור — חבילת הייצוא
+ * החודשית. לא מבוסס-תוכן: הנתיב נקבע מראש כדי שאפשר יהיה
+ * להוריד את אותה חבילה שוב, ורואה החשבון יאבד את הקישור.
+ */
+export async function putBytes(
+  path: string,
+  bytes: Uint8Array,
+  mime: string,
+): Promise<void> {
+  if (useBlob()) {
+    const { put } = await import('@vercel/blob')
+    await put(path, Buffer.from(bytes), {
+      access: 'private',
+      contentType: mime,
+      addRandomSuffix: false,
+      allowOverwrite: true,
+      multipart: bytes.byteLength > 8 * 1024 * 1024,
+    })
+    return
+  }
+  const { writeFile, mkdir } = await import('node:fs/promises')
+  const { join, dirname } = await import('node:path')
+  const full = join(localRoot(), path)
+  await mkdir(dirname(full), { recursive: true })
+  await writeFile(full, bytes)
+}
+
 export async function getObjectBytes(path: string): Promise<Uint8Array> {
   if (useBlob()) {
     const { get } = await import('@vercel/blob')
