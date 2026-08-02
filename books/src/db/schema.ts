@@ -62,6 +62,61 @@ export const suppliers = pgTable(
 )
 
 // ============================================================
+//  פרופיל העסק — שורה אחת, מקור האמת לשאלה "מי אנחנו".
+//
+//  ח.פ. לבדו לא מספיק: בקבלות רבות הוא לא מודפס, ובצילום הוא
+//  נקרא שגוי. השמות המסחריים, כתובות המייל והטלפונים משמשים
+//  כעוגנים נוספים לזיהוי איזה צד במסמך הוא אנחנו.
+// ============================================================
+export const businessProfile = pgTable('business_profile', {
+  id: uuid('id').primaryKey().defaultRandom(),
+  legalName: text('legal_name').notNull(),
+  /** שמות מסחריים נוספים שמופיעים על מסמכים */
+  tradeNames: jsonb('trade_names').$type<string[]>().notNull().default([]),
+  taxId: text('tax_id'),
+  vatNumber: text('vat_number'),
+  addresses: jsonb('addresses').$type<string[]>().notNull().default([]),
+  /** כתובות המייל של העסק — רמז לזיהוי, לא הכרעה */
+  emails: jsonb('emails').$type<string[]>().notNull().default([]),
+  phones: jsonb('phones').$type<string[]>().notNull().default([]),
+  bankAccounts: jsonb('bank_accounts').$type<string[]>().notNull().default([]),
+  defaultCurrency: text('default_currency').notNull().default('ILS'),
+  updatedAt: timestamp('updated_at', { withTimezone: true }).notNull().defaultNow(),
+})
+
+// ============================================================
+//  יומן קליטה — כל קובץ מצורף שנראה, גם כזה שלא נכנס.
+//
+//  audit_log לא יכול לשרת את זה: יש לו FK חובה ל-documents,
+//  ולכן קובץ שסוננו לפני היצירה לא ניתן לרישום שם. בלי היומן
+//  הזה אי אפשר לענות על "למה החשבונית שלי לא נמשכה".
+// ============================================================
+export const ingestLog = pgTable(
+  'ingest_log',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    source: text('source', { enum: ['email', 'upload', 'webhook'] }).notNull(),
+    mailbox: text('mailbox'),
+    /** UID של ההודעה או מזהה ה-webhook */
+    messageRef: text('message_ref'),
+    sender: text('sender'),
+    subject: text('subject'),
+    filename: text('filename'),
+    mime: text('mime'),
+    sizeBytes: integer('size_bytes'),
+    decision: text('decision', {
+      enum: ['imported', 'filtered', 'duplicate', 'error'],
+    }).notNull(),
+    /** קוד קצר לסינון לפי סיבה */
+    reasonCode: text('reason_code').notNull(),
+    reason: text('reason').notNull(),
+    documentId: uuid('document_id').references(() => documents.id, { onDelete: 'set null' }),
+    at: timestamp('at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [index('ingest_log_at_idx').on(t.at), index('ingest_log_decision_idx').on(t.decision, t.at)],
+)
+
+// ============================================================
 //  לקוחות. הצד השני של המטבע: מי שאלגריה הנפיקה לו מסמך.
 //  אותו עיקרון כמו ספקים — התאמה לפי ח.פ., שורה נוצרת רק
 //  כשיש מספר תקין.
@@ -108,8 +163,20 @@ export const documents = pgTable(
     uploadedBy: uuid('uploaded_by').references(() => users.id),
 
     // ── מצב ────────────────────────────────────────────────
+    //  not_financial  — נדחה: אינו מסמך פיננסי (עם סיבה)
+    //  awaiting_final — פיננסי אך לא סופי (חשבון עסקה, דרישת תשלום)
+    //  duplicate      — חשד לכפילות מול מסמך קיים
+    //  רק approved נספר בדוחות.
     status: text('status', {
-      enum: ['pending', 'review', 'approved', 'rejected'],
+      enum: [
+        'pending',
+        'review',
+        'approved',
+        'rejected',
+        'not_financial',
+        'awaiting_final',
+        'duplicate',
+      ],
     })
       .notNull()
       .default('pending'),
@@ -122,6 +189,19 @@ export const documents = pgTable(
 
     // ── שדות המסמך ─────────────────────────────────────────
     docType: text('doc_type'),
+    /**
+     * מה המסמך הזה בכלל — טקסונומיה רחבה שכוללת גם מה שאינו
+     * פיננסי (הצעת מחיר, חוזה, תעודת משלוח). doc_type נשאר
+     * לסוג המס בלבד, ומתמלא רק כשזה מסמך מס.
+     */
+    docKind: text('doc_kind'),
+    /** למה המערכת החליטה שזה מה שזה — מוצג כשמסמך נדחה */
+    kindReason: text('kind_reason'),
+    /** ודאות פר-שדה, כדי לסמן במסך בדיוק מה חשוד */
+    fieldConfidence: jsonb('field_confidence').$type<Record<string, number>>(),
+    docLanguage: text('doc_language'),
+    /** כשזוהתה כפילות: המסמך שאליו זו כפילות */
+    duplicateOfId: uuid('duplicate_of_id'),
     supplierId: uuid('supplier_id').references(() => suppliers.id),
     customerId: uuid('customer_id').references(() => customers.id),
     supplierName: text('supplier_name'),
@@ -164,6 +244,8 @@ export const documents = pgTable(
     index('documents_status_idx').on(t.status, t.createdAt),
     // הדשבורד והדוחות שולפים לפי צד, סטטוס ותאריך — ביחד.
     index('documents_direction_idx').on(t.direction, t.status, t.docDate),
+    // מפתח הכפילות הדומה: אותה חשבונית שהגיעה גם כ-PDF וגם כצילום.
+    index('documents_dup_idx').on(t.supplierTaxId, t.docNumber, t.totalAmount),
   ],
 )
 
@@ -217,5 +299,7 @@ export const ingestState = pgTable('ingest_state', {
 export type User = typeof users.$inferSelect
 export type Supplier = typeof suppliers.$inferSelect
 export type Customer = typeof customers.$inferSelect
+export type BusinessProfile = typeof businessProfile.$inferSelect
+export type IngestLog = typeof ingestLog.$inferSelect
 export type Document = typeof documents.$inferSelect
 export type NewDocument = typeof documents.$inferInsert

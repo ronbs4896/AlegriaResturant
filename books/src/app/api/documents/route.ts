@@ -122,7 +122,17 @@ const EDITABLE = {
 
 const Patch = z.object({
   id: z.string().uuid(),
-  status: z.enum(['pending', 'review', 'approved', 'rejected']).optional(),
+  status: z
+    .enum([
+      'pending',
+      'review',
+      'approved',
+      'rejected',
+      'not_financial',
+      'awaiting_final',
+      'duplicate',
+    ])
+    .optional(),
   fields: z.object(EDITABLE).partial().optional(),
 })
 

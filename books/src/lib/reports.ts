@@ -173,8 +173,11 @@ export async function totalsForMonths(db: Db, months: string[]): Promise<TotalsR
     .from(schema.documents)
     .where(
       and(
+        // רק מסמך שאושר בידי אדם, יש לו תאריך, ויש לו סוג מס
+        // סופי. חשבון עסקה ומסמך שלא זוהה לעולם לא נספרים.
         eq(schema.documents.status, 'approved'),
         isNotNull(schema.documents.docDate),
+        isNotNull(schema.documents.docType),
         inArray(period, months),
       ),
     )

@@ -3,14 +3,35 @@ import assert from 'node:assert/strict'
 import { decide, CONFIDENCE_THRESHOLD } from '../src/lib/pipeline'
 import type { ExtractedFields } from '../src/lib/extract'
 
+// רוב הבדיקות כאן בודקות את ההכרעה עצמה, ולכן מדליקות את האישור
+// האוטומטי במפורש. הכיבוי כברירת מחדל נבדק בסוף הקובץ.
+process.env.AUTO_APPROVE_ENABLED = 'true'
+
 const ALEGRIA = '514999994'
 const SUPPLIER = '520000118'
 const TODAY = '2026-08-01'
 
 // תשובת חילוץ תקינה. כל בדיקה משנה ממנה שדה אחד, כך שברור
 // מה בדיוק גרם לתוצאה.
+const FULL_CONFIDENCE = {
+  document_kind: 1,
+  supplier_name: 1,
+  supplier_tax_id: 1,
+  recipient_name: 1,
+  recipient_tax_id: 1,
+  doc_number: 1,
+  doc_date: 1,
+  total_amount: 1,
+}
+
 const clean: ExtractedFields = {
-  doc_type: 'tax_invoice',
+  is_financial_document: true,
+  document_kind: 'tax_invoice',
+  kind_reason: 'כתוב בראש המסמך "חשבונית מס"',
+  document_language: 'he',
+  looks_like_multiple_documents: false,
+  image_quality_ok: true,
+  field_confidence: FULL_CONFIDENCE,
   supplier_name: 'חברת החשמל',
   supplier_tax_id: SUPPLIER,
   recipient_name: 'קייטרינג אלגריה',
@@ -93,7 +114,7 @@ describe('הכרעת הצינור', () => {
     const r = decide(
       {
         ...clean,
-        doc_type: null,
+        document_kind: 'unknown',
         supplier_tax_id: null,
         recipient_tax_id: null,
         doc_date: null,
@@ -128,7 +149,7 @@ describe('הכרעת הצינור', () => {
   })
 
   test('קבלה מזוהה כלא מזכה בניכוי אך עדיין נכנסת לתיק', () => {
-    const r = run({ doc_type: 'receipt' })
+    const r = run({ document_kind: 'receipt' })
     assert.equal(r.status, 'approved')
     assert.ok(r.flags.some((f) => f.code === 'doc_type_not_deductible'))
   })
@@ -159,7 +180,7 @@ describe('הכרעת הצינור — צד ההכנסות', () => {
   })
 
   test('קבלה ללקוח פרטי בלי ח.פ. — הכנסה מאושרת: המנפיק לבדו מכריע', () => {
-    const r = income({ doc_type: 'receipt', recipient_tax_id: null, recipient_name: 'לקוח פרטי' })
+    const r = income({ document_kind: 'receipt', recipient_tax_id: null, recipient_name: 'לקוח פרטי' })
     assert.equal(r.status, 'approved')
     assert.equal(r.direction, 'income')
     assert.ok(r.flags.some((f) => f.code === 'missing_customer_taxid'))
@@ -174,5 +195,116 @@ describe('הכרעת הצינור — צד ההכנסות', () => {
   test('ביטחון נמוך שולח הכנסה לבדיקה', () => {
     const r = income({ confidence: 0.5 })
     assert.equal(r.status, 'review')
+  })
+})
+
+// ============================================================
+//  שכבת הסינון: מה שאינו חשבונית לא נכנס לספרים.
+//  עשרת מקרי הבדיקה מהאפיון, אחד לאחד.
+// ============================================================
+describe('סינון מסמכים שאינם חשבונית', () => {
+  const kindCase = (kind: string, extra: Partial<ExtractedFields> = {}) =>
+    run({ document_kind: kind, is_financial_document: false, ...extra })
+
+  test('הצעת מחיר נדחית ואינה הופכת להוצאה', () => {
+    const r = kindCase('quote', { kind_reason: 'כתוב "הצעת מחיר" ויש תוקף להצעה' })
+    assert.equal(r.status, 'not_financial')
+    assert.equal(r.direction, null)
+    assert.match(r.reason, /הצעת מחיר/)
+  })
+
+  test('תעודת משלוח ואישור הזמנה נדחים', () => {
+    assert.equal(kindCase('delivery_note').status, 'not_financial')
+    assert.equal(kindCase('order_confirmation').status, 'not_financial')
+  })
+
+  test('לוגו וחתימת מייל נדחים', () => {
+    assert.equal(kindCase('signature_or_logo').status, 'not_financial')
+  })
+
+  test('חוזה, קטלוג ותפריט נדחים', () => {
+    for (const k of ['contract', 'catalog', 'menu', 'marketing', 'screenshot']) {
+      assert.equal(kindCase(k).status, 'not_financial', k)
+    }
+  })
+
+  test('הסיבה נשמרת ומוצגת — לא "נדחה" בלי הסבר', () => {
+    const r = kindCase('purchase_order', { kind_reason: 'כתוב Purchase Order ואין דרישת תשלום' })
+    assert.match(r.reason, /Purchase Order/)
+  })
+
+  test('המודל טוען שזה פיננסי אבל הסוג אינו פיננסי — הזהיר מנצח', () => {
+    const r = run({ document_kind: 'quote', is_financial_document: true })
+    assert.equal(r.status, 'not_financial')
+  })
+
+  test('סוג לא מוכר מהמודל נופל ל"לא זוהה" ומחכה להכרעה ידנית', () => {
+    const r = run({ document_kind: 'משהו אחר לגמרי', is_financial_document: true })
+    assert.equal(r.kind, 'unknown')
+    // "לא הצלחתי לקרוא" אינו "זה לא חשבונית" — נדרשת עין אנושית.
+    assert.equal(r.status, 'review')
+    assert.equal(r.direction, null)
+  })
+})
+
+describe('מסמך פיננסי שאינו סופי', () => {
+  test('חשבון עסקה ממתין לחשבונית ואינו נספר', () => {
+    const r = run({ document_kind: 'proforma' })
+    assert.equal(r.status, 'awaiting_final')
+    assert.ok(r.flags.some((f) => f.code === 'awaiting_final_document'))
+  })
+
+  test('דרישת תשלום מקבלת אותו טיפול', () => {
+    assert.equal(run({ document_kind: 'payment_demand' }).status, 'awaiting_final')
+  })
+})
+
+describe('איכות, פיצול וודאות פר-שדה', () => {
+  test('צילום מטושטש — לבדיקה עם בקשה לצלם מחדש', () => {
+    const r = run({ image_quality_ok: false })
+    assert.equal(r.status, 'review')
+    assert.ok(r.flags.some((f) => f.code === 'poor_image_quality'))
+  })
+
+  test('כמה מסמכים בקובץ אחד — לא נוצרת הוצאה אחת מסכום מאוחד', () => {
+    const r = run({ looks_like_multiple_documents: true })
+    assert.equal(r.status, 'review')
+    assert.ok(r.flags.some((f) => f.code === 'multiple_documents'))
+  })
+
+  test('שדה בודד בוודאות נמוכה מסומן בשמו', () => {
+    const r = run({
+      field_confidence: { ...FULL_CONFIDENCE, total_amount: 0.4 },
+    })
+    const flag = r.flags.find((f) => f.code === 'low_confidence_total_amount')
+    assert.equal(flag?.level, 'warn')
+    assert.match(flag!.message, /הסכום הכולל/)
+  })
+
+  test('ודאות כוללת מתחת ל-70% — הצד לא נקבע אוטומטית', () => {
+    const r = run({ confidence: 0.65 })
+    assert.equal(r.status, 'review')
+    assert.equal(r.direction, null)
+  })
+
+  test('ודאות בין 70% ל-90% — לבדיקה, אבל הצד כן נקבע', () => {
+    const r = run({ confidence: 0.8 })
+    assert.equal(r.status, 'review')
+    assert.equal(r.direction, 'expense')
+  })
+})
+
+describe('אישור אוטומטי כבוי כברירת מחדל', () => {
+  test('מסמך מושלם ממתין לאישור אדם כשהדגל כבוי', () => {
+    delete process.env.AUTO_APPROVE_ENABLED
+    try {
+      const r = run({})
+      assert.equal(r.status, 'review')
+      assert.equal(r.direction, 'expense')
+      assert.equal(r.flags.filter((f) => f.level === 'error').length, 0)
+      assert.match(r.reason, /אישור אוטומטי כבוי/)
+    } finally {
+      process.env.AUTO_APPROVE_ENABLED = 'true'
+    }
   })
 })

@@ -29,6 +29,7 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           { href: '/suppliers', label: 'ספקים' },
           { href: '/customers', label: 'לקוחות' },
           { href: '/reports', label: 'דוחות וייצוא' },
+          { href: '/settings', label: 'הגדרות' },
         ]
       : []),
   ]

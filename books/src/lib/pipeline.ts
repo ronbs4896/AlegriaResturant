@@ -10,9 +10,16 @@ import {
   type DocumentFacts,
   type Direction,
 } from './validate'
-import { isDocType, isExpenseCategory } from './constants'
+import {
+  isExpenseCategory,
+  isDocKind,
+  docTypeForKind,
+  DOC_KINDS,
+  type DocKind,
+} from './constants'
 import { matchOrCreateSupplier, learnSender } from './suppliers'
 import { matchOrCreateCustomer } from './customers'
+import { findDuplicate } from './duplicates'
 
 // ============================================================
 //  הצינור: ממסמך גולמי לסטטוס סופי.
@@ -21,10 +28,35 @@ import { matchOrCreateCustomer } from './customers'
 //  כדי שלא יהיו שתי דרכים שונות להגיע לאותה טבלה.
 // ============================================================
 
-/** מתחת לזה לא מאשרים לבד, גם כשהכל נראה תקין. */
-export const CONFIDENCE_THRESHOLD = 0.85
+// ============================================================
+//  רמות ודאות.
+//
+//  ≥ READY   — הקריאה ברורה, המסמך מועמד לאישור
+//  ≥ REVIEW  — לבדיקה, עם סימון השדות החשודים
+//  מתחת לזה — לבדיקה, ו**הכיוון לא נקבע אוטומטית**: מסמך שלא
+//              נקרא כמו שצריך לא יסווג כהכנסה או הוצאה לבד.
+// ============================================================
+export const CONFIDENCE_READY = 0.9
+export const CONFIDENCE_REVIEW = 0.7
 
-export type DocStatus = 'pending' | 'review' | 'approved' | 'rejected'
+/** נשמר לתאימות מבחנים ותיקים. */
+export const CONFIDENCE_THRESHOLD = CONFIDENCE_READY
+
+/**
+ * אישור אוטומטי כבוי כברירת מחדל. בתקופה הראשונה כל מסמך עובר
+ * דרך עיניים אנושיות — עדיף מסמך אמיתי אחד שמחכה מאשר עשרות
+ * מסמכים שגויים בתוך הספרים. מדליקים כשהזיהוי הוכיח את עצמו.
+ */
+export const autoApproveEnabled = (): boolean => process.env.AUTO_APPROVE_ENABLED === 'true'
+
+export type DocStatus =
+  | 'pending'
+  | 'review'
+  | 'approved'
+  | 'rejected'
+  | 'not_financial'
+  | 'awaiting_final'
+  | 'duplicate'
 
 export interface PipelineOutcome {
   status: DocStatus
@@ -32,6 +64,8 @@ export interface PipelineOutcome {
   direction: Direction | null
   flags: ValidationFlag[]
   reason: string
+  /** מה המסמך הזה, לפי הטקסונומיה הרחבה. */
+  kind: DocKind
 }
 
 /**
@@ -43,8 +77,50 @@ export function decide(
   businessTaxId: string,
   today?: string,
 ): PipelineOutcome {
+  const kind: DocKind = isDocKind(fields.document_kind) ? fields.document_kind : 'unknown'
+  const family = DOC_KINDS[kind].family
+  const kindLabel = DOC_KINDS[kind].he
+  const reason = fields.kind_reason?.trim() || kindLabel
+
+  // "לא זוהה" אינו דחייה. מסמך שלא הצלחנו לקרוא צריך עין
+  // אנושית, לא חותמת "אינו פיננסי" שתקבור אותו.
+  if (kind === 'unknown') {
+    return {
+      status: 'review',
+      direction: null,
+      flags: [
+        {
+          code: 'kind_unknown',
+          level: 'error',
+          message: 'לא זוהה סוג המסמך. נדרשת הכרעה ידנית',
+        },
+      ],
+      reason: reason || 'לא זוהה סוג המסמך',
+      kind,
+    }
+  }
+
+  // ── שכבה ראשונה: האם זה בכלל מסמך פיננסי ─────────────────
+  // המודל והטקסונומיה צריכים להסכים. חוסר הסכמה נופל לצד
+  // הזהיר: לא נכנס לספרים בלי שאדם הכריע.
+  if (family === 'other' || !fields.is_financial_document) {
+    return {
+      status: 'not_financial',
+      direction: null,
+      flags: [
+        {
+          code: 'not_financial',
+          level: 'info',
+          message: `זוהה כ${kindLabel} — אינו חשבונית או קבלה`,
+        },
+      ],
+      reason,
+      kind,
+    }
+  }
+
   const facts: DocumentFacts = {
-    docType: isDocType(fields.doc_type) ? fields.doc_type : null,
+    docType: docTypeForKind(kind),
     docDate: fields.doc_date,
     supplierTaxId: fields.supplier_tax_id,
     recipientTaxId: fields.recipient_tax_id,
@@ -55,11 +131,12 @@ export function decide(
     allocationNumber: fields.allocation_number,
   }
 
-  // הכנסה והוצאה עוברות את אותו מסלול: ולידציה, סף ביטחון,
-  // ורק אז אישור. מסמך שהעסק הנפיק הוא הכנסה שנרשמת, לא מסמך
-  // שנזרק הצידה.
   const classified = classifyDirection(facts, businessTaxId)
-  const direction = classified.verdict === 'unclear' ? null : classified.verdict
+  // ודאות נמוכה מדי — לא מסווגים צד לבד. הקריאה עצמה לא אמינה,
+  // וסיווג על בסיסה יכניס מסמך לצד הלא נכון של הספר.
+  const readEnough = fields.confidence >= CONFIDENCE_REVIEW
+  const direction =
+    classified.verdict === 'unclear' || !readEnough ? null : classified.verdict
 
   // כשהצד לא הוכרע, הוולידציה רצה במצב הוצאה — הצד השמרני.
   const flags = validateDocument(facts, {
@@ -68,23 +145,93 @@ export function decide(
     direction: direction ?? 'expense',
   })
 
+  // ── מסמך פיננסי שאינו סופי ───────────────────────────────
+  // חשבון עסקה ודרישת תשלום נשמרים, אבל לעולם לא נספרים בדוחות
+  // עד שתגיע החשבונית הסופית.
+  if (family === 'interim') {
+    flags.push({
+      code: 'awaiting_final_document',
+      level: 'warn',
+      message: `${kindLabel} אינו מסמך מס סופי. ממתין לחשבונית או לקבלה`,
+    })
+    return { status: 'awaiting_final', direction, flags, reason, kind }
+  }
+
+  // ── איכות ופיצול ─────────────────────────────────────────
+  if (!fields.image_quality_ok) {
+    flags.push({
+      code: 'poor_image_quality',
+      level: 'error',
+      message: 'איכות הצילום נמוכה מכדי לקרוא בוודאות. כדאי לצלם מחדש',
+    })
+  }
+  if (fields.looks_like_multiple_documents) {
+    flags.push({
+      code: 'multiple_documents',
+      level: 'error',
+      message: 'נראה שהקובץ מכיל יותר ממסמך אחד. יש להפריד לפני אישור',
+    })
+  }
+
+  // ── שדות בודדים בוודאות נמוכה ────────────────────────────
+  for (const field of lowConfidenceFields(fields)) {
+    flags.push({
+      code: `low_confidence_${field.key}`,
+      level: 'warn',
+      message: `${field.he} נקרא בוודאות נמוכה (${Math.round(field.value * 100)}%). כדאי לאמת מול המסמך`,
+    })
+  }
+
   if (!direction) {
-    return { status: 'review', direction, flags, reason: classified.reason }
+    const why = readEnough
+      ? classified.reason
+      : `הקריאה מהמסמך אינה ודאית (${Math.round(fields.confidence * 100)}%) — הצד לא נקבע אוטומטית`
+    return { status: 'review', direction: null, flags, reason: why, kind }
   }
   if (hasBlockingFlag(flags)) {
     const first = flags.find((f) => f.level === 'error')
-    return { status: 'review', direction, flags, reason: first?.message ?? 'נדרשת בדיקה' }
+    return { status: 'review', direction, flags, reason: first?.message ?? 'נדרשת בדיקה', kind }
   }
-  if (fields.confidence < CONFIDENCE_THRESHOLD) {
+  if (fields.confidence < CONFIDENCE_READY) {
     return {
       status: 'review',
       direction,
       flags,
       reason: `הקריאה מהמסמך אינה ודאית (${Math.round(fields.confidence * 100)}%)`,
+      kind,
+    }
+  }
+  if (!autoApproveEnabled()) {
+    return {
+      status: 'review',
+      direction,
+      flags,
+      reason: 'הכול נראה תקין. אישור אוטומטי כבוי, ולכן ממתין לאישורכם',
+      kind,
     }
   }
 
-  return { status: 'approved', direction, flags, reason: classified.reason }
+  return { status: 'approved', direction, flags, reason: classified.reason, kind }
+}
+
+/** שדות מפתח שהמודל עצמו סימן כלא ודאיים. */
+const CONFIDENCE_LABELS: Record<string, string> = {
+  document_kind: 'סוג המסמך',
+  supplier_name: 'שם הספק',
+  supplier_tax_id: 'ח.פ. הספק',
+  recipient_name: 'שם הנמען',
+  recipient_tax_id: 'ח.פ. הנמען',
+  doc_number: 'מספר המסמך',
+  doc_date: 'תאריך המסמך',
+  total_amount: 'הסכום הכולל',
+}
+
+export function lowConfidenceFields(
+  fields: Pick<ExtractedFields, 'field_confidence'>,
+): { key: string; he: string; value: number }[] {
+  return Object.entries(fields.field_confidence ?? {})
+    .filter(([key, value]) => key in CONFIDENCE_LABELS && value < CONFIDENCE_REVIEW)
+    .map(([key, value]) => ({ key, he: CONFIDENCE_LABELS[key]!, value }))
 }
 
 /** מריץ מסמך יחיד מ-pending לסטטוס סופי ושומר. */
@@ -120,7 +267,7 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       .update(schema.documents)
       .set({ status: 'review', validationFlags: flags, classifyReason: message })
       .where(eq(schema.documents.id, doc.id))
-    return { status: 'review', direction: null, flags, reason: message }
+    return { status: 'review', direction: null, flags, reason: message, kind: 'unknown' }
   }
 
   const f = extraction.fields
@@ -129,12 +276,15 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
   // הצד השני של המסמך נרשם לפי הכיוון: בהוצאה הספק (המנפיק),
   // בהכנסה הלקוח (הנמען). כשהצד לא הוכרע לא נרשם אף אחד —
   // אין טעם למלא את הטבלאות בישויות של מסמכים זרים.
+  // מסמך שאינו פיננסי לא מייצר ספק ולא לקוח: אין סיבה שחוזה או
+  // הצעת מחיר יוסיפו ישויות לטבלאות שהדוחות נשענים עליהן.
+  const booked = outcome.status !== 'not_financial'
   const supplier =
-    outcome.direction === 'expense'
+    booked && outcome.direction === 'expense'
       ? await matchOrCreateSupplier(f.supplier_tax_id, f.supplier_name)
       : null
   const customer =
-    outcome.direction === 'income'
+    booked && outcome.direction === 'income'
       ? await matchOrCreateCustomer(f.recipient_tax_id, f.recipient_name)
       : null
 
@@ -149,7 +299,12 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
     .set({
       status: outcome.status,
       direction: outcome.direction,
-      docType: isDocType(f.doc_type) ? f.doc_type : null,
+      docKind: outcome.kind,
+      duplicateOfId: null,
+      kindReason: f.kind_reason || null,
+      docLanguage: f.document_language,
+      fieldConfidence: f.field_confidence,
+      docType: docTypeForKind(outcome.kind),
       supplierId: supplier?.id ?? null,
       customerId: customer?.id ?? null,
       supplierName: f.supplier_name,
@@ -177,6 +332,39 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       extractedAt: new Date(),
     })
     .where(eq(schema.documents.id, doc.id))
+
+  // בדיקת כפילות רצה על המסמך אחרי שנשמר, כי היא משווה שדות
+  // מחולצים. מסמך שאינו פיננסי לא נבדק — אין לו מה לשכפל.
+  if (booked && outcome.status !== 'awaiting_final') {
+    const fresh = await db
+      .select()
+      .from(schema.documents)
+      .where(eq(schema.documents.id, doc.id))
+      .limit(1)
+    const hit = fresh[0] ? await findDuplicate(fresh[0]) : null
+
+    if (hit) {
+      const flags: ValidationFlag[] = [
+        ...outcome.flags,
+        {
+          code: 'possible_duplicate',
+          level: 'error',
+          message: `נראה זהה למסמך שכבר קיים (${hit.matched.join(', ')}). צריך להכריע`,
+        },
+      ]
+      const reason = 'חשד לכפילות מול מסמך קיים'
+      await db
+        .update(schema.documents)
+        .set({
+          status: 'duplicate',
+          duplicateOfId: hit.document.id,
+          validationFlags: flags,
+          classifyReason: reason,
+        })
+        .where(eq(schema.documents.id, doc.id))
+      return { ...outcome, status: 'duplicate', flags, reason }
+    }
+  }
 
   return outcome
 }

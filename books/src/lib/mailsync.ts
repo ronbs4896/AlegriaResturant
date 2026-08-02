@@ -3,6 +3,8 @@ import { getDb, schema } from '@/db'
 import { putObject } from './storage'
 import { isAcceptedMime, MIN_ATTACHMENT_BYTES } from './constants'
 import { extractAddress } from './inbound'
+import { triageAttachment } from './triage'
+import { logIngestBatch, FILTER_REASONS, type IngestEntry } from './ingestlog'
 import {
   readMailboxes,
   cursorKey,
@@ -31,16 +33,28 @@ export interface SyncResult {
   scanned: number
   stored: number
   skipped: number
+  /** קבצים מצורפים שנבדקו, ומתוכם כמה עברו את הסינון הטכני. */
+  attachments: number
+  passed: number
+  /** פירוט הסינון לפי סיבה, להצגה למשתמש. */
+  filtered: Record<string, number>
   documentIds: string[]
+  /** במצב תצוגה מקדימה לא נשמר דבר. */
+  preview: boolean
   error?: string
 }
 
-export async function syncAllMailboxes(): Promise<SyncResult[]> {
+export interface SyncOptions {
+  /** סורק ומדווח בלי לשמור מסמכים ובלי לקדם את הסמן. */
+  preview?: boolean
+}
+
+export async function syncAllMailboxes(opts: SyncOptions = {}): Promise<SyncResult[]> {
   const boxes = readMailboxes()
   const results: SyncResult[] = []
   for (const box of boxes) {
     try {
-      results.push(await syncMailbox(box))
+      results.push(await syncMailbox(box, opts))
     } catch (err) {
       console.error('[mailsync] תיבה נכשלה', box.user, err)
       results.push({
@@ -48,7 +62,11 @@ export async function syncAllMailboxes(): Promise<SyncResult[]> {
         scanned: 0,
         stored: 0,
         skipped: 0,
+        attachments: 0,
+        passed: 0,
+        filtered: {},
         documentIds: [],
+        preview: Boolean(opts.preview),
         error: err instanceof Error ? err.message : 'unknown',
       })
     }
@@ -56,7 +74,10 @@ export async function syncAllMailboxes(): Promise<SyncResult[]> {
   return results
 }
 
-export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
+export async function syncMailbox(
+  box: MailboxConfig,
+  opts: SyncOptions = {},
+): Promise<SyncResult> {
   const { ImapFlow } = await import('imapflow')
   const { simpleParser } = await import('mailparser')
 
@@ -70,12 +91,24 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
     logger: false,
   })
 
+  const preview = Boolean(opts.preview)
   const result: SyncResult = {
     mailbox: box.user,
     scanned: 0,
     stored: 0,
     skipped: 0,
+    attachments: 0,
+    passed: 0,
+    filtered: {},
     documentIds: [],
+    preview,
+  }
+
+  // כל החלטה נאספת ונרשמת ביומן בסוף — גם, ובעיקר, סינון.
+  const journal: IngestEntry[] = []
+  const note = (code: string) => {
+    result.filtered[code] = (result.filtered[code] ?? 0) + 1
+    result.skipped++
   }
 
   await client.connect()
@@ -117,23 +150,24 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
       { uid: true },
     )
 
-    const candidates: { uid: number; from: string }[] = []
+    const candidates: { uid: number; from: string; subject: string }[] = []
     for await (const msg of messages) {
       if (msg.uid > highest) highest = msg.uid
       result.scanned++
 
       const from = extractAddress(msg.envelope?.from?.[0]?.address ?? '')
+      const subject = msg.envelope?.subject ?? ''
       // "כל הדואר" כולל גם דואר יוצא. מה שהתיבה עצמה שלחה מדולג;
       // חשבוניות שמערכת ההנפקה שלחה דווקא נקלטות — אלה ההכנסות.
       if (from === box.user.toLowerCase()) {
-        result.skipped++
+        note('self_sent')
         continue
       }
       if (!hasUsefulAttachment(msg.bodyStructure, box.images)) {
-        result.skipped++
+        note('no_attachment')
         continue
       }
-      candidates.push({ uid: msg.uid, from })
+      candidates.push({ uid: msg.uid, from, subject })
       if (candidates.length >= MAX_PER_RUN) break
     }
 
@@ -144,17 +178,44 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
       for (const att of parsed.attachments ?? []) {
         const mime = att.contentType ?? 'application/octet-stream'
         const bytes = new Uint8Array(att.content)
+        const filename = att.filename ?? null
+        result.attachments++
 
-        // לוגו מחתימת מייל: חלק inline עם Content-ID, או קובץ
-        // קטן מכדי להיות מסמך.
-        if (att.contentDisposition === 'inline' && att.cid) {
-          result.skipped++
+        const base = {
+          source: 'email' as const,
+          mailbox: box.user,
+          messageRef: String(candidate.uid),
+          sender: candidate.from,
+          subject: candidate.subject,
+          filename,
+          mime,
+          sizeBytes: bytes.byteLength,
+        }
+
+        // שכבה ראשונה: סינון טכני משותף לשני מסלולי הקליטה.
+        const verdict = triageAttachment(
+          {
+            filename,
+            mime,
+            sizeBytes: bytes.byteLength,
+            inlineWithCid: att.contentDisposition === 'inline' && Boolean(att.cid),
+          },
+          box.images,
+        )
+        if (!verdict.ok) {
+          note(verdict.code)
+          journal.push({
+            ...base,
+            decision: 'filtered',
+            reasonCode: verdict.code,
+            reason: verdict.message,
+          })
           continue
         }
-        if (!mimeAllowed(mime, box.images) || bytes.byteLength < MIN_ATTACHMENT_BYTES) {
-          result.skipped++
-          continue
-        }
+        result.passed++
+
+        // בתצוגה מקדימה עוצרים כאן: לא נשמר קובץ, לא נוצר מסמך.
+        if (preview) continue
 
         const stored = await putObject(bytes, mime)
 
@@ -164,7 +225,14 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
           .where(eq(schema.documents.sha256, stored.sha256))
           .limit(1)
         if (existing[0]) {
-          result.skipped++
+          note('duplicate_content')
+          journal.push({
+            ...base,
+            decision: 'duplicate',
+            reasonCode: 'duplicate_content',
+            reason: FILTER_REASONS.duplicate_content,
+            documentId: existing[0].id,
+          })
           continue
         }
 
@@ -175,7 +243,7 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
             blobPath: stored.path,
             mime,
             sizeBytes: stored.sizeBytes,
-            originalFilename: att.filename ?? null,
+            originalFilename: filename,
             source: 'email',
             sourceRef: `${box.user}#${candidate.uid}`,
             sourceSender: candidate.from,
@@ -187,19 +255,31 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
         if (id) {
           result.documentIds.push(id)
           result.stored++
+          journal.push({
+            ...base,
+            decision: 'imported',
+            reasonCode: 'accepted',
+            reason: 'עבר את הסינון הטכני, ממתין לזיהוי',
+            documentId: id,
+          })
         }
       }
     }
 
-    // נקודת החידוש נשמרת רק אחרי שהמנה הזו עובדה. נפילה באמצע
-    // תגרום לסריקה חוזרת, ו-dedupe לפי תוכן יקלוט את זה.
-    const lastProcessed = candidates.length > 0 ? candidates[candidates.length - 1]!.uid : highest
-    await saveCursor(key, { uidValidity, lastUid: lastProcessed })
+    // תצוגה מקדימה לא מקדמת את הסמן — אחרת הייבוא שאחריה היה
+    // מדלג בדיוק על מה שהיא הראתה.
+    if (!preview) {
+      // נקודת החידוש נשמרת רק אחרי שהמנה הזו עובדה. נפילה באמצע
+      // תגרום לסריקה חוזרת, ו-dedupe לפי תוכן יקלוט את זה.
+      const lastProcessed = candidates.length > 0 ? candidates[candidates.length - 1]!.uid : highest
+      await saveCursor(key, { uidValidity, lastUid: lastProcessed })
+    }
   } finally {
     lock.release()
     await client.logout().catch(() => {})
   }
 
+  await logIngestBatch(journal)
   return result
 }
 

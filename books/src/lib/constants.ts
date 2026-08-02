@@ -57,6 +57,68 @@ export const isDocType = (v: unknown): v is DocType =>
   typeof v === 'string' && v in DOC_TYPES
 
 // ============================================================
+//  מה המסמך הזה בכלל.
+//
+//  DOC_TYPES למעלה מתאר סוגי מס. הטקסונומיה כאן רחבה יותר
+//  ומכסה גם את מה שאינו מסמך פיננסי — כי הכשל שהמערכת נועדה
+//  למנוע הוא בדיוק זה: הצעת מחיר או תעודת משלוח שנרשמות
+//  כהוצאה.
+//
+//  family:
+//    tax      — מסמך מס סופי. ממשיך במסלול הרגיל.
+//    interim  — פיננסי אך לא סופי. נשמר, לא נספר בדוחות.
+//    other    — אינו מסמך פיננסי. נדחה עם סיבה, לא נמחק.
+//
+//  docType: המיפוי לסוג המס, למסמכים מהמשפחה הראשונה בלבד.
+// ============================================================
+export const DOC_KINDS = {
+  // ── מסמכי מס סופיים ──────────────────────────────────────
+  tax_invoice: { he: 'חשבונית מס', family: 'tax', docType: 'tax_invoice' },
+  tax_invoice_receipt: { he: 'חשבונית מס-קבלה', family: 'tax', docType: 'tax_invoice_receipt' },
+  receipt: { he: 'קבלה', family: 'tax', docType: 'receipt' },
+  credit_note: { he: 'חשבונית זיכוי', family: 'tax', docType: 'credit_note' },
+  foreign_invoice: { he: 'חשבונית מחו״ל', family: 'tax', docType: 'tax_invoice' },
+
+  // ── פיננסי, אך לא מסמך מס סופי ───────────────────────────
+  proforma: { he: 'חשבון עסקה', family: 'interim', docType: 'proforma' },
+  payment_demand: { he: 'דרישת תשלום', family: 'interim', docType: 'proforma' },
+  invoice_for_payment: { he: 'חשבון לתשלום', family: 'interim', docType: 'proforma' },
+
+  // ── אינו מסמך פיננסי ─────────────────────────────────────
+  quote: { he: 'הצעת מחיר', family: 'other', docType: null },
+  purchase_order: { he: 'הזמנת רכש', family: 'other', docType: null },
+  order_confirmation: { he: 'אישור הזמנה', family: 'other', docType: null },
+  delivery_note: { he: 'תעודת משלוח', family: 'other', docType: 'delivery_note' },
+  packing_list: { he: 'תעודת אריזה', family: 'other', docType: null },
+  contract: { he: 'חוזה או הסכם', family: 'other', docType: null },
+  report: { he: 'דוח', family: 'other', docType: null },
+  bank_statement: { he: 'דף חשבון בנק', family: 'other', docType: null },
+  marketing: { he: 'חומר שיווקי', family: 'other', docType: null },
+  catalog: { he: 'קטלוג', family: 'other', docType: null },
+  menu: { he: 'תפריט', family: 'other', docType: null },
+  travel_document: { he: 'כרטיס טיסה או שובר', family: 'other', docType: null },
+  screenshot: { he: 'צילום מסך', family: 'other', docType: null },
+  signature_or_logo: { he: 'לוגו או חתימת מייל', family: 'other', docType: null },
+  unknown: { he: 'לא זוהה', family: 'other', docType: null },
+} as const
+
+export type DocKind = keyof typeof DOC_KINDS
+export type DocFamily = (typeof DOC_KINDS)[DocKind]['family']
+
+export const isDocKind = (v: unknown): v is DocKind =>
+  typeof v === 'string' && v in DOC_KINDS
+
+export const familyOf = (kind: string | null): DocFamily | null =>
+  isDocKind(kind) ? DOC_KINDS[kind].family : null
+
+/** סוג המס הנגזר מהזיהוי. null לכל מה שאינו מסמך מס. */
+export const docTypeForKind = (kind: string | null): DocType | null => {
+  if (!isDocKind(kind)) return null
+  const mapped = DOC_KINDS[kind].docType
+  return mapped && isDocType(mapped) ? mapped : null
+}
+
+// ============================================================
 //  קטגוריות הוצאה, עם כללי הניכוי הרלוונטיים לעסק הסעדה.
 //  vatDeductible=false פירושו שגם אם המסמך תקין, אין לנכות
 //  את מס התשומות שלו.
