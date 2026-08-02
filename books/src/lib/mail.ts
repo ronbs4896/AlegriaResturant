@@ -36,6 +36,11 @@ export async function sendLoginCode(email: string, code: string): Promise<MailRe
       }),
     })
     if (!res.ok) {
+      // Resend מסביר בגוף התשובה מה נדחה: דומיין לא מאומת, כתובת
+      // שולח שאינה תואמת, מפתח שגוי. בלי לרשום את זה, כל כישלון
+      // נראה זהה ואי אפשר לתקן בלי לנחש.
+      const body = await res.text().catch(() => '')
+      console.error(`[auth] Resend דחה (${res.status}) from=${from} to=${email}`, body)
       return { ok: false, error: `resend_${res.status}` }
     }
     return { ok: true }

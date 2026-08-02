@@ -30,9 +30,10 @@ export default function LoginPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      const data = await res.json()
+      const data = await res.json().catch(() => ({}))
       if (!res.ok) {
-        setError('שליחת הקוד נכשלה. נסו שוב בעוד רגע.')
+        const reason = data.reason || data.error || `http_${res.status}`
+        setError(`שליחת הקוד נכשלה. נסו שוב בעוד רגע. (${reason})`)
         return
       }
       if (data.devCode) setDevCode(data.devCode)

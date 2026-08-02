@@ -41,7 +41,11 @@ export const POST = handler(async (req) => {
   })
 
   const sent = await sendLoginCode(email, code)
-  if (!sent.ok) return Response.json({ error: 'mail_failed' }, { status: 502 })
+  // הסיבה עוברת לממשק. קוד סטטוס אינו סוד, וכישלון שאי אפשר לאבחן
+  // בלי לוח בקרה עולה יותר ממה שהעמימות שווה.
+  if (!sent.ok) {
+    return Response.json({ error: 'mail_failed', reason: sent.error }, { status: 502 })
+  }
 
   // בפיתוח בלי Resend מחזירים את הקוד, כדי שאפשר יהיה להתחבר.
   return Response.json(sent.devCode ? { ok: true, devCode: sent.devCode } : { ok: true })
