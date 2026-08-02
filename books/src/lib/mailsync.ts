@@ -7,6 +7,7 @@ import {
   readMailboxes,
   cursorKey,
   isCursor,
+  pickAllMailFolder,
   type MailboxConfig,
   type MailboxCursor,
 } from './mailbox'
@@ -60,14 +61,6 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
   const { simpleParser } = await import('mailparser')
 
   const db = await getDb()
-  const key = cursorKey(box)
-
-  const saved = await db
-    .select()
-    .from(schema.ingestState)
-    .where(eq(schema.ingestState.key, key))
-    .limit(1)
-  const cursor = isCursor(saved[0]?.value) ? saved[0].value : null
 
   const client = new ImapFlow({
     host: box.host,
@@ -86,7 +79,21 @@ export async function syncMailbox(box: MailboxConfig): Promise<SyncResult> {
   }
 
   await client.connect()
-  const lock = await client.getMailboxLock(box.folder)
+
+  // התיקייה נבחרת לפי הסימון \\All של השרת ולא לפי שם, כי
+  // Gmail מתרגם את שמות התיקיות לשפת החשבון.
+  const folder =
+    box.folder ?? pickAllMailFolder((await client.list()) as { path: string; specialUse?: string }[])
+
+  const key = cursorKey(box.user, folder)
+  const saved = await db
+    .select()
+    .from(schema.ingestState)
+    .where(eq(schema.ingestState.key, key))
+    .limit(1)
+  const cursor = isCursor(saved[0]?.value) ? saved[0].value : null
+
+  const lock = await client.getMailboxLock(folder)
 
   try {
     const mailbox = client.mailbox

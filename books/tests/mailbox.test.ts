@@ -1,6 +1,12 @@
 import { test, describe } from 'node:test'
 import assert from 'node:assert/strict'
-import { readMailboxes, hostForAddress, cursorKey, isCursor } from '../src/lib/mailbox'
+import {
+  readMailboxes,
+  hostForAddress,
+  cursorKey,
+  isCursor,
+  pickAllMailFolder,
+} from '../src/lib/mailbox'
 
 const env = (o: Record<string, string>) => o as unknown as NodeJS.ProcessEnv
 
@@ -21,11 +27,11 @@ describe('קריאת הגדרות התיבות', () => {
     assert.equal(boxes[0]?.password, 'abcdefghijklmnop')
   })
 
-  test('ב-Gmail נסרק All Mail ולא רק INBOX, אחרת מפספסים ארכיון', () => {
+  test('בלי FOLDER מפורש, התיקייה מתגלה מול השרת ולא מנוחשת', () => {
     const boxes = readMailboxes(
       env({ MAILBOX_1_USER: 'a@gmail.com', MAILBOX_1_PASSWORD: 'x'.repeat(16) }),
     )
-    assert.equal(boxes[0]?.folder, '[Gmail]/All Mail')
+    assert.equal(boxes[0]?.folder, null)
   })
 
   test('ספק לא מוכר בלי HOST מפורש — מדולג ולא מנוחש', () => {
@@ -44,7 +50,7 @@ describe('קריאת הגדרות התיבות', () => {
       }),
     )
     assert.equal(boxes.length, 1)
-    assert.equal(boxes[0]?.folder, 'INBOX')
+    assert.equal(boxes[0]?.host, 'mail.example.co.il')
   })
 
   test('סיסמה חסרה — התיבה לא נטענת חלקית', () => {
@@ -75,19 +81,31 @@ describe('קריאת הגדרות התיבות', () => {
   })
 })
 
-describe('נקודת החידוש', () => {
-  const box = {
-    index: 1,
-    user: 'a@gmail.com',
-    password: 'x',
-    host: 'imap.gmail.com',
-    port: 993,
-    folder: '[Gmail]/All Mail',
-  }
+describe('בחירת התיקייה', () => {
+  test('נבחרת לפי הסימון \\All ולא לפי השם', () => {
+    const list = [
+      { path: 'INBOX' },
+      { path: '[Gmail]/כל הדואר', specialUse: '\\All' },
+      { path: '[Gmail]/נשלחו', specialUse: '\\Sent' },
+    ]
+    assert.equal(pickAllMailFolder(list), '[Gmail]/כל הדואר')
+  })
 
+  test('אותה לוגיקה על חשבון באנגלית', () => {
+    const list = [{ path: 'INBOX' }, { path: '[Gmail]/All Mail', specialUse: '\\All' }]
+    assert.equal(pickAllMailFolder(list), '[Gmail]/All Mail')
+  })
+
+  test('שרת בלי \\All נופל ל-INBOX ולא קורס', () => {
+    assert.equal(pickAllMailFolder([{ path: 'INBOX' }, { path: 'Archive' }]), 'INBOX')
+    assert.equal(pickAllMailFolder([]), 'INBOX')
+  })
+})
+
+describe('נקודת החידוש', () => {
   test('המפתח מפריד בין תיבות ובין תיקיות', () => {
-    assert.equal(cursorKey(box), 'mailbox:a@gmail.com:[Gmail]/All Mail')
-    assert.notEqual(cursorKey(box), cursorKey({ ...box, folder: 'INBOX' }))
+    assert.equal(cursorKey('a@gmail.com', '[Gmail]/כל הדואר'), 'mailbox:a@gmail.com:[Gmail]/כל הדואר')
+    assert.notEqual(cursorKey('a@gmail.com', 'INBOX'), cursorKey('a@gmail.com', '[Gmail]/כל הדואר'))
   })
 
   test('ערך פגום נדחה במקום להיקרא כמצב תקין', () => {

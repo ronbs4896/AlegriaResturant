@@ -16,8 +16,11 @@ export interface MailboxConfig {
   password: string
   host: string
   port: number
-  /** תיבת הדואר בשרת. ב-Gmail "All Mail" מכיל גם ארכיון. */
-  folder: string
+  /**
+   * תיבת הדואר בשרת. null פירושו "תגלה לבד" — מחפשים את
+   * התיקייה שהשרת מסמן כ-\All, ונופלים ל-INBOX אם אין כזו.
+   */
+  folder: string | null
 }
 
 /** שרתי IMAP של הספקים הנפוצים בישראל, כדי לחסוך שדה. */
@@ -37,12 +40,19 @@ export function hostForAddress(user: string): string | null {
 }
 
 /**
- * ב-Gmail תיקיית INBOX לא מכילה הודעות שאורכבו, ותיבה של מישהו
- * שמסדר את הדואר תפספס בדיוק את החשבוניות הישנות. "All Mail"
- * מכיל הכול.
+ * מוצא את התיקייה שמכילה את כל הדואר, כולל מה שאורכב. ב-Gmail
+ * תיקיית INBOX לא מכילה הודעות שאורכבו, ותיבה של מישהו שמסדר
+ * את הדואר תפספס בדיוק את החשבוניות הישנות.
+ *
+ * לא לפי שם: Gmail מתרגם את שמות התיקיות לשפת החשבון, ובחשבון
+ * בעברית "All Mail" נקרא "כל הדואר". השרת מסמן אותה ב-\All
+ * לפי RFC 6154, וזה סימון שאינו תלוי שפה.
  */
-function defaultFolder(host: string): string {
-  return host === 'imap.gmail.com' ? '[Gmail]/All Mail' : 'INBOX'
+export function pickAllMailFolder(
+  list: { path: string; specialUse?: string }[],
+): string {
+  const all = list.find((m) => m.specialUse === '\\All')
+  return all?.path ?? 'INBOX'
 }
 
 export function readMailboxes(env: NodeJS.ProcessEnv = process.env): MailboxConfig[] {
@@ -64,15 +74,15 @@ export function readMailboxes(env: NodeJS.ProcessEnv = process.env): MailboxConf
       password,
       host,
       port: Number(env[`MAILBOX_${i}_PORT`] ?? 993),
-      folder: env[`MAILBOX_${i}_FOLDER`]?.trim() || defaultFolder(host),
+      folder: env[`MAILBOX_${i}_FOLDER`]?.trim() || null,
     })
   }
 
   return boxes
 }
 
-/** מפתח נקודת החידוש ב-ingest_state, לכל תיבה בנפרד. */
-export const cursorKey = (box: MailboxConfig) => `mailbox:${box.user}:${box.folder}`
+/** מפתח נקודת החידוש ב-ingest_state, לכל תיבה ותיקייה בנפרד. */
+export const cursorKey = (user: string, folder: string) => `mailbox:${user}:${folder}`
 
 export interface MailboxCursor {
   /** מזהה הדור של התיבה. שינוי שלו פוסל את כל ה-UID שנשמרו. */
