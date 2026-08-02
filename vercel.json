@@ -5,11 +5,11 @@
   "rewrites": [
     {
       "source": "/books",
-      "destination": "https://alegriabooks-ronbs4896s-projects.vercel.app/books"
+      "destination": "https://alegria-books.vercel.app/books"
     },
     {
       "source": "/books/:path*",
-      "destination": "https://alegriabooks-ronbs4896s-projects.vercel.app/books/:path*"
+      "destination": "https://alegria-books.vercel.app/books/:path*"
     },
     { "source": "/((?!api/)(?!.*\\.).*)", "destination": "/index.html" }
   ],
