@@ -3,6 +3,7 @@ import { desc, eq, and, like, type SQL } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
 import StatusPill from '@/components/StatusPill'
+import MailSyncPanel from '@/components/MailSyncPanel'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
 
 export const metadata = { title: 'מסמכים' }
@@ -56,6 +57,8 @@ export default async function DocumentsPage({
 
   return (
     <div>
+      {user?.role === 'admin' && <MailSyncPanel />}
+
       <div className="mb-6 flex flex-wrap items-baseline gap-x-4 gap-y-1">
         <h1 className="text-xl font-bold">{periodLabel(period)}</h1>
         <span className="text-sm text-muted">
