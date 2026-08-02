@@ -65,6 +65,67 @@ export function vatPeriodMonths(year: number, p: number): string[] {
 export const yearMonths = (year: number): string[] =>
   Array.from({ length: 12 }, (_, i) => `${year}-${String(i + 1).padStart(2, '0')}`)
 
+export type ReportMode = 'month' | 'vat' | 'year'
+
+export interface ReportPeriod {
+  mode: ReportMode
+  /** month: '2026-08' · vat: '2026-P4' · year: '2026' */
+  key: string
+  months: string[]
+}
+
+/**
+ * מפרש את בורר התקופה של עמוד הדוחות. מפתח פגום נופל לתקופה
+ * הנוכחית של אותו מצב — לא לשגיאה.
+ */
+export function resolveReportPeriod(
+  mode?: string,
+  key?: string,
+  now: Date = new Date(),
+): ReportPeriod {
+  const currentMonth = monthKey(now)
+  const year = now.getUTCFullYear()
+
+  if (mode === 'year') {
+    const y = /^\d{4}$/.test(key ?? '') ? Number(key) : year
+    return { mode: 'year', key: String(y), months: yearMonths(y) }
+  }
+  if (mode === 'vat') {
+    const match = /^(\d{4})-P([1-6])$/.exec(key ?? '')
+    const y = match ? Number(match[1]) : year
+    const p = match ? Number(match[2]) : Math.floor(now.getUTCMonth() / 2) + 1
+    return { mode: 'vat', key: `${y}-P${p}`, months: vatPeriodMonths(y, p) }
+  }
+  const m = /^\d{4}-\d{2}$/.test(key ?? '') ? key! : currentMonth
+  return { mode: 'month', key: m, months: [m] }
+}
+
+/** התקופה הקודמת/הבאה באותו מצב. */
+export function shiftReportPeriod(p: ReportPeriod, delta: number): string {
+  if (p.mode === 'month') return shiftMonth(p.key, delta)
+  if (p.mode === 'year') return String(Number(p.key) + delta)
+  const match = /^(\d{4})-P([1-6])$/.exec(p.key)
+  if (!match) return p.key
+  const index = Number(match[1]) * 6 + (Number(match[2]) - 1) + delta
+  return `${Math.floor(index / 6)}-P${(index % 6) + 1}`
+}
+
+const MODE_MONTH_FMT = new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric' })
+const MONTH_ONLY_FMT = new Intl.DateTimeFormat('he-IL', { month: 'long' })
+
+/** תווית עברית לתקופה: "יולי–אוגוסט 2026", "אוגוסט 2026", "2026". */
+export function reportPeriodLabel(p: ReportPeriod): string {
+  if (p.mode === 'year') return p.key
+  const toDate = (m: string) => {
+    const [y, mm] = m.split('-').map(Number)
+    return new Date(Date.UTC(y!, mm! - 1, 1))
+  }
+  if (p.mode === 'month') return MODE_MONTH_FMT.format(toDate(p.key))
+  const [a, b] = p.months
+  if (!a || !b) return p.key
+  return `${MONTH_ONLY_FMT.format(toDate(a))}–${MODE_MONTH_FMT.format(toDate(b))}`
+}
+
 // ── צבירה ────────────────────────────────────────────────────
 
 export interface TotalsRow {
@@ -188,6 +249,72 @@ export function sumSummaries(list: MonthSummary[]): MonthSummary {
  * שלילי = להחזר.
  */
 export const vatPosition = (m: MonthSummary): number => m.income.vat - m.deductibleInputVat
+
+export interface CategorySummary {
+  category: string | null
+  net: number
+  vat: number
+  total: number
+  count: number
+  deductible: boolean
+}
+
+/** רווח והפסד: הוצאות לפי קטגוריה (נטו), להשוואה מול ההכנסות. */
+export function foldByCategory(rows: TotalsRow[]): CategorySummary[] {
+  const map = new Map<string, CategorySummary>()
+  for (const r of rows) {
+    if (r.direction !== 'expense') continue
+    const key = r.category ?? ''
+    const entry = map.get(key) ?? {
+      category: r.category,
+      net: 0,
+      vat: 0,
+      total: 0,
+      count: 0,
+      deductible: false,
+    }
+    entry.net += r.net
+    entry.vat += r.vat
+    entry.total += r.total
+    entry.count += r.count
+    entry.deductible ||= isVatDeductible(r.docType, r.category)
+    map.set(key, entry)
+  }
+  return [...map.values()].sort((a, b) => b.net - a.net)
+}
+
+export interface PartySummary {
+  taxId: string | null
+  name: string | null
+  net: number
+  vat: number
+  total: number
+  count: number
+}
+
+/** ריכוז לפי הצד השני: ספקים בהוצאות, לקוחות בהכנסות. */
+export function foldByParty(rows: TotalsRow[], direction: 'expense' | 'income'): PartySummary[] {
+  const map = new Map<string, PartySummary>()
+  for (const r of rows) {
+    if (r.direction !== direction) continue
+    const key = r.partyTaxId ?? r.partyName ?? '—'
+    const entry = map.get(key) ?? {
+      taxId: r.partyTaxId,
+      name: r.partyName,
+      net: 0,
+      vat: 0,
+      total: 0,
+      count: 0,
+    }
+    entry.net += r.net
+    entry.vat += r.vat
+    entry.total += r.total
+    entry.count += r.count
+    if (!entry.name && r.partyName) entry.name = r.partyName
+    map.set(key, entry)
+  }
+  return [...map.values()].sort((a, b) => b.total - a.total)
+}
 
 /** מה שמחכה לבני אדם. לא תחום בתקופה: מסמך תקוע הוא תקוע. */
 export async function awaitingCounts(db: Db): Promise<{ review: number; pending: number }> {

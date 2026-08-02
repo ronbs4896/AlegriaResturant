@@ -9,6 +9,10 @@ import {
   foldMonths,
   sumSummaries,
   vatPosition,
+  resolveReportPeriod,
+  shiftReportPeriod,
+  foldByCategory,
+  foldByParty,
   type TotalsRow,
 } from '../src/lib/reports'
 
@@ -118,5 +122,76 @@ describe('קיפול חודשים ועמדת מע״מ', () => {
     assert.equal(total.expense.count, 1)
     assert.equal(total.income.count, 1)
     assert.equal(vatPosition(total), 900 - 180)
+  })
+})
+
+describe('בורר תקופת הדוח', () => {
+  const now = new Date('2026-08-02T00:00:00Z')
+
+  test('ברירת מחדל: החודש הנוכחי', () => {
+    const p = resolveReportPeriod(undefined, undefined, now)
+    assert.equal(p.mode, 'month')
+    assert.deepEqual(p.months, ['2026-08'])
+  })
+
+  test('תקופת מע״מ נוכחית: אוגוסט שייך ל-P4', () => {
+    const p = resolveReportPeriod('vat', undefined, now)
+    assert.equal(p.key, '2026-P4')
+    assert.deepEqual(p.months, ['2026-07', '2026-08'])
+  })
+
+  test('שנה מלאה', () => {
+    const p = resolveReportPeriod('year', '2025', now)
+    assert.equal(p.months.length, 12)
+    assert.equal(p.months[0], '2025-01')
+  })
+
+  test('מפתח פגום נופל לתקופה הנוכחית, לא לשגיאה', () => {
+    assert.equal(resolveReportPeriod('month', 'garbage', now).key, '2026-08')
+    assert.equal(resolveReportPeriod('vat', '2026-P9', now).key, '2026-P4')
+  })
+
+  test('מעבר תקופת מע״מ חוצה שנה', () => {
+    const p1 = resolveReportPeriod('vat', '2026-P1', now)
+    assert.equal(shiftReportPeriod(p1, -1), '2025-P6')
+    const p6 = resolveReportPeriod('vat', '2025-P6', now)
+    assert.equal(shiftReportPeriod(p6, 1), '2026-P1')
+  })
+})
+
+describe('קיפול לקטגוריות ולצדדים', () => {
+  const rows: TotalsRow[] = [
+    row({ category: 'food_raw', net: 1000, partyTaxId: '520000118', partyName: 'תנובה' }),
+    row({ category: 'food_raw', net: 500, partyTaxId: '520013954', partyName: 'טבע' }),
+    row({ category: 'hospitality', net: 200, partyTaxId: '520000118', partyName: 'תנובה' }),
+    row({
+      direction: 'income',
+      category: null,
+      net: 9000,
+      total: 10620,
+      partyTaxId: '515044111',
+      partyName: 'מפעל הצפון',
+    }),
+  ]
+
+  test('קטגוריות: הוצאות בלבד, ממוינות מהגדולה לקטנה', () => {
+    const cats = foldByCategory(rows)
+    assert.equal(cats.length, 2)
+    assert.equal(cats[0]?.category, 'food_raw')
+    assert.equal(cats[0]?.net, 1500)
+  })
+
+  test('ריכוז ספקים מאחד לפי ח.פ. וכולל רק הוצאות', () => {
+    const suppliers = foldByParty(rows, 'expense')
+    assert.equal(suppliers.length, 2)
+    const tnuva = suppliers.find((s) => s.taxId === '520000118')
+    assert.equal(tnuva?.count, 2)
+  })
+
+  test('ריכוז לקוחות רואה רק הכנסות', () => {
+    const customers = foldByParty(rows, 'income')
+    assert.equal(customers.length, 1)
+    assert.equal(customers[0]?.name, 'מפעל הצפון')
+    assert.equal(customers[0]?.total, 10620)
   })
 })
