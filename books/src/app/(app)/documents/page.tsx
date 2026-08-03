@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { desc, eq, and, or, like, ilike, isNull, gte, lt, type SQL } from 'drizzle-orm'
+import { desc, eq, and, or, like, ilike, inArray, isNull, gte, lt, type SQL } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
 import { monthKey, shiftMonth } from '@/lib/reports'
@@ -25,6 +25,7 @@ interface Filters {
   period: string
   direction?: string
   status?: string
+  payment?: string
   q?: string
 }
 
@@ -34,6 +35,7 @@ function href(f: Filters): string {
   params.set('period', f.period)
   if (f.direction) params.set('direction', f.direction)
   if (f.status) params.set('status', f.status)
+  if (f.payment) params.set('payment', f.payment)
   if (f.q) params.set('q', f.q)
   return `/documents?${params.toString()}`
 }
@@ -41,7 +43,13 @@ function href(f: Filters): string {
 export default async function DocumentsPage({
   searchParams,
 }: {
-  searchParams: Promise<{ period?: string; direction?: string; status?: string; q?: string }>
+  searchParams: Promise<{
+    period?: string
+    direction?: string
+    status?: string
+    payment?: string
+    q?: string
+  }>
 }) {
   const params = await searchParams
   const user = await currentUser()
@@ -61,8 +69,13 @@ export default async function DocumentsPage({
   ].includes(params.status ?? '')
     ? params.status
     : undefined
+  // "overdue" אינו מצב תשלום שנשמר אלא שאלה על היחס בין מצב
+  // התשלום לתאריך היעד, ולכן הוא מתורגם לתנאי משלו.
+  const payment = ['unpaid', 'partial', 'paid', 'overdue'].includes(params.payment ?? '')
+    ? params.payment
+    : undefined
   const q = (params.q ?? '').trim().slice(0, 80) || undefined
-  const current: Filters = { period, direction, status, q }
+  const current: Filters = { period, direction, status, payment, q }
 
   const db = await getDb()
 
@@ -85,6 +98,18 @@ export default async function DocumentsPage({
   ]
   if (direction) filters.push(eq(schema.documents.direction, direction as 'expense'))
   if (status) filters.push(eq(schema.documents.status, status as 'pending'))
+  if (payment === 'overdue') {
+    // תשלום חלקי שעבר את מועדו הוא חוב באיחור בדיוק כמו כזה
+    // שלא שולם כלל. מסמך בלי תאריך יעד אינו באיחור.
+    filters.push(
+      and(
+        inArray(schema.documents.paymentStatus, ['unpaid', 'partial']),
+        lt(schema.documents.dueDate, new Date().toISOString().slice(0, 10)),
+      )!,
+    )
+  } else if (payment) {
+    filters.push(eq(schema.documents.paymentStatus, payment as 'unpaid'))
+  }
   if (q) {
     filters.push(
       or(
@@ -173,12 +198,12 @@ export default async function DocumentsPage({
           action="/documents"
           value={q}
           placeholder="חיפוש ספק, לקוח או מספר מסמך"
-          hidden={{ period, direction, status }}
+          hidden={{ period, direction, status, payment }}
           clearHref={href({ ...current, q: undefined })}
         />
       </Toolbar>
 
-      <div className="mb-4">
+      <div className="mb-2">
         <FilterChips
           value={status}
           href={(v) => href({ ...current, status: v })}
@@ -195,16 +220,35 @@ export default async function DocumentsPage({
         />
       </div>
 
+      {/* תשלום הוא ציר נפרד מסטטוס הבדיקה, ולכן שורה משלו */}
+      <div className="mb-4">
+        <FilterChips
+          value={payment}
+          href={(v) => href({ ...current, payment: v })}
+          options={[
+            { value: undefined, label: 'כל התשלומים' },
+            { value: 'overdue', label: 'באיחור' },
+            { value: 'unpaid', label: 'לא שולמו' },
+            { value: 'partial', label: 'שולמו חלקית' },
+            { value: 'paid', label: 'שולמו' },
+          ]}
+        />
+      </div>
+
       {rows.length === 0 ? (
         <EmptyState
-          title={q || status || direction ? 'אין מסמכים שעונים לסינון' : 'אין עדיין מסמכים בחודש הזה'}
+          title={q || status || direction || payment
+              ? 'אין מסמכים שעונים לסינון'
+              : 'אין עדיין מסמכים בחודש הזה'}
           hint={
-            q || status || direction
+            q || status || direction || payment
               ? 'נסו להרחיב: לנקות את החיפוש או לעבור ל"הכול".'
               : 'צלמו קבלה ראשונה, והיא תופיע כאן מיד.'
           }
           action={
-            !q && !status && !direction ? { href: '/upload', label: 'העלאת מסמך' } : undefined
+            !q && !status && !direction && !payment
+              ? { href: '/upload', label: 'העלאת מסמך' }
+              : undefined
           }
         />
       ) : (

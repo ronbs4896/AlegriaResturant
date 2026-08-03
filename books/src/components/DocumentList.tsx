@@ -1,7 +1,8 @@
-import StatusPill, { DirectionPill } from './StatusPill'
+import StatusPill, { DirectionPill, PaymentPill } from './StatusPill'
 import DataTable, { type Column } from './ui/DataTable'
 import Money from './ui/Money'
 import { formatDate } from '@/lib/format'
+import { isOverdue } from '@/lib/payments'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
 import type { Document } from '@/db/schema'
 
@@ -37,6 +38,11 @@ export default function DocumentList({
   linkRows: boolean
   density?: 'comfortable' | 'compact'
 }) {
+  // "היום" נקבע פעם אחת לכל הרשימה, כדי שכל השורות יישפטו מול
+  // אותו גבול גם אם הרינדור נמשך על פני חצות.
+  const today = new Date().toISOString().slice(0, 10)
+  const thisYear = today.slice(0, 4)
+
   const columns: Column<Document>[] = [
     {
       key: 'party',
@@ -75,6 +81,22 @@ export default function DocumentList({
       render: (d) => <Money value={d.totalAmount} tone="plain" bold />,
     },
     {
+      key: 'payment',
+      header: 'תשלום',
+      render: (d) => (
+        <>
+          <PaymentPill status={d.paymentStatus} overdue={isOverdue(d, today)} />
+          {/* השנה מוצגת רק כשהיא אינה השנה הנוכחית: חוב מ-2025
+              שנראה כמו "31 בדצמבר" קורא כאילו הוא עוד לפנינו. */}
+          {d.dueDate && d.paymentStatus !== 'paid' && (
+            <div className="num text-xs text-faint">
+              {formatDate(d.dueDate, d.dueDate.slice(0, 4) !== thisYear)}
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
       key: 'status',
       header: 'מצב',
       render: (d) => <StatusPill status={d.status} />,
@@ -108,6 +130,7 @@ export default function DocumentList({
           <span className="flex items-center gap-2">
             <Flags flags={d.validationFlags} />
             <DirectionPill direction={d.direction} />
+            <PaymentPill status={d.paymentStatus} overdue={isOverdue(d, today)} />
           </span>
         ),
       }}

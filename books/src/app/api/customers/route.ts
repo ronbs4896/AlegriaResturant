@@ -10,6 +10,7 @@ const Body = z.object({
   fields: z
     .object({
       name: z.string().trim().min(1).max(200),
+      defaultPaymentTerms: z.string().trim().max(60).nullable(),
       notes: z.string().max(2000).nullable(),
     })
     .partial(),

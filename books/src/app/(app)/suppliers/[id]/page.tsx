@@ -53,6 +53,7 @@ export default async function SupplierPage({ params }: { params: Promise<{ id: s
           initial={{
             name: supplier.name,
             defaultCategory: supplier.defaultCategory,
+            defaultPaymentTerms: supplier.defaultPaymentTerms,
             vatDeductible: supplier.vatDeductible,
             notes: supplier.notes,
             knownSenders: supplier.knownSenders,

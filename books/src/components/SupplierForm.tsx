@@ -8,10 +8,14 @@ import { withBase } from '@/lib/url'
 interface Fields {
   name: string
   defaultCategory: string | null
+  defaultPaymentTerms: string | null
   vatDeductible: boolean
   notes: string | null
   knownSenders: string[]
 }
+
+/** התנאים השכיחים, ואפשרות לכתוב כל דבר אחר. */
+const TERMS = ['מזומן', 'שוטף', 'שוטף+30', 'שוטף+60', 'שוטף+90', 'נטו 30']
 
 /**
  * הגדרות הספק — מה שהצנרת קוראת בכל מסמך חדש: הקטגוריה כאן
@@ -89,6 +93,28 @@ export default function SupplierForm({ id, initial }: { id: string; initial: Fie
             ))}
           </select>
           <p className="mt-1 text-xs text-faint">גוברת על מה שהחילוץ מזהה במסמך.</p>
+        </div>
+
+        <div>
+          <label htmlFor="sup-terms" className="mb-1 block text-xs font-semibold text-muted">
+            תנאי תשלום
+          </label>
+          <input
+            id="sup-terms"
+            list="terms-options"
+            value={f.defaultPaymentTerms ?? ''}
+            onChange={(e) => setF((p) => ({ ...p, defaultPaymentTerms: e.target.value || null }))}
+            placeholder="שוטף+30"
+            className="w-full rounded-lg border border-line bg-raised px-3 py-2 outline-none focus:border-action"
+          />
+          <datalist id="terms-options">
+            {TERMS.map((t) => (
+              <option key={t} value={t} />
+            ))}
+          </datalist>
+          <p className="mt-1 text-xs text-faint">
+            שוטף+30 נספר מסוף חודש המסמך. משמש כשהחשבונית עצמה לא כותבת תנאים.
+          </p>
         </div>
 
         <div className="flex items-start gap-2 pt-6">
