@@ -5,6 +5,10 @@ import { currentUser } from '@/lib/session'
 import { monthKey, shiftMonth } from '@/lib/reports'
 import MailSyncPanel from '@/components/MailSyncPanel'
 import DocumentList from '@/components/DocumentList'
+import PageHeader, { PeriodNav } from '@/components/ui/PageHeader'
+import { Toolbar, SegmentedControl, FilterChips, SearchBox } from '@/components/ui/Toolbar'
+import Money from '@/components/ui/Money'
+import EmptyState from '@/components/ui/EmptyState'
 
 export const metadata = { title: 'מסמכים' }
 export const dynamic = 'force-dynamic'
@@ -16,8 +20,6 @@ function periodLabel(period: string): string {
   if (!y || !m) return period
   return MONTH_FMT.format(new Date(Date.UTC(y, m - 1, 1)))
 }
-
-const money = (n: number) => n.toLocaleString('he-IL', { minimumFractionDigits: 2 })
 
 interface Filters {
   period: string
@@ -115,140 +117,96 @@ export default async function DocumentsPage({
     <div>
       {user?.role === 'admin' && <MailSyncPanel />}
 
-      <div className="mb-4 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-        <h1 className="text-xl font-bold">{periodLabel(period)}</h1>
-        <span className="text-sm text-muted">
-          {rows.length} מסמכים
-          {incomeTotal > 0 && (
-            <>
-              {' · הכנסות '}
-              <span className="num text-ok">{money(incomeTotal)}</span> ₪
-            </>
-          )}
-          {expenseTotal > 0 && (
-            <>
-              {' · הוצאות '}
-              <span className="num">{money(expenseTotal)}</span> ₪
-            </>
-          )}
-        </span>
-      </div>
+      <PageHeader
+        title={periodLabel(period)}
+        meta={
+          <span className="text-sm text-muted">
+            <span className="num">{rows.length}</span> מסמכים
+            {incomeTotal > 0 && (
+              <>
+                {' · הכנסות '}
+                <Money value={incomeTotal} tone="positive" />
+              </>
+            )}
+            {expenseTotal > 0 && (
+              <>
+                {' · הוצאות '}
+                <Money value={expenseTotal} tone="plain" />
+              </>
+            )}
+          </span>
+        }
+        nav={
+          <PeriodNav
+            prev={href({ ...current, period: shiftMonth(period, -1) })}
+            next={href({ ...current, period: shiftMonth(period, 1) })}
+            reset="/documents"
+            label="month"
+          />
+        }
+      />
 
       {needsAttention > 0 && (
-        <div className="mb-4 rounded-xl border border-warn/25 bg-warn-soft px-4 py-3 text-sm text-warn">
-          <b>{needsAttention}</b> מסמכים ממתינים לבדיקה שלכם.
-        </div>
+        <Link
+          href={href({ ...current, status: 'review' })}
+          className="mb-4 flex items-center justify-between gap-3 rounded-xl border border-warn/25 bg-warn-soft px-4 py-3 text-sm text-warn transition-colors hover:border-warn"
+        >
+          <span>
+            <b className="num">{needsAttention}</b> מסמכים ממתינים לבדיקה שלכם
+          </span>
+          <span className="shrink-0 font-bold">הצגה ←</span>
+        </Link>
       )}
 
-      {/* חודש קודם/הבא — הפילטרים נשמרים במעבר */}
-      <div className="mb-4 flex items-center gap-2 text-sm">
-        <Link
-          href={href({ ...current, period: shiftMonth(period, -1) })}
-          className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
-        >
-          חודש קודם
-        </Link>
-        <Link
-          href={href({ ...current, period: shiftMonth(period, 1) })}
-          className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
-        >
-          חודש הבא
-        </Link>
-        <Link href="/documents" className="ms-auto text-muted underline underline-offset-4">
-          לחודש הנוכחי
-        </Link>
-      </div>
+      <Toolbar>
+        <SegmentedControl
+          ariaLabel="צד הספר"
+          value={direction}
+          href={(v) => href({ ...current, direction: v })}
+          options={[
+            { value: undefined, label: 'הכול' },
+            { value: 'expense', label: 'הוצאות' },
+            { value: 'income', label: 'הכנסות' },
+          ]}
+        />
+        <SearchBox
+          action="/documents"
+          value={q}
+          placeholder="חיפוש ספק, לקוח או מספר מסמך"
+          hidden={{ period, direction, status }}
+          clearHref={href({ ...current, q: undefined })}
+        />
+      </Toolbar>
 
-      {/* צד הספר: הכול / הוצאות / הכנסות */}
-      <div className="mb-3 grid grid-cols-3 gap-1 rounded-xl border border-line bg-raised p-1 sm:inline-grid sm:min-w-72">
-        {(
-          [
-            [undefined, 'הכול'],
-            ['expense', 'הוצאות'],
-            ['income', 'הכנסות'],
-          ] as const
-        ).map(([value, label]) => (
-          <Link
-            key={label}
-            href={href({ ...current, direction: value })}
-            aria-current={direction === value ? 'page' : undefined}
-            className={`rounded-lg px-3 py-2 text-center text-sm font-semibold ${
-              direction === value ? 'bg-surface text-ink shadow-sm' : 'text-muted'
-            }`}
-          >
-            {label}
-          </Link>
-        ))}
-      </div>
-
-      <div className="mb-4 flex flex-wrap items-center gap-2">
-        {(
-          [
-            [undefined, 'כל המצבים'],
-            ['review', 'בבדיקה'],
-            ['approved', 'מאושרים'],
-            ['pending', 'בעיבוד'],
-            ['duplicate', 'כפילויות'],
-            ['awaiting_final', 'ממתין למסמך סופי'],
-            ['not_financial', 'לא פיננסיים'],
-            ['rejected', 'נדחו'],
-          ] as const
-        ).map(([value, label]) => (
-          <Link
-            key={label}
-            href={href({ ...current, status: value })}
-            className={`rounded-full border px-3 py-1 text-xs font-semibold ${
-              status === value
-                ? 'border-action bg-action-soft text-action'
-                : 'border-line text-muted hover:bg-raised'
-            }`}
-          >
-            {label}
-          </Link>
-        ))}
-
-        {/* חיפוש: טופס GET — הכתובת נשארת ברת-שיתוף */}
-        <form action="/documents" className="ms-auto flex w-full items-center gap-2 sm:w-auto">
-          <input type="hidden" name="period" value={period} />
-          {direction && <input type="hidden" name="direction" value={direction} />}
-          {status && <input type="hidden" name="status" value={status} />}
-          <label htmlFor="doc-search" className="sr-only">
-            חיפוש
-          </label>
-          <input
-            id="doc-search"
-            name="q"
-            defaultValue={q ?? ''}
-            placeholder="חיפוש ספק, לקוח או מספר מסמך"
-            className="min-h-9 w-full rounded-lg border border-line bg-surface px-3 text-sm outline-none focus:border-action sm:w-64"
-          />
-          {q && (
-            <Link href={href({ ...current, q: undefined })} className="text-xs text-muted underline">
-              ניקוי
-            </Link>
-          )}
-        </form>
+      <div className="mb-4">
+        <FilterChips
+          value={status}
+          href={(v) => href({ ...current, status: v })}
+          options={[
+            { value: undefined, label: 'כל המצבים' },
+            { value: 'review', label: 'בבדיקה' },
+            { value: 'approved', label: 'מאושרים' },
+            { value: 'pending', label: 'בעיבוד' },
+            { value: 'duplicate', label: 'כפילויות' },
+            { value: 'awaiting_final', label: 'ממתין למסמך סופי' },
+            { value: 'not_financial', label: 'לא פיננסיים' },
+            { value: 'rejected', label: 'נדחו' },
+          ]}
+        />
       </div>
 
       {rows.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-line bg-surface px-6 py-14 text-center">
-          <p className="font-semibold">
-            {q || status || direction ? 'אין מסמכים שעונים לסינון' : 'אין עדיין מסמכים בחודש הזה'}
-          </p>
-          <p className="mt-1 text-sm text-muted">
-            {q || status || direction
+        <EmptyState
+          title={q || status || direction ? 'אין מסמכים שעונים לסינון' : 'אין עדיין מסמכים בחודש הזה'}
+          hint={
+            q || status || direction
               ? 'נסו להרחיב: לנקות את החיפוש או לעבור ל"הכול".'
-              : 'צלמו קבלה ראשונה, והיא תופיע כאן מיד.'}
-          </p>
-          {!q && !status && !direction && (
-            <Link
-              href="/upload"
-              className="mt-5 inline-block rounded-xl bg-action px-5 py-3 font-bold text-white"
-            >
-              העלאת מסמך
-            </Link>
-          )}
-        </div>
+              : 'צלמו קבלה ראשונה, והיא תופיע כאן מיד.'
+          }
+          action={
+            !q && !status && !direction ? { href: '/upload', label: 'העלאת מסמך' } : undefined
+          }
+        />
       ) : (
         <DocumentList docs={rows} linkRows={user?.role === 'admin'} />
       )}

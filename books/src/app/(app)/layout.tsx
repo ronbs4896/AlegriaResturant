@@ -3,7 +3,7 @@ import { redirect } from 'next/navigation'
 import { eq, sql } from 'drizzle-orm'
 import { getDb, schema } from '@/db'
 import { currentUser } from '@/lib/session'
-import Sidebar, { type NavItem } from '@/components/nav/Sidebar'
+import Sidebar, { type NavGroup, type NavItem } from '@/components/nav/Sidebar'
 import BottomTabs from '@/components/nav/BottomTabs'
 import Brand from '@/components/nav/Brand'
 
@@ -11,9 +11,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
   const user = await currentUser()
   if (!user) redirect('/login')
 
+  const admin = user.role === 'admin'
+
   // תג אחד משרת את הסיידבר ואת הסרגל התחתון: כמה מחכה לבדיקה.
   let reviewCount = 0
-  if (user.role === 'admin') {
+  if (admin) {
     const db = await getDb()
     const rows = await db
       .select({ count: sql<number>`count(*)` })
@@ -22,24 +24,55 @@ export default async function AppLayout({ children }: { children: React.ReactNod
     reviewCount = Number(rows[0]?.count ?? 0)
   }
 
-  const items: NavItem[] = [
-    { href: '/dashboard', label: 'דשבורד' },
-    { href: '/documents', label: 'מסמכים' },
-    ...(user.role === 'admin'
+  // ארבע קבוצות במקום רשימה שטוחה — כל קבוצה עונה על שאלה אחרת:
+  // מה קורה · מה נכנס · איפה הכסף · מי ומה מוגדר.
+  const groups: NavGroup[] = [
+    {
+      title: 'בקרה',
+      items: [{ href: '/dashboard', label: 'מרכז בקרה', icon: 'control' }],
+    },
+    {
+      title: 'תנועה',
+      items: [
+        { href: '/documents', label: 'מסמכים', icon: 'documents' },
+        ...(admin
+          ? [{ href: '/review', label: 'בדיקה', icon: 'review' as const, badge: reviewCount }]
+          : []),
+      ],
+    },
+    ...(admin
       ? [
-          { href: '/review', label: 'בדיקה', badge: reviewCount },
-          { href: '/suppliers', label: 'ספקים' },
-          { href: '/customers', label: 'לקוחות' },
-          { href: '/reports', label: 'דוחות וייצוא' },
-          { href: '/users', label: 'משתמשים' },
-          { href: '/settings', label: 'הגדרות' },
+          {
+            title: 'ספר',
+            items: [
+              { href: '/suppliers', label: 'ספקים', icon: 'suppliers' as const },
+              { href: '/customers', label: 'לקוחות', icon: 'customers' as const },
+              { href: '/reports', label: 'דוחות וייצוא', icon: 'reports' as const },
+            ],
+          },
+          {
+            title: 'מערכת',
+            items: [
+              { href: '/users', label: 'משתמשים', icon: 'users' as const },
+              { href: '/settings', label: 'הגדרות', icon: 'settings' as const },
+            ],
+          },
         ]
       : []),
   ]
 
+  // ארבעה יעדים בסרגל התחתון; השאר במגירת "עוד".
+  const primary: NavItem[] = [
+    { href: '/dashboard', label: 'בקרה', icon: 'control' },
+    { href: '/documents', label: 'מסמכים', icon: 'documents' },
+    ...(admin
+      ? [{ href: '/review', label: 'בדיקה', icon: 'review' as const, badge: reviewCount }]
+      : [{ href: '/profile', label: 'פרופיל', icon: 'users' as const }]),
+  ]
+
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[232px_minmax(0,1fr)]">
-      <Sidebar items={items} email={user.email} role={user.role} />
+      <Sidebar groups={groups} email={user.email} role={user.role} />
 
       <div className="flex min-h-dvh flex-col">
         {/* מובייל: סרגל עליון עם הלוגו והפרופיל; הניווט למטה */}
@@ -58,16 +91,12 @@ export default async function AppLayout({ children }: { children: React.ReactNod
           </div>
         </header>
 
-        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 pb-[calc(88px+env(safe-area-inset-bottom))] lg:px-8 lg:py-8 lg:pb-8">
+        <main className="mx-auto w-full max-w-[1440px] flex-1 px-4 py-6 pb-[calc(96px+env(safe-area-inset-bottom))] lg:px-8 lg:py-8 lg:pb-8">
           {children}
         </main>
       </div>
 
-      <BottomTabs
-        items={items}
-        moreItems={[]}
-        email={user.email}
-      />
+      <BottomTabs primary={primary} groups={groups} email={user.email} />
     </div>
   )
 }

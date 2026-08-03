@@ -6,26 +6,19 @@ import {
   foldMonths,
   vatPosition,
   awaitingCounts,
-  lastNMonths,
   shiftMonth,
   monthKey,
   type MonthSummary,
 } from '@/lib/reports'
+import { formatPeriod, deltaPercent, shekelShort } from '@/lib/format'
+import PageHeader, { PeriodNav } from '@/components/ui/PageHeader'
+import { Card, CardHeader } from '@/components/ui/Card'
+import StatTile from '@/components/ui/StatTile'
+import Sparkline from '@/components/ui/Sparkline'
+import EmptyState from '@/components/ui/EmptyState'
 
-export const metadata = { title: 'דשבורד' }
+export const metadata = { title: 'מרכז בקרה' }
 export const dynamic = 'force-dynamic'
-
-const MONTH_FMT = new Intl.DateTimeFormat('he-IL', { month: 'long', year: 'numeric' })
-const MONTH_SHORT = new Intl.DateTimeFormat('he-IL', { month: 'short' })
-
-function label(period: string, fmt: Intl.DateTimeFormat): string {
-  const [y, m] = period.split('-').map(Number)
-  if (!y || !m) return period
-  return fmt.format(new Date(Date.UTC(y, m - 1, 1)))
-}
-
-const money = (n: number) =>
-  n.toLocaleString('he-IL', { minimumFractionDigits: 0, maximumFractionDigits: 0 })
 
 export default async function DashboardPage({
   searchParams,
@@ -42,132 +35,144 @@ export default async function DashboardPage({
   const months = Array.from({ length: 6 }, (_, i) => shiftMonth(current, i - 5))
   const summaries = foldMonths(await totalsForMonths(db, months), months)
   const thisMonth = summaries[summaries.length - 1]!
+  const prevMonth = summaries[summaries.length - 2]
   const awaiting = await awaitingCounts(db)
 
   const vat = vatPosition(thisMonth)
+  const profit = thisMonth.income.net - thisMonth.expense.net
+  const prevProfit = prevMonth ? prevMonth.income.net - prevMonth.expense.net : 0
   const hasAnyData = summaries.some((m) => m.income.count + m.expense.count > 0)
+
+  const series = (pick: (m: MonthSummary) => number) => summaries.map(pick)
 
   return (
     <div>
-      <div className="mb-6 flex flex-wrap items-center gap-3">
-        <h1 className="text-xl font-bold">{label(current, MONTH_FMT)}</h1>
-        <div className="flex items-center gap-2 text-sm">
-          <Link
-            href={`/dashboard?period=${shiftMonth(current, -1)}`}
-            className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
-          >
-            חודש קודם
-          </Link>
-          {current !== monthKey(now) && (
-            <>
-              <Link
-                href={`/dashboard?period=${shiftMonth(current, 1)}`}
-                className="rounded-lg border border-line px-3 py-1.5 hover:bg-raised"
-              >
-                חודש הבא
-              </Link>
-              <Link href="/dashboard" className="text-muted underline underline-offset-4">
-                לחודש הנוכחי
-              </Link>
-            </>
-          )}
-        </div>
+      <PageHeader
+        title={formatPeriod(current)}
+        subtitle="מבוסס על מסמכים מאושרים בלבד."
+        nav={
+          <PeriodNav
+            prev={`/dashboard?period=${shiftMonth(current, -1)}`}
+            next={`/dashboard?period=${shiftMonth(current, 1)}`}
+            reset={current !== monthKey(now) ? '/dashboard' : undefined}
+            label="month"
+          />
+        }
+      />
+
+      {/* המספרים שמנהל שואל עליהם ראשונים */}
+      <div className="grid grid-cols-2 gap-3 xl:grid-cols-4">
+        <StatTile
+          label="הכנסות"
+          value={thisMonth.income.total}
+          tone="positive"
+          delta={prevMonth ? deltaPercent(thisMonth.income.total, prevMonth.income.total) : null}
+          hint={`${thisMonth.income.count} מסמכים`}
+        >
+          <Trend points={series((m) => m.income.total)} label="הכנסות" tone="ok" />
+        </StatTile>
+
+        <StatTile
+          label="הוצאות"
+          value={thisMonth.expense.total}
+          delta={prevMonth ? deltaPercent(thisMonth.expense.total, prevMonth.expense.total) : null}
+          goodDirection="down"
+          hint={`${thisMonth.expense.count} מסמכים`}
+        >
+          <Trend points={series((m) => m.expense.total)} label="הוצאות" tone="action" />
+        </StatTile>
+
+        <StatTile
+          label="רווח תפעולי"
+          value={profit}
+          delta={prevMonth ? deltaPercent(profit, prevProfit) : null}
+          hint="לפני מע״מ"
+        />
+
+        <StatTile
+          label={vat >= 0 ? 'מע״מ לתשלום' : 'מע״מ להחזר'}
+          value={Math.abs(vat)}
+          tone={vat > 0 ? 'negative' : 'positive'}
+          hint="עסקאות פחות תשומות מוכרות"
+        />
       </div>
 
-      {/* ארבעת המספרים שמנהל צריך לפני כל פירוט */}
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        <Card title="הכנסות" hint={`${thisMonth.income.count} מסמכים`}>
-          <span className="num text-2xl font-bold text-ok">
-            {money(thisMonth.income.total)} ₪
-          </span>
-        </Card>
-        <Card title="הוצאות" hint={`${thisMonth.expense.count} מסמכים`}>
-          <span className="num text-2xl font-bold">{money(thisMonth.expense.total)} ₪</span>
-        </Card>
-        <Card
-          title={vat >= 0 ? 'מע״מ לתשלום' : 'מע״מ להחזר'}
-          hint="עסקאות פחות תשומות מוכרות"
-        >
-          <span className={`num text-2xl font-bold ${vat > 0 ? 'text-danger' : 'text-ok'}`}>
-            {money(Math.abs(vat))} ₪
-          </span>
-        </Card>
+      {/* מה מחכה לאדם — מקושר ישירות למסך שבו מטפלים */}
+      {(awaiting.review > 0 || awaiting.pending > 0) && (
         <Link
           href="/review"
-          className={`rounded-2xl border bg-surface p-4 transition-colors ${
-            awaiting.review > 0 ? 'border-warn/40 hover:border-warn' : 'border-line hover:border-action/40'
-          }`}
+          className="mt-3 flex items-center justify-between gap-3 rounded-2xl border border-warn/40 bg-warn-soft px-4 py-3 transition-colors hover:border-warn"
         >
-          <div className="text-sm font-semibold text-muted">ממתינים לבדיקה</div>
-          <div className={`num mt-1 text-2xl font-bold ${awaiting.review > 0 ? 'text-warn' : ''}`}>
-            {awaiting.review}
-          </div>
-          <div className="mt-0.5 text-xs text-faint">
-            {awaiting.pending > 0 ? `ועוד ${awaiting.pending} בעיבוד` : 'הכול נבדק'}
-          </div>
+          <span className="text-sm font-semibold text-warn">
+            <span className="num font-bold">{awaiting.review}</span> מסמכים ממתינים לבדיקה שלכם
+            {awaiting.pending > 0 && (
+              <span className="font-normal">
+                {' · '}
+                <span className="num">{awaiting.pending}</span> עוד בעיבוד
+              </span>
+            )}
+          </span>
+          <span className="shrink-0 text-sm font-bold text-warn">לתור הבדיקה ←</span>
         </Link>
-      </div>
+      )}
 
-      {/* השוואת חצי שנה: עמודות CSS, בלי ספריית גרפים */}
-      <section className="mt-6 rounded-2xl border border-line bg-surface p-4 sm:p-6">
-        <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-          <h2 className="font-bold">הכנסות מול הוצאות, חצי שנה</h2>
-          <div className="flex items-center gap-4 text-xs text-muted">
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-sm bg-ok" aria-hidden />
-              הכנסות
-            </span>
-            <span className="flex items-center gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-sm bg-action" aria-hidden />
-              הוצאות
-            </span>
-          </div>
-        </div>
-
+      <Card className="mt-4">
+        <CardHeader
+          title="הכנסות מול הוצאות, חצי שנה"
+          action={
+            <div className="flex items-center gap-4 text-xs text-muted">
+              <Legend color="bg-ok" label="הכנסות" />
+              <Legend color="bg-action" label="הוצאות" />
+            </div>
+          }
+        />
         {hasAnyData ? (
           <Bars summaries={summaries} />
         ) : (
-          <div className="rounded-xl border border-dashed border-line px-6 py-12 text-center">
-            <p className="font-semibold">עדיין אין מסמכים מאושרים</p>
-            <p className="mt-1 text-sm text-muted">
-              העלו מסמך ראשון או הפעילו משיכה מהמייל, והמספרים יופיעו כאן.
-            </p>
-            <Link
-              href="/upload"
-              className="mt-5 inline-block rounded-xl bg-action px-5 py-3 font-bold text-white"
-            >
-              העלאת מסמך
-            </Link>
-          </div>
+          <EmptyState
+            title="עדיין אין מסמכים מאושרים"
+            hint="העלו מסמך ראשון או הפעילו משיכה מהמייל, והמספרים יופיעו כאן."
+            action={{ href: '/upload', label: 'העלאת מסמך' }}
+          />
         )}
-      </section>
+      </Card>
 
-      {user?.role === 'admin' && (
+      {user?.role !== 'admin' && (
         <p className="mt-4 text-xs text-faint">
-          המספרים מבוססים על מסמכים מאושרים בלבד. מה שבבדיקה עדיין לא נספר.
+          אישור מסמכים ושינוי סטטוס שמורים למנהל.
         </p>
       )}
     </div>
   )
 }
 
-function Card({
-  title,
-  hint,
-  children,
+function Trend({
+  points,
+  label,
+  tone,
 }: {
-  title: string
-  hint: string
-  children: React.ReactNode
+  points: number[]
+  label: string
+  tone: 'ok' | 'action'
 }) {
+  if (points.every((n) => n === 0)) return null
   return (
-    <div className="rounded-2xl border border-line bg-surface p-4">
-      <div className="text-sm font-semibold text-muted">{title}</div>
-      <div className="mt-1">{children}</div>
-      <div className="mt-0.5 text-xs text-faint">{hint}</div>
+    <div className="mt-2">
+      <Sparkline
+        points={points}
+        tone={tone}
+        label={`${label} בששת החודשים האחרונים: ${points.map((n) => shekelShort(n)).join(', ')}`}
+      />
     </div>
   )
 }
+
+const Legend = ({ color, label }: { color: string; label: string }) => (
+  <span className="flex items-center gap-1.5">
+    <span className={`h-2.5 w-2.5 rounded-sm ${color}`} aria-hidden />
+    {label}
+  </span>
+)
 
 const BAR_MAX_PX = 140
 
@@ -181,17 +186,20 @@ function Bars({ summaries }: { summaries: MonthSummary[] }) {
         <div
           key={m.period}
           role="img"
-          aria-label={`${label(m.period, MONTH_FMT)}: הכנסות ${money(m.income.total)} שקלים, הוצאות ${money(m.expense.total)} שקלים`}
+          aria-label={`${formatPeriod(m.period)}: הכנסות ${shekelShort(m.income.total)}, הוצאות ${shekelShort(m.expense.total)}`}
           className="flex flex-col items-center"
         >
           <div className="flex items-end gap-1" style={{ height: BAR_MAX_PX }}>
-            <div className="w-3 rounded-t-sm bg-ok sm:w-5" style={{ height: h(m.income.total) }} />
             <div
-              className="w-3 rounded-t-sm bg-action sm:w-5"
+              className="w-3 rounded-t-sm bg-ok transition-all duration-500 sm:w-5"
+              style={{ height: h(m.income.total) }}
+            />
+            <div
+              className="w-3 rounded-t-sm bg-action transition-all duration-500 sm:w-5"
               style={{ height: h(m.expense.total) }}
             />
           </div>
-          <span className="mt-2 text-xs text-muted">{label(m.period, MONTH_SHORT)}</span>
+          <span className="mt-2 text-xs text-muted">{formatPeriod(m.period, true)}</span>
         </div>
       ))}
     </div>
