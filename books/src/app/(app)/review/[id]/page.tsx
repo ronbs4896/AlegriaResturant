@@ -10,6 +10,14 @@ import { DOC_KINDS, isDocKind } from '@/lib/constants'
 
 export const dynamic = 'force-dynamic'
 
+const DATE_FMT = new Intl.DateTimeFormat('he-IL', {
+  day: 'numeric',
+  month: 'short',
+  hour: '2-digit',
+  minute: '2-digit',
+})
+const fullDate = (d: Date) => DATE_FMT.format(d)
+
 export default async function ReviewOne({ params }: { params: Promise<{ id: string }> }) {
   await requireUser('admin')
   const { id } = await params
@@ -25,6 +33,12 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
     .where(eq(schema.auditLog.documentId, doc.id))
     .orderBy(desc(schema.auditLog.at))
     .limit(20)
+
+  // מי העלה ומי טיפל — שמות ולא מזהי UUID.
+  const people = await db.select().from(schema.users)
+  const emailOf = (id: string | null) => people.find((u) => u.id === id)?.email ?? null
+  const uploader = emailOf(doc.uploadedBy)
+  const reviewer = emailOf(doc.reviewedBy)
 
   const url = await signedViewUrl(doc.blobPath)
 
@@ -42,6 +56,44 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
             {doc.originalFilename} · {Math.round(doc.sizeBytes / 1024)} KB
             {doc.extractionModel && ` · חולץ ב-${doc.extractionModel}`}
           </p>
+
+          {/* מאיפה הגיע ומי הביא אותו — לפני שמאשרים */}
+          <dl className="mt-3 space-y-1.5 rounded-xl border border-line bg-surface px-4 py-3 text-xs">
+            <div className="flex gap-2">
+              <dt className="w-20 shrink-0 font-semibold text-muted">הגיע מ</dt>
+              <dd className="min-w-0 flex-1">
+                {doc.source === 'email' ? (
+                  <>
+                    מייל
+                    {doc.sourceSender && (
+                      <span className="text-muted" dir="ltr">
+                        {' · '}
+                        {doc.sourceSender}
+                      </span>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    העלאה ידנית
+                    {uploader && <span className="text-muted" dir="ltr">{` · ${uploader}`}</span>}
+                  </>
+                )}
+              </dd>
+            </div>
+            <div className="flex gap-2">
+              <dt className="w-20 shrink-0 font-semibold text-muted">נקלט</dt>
+              <dd className="num flex-1">{fullDate(doc.createdAt)}</dd>
+            </div>
+            {doc.reviewedAt && (
+              <div className="flex gap-2">
+                <dt className="w-20 shrink-0 font-semibold text-muted">טופל</dt>
+                <dd className="flex-1">
+                  <span className="num">{fullDate(doc.reviewedAt)}</span>
+                  {reviewer && <span className="text-muted" dir="ltr">{` · ${reviewer}`}</span>}
+                </dd>
+              </div>
+            )}
+          </dl>
         </div>
 
         <div>
