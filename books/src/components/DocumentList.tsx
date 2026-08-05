@@ -1,16 +1,18 @@
-import Link from 'next/link'
-import StatusPill, { DirectionPill } from './StatusPill'
+import StatusPill, { DirectionPill, PaymentPill } from './StatusPill'
+import DataTable, { type Column } from './ui/DataTable'
+import Money from './ui/Money'
+import { formatDate } from '@/lib/format'
+import { isOverdue } from '@/lib/payments'
 import { DOC_TYPES, type DocType } from '@/lib/constants'
 import type { Document } from '@/db/schema'
 
 // ============================================================
-//  תצוגת רשימת מסמכים אחת לכל המערכת: כרטיסים במובייל, טבלה
-//  מ-1024. עמוד המסמכים, דף ספק ודף לקוח מרנדרים את אותו רכיב —
-//  שינוי אחד מתעדכן בכולם.
+//  רשימת מסמכים — הגדרת עמודות אחת, שתי תצוגות.
+//
+//  קודם היו כאן שני עצי markup נפרדים, אחד לכרטיסי מובייל ואחד
+//  לטבלת דסקטופ, ועמודה שהתווספה לאחד נשכחה בשני. עכשיו שניהם
+//  נגזרים מאותה רשימה.
 // ============================================================
-
-const money = (v: string | null) =>
-  v == null ? '—' : Number(v).toLocaleString('he-IL', { minimumFractionDigits: 2 })
 
 /** הצד השני של המסמך, לפי הכיוון: בהכנסה הלקוח, אחרת הספק. */
 export function counterpartName(doc: Document): string | null {
@@ -23,136 +25,116 @@ function counterpartTaxId(doc: Document): string | null {
   return doc.direction === 'income' ? doc.recipientTaxId : doc.supplierTaxId
 }
 
+const docTypeLabel = (doc: Document) =>
+  doc.docType ? (DOC_TYPES[doc.docType as DocType]?.he ?? doc.docType) : '—'
+
 export default function DocumentList({
   docs,
   linkRows,
+  density,
 }: {
   docs: Document[]
   /** קישור למסך הבדיקה — רק למי שרשאי לערוך שם. */
   linkRows: boolean
+  density?: 'comfortable' | 'compact'
 }) {
-  return (
-    <>
-      {/* מובייל וטאבלט: כרטיסים */}
-      <ul className="space-y-2 lg:hidden">
-        {docs.map((doc) => {
-          const body = (
-            <>
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <div className="truncate font-semibold">
-                    {counterpartName(doc) ?? doc.originalFilename ?? 'מסמך ללא שם'}
-                  </div>
-                  <div className="mt-0.5 text-xs text-muted">
-                    {doc.docDate ?? 'תאריך לא זוהה'}
-                    {doc.docType && ` · ${DOC_TYPES[doc.docType as DocType]?.he ?? doc.docType}`}
-                  </div>
-                </div>
-                <StatusPill status={doc.status} />
-              </div>
-              <div className="mt-3 flex items-center justify-between">
-                <span className="num text-lg font-bold">{money(doc.totalAmount)} ₪</span>
-                <span className="flex items-center gap-2">
-                  <Flags flags={doc.validationFlags} />
-                  <DirectionPill direction={doc.direction} />
-                </span>
-              </div>
-            </>
-          )
-          return (
-            <li key={doc.id}>
-              {linkRows ? (
-                <Link
-                  href={`/review/${doc.id}`}
-                  className="block rounded-xl border border-line bg-surface p-4 hover:border-action/40"
-                >
-                  {body}
-                </Link>
-              ) : (
-                <div className="rounded-xl border border-line bg-surface p-4">{body}</div>
-              )}
-            </li>
-          )
-        })}
-      </ul>
+  // "היום" נקבע פעם אחת לכל הרשימה, כדי שכל השורות יישפטו מול
+  // אותו גבול גם אם הרינדור נמשך על פני חצות.
+  const today = new Date().toISOString().slice(0, 10)
+  const thisYear = today.slice(0, 4)
 
-      {/* דסקטופ: טבלה שנסרקת בעמודה */}
-      <div className="hidden overflow-x-auto rounded-2xl border border-line bg-surface lg:block">
-        <table className="w-full text-sm">
-          <thead>
-            <tr className="border-b border-line text-xs text-faint">
-              <Th>תאריך</Th>
-              <Th>צד</Th>
-              <Th>ספק / לקוח</Th>
-              <Th>סוג</Th>
-              <Th align="left">סכום</Th>
-              <Th>מצב</Th>
-              <Th>הערות</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {docs.map((doc) => (
-              <tr
-                key={doc.id}
-                className={`border-b border-line/60 last:border-0 ${linkRows ? 'relative hover:bg-raised' : ''}`}
-              >
-                <Td>
-                  <span className="num text-xs">{doc.docDate ?? '—'}</span>
-                </Td>
-                <Td>
-                  <DirectionPill direction={doc.direction} />
-                </Td>
-                <Td>
-                  <div className="font-semibold">
-                    {linkRows ? (
-                      // הקישור פרוס על כל השורה דרך ה-after, בלי JS
-                      <Link href={`/review/${doc.id}`} className="after:absolute after:inset-0">
-                        {counterpartName(doc) ?? doc.originalFilename ?? '—'}
-                      </Link>
-                    ) : (
-                      (counterpartName(doc) ?? doc.originalFilename ?? '—')
-                    )}
-                  </div>
-                  {counterpartTaxId(doc) && (
-                    <div className="num text-xs text-faint">{counterpartTaxId(doc)}</div>
-                  )}
-                </Td>
-                <Td>
-                  <span className="text-xs text-muted">
-                    {doc.docType ? (DOC_TYPES[doc.docType as DocType]?.he ?? doc.docType) : '—'}
-                  </span>
-                </Td>
-                <Td align="left">
-                  <span className="num font-bold">{money(doc.totalAmount)}</span>
-                </Td>
-                <Td>
-                  <StatusPill status={doc.status} />
-                </Td>
-                <Td>
-                  <Flags flags={doc.validationFlags} />
-                </Td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
-  )
-}
+  const columns: Column<Document>[] = [
+    {
+      key: 'party',
+      header: 'ספק / לקוח',
+      render: (d) => (
+        <>
+          <div className="font-semibold">
+            {counterpartName(d) ?? d.originalFilename ?? '—'}
+          </div>
+          {counterpartTaxId(d) && (
+            <div className="num text-xs text-faint">{counterpartTaxId(d)}</div>
+          )}
+        </>
+      ),
+    },
+    {
+      key: 'date',
+      header: 'תאריך',
+      render: (d) => <span className="num text-xs">{formatDate(d.docDate)}</span>,
+    },
+    {
+      key: 'direction',
+      header: 'צד',
+      render: (d) => <DirectionPill direction={d.direction} />,
+    },
+    {
+      key: 'docType',
+      header: 'סוג',
+      secondary: true,
+      render: (d) => <span className="text-xs text-muted">{docTypeLabel(d)}</span>,
+    },
+    {
+      key: 'total',
+      header: 'סכום',
+      align: 'end',
+      render: (d) => <Money value={d.totalAmount} tone="plain" bold />,
+    },
+    {
+      key: 'payment',
+      header: 'תשלום',
+      render: (d) => (
+        <>
+          <PaymentPill status={d.paymentStatus} overdue={isOverdue(d, today)} />
+          {/* השנה מוצגת רק כשהיא אינה השנה הנוכחית: חוב מ-2025
+              שנראה כמו "31 בדצמבר" קורא כאילו הוא עוד לפנינו. */}
+          {d.dueDate && d.paymentStatus !== 'paid' && (
+            <div className="num text-xs text-faint">
+              {formatDate(d.dueDate, d.dueDate.slice(0, 4) !== thisYear)}
+            </div>
+          )}
+        </>
+      ),
+    },
+    {
+      key: 'status',
+      header: 'מצב',
+      render: (d) => <StatusPill status={d.status} />,
+    },
+    {
+      key: 'flags',
+      header: 'הערות',
+      secondary: true,
+      render: (d) => <Flags flags={d.validationFlags} />,
+    },
+  ]
 
-function Th({ children, align }: { children: React.ReactNode; align?: 'left' }) {
   return (
-    <th className={`px-4 py-2.5 font-semibold ${align === 'left' ? 'text-left' : 'text-right'}`}>
-      {children}
-    </th>
-  )
-}
-
-function Td({ children, align }: { children: React.ReactNode; align?: 'left' }) {
-  return (
-    <td className={`px-4 py-3 align-top ${align === 'left' ? 'text-left' : 'text-right'}`}>
-      {children}
-    </td>
+    <DataTable
+      rows={docs}
+      columns={columns}
+      rowKey={(d) => d.id}
+      href={linkRows ? (d) => `/review/${d.id}` : undefined}
+      density={density}
+      card={{
+        title: (d) => counterpartName(d) ?? d.originalFilename ?? 'מסמך ללא שם',
+        subtitle: (d) => (
+          <>
+            {formatDate(d.docDate)}
+            {d.docType && ` · ${docTypeLabel(d)}`}
+          </>
+        ),
+        badge: (d) => <StatusPill status={d.status} />,
+        amount: (d) => <Money value={d.totalAmount} tone="plain" bold />,
+        meta: (d) => (
+          <span className="flex items-center gap-2">
+            <Flags flags={d.validationFlags} />
+            <DirectionPill direction={d.direction} />
+            <PaymentPill status={d.paymentStatus} overdue={isOverdue(d, today)} />
+          </span>
+        ),
+      }}
+    />
   )
 }
 

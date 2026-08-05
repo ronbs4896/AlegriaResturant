@@ -6,8 +6,11 @@ import { withBase } from '@/lib/url'
 
 interface Fields {
   name: string
+  defaultPaymentTerms: string | null
   notes: string | null
 }
+
+const TERMS = ['מזומן', 'שוטף', 'שוטף+30', 'שוטף+60', 'שוטף+90', 'נטו 30']
 
 export default function CustomerForm({ id, initial }: { id: string; initial: Fields }) {
   const router = useRouter()
@@ -52,6 +55,27 @@ export default function CustomerForm({ id, initial }: { id: string; initial: Fie
             onChange={(e) => setF((p) => ({ ...p, name: e.target.value }))}
             className="w-full rounded-lg border border-line bg-raised px-3 py-2 outline-none focus:border-action"
           />
+        </div>
+        <div>
+          <label htmlFor="cus-terms" className="mb-1 block text-xs font-semibold text-muted">
+            תנאי תשלום
+          </label>
+          <input
+            id="cus-terms"
+            list="cus-terms-options"
+            value={f.defaultPaymentTerms ?? ''}
+            onChange={(e) => setF((p) => ({ ...p, defaultPaymentTerms: e.target.value || null }))}
+            placeholder="שוטף+30"
+            className="w-full rounded-lg border border-line bg-raised px-3 py-2 outline-none focus:border-action"
+          />
+          <datalist id="cus-terms-options">
+            {TERMS.map((t) => (
+              <option key={t} value={t} />
+            ))}
+          </datalist>
+          <p className="mt-1 text-xs text-faint">
+            קובע מתי חשבונית ללקוח נספרת כפתוחה. שוטף+30 נספר מסוף חודש המסמך.
+          </p>
         </div>
         <div>
           <label htmlFor="cus-notes" className="mb-1 block text-xs font-semibold text-muted">

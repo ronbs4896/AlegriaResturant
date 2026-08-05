@@ -48,7 +48,14 @@ export default async function CustomerPage({ params }: { params: Promise<{ id: s
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[minmax(0,420px)_minmax(0,1fr)]">
-        <CustomerForm id={customer.id} initial={{ name: customer.name, notes: customer.notes }} />
+        <CustomerForm
+          id={customer.id}
+          initial={{
+            name: customer.name,
+            defaultPaymentTerms: customer.defaultPaymentTerms,
+            notes: customer.notes,
+          }}
+        />
 
         <div>
           <h2 className="mb-3 font-bold">המסמכים של הלקוח</h2>

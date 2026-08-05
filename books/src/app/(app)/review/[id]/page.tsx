@@ -6,7 +6,10 @@ import { signedViewUrl } from '@/lib/storage'
 import { requireUser } from '@/lib/session'
 import DocumentViewer from '@/components/DocumentViewer'
 import ReviewForm from '@/components/ReviewForm'
+import PaymentPanel from '@/components/PaymentPanel'
 import { DOC_KINDS, isDocKind } from '@/lib/constants'
+import { isPaymentStatus } from '@/lib/payments'
+import { describeTerms } from '@/lib/terms'
 
 export const dynamic = 'force-dynamic'
 
@@ -26,6 +29,12 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
   const rows = await db.select().from(schema.documents).where(eq(schema.documents.id, id)).limit(1)
   const doc = rows[0]
   if (!doc) notFound()
+
+  const payments = await db
+    .select()
+    .from(schema.documentPayments)
+    .where(eq(schema.documentPayments.documentId, doc.id))
+    .orderBy(schema.documentPayments.paidAt)
 
   const history = await db
     .select()
@@ -120,6 +129,24 @@ export default async function ReviewOne({ params }: { params: Promise<{ id: stri
               paymentMethod: doc.paymentMethod,
               expenseCategory: doc.expenseCategory,
             }}
+          />
+
+          {/* תשלום הוא ציר נפרד מאישור, ולכן מחוץ לטופס */}
+          <PaymentPanel
+            documentId={doc.id}
+            status={isPaymentStatus(doc.paymentStatus) ? doc.paymentStatus : 'unpaid'}
+            total={doc.totalAmount}
+            paid={doc.paidAmount}
+            dueDate={doc.dueDate}
+            terms={describeTerms(doc.paymentTerms)}
+            payments={payments.map((p) => ({
+              id: p.id,
+              amount: p.amount,
+              paidAt: p.paidAt,
+              source: p.source,
+              method: p.method,
+              note: p.note,
+            }))}
           />
 
           {history.length > 0 && (

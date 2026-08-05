@@ -1,47 +1,57 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import LogoutButton from '@/components/LogoutButton'
-import type { NavItem } from './Sidebar'
+import { Icons } from './icons'
+import type { NavItem, NavGroup } from './Sidebar'
 
 /**
- * סרגל תחתון למובייל: שני פריטים מכל צד, והעלאה — הפעולה
- * המרכזית של מי שעומד עם קבלה ביד — כפתור מורם באמצע, בהישג
- * אגודל. מה שלא נכנס יושב מאחורי "עוד".
+ * סרגל תחתון למובייל: ארבעה יעדים והעלאה באמצע. חמש משבצות זה
+ * המקסימום שאפשר ללחוץ עליו באגודל; כל השאר נכנס ל"עוד" שנפתח
+ * כמגירה עם אותן קבוצות של הדסקטופ.
  */
 export default function BottomTabs({
-  items,
-  moreItems,
+  primary,
+  groups,
   email,
 }: {
-  items: NavItem[]
-  moreItems: NavItem[]
+  /** ארבעת היעדים בסרגל עצמו */
+  primary: NavItem[]
+  /** הרשימה המלאה למגירת "עוד" */
+  groups: NavGroup[]
   email: string
 }) {
   const pathname = usePathname()
-  const [moreOpen, setMoreOpen] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  const first = items.slice(0, 2)
-  const rest = items.slice(2)
-  const overflow = [...rest.slice(1), ...moreItems]
-  const third = rest[0]
+  // ניווט סוגר את המגירה — אחרת היא נשארת פתוחה מעל העמוד החדש
+  useEffect(() => setOpen(false), [pathname])
+
+  useEffect(() => {
+    if (!open) return
+    const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setOpen(false)
+    document.addEventListener('keydown', onEsc)
+    return () => document.removeEventListener('keydown', onEsc)
+  }, [open])
 
   const tab = (item: NavItem) => {
     const active = pathname === item.href || pathname.startsWith(item.href + '/')
+    const Icon = Icons[item.icon]
     return (
       <Link
         key={item.href}
         href={item.href}
         aria-current={active ? 'page' : undefined}
-        className={`relative flex min-h-12 flex-col items-center justify-center text-xs ${
+        className={`relative flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] transition-colors ${
           active ? 'font-bold text-action' : 'font-semibold text-muted'
         }`}
       >
+        <Icon />
         {item.label}
         {typeof item.badge === 'number' && item.badge > 0 && (
-          <span className="num absolute top-1 end-3 rounded-full bg-warn px-1.5 text-[10px] font-bold text-white">
+          <span className="num absolute top-1.5 end-4 rounded-full bg-warn px-1.5 text-[10px] font-bold text-white">
             {item.badge}
           </span>
         )}
@@ -51,44 +61,52 @@ export default function BottomTabs({
 
   return (
     <>
-      {moreOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-ink/30 lg:hidden"
-          onClick={() => setMoreOpen(false)}
-          aria-hidden
-        />
-      )}
-      {moreOpen && (
-        <div
-          role="dialog"
-          aria-label="עוד"
-          className="fixed inset-x-0 bottom-0 z-40 rounded-t-2xl border-t border-line bg-surface p-4 pb-[calc(1rem+56px+env(safe-area-inset-bottom))] lg:hidden"
-        >
-          <ul className="space-y-1">
-            {overflow.map((item) => (
-              <li key={item.href}>
-                <Link
-                  href={item.href}
-                  onClick={() => setMoreOpen(false)}
-                  className="flex items-center justify-between rounded-lg px-3 py-3 font-semibold hover:bg-raised"
-                >
-                  <span>{item.label}</span>
-                  {typeof item.badge === 'number' && item.badge > 0 && (
-                    <span className="num rounded-full bg-warn-soft px-2 py-0.5 text-xs font-bold text-warn">
-                      {item.badge}
-                    </span>
-                  )}
-                </Link>
-              </li>
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-30 bg-ink/30 lg:hidden"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <div
+            role="dialog"
+            aria-label="ניווט"
+            className="fixed inset-x-0 bottom-0 z-40 max-h-[75dvh] overflow-y-auto rounded-t-2xl border-t border-line bg-surface p-4 pb-[calc(1rem+64px+env(safe-area-inset-bottom))] shadow-overlay lg:hidden"
+          >
+            {groups.map((g) => (
+              <div key={g.title} className="mb-4 last:mb-0">
+                <h2 className="mb-1 text-[11px] font-bold tracking-wide text-faint">{g.title}</h2>
+                <ul className="grid grid-cols-2 gap-1.5">
+                  {g.items.map((item) => {
+                    const Icon = Icons[item.icon]
+                    return (
+                      <li key={item.href}>
+                        <Link
+                          href={item.href}
+                          className="flex min-h-11 items-center gap-2.5 rounded-xl border border-line px-3 py-2 text-sm font-semibold transition-colors hover:bg-raised"
+                        >
+                          <Icon />
+                          <span className="min-w-0 flex-1 truncate">{item.label}</span>
+                          {typeof item.badge === 'number' && item.badge > 0 && (
+                            <span className="num rounded-full bg-warn-soft px-1.5 text-xs font-bold text-warn">
+                              {item.badge}
+                            </span>
+                          )}
+                        </Link>
+                      </li>
+                    )
+                  })}
+                </ul>
+              </div>
             ))}
-          </ul>
-          <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
-            <span className="truncate text-xs text-faint" dir="ltr">
-              {email}
-            </span>
-            <LogoutButton />
+            <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
+              <span className="truncate text-xs text-faint" dir="ltr">
+                {email}
+              </span>
+              <LogoutButton />
+            </div>
           </div>
-        </div>
+        </>
       )}
 
       <nav
@@ -96,28 +114,24 @@ export default function BottomTabs({
         className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
       >
         <div className="grid grid-cols-5">
-          {first.map(tab)}
-          <Link
-            href="/upload"
-            aria-label="העלאת מסמך"
-            className="flex items-center justify-center"
-          >
-            <span className="-mt-4 flex h-12 w-12 items-center justify-center rounded-full bg-action text-2xl font-bold text-white shadow-md">
-              +
+          {primary.slice(0, 2).map(tab)}
+
+          <Link href="/upload" aria-label="העלאת מסמך" className="flex items-center justify-center">
+            <span className="-mt-4 flex h-12 w-12 items-center justify-center rounded-full bg-action text-white shadow-overlay">
+              <Icons.upload />
             </span>
           </Link>
-          {third ? tab(third) : <span />}
-          {overflow.length > 0 ? (
-            <button
-              onClick={() => setMoreOpen((v) => !v)}
-              aria-expanded={moreOpen}
-              className="flex min-h-12 flex-col items-center justify-center text-xs font-semibold text-muted"
-            >
-              עוד
-            </button>
-          ) : (
-            <span />
-          )}
+
+          {primary.slice(2, 3).map(tab)}
+
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            className="flex min-h-14 flex-col items-center justify-center gap-0.5 text-[11px] font-semibold text-muted"
+          >
+            <Icons.more />
+            עוד
+          </button>
         </div>
       </nav>
     </>

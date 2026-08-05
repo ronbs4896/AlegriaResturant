@@ -25,6 +25,7 @@ const Body = z.object({
       defaultCategory: z
         .enum(Object.keys(EXPENSE_CATEGORIES) as [string, ...string[]])
         .nullable(),
+      defaultPaymentTerms: z.string().trim().max(60).nullable(),
       vatDeductible: z.boolean(),
       notes: z.string().max(2000).nullable(),
       knownSenders: z.array(domain).max(20),

@@ -53,6 +53,8 @@ export const suppliers = pgTable(
     taxId: text('tax_id'),
     defaultCategory: text('default_category'),
     vatDeductible: boolean('vat_deductible').notNull().default(true),
+    /** תנאי התשלום המוסכמים מול הספק, כשהמסמך עצמו שותק */
+    defaultPaymentTerms: text('default_payment_terms'),
     /** דומייני מייל שראינו שולחים מסמכים של הספק הזה. */
     knownSenders: jsonb('known_senders').$type<string[]>().notNull().default([]),
     notes: text('notes'),
@@ -127,6 +129,8 @@ export const customers = pgTable(
     id: uuid('id').primaryKey().defaultRandom(),
     name: text('name').notNull(),
     taxId: text('tax_id'),
+    /** תנאי התשלום המוסכמים מול הלקוח */
+    defaultPaymentTerms: text('default_payment_terms'),
     notes: text('notes'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
@@ -221,6 +225,23 @@ export const documents = pgTable(
     paymentMethod: text('payment_method'),
     expenseCategory: text('expense_category'),
 
+    // ── תשלום ──────────────────────────────────────────────
+    //  מצב התשלום נגזר מטבלת document_payments ואינו נכתב
+    //  ישירות. הוא יושב כאן כדי שמיון וסינון על אלפי מסמכים
+    //  לא ידרשו צירוף וסכימה בכל שאילתה.
+    /** תאריך לתשלום. null = אין תאריך, וזה מצב שהתזרים מציג ככזה. */
+    dueDate: text('due_date'),
+    /** הטקסט מהמסמך: "שוטף+30", "מזומן" */
+    paymentTerms: text('payment_terms'),
+    paymentStatus: text('payment_status', {
+      enum: ['unpaid', 'partial', 'paid', 'n/a'],
+    })
+      .notNull()
+      .default('unpaid'),
+    paidAmount: numeric('paid_amount', { precision: 14, scale: 2 }).notNull().default('0'),
+    /** תאריך התשלום האחרון שסגר את החוב */
+    paidAt: text('paid_at'),
+
     // ── תוצרי העיבוד ───────────────────────────────────────
     confidence: numeric('confidence', { precision: 4, scale: 3 }),
     validationFlags: jsonb('validation_flags').$type<ValidationFlag[]>().notNull().default([]),
@@ -246,6 +267,44 @@ export const documents = pgTable(
     index('documents_direction_idx').on(t.direction, t.status, t.docDate),
     // מפתח הכפילות הדומה: אותה חשבונית שהגיעה גם כ-PDF וגם כצילום.
     index('documents_dup_idx').on(t.supplierTaxId, t.docNumber, t.totalAmount),
+    // התזרים שואל תמיד את אותה שאלה: מה פתוח, ומתי הוא לתשלום.
+    index('documents_payment_idx').on(t.paymentStatus, t.dueDate),
+  ],
+)
+
+// ============================================================
+//  תשלומים.
+//
+//  שורה לכל תנועת כסף מול מסמך. תשלום חלקי הוא שתי שורות, ולא
+//  מספר שנדרס — כך אפשר לענות על "מתי בדיוק שילמנו ומה מקור
+//  המידע", וכך ביטול של תשלום אחד לא מוחק את השני.
+//
+//  source:
+//    implied — משתמע מסוג המסמך. קבלה כבר שולמה בהגדרה.
+//    manual  — אדם סימן. זה המסלול של מזומן.
+//    auto    — התאמה מול תנועת בנק.
+// ============================================================
+export const documentPayments = pgTable(
+  'document_payments',
+  {
+    id: uuid('id').primaryKey().defaultRandom(),
+    documentId: uuid('document_id')
+      .notNull()
+      .references(() => documents.id, { onDelete: 'cascade' }),
+    amount: numeric('amount', { precision: 14, scale: 2 }).notNull(),
+    /** תאריך בלבד, ISO — כמו doc_date, כדי שלא יזוז באזורי זמן */
+    paidAt: text('paid_at').notNull(),
+    source: text('source', { enum: ['implied', 'manual', 'auto'] }).notNull(),
+    method: text('method'),
+    /** אסמכתא: מספר המחאה, מזהה העברה, או מזהה תנועת הבנק */
+    reference: text('reference'),
+    note: text('note'),
+    createdBy: uuid('created_by').references(() => users.id),
+    createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  },
+  (t) => [
+    index('document_payments_document_idx').on(t.documentId, t.paidAt),
+    index('document_payments_paid_at_idx').on(t.paidAt),
   ],
 )
 
@@ -303,3 +362,4 @@ export type BusinessProfile = typeof businessProfile.$inferSelect
 export type IngestLog = typeof ingestLog.$inferSelect
 export type Document = typeof documents.$inferSelect
 export type NewDocument = typeof documents.$inferInsert
+export type DocumentPayment = typeof documentPayments.$inferSelect

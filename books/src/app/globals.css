@@ -50,6 +50,35 @@
   --color-steel: #46525d;
   --color-steel-soft: #eef1f4;
 
+  /* ── כסף אינו מצב ─────────────────────────────────────────
+     ok/danger מסמנים מצב (תקין / שגיאה). positive/negative
+     מסמנים כיוון תנועה כספית. הפרדה, כדי שסכום שלילי לא ייראה
+     כמו תקלה וסכום חיובי לא ייראה כמו אישור. */
+  --color-positive: #1f6b45;
+  --color-negative: #9c3327;
+
+  /* כותרת טבלה דביקה חייבת רקע אטום, אחרת השורות נראות מבעדה */
+  --color-header: #f2ede6;
+  --color-line-strong: #d6cec2;
+
+  /* ארבע סדרות בגרף — שתי צבעי מצב לא מספיקים */
+  --color-chart-1: #2e7d4f;
+  --color-chart-2: #b4511e;
+  --color-chart-3: #46525d;
+  --color-chart-4: #92610f;
+
+  /* ── הגבהה: שלוש מדרגות, לכל אחת משמעות ──────────────────
+     flat  — במנוחה, גבול בלבד
+     raised — אינטראקטיבי
+     overlay — צף מעל התוכן (מגירה, תפריט) */
+  --shadow-flat: none;
+  --shadow-raised: 0 1px 2px rgb(35 32 29 / 0.06), 0 2px 8px -2px rgb(35 32 29 / 0.08);
+  --shadow-overlay: 0 8px 32px -8px rgb(35 32 29 / 0.22), 0 2px 8px -2px rgb(35 32 29 / 0.12);
+
+  /* צפיפות שורה: רואה חשבון שסורק 300 שורות רוצה צפוף */
+  --row-h-comfortable: 48px;
+  --row-h-compact: 36px;
+
   /* Rubik ראשון: תופס עברית וספרות לפי ה-unicode-range למעלה */
   --font-sans: Rubik, 'Segoe UI', 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif;
   --font-num: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;

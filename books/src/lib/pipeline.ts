@@ -20,6 +20,8 @@ import {
 import { matchOrCreateSupplier, learnSender } from './suppliers'
 import { matchOrCreateCustomer } from './customers'
 import { findDuplicate } from './duplicates'
+import { paymentFieldsFor } from './payments'
+import { hasRecordedPayments } from './payments-db'
 
 // ============================================================
 //  הצינור: ממסמך גולמי לסטטוס סופי.
@@ -294,6 +296,22 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
     await learnSender(supplier.id, doc.sourceSender)
   }
 
+  // ── תשלום ────────────────────────────────────────────────
+  // תנאי התשלום מגיעים מהמסמך אם נכתבו עליו, ואחרת מההסכמה
+  // שנרשמה מול הצד השני. תשלום שכבר נרשם הוא עובדה שאינה
+  // נגזרת מהקובץ — הרצת חילוץ חוזרת לא מוחקת אותו.
+  const raw = f as unknown as Record<string, unknown>
+  const str = (k: string) => (typeof raw[k] === 'string' ? (raw[k] as string) : null)
+  const partyTerms = supplier?.defaultPaymentTerms ?? customer?.defaultPaymentTerms ?? null
+  const payment = paymentFieldsFor({
+    kind: outcome.kind,
+    docDate: f.doc_date,
+    dueDate: str('due_date'),
+    terms: str('payment_terms'),
+    partyTerms,
+  })
+  const keepPayment = await hasRecordedPayments(doc.id)
+
   await db
     .update(schema.documents)
     .set({
@@ -319,6 +337,11 @@ export async function processDocument(documentId: string): Promise<PipelineOutco
       currency: f.currency ?? 'ILS',
       allocationNumber: f.allocation_number,
       paymentMethod: f.payment_method,
+      paymentTerms: str('payment_terms') ?? partyTerms,
+      dueDate: payment.dueDate,
+      ...(keepPayment
+        ? {}
+        : { paymentStatus: payment.paymentStatus, paidAt: payment.paidAt }),
       // קטגוריית הוצאה היא מושג של צד ההוצאות בלבד.
       expenseCategory:
         outcome.direction === 'income'
