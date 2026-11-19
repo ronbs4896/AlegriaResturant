@@ -6,12 +6,29 @@ export default {
       colors: {
         // ============================================================
         //  פלטת אלגריה — חוקי שימוש (מחייבים):
-        //  orange  = פעולה בלבד. CTA ראשי, קישור בטקסט, טבעת פוקוס.
-        //            אסור למצב "פעיל", לאייקון דקורטיבי או לשגיאה.
+        //  olive   = הצבע הראשי. כותרות סקשן, כפתור פעולה ראשי,
+        //            קישורים, מצב פעיל בניווט, ואייקוני קו.
+        //            olive על לבן = 4.7:1. טקסט זית קטן על רקע צבעוני
+        //            (olive-50, paper) נכשל ב-AA — שם olive-700.
+        //  orange  = צבע פעולה חלופי וטבעת הפוקוס. לא לרקעים, לא לקישוט.
         //  honey   = מבטא על רקע כהה בלבד (מספרים, eyebrow, כוכבים).
-        //  charcoal= טקסט, מצבים פעילים, ומשטחים כהים.
+        //  charcoal= טקסט ומשטחים כהים. charcoal-600 לטקסט משני.
         //  semantic= success / danger — משוב בלבד, לא עיצוב.
         // ============================================================
+        olive: {
+          DEFAULT: '#6B7A36',
+          700: '#4F5B31', //  hover, וטקסט קטן על רקע צבעוני
+          400: '#9AA765', //  נקודות על ציר הצעדים
+          300: '#C9CFB0', //  קווי העיטור
+          200: '#DADFC8', //  גבולות שדות
+          100: '#E4E8D4', //  גבולות כרטיסים, רקע הדגשה
+          50: '#F2F3EC', //   פאנלים
+        },
+        paper: {
+          DEFAULT: '#F7F6F0', // רקע הפוטר
+          200: '#F5F4EC', //    רקע תפריט השירותים
+        },
+        star: '#E0A21B',
         cream: {
           DEFAULT: '#F2EADE',
           50: '#FBF8F3',
@@ -24,6 +41,7 @@ export default {
           DEFAULT: '#2E2A27',
           soft: '#635C55',
           muted: '#8A817A',
+          600: '#5A544E', //  טקסט משני בעיצוב החדש
           900: '#2A2624',
           950: '#211D1B',
         },
@@ -85,6 +103,12 @@ export default {
           '0%': { transform: 'translateX(0)' },
           '100%': { transform: 'translateX(-50%)' },
         },
+        // ב-RTL העותק השני יושב משמאל למקור, ולכן התנועה ימינה היא
+        // זו שנסגרת בלי תפר.
+        'marquee-rtl': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(50%)' },
+        },
         'fade-up': {
           '0%': { opacity: '0', transform: 'translateY(20px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
@@ -101,6 +125,7 @@ export default {
       animation: {
         'ken-burns': 'ken-burns 22s ease-out infinite alternate',
         marquee: 'marquee 60s linear infinite',
+        'marquee-rtl': 'marquee-rtl 36s linear infinite',
         'fade-up': 'fade-up 0.7s ease-out both',
         steam: 'steam 3.4s ease-in-out infinite',
       },

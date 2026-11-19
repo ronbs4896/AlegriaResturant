@@ -3,14 +3,6 @@
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
-    {
-      "source": "/books",
-      "destination": "https://alegria-books.vercel.app/books"
-    },
-    {
-      "source": "/books/:path*",
-      "destination": "https://alegria-books.vercel.app/books/:path*"
-    },
     { "source": "/((?!api/)(?!.*\\.).*)", "destination": "/index.html" }
   ],
   "headers": [
