@@ -1,5 +1,6 @@
 import { Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { MotionConfig } from 'framer-motion'
 import Layout from './components/layout/Layout.jsx'
 import ScrollToTop from './components/layout/ScrollToTop.jsx'
 import PageLoader from './components/ui/PageLoader.jsx'
@@ -24,30 +25,40 @@ const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 export default function App() {
   return (
-    <LeadModalProvider>
-      <ScrollToTop />
-      <AnalyticsTracker />
-      <Layout>
-        <Suspense fallback={<PageLoader />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/factories" element={<Factories />} />
-            <Route path="/friday" element={<Friday />} />
-            <Route path="/gallery" element={<Gallery />} />
-            <Route path="/blog" element={<Blog />} />
-            <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/testimonials" element={<Testimonials />} />
-            <Route path="/faq" element={<Faq />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/accessibility" element={<Accessibility />} />
-            <Route path="/privacy" element={<Privacy />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </Layout>
-    </LeadModalProvider>
+    // reducedMotion="user": מי שביקש פחות תנועה במערכת ההפעלה מקבל
+    // רק מעברי שקיפות, בלי תזוזות, בכל האנימציות של framer-motion.
+    <MotionConfig reducedMotion="user">
+      <LeadModalProvider>
+        <ScrollToTop />
+        <AnalyticsTracker />
+        <Layout>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/services" element={<Services />} />
+              <Route path="/services/:slug" element={<ServiceDetail />} />
+              <Route path="/factories" element={<Factories />} />
+              <Route path="/friday" element={<Friday />} />
+              <Route path="/gallery" element={<Gallery />} />
+              <Route path="/blog" element={<Blog />} />
+              <Route path="/blog/:slug" element={<BlogPost />} />
+              <Route path="/testimonials" element={<Testimonials />} />
+              <Route path="/faq" element={<Faq />} />
+              <Route path="/contact" element={<Contact />} />
+              {/* זמני: הנתיבים של העיצוב החדש מפנים לעמודים הקיימים עד
+                  שהעמודים עצמם ייבנו, כדי שאף קישור בתפריט לא יוביל ל-404. */}
+              <Route path="/subsidized-meals" element={<Navigate to="/services/subsidized-meals" replace />} />
+              <Route path="/corporate-events" element={<Navigate to="/services/event-catering" replace />} />
+              <Route path="/private-events" element={<Navigate to="/services/event-catering" replace />} />
+              <Route path="/kitchen" element={<Navigate to="/about" replace />} />
+              <Route path="/accessibility" element={<Accessibility />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </Layout>
+      </LeadModalProvider>
+    </MotionConfig>
   )
 }

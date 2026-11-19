@@ -20,7 +20,7 @@ export default function MobileActionBar() {
         <a
           href={`tel:${site.phone.dial}`}
           onClick={() => trackContact('phone', { source: 'mobile_bar' })}
-          className="flex items-center justify-center gap-2 rounded-xl bg-orange px-4 py-3 font-bold text-white"
+          className="flex items-center justify-center gap-2 rounded-xl bg-olive px-4 py-3 font-bold text-white"
         >
           <Phone size={18} /> חייגו אלינו
         </a>
