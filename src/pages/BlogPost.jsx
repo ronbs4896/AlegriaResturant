@@ -13,6 +13,7 @@ import { getPost, posts } from '../lib/posts.js'
 import { articleSchema, breadcrumbSchema } from '../data/structuredData.js'
 import { trackViewContent } from '../lib/analytics.js'
 import { usePageMotion } from '../lib/motion.js'
+import WaButton from '../components/brand/WaButton.jsx'
 
 const INK = '#2E2A27'
 const GRAD = 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)'
@@ -106,6 +107,7 @@ export default function BlogPost() {
                 <span style={{ fontSize: 15, lineHeight: 1.6 }}>{cta.text}</span>
                 <Link to={cta.to} style={{ minHeight: 48, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', marginTop: 4 }}>{cta.label}</Link>
                 <a href="tel:+972545437526" style={{ color: INK, fontSize: 15, fontWeight: 700, textAlign: 'center' }}><span dir="ltr">054-543-7526</span></a>
+                <WaButton source="blog_post" style={{ width: '100%' }} />
               </div>
             </aside>
             <article style={{ flex: '1 1 560px', minWidth: 0, maxWidth: 760 }}>

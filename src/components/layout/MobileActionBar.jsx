@@ -1,6 +1,7 @@
 import { site } from '../../data/site.js'
 import { buildWaLink } from '../../lib/whatsapp.js'
 import { trackContact } from '../../lib/analytics.js'
+import { WaIcon } from '../brand/WaButton.jsx'
 
 // רצועת פעולה תחתונה, נייד בלבד: טלפון ווואטסאפ במשקל שווה
 export default function MobileActionBar() {
@@ -15,8 +16,8 @@ export default function MobileActionBar() {
         </a>
         <a href={buildWaLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'mobile_bar' })}
           style={{ ...btn, background: 'transparent', color: '#FFFFFF', boxShadow: 'inset 0 0 0 1.5px rgba(255, 255, 255, 0.6)' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z" /></svg>
-          וואטסאפ
+          <WaIcon size={20} />
+          וואטסאפ לעמית
         </a>
       </div>
     </div>

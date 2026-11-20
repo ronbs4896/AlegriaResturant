@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-About.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
@@ -492,6 +493,7 @@ export default function About({ seoPath }) {
             <a href="tel:+972545437526" dir="ltr" style={{ fontSize: "26px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
+            <WaButton style={{ alignSelf: "flex-start" }} />
             <Link to="/factories#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "16px", fontWeight: "700", textDecoration: "none" }}>
               {"הצעת מחיר למפעל"}
             </Link>

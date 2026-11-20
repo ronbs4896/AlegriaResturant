@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Private.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import DatePicker from '../components/brand/DatePicker.jsx'
@@ -50,6 +51,7 @@ export default function PrivateEvents({ seoPath }) {
               <a href="tel:+972545437526" dir="ltr" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"054-543-7526"}
               </a>
+              <WaButton variant="hero" topic="אירוע פרטי" />
             </div>
           </div>
         </div>
@@ -769,18 +771,7 @@ export default function PrivateEvents({ seoPath }) {
                       {"כתבו לעמית בוואטסאפ, והוא יחזור אליכם עם תפריט."}
                     </span>
                   </span>
-                  <a href="https://wa.me/972545437526" style={{ minHeight: "50px", display: "inline-flex", alignItems: "center", gap: "10px", padding: "0 22px", borderRadius: "999px", border: "1.5px solid #B4511E", color: "#B4511E", fontSize: "16px", fontWeight: "800", textDecoration: "none", whiteSpace: "nowrap" }}>
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                      <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z" />
-                      <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.5-1.5-2-1-1 1a3.5 3.5 0 0 1-2-2l1-1-1-2z" />
-                    </svg>
-                    <span>
-                      {"וואטסאפ לעמית"}
-                    </span>
-                    <span dir="ltr" style={{ fontWeight: "700" }}>
-                      {"054-543-7526"}
-                    </span>
-                  </a>
+                  <WaButton topic="אירוע פרטי" showNumber />
                 </div>
               </div>
               <span style={{ fontSize: "13px", color: "#5A544E" }}>

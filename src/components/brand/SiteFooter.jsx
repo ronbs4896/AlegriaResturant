@@ -1,5 +1,6 @@
 // Footer, generated from the approved canvas design.
 import { Link } from 'react-router-dom'
+import WaButton from './WaButton.jsx'
 
 export default function SiteFooter() {
   return (
@@ -31,12 +32,7 @@ export default function SiteFooter() {
             </span>
             <ul aria-label="הרשתות שלנו" style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", gap: "12px" }}>
               <li>
-                <a href="https://wa.me/972545437526" target="_blank" rel="noopener noreferrer" aria-label="וואטסאפ" style={{ width: "44px", height: "44px", borderRadius: "50%", background: "#FFFFFF", border: "1px solid #FDEBD3", color: "#B4511E", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z" />
-                    <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.5-1.5-2-1-1 1a3.5 3.5 0 0 1-2-2l1-1-1-2z" />
-                  </svg>
-                </a>
+                <WaButton variant="icon" source="footer" />
               </li>
             </ul>
           </div>
@@ -114,6 +110,9 @@ export default function SiteFooter() {
                   <a href="tel:+972545437526" dir="ltr" style={{ color: "#2E2A27", textDecoration: "none", fontSize: "20px", fontWeight: "900", minHeight: "36px", display: "inline-flex", alignItems: "center" }}>
                     {"054-543-7526"}
                   </a>
+                </li>
+                <li>
+                  <WaButton variant="inline" label="וואטסאפ לעמית" source="footer" />
                 </li>
                 <li style={{ color: "#5A544E", lineHeight: "1.7" }}>
                   {"ראשון עד חמישי "}

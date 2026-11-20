@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Blog.html), posts from content/blog. הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import Seo from '../components/seo/Seo.jsx'
@@ -121,6 +122,7 @@ export default function Blog({ seoPath }) {
             <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
+            <WaButton style={{ alignSelf: "flex-start" }} />
             <span style={{ fontSize: "14px", color: "#2E2A27" }}>
               {"ראשון עד חמישי "}
               <span dir="ltr">
@@ -186,6 +188,7 @@ export default function Blog({ seoPath }) {
                   </span>
                 </>) : null}
               </button>
+              <WaButton variant="inline" label="או כתבו לעמית בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
             </form>
             
           </>) : null}

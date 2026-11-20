@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Home.html, עיצוב הרפרנס המקורי). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import FactoryQuote from '../components/brand/FactoryQuote.jsx'
@@ -829,6 +830,7 @@ export default function Home({ seoPath }) {
             <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
+            <WaButton topic="הסעדה למפעל" style={{ alignSelf: "flex-start" }} />
             <ul style={{ listStyle: "none", margin: "8px 0 0", padding: "0", display: "flex", flexDirection: "column", gap: "12px" }}>
               <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "15px", fontWeight: "700", color: "#2E2A27" }}>
                 <span style={{ width: "40px", height: "40px", flexShrink: "0", borderRadius: "50%", background: "#FFFFFF", border: "1px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>

@@ -6,6 +6,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
+import WaButton from './WaButton.jsx'
 
 const GRAD = 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)'
 const INK = '#2E2A27'
@@ -109,6 +110,7 @@ export default function SiteHeader() {
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+          <WaButton variant="icon" source="header" className="hdr-wa" />
           <Link to="/contact" className="hdr-cta" style={{ minHeight: 46, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap' }}>
             הצעת מחיר
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
@@ -167,6 +169,7 @@ export default function SiteHeader() {
           <a href="tel:+972545437526" style={{ marginTop: 18, minHeight: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: INK, color: '#FFFFFF', fontWeight: 800, textDecoration: 'none' }}>
             <span dir="ltr">054-543-7526</span>
           </a>
+          <WaButton source="mobile_menu" style={{ marginTop: 10, minHeight: 52, width: '100%' }} />
         </div>
       )}
     </header>

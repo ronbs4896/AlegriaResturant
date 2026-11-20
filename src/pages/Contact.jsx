@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Contact.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton, { WaIcon } from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import Seo from '../components/seo/Seo.jsx'
@@ -49,6 +50,7 @@ export default function Contact({ seoPath }) {
               <a href="tel:+972545437526" dir="ltr" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"054-543-7526"}
               </a>
+              <WaButton variant="hero" />
             </div>
           </div>
         </div>
@@ -96,16 +98,12 @@ export default function Contact({ seoPath }) {
                 </div>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textAlign: "center", minHeight: "230px", boxSizing: "border-box" }}>
-                <svg width="44" height="44" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 10h32v22H20l-8 8v-8H8zM16 19h16M16 25h10" />
-                </svg>
+                <WaIcon size={40} />
                 <h2 style={{ margin: "4px 0 0", fontSize: "18px", fontWeight: "900" }}>
                   {"וואטסאפ"}
                 </h2>
                 <div style={{ fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
-                  <a href="#form" style={{ fontWeight: "800", color: "#B4511E" }}>
-                    {"שלחו הודעה"}
-                  </a>
+                  <WaButton variant="inline" label="שלחו הודעה לעמית" />
                 </div>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textAlign: "center", minHeight: "230px", boxSizing: "border-box" }}>
@@ -182,6 +180,7 @@ export default function Contact({ seoPath }) {
             <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
+            <WaButton style={{ alignSelf: "flex-start" }} />
             <span style={{ fontSize: "14px", color: "#5A544E" }}>
               {"ראשון עד חמישי "}
               <span dir="ltr">
@@ -274,6 +273,7 @@ export default function Contact({ seoPath }) {
                   </span>
                 </>) : null}
               </button>
+              <WaButton variant="inline" label="או כתבו לעמית בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
             </form>
             
           </>) : null}

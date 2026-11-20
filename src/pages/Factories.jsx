@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Factories.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import FactoryQuote from '../components/brand/FactoryQuote.jsx'
@@ -50,6 +51,7 @@ export default function Factories({ seoPath }) {
               <a href="tel:+972545437526" dir="ltr" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"054-543-7526"}
               </a>
+              <WaButton variant="hero" topic="הסעדה יומית למפעל" />
             </div>
           </div>
         </div>
@@ -746,6 +748,7 @@ export default function Factories({ seoPath }) {
             <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
+            <WaButton topic="הסעדה יומית למפעל" style={{ alignSelf: "flex-start" }} />
             <span style={{ fontSize: "14px", color: "#5A544E" }}>
               {"ראשון עד חמישי "}
               <span dir="ltr">

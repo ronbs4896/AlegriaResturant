@@ -4,6 +4,7 @@
 //  רקע לבן, פס אפרסק, כותרות בטרקוטה, קישוט הקווים והעיגול, כפתור בגרדיאנט.
 // ============================================================
 import { Link } from 'react-router-dom'
+import WaButton from './WaButton.jsx'
 
 export const INK = '#2E2A27'
 export const CREAM = '#FFFFFF'
@@ -77,6 +78,7 @@ export function CtaBand({ title = 'בואו נדבר על מה שאתם צריכ
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           <Link to={to} style={btnPrimary}>{label}</Link>
           <a href="tel:+972545437526" style={btnOutlineLight}><span dir="ltr">054-543-7526</span></a>
+          <WaButton source="cta_band" />
         </div>
       </div>
     </section>

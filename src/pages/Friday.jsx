@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Friday.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
 import Seo from '../components/seo/Seo.jsx'
@@ -49,6 +50,7 @@ export default function Friday({ seoPath }) {
               <a href="tel:+972545437526" dir="ltr" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"054-543-7526"}
               </a>
+              <WaButton variant="hero" topic="האוכל לשישי" />
             </div>
           </div>
         </div>
@@ -999,6 +1001,7 @@ export default function Friday({ seoPath }) {
                     <path d="M15 6l-6 6 6 6" />
                   </svg>
                 </button>
+              <WaButton variant="inline" label="שאלה על שישי? וואטסאפ לעמית" topic="האוכל לשישי" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
                 <span style={{ flex: "1 1 280px", fontSize: "14px", lineHeight: "1.6", color: "#5A544E" }}>
                   {"זו בקשה לשיחה, ההזמנה נסגרת רק בטלפון מול נציג. ההזמנות לשישי נסגרות ביום רביעי בערב."}
                 </span>

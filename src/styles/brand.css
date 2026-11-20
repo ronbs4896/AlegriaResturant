@@ -134,3 +134,6 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
 
 /* חיצי הסליידר של עיצוב הרפרנס: דקורטיביים, בנייד הם עולים על הכותרת */
 @media (max-width: 760px) { .hero-arrows { display: none !important; } }
+
+/* כפתור הוואטסאפ בכותרת: בנייד יש כבר וואטסאפ ברצועה התחתונה */
+@media (max-width: 640px) { .hdr-wa { display: none !important; } }
