@@ -1,5 +1,6 @@
 // Generated from the approved canvas design (Ref-About.html). הקופי של העמוד נמצא כאן.
 // ds-normalized
+// mobile-fixed
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import WaButton from '../components/brand/WaButton.jsx'
@@ -50,7 +51,7 @@ export default function About({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
+      <section aria-labelledby="s2" style={{ padding: "clamp(44px, 5.5vw, 72px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
@@ -129,7 +130,7 @@ export default function About({ seoPath }) {
       </section>
       {" "}
       <section aria-labelledby="s3" style={{ padding: "0" }}>
-        <div id="values" style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
+        <div id="values" style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", boxSizing: "border-box" }}>
           {" "}
           <img src="/images/site/tagine_orange.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
@@ -195,7 +196,7 @@ export default function About({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="s4" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section aria-labelledby="s4" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהמטבח הראשון ועד מעל 3,000 ארוחות ביום"}
@@ -265,7 +266,7 @@ export default function About({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="team" aria-labelledby="team-h" style={{ padding: "88px clamp(24px, 5vw, 80px) 96px", background: "#FFF9F1" }}>
+      <section id="team" aria-labelledby="team-h" style={{ padding: "clamp(52px, 6.5vw, 88px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", background: "#FFF9F1" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="team-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"האנשים "}
@@ -423,7 +424,7 @@ export default function About({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="s7" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section id="contact" aria-labelledby="s7" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div data-a="panel" style={{ width: "100%", margin: "0", background: "#FFF5E8", borderRadius: "26px", padding: "48px", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "32px", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "12px" }}>
             <h2 id="s7" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
@@ -454,7 +455,7 @@ export default function About({ seoPath }) {
             </ul>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "18px" }}>
-            <a href="tel:+972545437526" dir="ltr" style={{ fontSize: "30px", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
+            <a href="tel:+972545437526" dir="ltr" style={{ fontSize: "var(--fs-phone)", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
             <WaButton style={{ alignSelf: "flex-start" }} />

@@ -33,6 +33,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
 @media (max-width: 1023px) {
   .hdr-desktop, .hdr-desktop-block { display: none !important; }
   .hdr-burger { display: inline-flex; }
+  .hdr-cta { display: none !important; }
 }
 @media (max-width: 420px) {
   .hdr-cta { padding: 0 14px !important; font-size: 14px !important; }
@@ -144,15 +145,18 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
    שלושה גדלי כפתור ותגית אחת. הערכים זורמים בין נייד (390) למחשב (1440).
    ============================================================ */
 :root {
-  --fs-h1: clamp(2.25rem, 1.45rem + 3.3vw, 3.75rem);     /* 36 → 60 */
-  --fs-h2: clamp(1.875rem, 1.35rem + 2.1vw, 3rem);       /* 30 → 48 */
-  --fs-h3: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);      /* 24 → 36 */
-  --fs-h4: 1.25rem;                                       /* 20 */
-  --fs-h5: 1.125rem;                                      /* 18 */
-  --fs-lead: clamp(1.125rem, 1rem + 0.45vw, 1.375rem);    /* 18 → 22 */
-  --fs-body: clamp(1.0625rem, 1rem + 0.2vw, 1.125rem);    /* 17 → 18 */
-  --fs-body-sm: 1rem;                                     /* 16 */
-  --fs-display: clamp(2.5rem, 1.85rem + 2.6vw, 3.75rem);  /* 40 → 60, מספרים גדולים */
+  /* סולם לפי הנהוג באתרי שיווק: H1 פעם אחת בעמוד (הפתיח), H2 לכותרות סקשנים,
+     H3 לכותרות כרטיסים ותתי-נושאים, H4 לכותרות קטנות ותוויות. נייד 390 → מחשב 1440 */
+  --fs-h1: clamp(1.875rem, 1.45rem + 1.75vw, 3.25rem);     /* 30 → 48-52 */
+  --fs-h2: clamp(1.625rem, 1.3rem + 1.05vw, 2.375rem);     /* 26 → 36-38 */
+  --fs-h3: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);        /* 20 → 26-28 */
+  --fs-h4: clamp(1.125rem, 1.05rem + 0.25vw, 1.25rem);     /* 18 → 20 */
+  --fs-h5: clamp(1rem, 0.97rem + 0.1vw, 1.0625rem);        /* 16 → 17 */
+  --fs-lead: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);    /* 17 → 19 */
+  --fs-body: clamp(1rem, 0.96rem + 0.12vw, 1.0625rem);     /* 16 → 17 */
+  --fs-body-sm: 0.9375rem;                                 /* 15 */
+  --fs-display: clamp(2rem, 1.6rem + 1.6vw, 3rem);         /* 32 → 48, מספרים גדולים */
+  --fs-phone: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);    /* 22 → 28, מספר טלפון בולט */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-rendering: optimizeLegibility; }
@@ -173,9 +177,61 @@ p, li { text-wrap: pretty; }
 /* b ו-strong: תמיד Bold (ברירת המחדל "bolder" מעל Light נותנת 400, שזה עדיין Light) */
 b, strong { font-weight: 700; }
 
-/* הודעת עוגיות: בפינה במחשב, מעל רצועת הפעולה בנייד */
-.cookie-banner { position: fixed; z-index: 70; inset-inline: 16px; bottom: 16px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #FDEBD3; border-radius: 18px; box-shadow: 0 24px 48px -20px rgba(46, 42, 39, 0.35); color: #2E2A27; }
-@media (max-width: 639px) { .cookie-banner { bottom: calc(76px + env(safe-area-inset-bottom)); inset-inline: 10px; padding: 16px; } }
+/* הודעת עוגיות: פס קטן ולא חוסם. במחשב בפינה, בנייד צמוד לתחתית */
+.cookie-banner { position: fixed; z-index: 70; bottom: 16px; inset-inline-start: 16px; max-width: 440px; display: flex; align-items: center; gap: 10px 12px; padding: 10px 12px 10px 14px; background: #FFFFFF; border: 1px solid #FDEBD3; border-radius: 14px; box-shadow: 0 14px 34px -18px rgba(46, 42, 39, 0.4); color: #2E2A27; }
+.cookie-ic { flex-shrink: 0; }
+.cookie-txt { margin: 0; flex: 1 1 auto; font-size: 13px; line-height: 1.45; }
+.cookie-txt a { color: #2E2A27; font-weight: 700; white-space: nowrap; }
+.cookie-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.cookie-btn { min-height: 34px; padding: 0 12px; border-radius: 999px; border: 1px solid #2E2A27; background: #FFFFFF; color: #2E2A27; font: inherit; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.cookie-ok { border-color: transparent; background: linear-gradient(135deg, #FCC50D 0%, #F5871F 100%); }
+.cookie-btn:focus-visible { outline: 2px solid #2E2A27; outline-offset: 2px; }
+@media (max-width: 639px) {
+  .cookie-banner { inset-inline: 8px; bottom: calc(8px + env(safe-area-inset-bottom)); max-width: none; padding: 8px 10px; border-radius: 12px; }
+  .cookie-ic { display: none; }
+  .cookie-txt { font-size: 12.5px; }
+  .cookie-btn { min-height: 32px; padding: 0 10px; font-size: 12.5px; }
+}
 .fq2-note-legal { margin: 0; font-size: 13px; line-height: 1.6; color: #4A4540; }
 .fq2-note-legal a { color: #2E2A27; font-weight: 700; }
 .brand-prose a[dir="ltr"], .brand-prose span[dir="ltr"] { white-space: nowrap; }
+
+/* נייד: גלריות וכרטיסי בלוג כשורת החלקה אופקית במקום ערימה ארוכה */
+@media (max-width: 640px) {
+  .m-scroll { display: flex !important; overflow-x: auto; scroll-snap-type: x mandatory; gap: 12px !important; margin-inline: -20px; padding-inline: 20px; width: calc(100% + 40px) !important; scrollbar-width: none; overscroll-behavior-x: contain; }
+  .m-scroll::-webkit-scrollbar { display: none; }
+  .m-scroll > * { flex: 0 0 62%; scroll-snap-align: start; }
+  .m-scroll-cards > * { flex-basis: 82%; }
+}
+/* נייד: בפתיח על תמונה הטקסט פורש על כל הרוחב, אז ההצללה מכסה את כל התמונה */
+@media (max-width: 760px) {
+  [data-a="hero"] div[style*="linear-gradient(270deg"] { background: linear-gradient(180deg, rgba(20, 17, 15, 0.55) 0%, rgba(20, 17, 15, 0.78) 55%, rgba(20, 17, 15, 0.85) 100%) !important; }
+}
+
+/* מסמכים משפטיים */
+.legal-doc { width: 100%; max-width: 820px; margin: 0 auto; font-size: var(--fs-body); line-height: 1.8; color: #2E2A27; }
+.legal-preamble { padding: 18px 22px; margin-bottom: 28px; background: #FFF9F1; border: 1px solid #FDEBD3; border-radius: 14px; }
+.legal-preamble p { margin: 0 0 8px; }
+.legal-preamble p:last-child { margin-bottom: 0; }
+.legal-toc { margin-bottom: 36px; padding: 18px 22px; border: 1px solid #FDEBD3; border-radius: 14px; }
+.legal-toc b { display: block; margin-bottom: 8px; font-size: 16px; }
+.legal-toc ol { margin: 0; padding-inline-start: 22px; columns: 2 240px; column-gap: 32px; font-size: 15px; }
+.legal-toc li { margin-bottom: 4px; break-inside: avoid; }
+.legal-toc a { color: #2E2A27; text-decoration: none; }
+.legal-toc a:hover { text-decoration: underline; }
+.legal-sec { scroll-margin-top: 100px; margin-bottom: 30px; }
+.legal-sec h2 { margin: 0 0 12px; font-size: var(--fs-h4); line-height: 1.35; font-weight: 700; }
+.legal-sec h2 .legal-num { color: #B4511E; }
+.legal-p { display: flex; gap: 12px; margin: 0 0 10px; }
+.legal-p > .legal-num { flex-shrink: 0; min-width: 34px; font-weight: 700; color: #4A4540; font-variant-numeric: tabular-nums; }
+.legal-p > span:last-child { flex: 1 1 auto; min-width: 0; }
+.legal-list { margin: -2px 0 12px; padding-inline-start: 66px; }
+.legal-list li { margin-bottom: 6px; }
+.legal-doc a { color: #2E2A27; font-weight: 700; text-underline-offset: 3px; }
+.legal-doc a[dir="ltr"], .legal-doc span[dir="ltr"] { white-space: nowrap; }
+.legal-updated { margin-top: 36px; font-size: 14px; color: #4A4540; }
+@media (max-width: 640px) {
+  .legal-p { gap: 8px; }
+  .legal-p > .legal-num { min-width: 28px; }
+  .legal-list { padding-inline-start: 40px; }
+}

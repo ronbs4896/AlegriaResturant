@@ -1,5 +1,6 @@
 // Generated from the approved canvas design (Ref-Home.html, עיצוב הרפרנס המקורי). הקופי של העמוד נמצא כאן.
 // ds-normalized
+// mobile-fixed
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import ClientLogos from '../components/brand/ClientLogos.jsx'
@@ -25,7 +26,7 @@ export default function Home({ seoPath }) {
         <div style={{ width: "100%", margin: "0", position: "relative", minHeight: "600px", overflow: "hidden", clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 92%)", display: "flex", alignItems: "center" }}>
           <img src="/images/site/hero.jpg" data-a="hero-img" alt="טאג׳ין כתום עם תבשיל בקר, חומוס וקוסקוס" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover" }} />
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(270deg, rgba(20, 17, 15, 0.78) 0%, rgba(20, 17, 15, 0.55) 45%, rgba(20, 17, 15, 0.25) 100%)" }} />
-          <div style={{ position: "relative", width: "100%", margin: "0", padding: "64px clamp(24px, 5vw, 80px) 110px", boxSizing: "border-box", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "32px" }}>
+          <div style={{ position: "relative", width: "100%", margin: "0", padding: "clamp(40px, 5vw, 64px) clamp(24px, 5vw, 80px) 110px", boxSizing: "border-box", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "32px" }}>
             <div style={{ maxWidth: "560px", display: "flex", flexDirection: "column", gap: "20px", color: "#FFFFFF" }}>
               <h1 id="h1" style={{ margin: "0", fontSize: "var(--fs-h1)", lineHeight: "1.08", fontWeight: "700", letterSpacing: "-0.01em" }}>
                 <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
@@ -70,7 +71,7 @@ export default function Home({ seoPath }) {
       </section>
       {" "}
       {" "}
-      <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
+      <section aria-labelledby="s2" style={{ padding: "clamp(44px, 5.5vw, 72px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
@@ -161,7 +162,7 @@ export default function Home({ seoPath }) {
       {" "}
       <ClientLogos />
       <section id="services" aria-labelledby="s3" style={{ padding: "0" }}>
-        <div style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
+        <div style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", boxSizing: "border-box" }}>
           {" "}
           <img src="/images/site/tagine_beef_couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
@@ -242,7 +243,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="s4" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section aria-labelledby="s4" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהשיחה הראשונה ועד הצלצול"}
@@ -312,7 +313,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="kitchen" aria-labelledby="s5" style={{ padding: "0 clamp(24px, 5vw, 80px) 96px" }}>
+      <section id="kitchen" aria-labelledby="s5" style={{ padding: "0 clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "56px" }}>
           <div style={{ flex: "0 1 380px", position: "relative", margin: "0 auto" }}>
             {" "}
@@ -389,7 +390,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="map" aria-labelledby="map-h" style={{ padding: "96px clamp(24px, 5vw, 80px)", maxWidth: "1308px", width: "100%" }}>
+      <section id="map" aria-labelledby="map-h" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)", maxWidth: "1308px", width: "100%" }}>
         <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "56px" }}>
           <div style={{ flex: "1 1 420px", maxWidth: "600px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
             <span className="ds-badge" style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "700", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "6px 14px" }}>
@@ -626,7 +627,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="about" aria-labelledby="s6" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section id="about" aria-labelledby="s6" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s6" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהמטבח שלנו בקרית גת"}
@@ -647,7 +648,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
-          <div style={{ width: "100%", marginTop: "26px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "16px" }}>
+          <div className="m-scroll" style={{ width: "100%", marginTop: "26px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))", gap: "16px" }}>
             {" "}<img src="/images/site/tagine_orange.jpg" data-a="gal" alt="טאג׳ין כתום עם קוסקוס" style={{ display: "block", width: "100%", aspectRatio: "1 / 1.2", objectFit: "cover", borderRadius: "100px 100px 16px 16px" }} />{" "}
             {" "}<img src="/images/site/couscous.jpg" data-a="gal" alt="קוסקוס עם ירקות" style={{ display: "block", width: "100%", aspectRatio: "1 / 1.2", objectFit: "cover", borderRadius: "16px" }} />{" "}
             {" "}<img src="/images/site/event.jpg" data-a="gal" alt="דג בגלייז עם אורז" style={{ display: "block", width: "100%", aspectRatio: "1 / 1.2", objectFit: "cover", borderRadius: "100px 100px 16px 16px" }} />{" "}
@@ -658,7 +659,7 @@ export default function Home({ seoPath }) {
       </section>
       {" "}
       {" "}
-      <section aria-labelledby="blog-h" style={{ padding: "96px clamp(24px, 5vw, 80px) 40px" }}>
+      <section aria-labelledby="blog-h" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px) 40px" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
           <h2 id="blog-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהבלוג"}
@@ -679,7 +680,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
-          <div style={{ marginTop: "24px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
+          <div className="m-scroll m-scroll-cards" style={{ marginTop: "24px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "24px" }}>
             <article data-a="card" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "18px", overflow: "hidden", display: "flex", flexDirection: "column" }}>
               <Link to="/blog/how-much-food-per-guest-event-catering" style={{ display: "block" }}>
                 <img src="/images/site/spread.jpg" alt="עוף עם חומוס, סלטים בקערות ולחם" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: "18px 18px 0 0" }} />
@@ -780,7 +781,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="s7" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
+      <section id="contact" aria-labelledby="s7" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div data-a="panel" style={{ width: "100%", margin: "0", borderRadius: "26px", padding: "0", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "40px", alignItems: "center" }}>
           <div style={{ flex: "1 1 340px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 id="s7" data-a="title" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
@@ -789,7 +790,7 @@ export default function Home({ seoPath }) {
             <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
               {"כמה פרטים, ותקבלו הצעה כתובה עם מחיר למנה ומינימום יומי, לרוב עוד באותו יום."}
             </p>
-            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
+            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "var(--fs-phone)", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
             <WaButton topic="הסעדה למפעל" style={{ alignSelf: "flex-start" }} />

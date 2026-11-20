@@ -1,5 +1,6 @@
 // Footer, generated from the approved canvas design.
 // ds-normalized
+// mobile-fixed
 import { Link } from 'react-router-dom'
 import WaButton from './WaButton.jsx'
 import { openCookieSettings } from '../../lib/consent.js'
@@ -8,7 +9,7 @@ import { ShieldCheck as PhShieldCheck } from '@phosphor-icons/react'
 export default function SiteFooter() {
   return (
     <>
-      <footer style={{ background: "#FFF9F1", borderTop: "1px solid #FDEBD3", padding: "96px clamp(24px, 5vw, 80px) 0" }}>
+      <footer style={{ background: "#FFF9F1", borderTop: "1px solid #FDEBD3", padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px) 0" }}>
       <div style={{ width: "100%" }}>
         {" "}
         <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start", gap: "48px" }}>

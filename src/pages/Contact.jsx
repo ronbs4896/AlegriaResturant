@@ -1,5 +1,6 @@
 // Generated from the approved canvas design (Ref-Contact.html). הקופי של העמוד נמצא כאן.
 // ds-normalized
+// mobile-fixed
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import WaButton, { WaIcon } from '../components/brand/WaButton.jsx'
@@ -23,7 +24,7 @@ export default function Contact({ seoPath }) {
         <div style={{ width: "100%", margin: "0", position: "relative", minHeight: "480px", overflow: "hidden", clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 90%)", display: "flex", alignItems: "center" }}>
           <img src="/images/site/matbucha.jpg" data-a="hero-img" alt="בשר עם חומוס, מטבוחה ולחם" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover" }} />
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(270deg, rgba(20, 17, 15, 0.82) 0%, rgba(20, 17, 15, 0.58) 50%, rgba(20, 17, 15, 0.25) 100%)" }} />
-          <div style={{ position: "relative", width: "100%", padding: "56px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "16px", color: "#FFFFFF" }}>
+          <div style={{ position: "relative", width: "100%", padding: "56px clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "16px", color: "#FFFFFF" }}>
             <nav aria-label="פירורי לחם" data-a="hero-fade" style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.85)" }}>
               <Link to="/" style={{ color: "#FFFFFF" }}>
                 {"בית"}
@@ -59,7 +60,7 @@ export default function Contact({ seoPath }) {
       </section>
       {" "}
       <section aria-label="דרכי יצירת קשר" style={{ padding: "54px 0 0" }}>
-        <div style={{ width: "100%", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 88px", boxSizing: "border-box" }}>
+        <div style={{ width: "100%", background: "#FFF5E8", position: "relative", padding: "clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(52px, 6.5vw, 88px)", boxSizing: "border-box" }}>
           {" "}
           <img src="/images/site/couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
@@ -162,7 +163,7 @@ export default function Contact({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="cta-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section id="contact" aria-labelledby="cta-h" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div data-a="panel" style={{ width: "100%", background: "#FFF5E8", borderRadius: "26px", padding: "clamp(28px, 4vw, 56px)", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
           <div style={{ flex: "1 1 360px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 id="cta-h" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
@@ -171,7 +172,7 @@ export default function Contact({ seoPath }) {
             <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540", maxWidth: "480px" }}>
               {"כמה פרטים, ונחזור אליכם בהקדם. הזמנה לשישי? היא נסגרת בטלפון מול נציג."}
             </p>
-            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
+            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "var(--fs-phone)", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
             <WaButton style={{ alignSelf: "flex-start" }} />
@@ -293,7 +294,7 @@ export default function Contact({ seoPath }) {
       </section>
       {" "}
       {" "}
-      <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
+      <section aria-labelledby="s5" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"לפני שמתקשרים"}

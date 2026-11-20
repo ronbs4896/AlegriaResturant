@@ -1,5 +1,6 @@
 // Generated from the approved canvas design (Ref-Friday.html). הקופי של העמוד נמצא כאן.
 // ds-normalized
+// mobile-fixed
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import WaButton from '../components/brand/WaButton.jsx'
@@ -23,7 +24,7 @@ export default function Friday({ seoPath }) {
         <div style={{ width: "100%", margin: "0", position: "relative", minHeight: "480px", overflow: "hidden", clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 90%)", display: "flex", alignItems: "center" }}>
           <img src="/images/site/friday.jpg" data-a="hero-img" alt="עוף בזיתים לשבת עם חלות" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover" }} />
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(270deg, rgba(20, 17, 15, 0.82) 0%, rgba(20, 17, 15, 0.58) 50%, rgba(20, 17, 15, 0.25) 100%)" }} />
-          <div style={{ position: "relative", width: "100%", padding: "56px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "16px", color: "#FFFFFF" }}>
+          <div style={{ position: "relative", width: "100%", padding: "56px clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "16px", color: "#FFFFFF" }}>
             <nav aria-label="פירורי לחם" data-a="hero-fade" style={{ fontSize: "14px", color: "rgba(255, 255, 255, 0.85)" }}>
               <Link to="/" style={{ color: "#FFFFFF" }}>
                 {"בית"}
@@ -58,7 +59,7 @@ export default function Friday({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
+      <section aria-labelledby="s2" style={{ padding: "clamp(44px, 5.5vw, 72px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
@@ -164,7 +165,7 @@ export default function Friday({ seoPath }) {
       </section>
       {" "}
       <section aria-labelledby="s3" style={{ padding: "54px 0 0" }}>
-        <div id="menu" style={{ width: "100%", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
+        <div id="menu" style={{ width: "100%", background: "#FFF5E8", position: "relative", padding: "clamp(48px, 6vw, 80px) clamp(24px, 5vw, 80px) clamp(56px, 7vw, 96px)", boxSizing: "border-box" }}>
           {" "}
           <img src="/images/site/tagine_orange.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
@@ -315,7 +316,7 @@ export default function Friday({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="start" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section aria-labelledby="start" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"איך מזמינים לשישי"}
@@ -386,7 +387,7 @@ export default function Friday({ seoPath }) {
       </section>
       {" "}
       {" "}
-      <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
+      <section aria-labelledby="s5" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"שאלות על מכירת שישי"}
@@ -493,7 +494,7 @@ export default function Friday({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="order-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+      <section id="contact" aria-labelledby="order-h" style={{ padding: "clamp(56px, 7vw, 96px) clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
           <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מזמינים לשישי"}
