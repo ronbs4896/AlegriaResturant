@@ -74,3 +74,40 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
   .hdr-logo { width: 40px !important; height: 40px !important; }
   .hdr-name { font-size: 15px !important; }
 }
+
+/* כרטיס הצעת מחיר למפעלים */
+.fq-card { box-sizing: border-box; }
+.fq-form { display: flex; flex-direction: column; gap: 22px; }
+.fq-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid #DDD1BE; }
+.fq-title { font-size: 20px; font-weight: 900; color: #2E2A27; }
+.fq-note { font-size: 13px; font-weight: 700; color: #2E2A27; background: #FFFFFF; border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
+.fq-set { border: 0; margin: 0; padding: 0; min-width: 0; }
+.fq-set legend { padding: 0; margin-bottom: 10px; font-size: 15px; font-weight: 800; color: #2E2A27; }
+.fq-chips { display: grid; gap: 10px; }
+.fq-chips-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fq-chips-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.opt.opt-chip { min-height: 50px; padding: 8px 12px; font-size: 15px; font-weight: 700; border-radius: 14px; text-align: center; }
+.opt.opt-chip:hover { border-color: #8C857C; }
+.opt.opt-chip:has(input:checked) { background: #FFFFFF; border-color: #2E2A27; box-shadow: inset 0 0 0 1px #2E2A27; }
+.opt.opt-chip:active { transform: scale(0.97); }
+.opt.opt-chip { transition: border-color 0.2s, background-color 0.2s, transform 0.12s; }
+.fq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.fq-lbl { display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 800; color: #2E2A27; }
+.fq-lbl .fld { min-height: 52px; font-weight: 500; }
+.fq-lbl .fld::placeholder { color: #8C857C; }
+.fq-btn { min-height: 56px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FCC50D 0%, #F5871F 100%); color: #2E2A27; font: inherit; font-size: 17px; font-weight: 800; cursor: pointer; transition: transform 0.12s, box-shadow 0.2s; box-shadow: 0 10px 22px -12px rgba(245, 135, 31, 0.8); }
+.fq-btn:hover { box-shadow: 0 14px 28px -12px rgba(245, 135, 31, 0.9); }
+.fq-btn:active { transform: scale(0.98); }
+.fq-btn:focus-visible { outline: 3px solid #2E2A27; outline-offset: 3px; }
+.fq-foot { margin: -8px 0 0; text-align: center; text-wrap: balance; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: #2E2A27; }
+.fq-foot svg { color: #A24A1B; flex-shrink: 0; }
+.fq-thanks { background: #FFFFFF; border: 1px solid #DDD1BE; border-radius: 22px; padding: 36px 28px; box-sizing: border-box; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; }
+@media (max-width: 640px) {
+  .fq-title { font-size: 18px; }
+  .fq-head { gap: 8px; }
+  .fq-note { display: none; }
+  .fq-form { gap: 20px; }
+  .fq-chips-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fq-chips-3 { grid-template-columns: 1fr; }
+  .fq-row { grid-template-columns: 1fr; }
+}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
+import FactoryQuote from '../components/brand/FactoryQuote.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 
@@ -811,13 +812,13 @@ export default function Home({ seoPath }) {
       </section>
       {" "}
       <section id="contact" aria-labelledby="s7" style={{ padding: "0 clamp(24px, 5vw, 80px) 96px" }}>
-        <div data-a="panel" style={{ width: "100%", margin: "0", background: "#EADFCD", borderRadius: "26px", padding: "48px", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "40px", alignItems: "center" }}>
+        <div data-a="panel" style={{ width: "100%", margin: "0", background: "#EADFCD", borderRadius: "26px", padding: "clamp(20px, 4vw, 56px)", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
           <div style={{ flex: "1 1 340px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 id="s7" data-a="title" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"בואו נדבר על המפעל שלכם"}
             </h2>
             <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.8", color: "#2E2A27" }}>
-              {"ארבעה פרטים, ותקבלו הצעה כתובה עם מחיר למנה ומינימום יומי, לרוב עוד באותו יום."}
+              {"כמה פרטים, ותקבלו הצעה כתובה עם מחיר למנה ומינימום יומי, לרוב עוד באותו יום."}
             </p>
             <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
@@ -849,78 +850,7 @@ export default function Home({ seoPath }) {
               </li>
             </ul>
           </div>
-          {formOpen ? (<>
-            
-            <form style={{ flex: "1 1 420px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "14px" }} onSubmit={(e) => { e.preventDefault(); send(e) }} noValidate>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"שם המפעל או החברה "}
-                <input type="text" style={{ minHeight: "48px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="שם המפעל או החברה" />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"כמה עובדים "}
-                <select style={{ minHeight: "48px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 16px", font: "inherit", fontWeight: "500" }} name="כמה עובדים">
-                  <option>
-                    {"30–80"}
-                  </option>
-                  <option>
-                    {"80–150"}
-                  </option>
-                  <option>
-                    {"150–300"}
-                  </option>
-                  <option>
-                    {"300+"}
-                  </option>
-                </select>
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"איש קשר "}
-                <input type="text" style={{ minHeight: "48px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="איש קשר" />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"טלפון "}
-                <input type="tel" dir="ltr" style={{ minHeight: "48px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500", textAlign: "right" }} name="טלפון" required />
-              </label>
-              <button type="button" onClick={send} style={{ gridColumn: "1 / -1", minHeight: "52px", border: "0", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", font: "inherit", fontSize: "16px", fontWeight: "700" }}>
-                {idle ? (<>
-                  <span>
-                    {"אני רוצה הצעת מחיר"}
-                  </span>
-                </>) : null}
-                {sending ? (<>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-                    <span className="spin" aria-hidden="true" style={{ width: "16px", height: "16px", borderRadius: "50%", border: "2px solid rgba(46, 42, 39, 0.3)", borderTopColor: "#2E2A27" }} />
-                    {"שולחים"}
-                  </span>
-                </>) : null}
-              </button>
-            </form>
-            
-          </>) : null}
-          {sent ? (<>
-            
-            <div data-a="thanks" role="status" style={{ flex: "1.4 1 480px", minHeight: "300px", background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "22px", padding: "36px 28px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "16px", textAlign: "center" }}>
-              <span data-a="tk-badge" style={{ width: "88px", height: "88px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="88" height="88" viewBox="0 0 88 88" fill="none" aria-hidden="true">
-                  <circle cx="44" cy="44" r="40" fill="#DDD1BE" />
-                  <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#A24A1B" strokeWidth="3" transform="rotate(-90 44 44)" />
-                  <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#A24A1B" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <div data-a="tk-txt" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                <h3 style={{ margin: "0", fontSize: "24px", fontWeight: "900", color: "#2E2A27" }}>
-                  {"קיבלנו את פרטי המפעל"}
-                </h3>
-                <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.7", color: "#2E2A27", maxWidth: "420px" }}>
-                  {"נחזור אליכם עם הצעה כתובה, לרוב עוד באותו יום. דחוף? חייגו 054-543-7526."}
-                </p>
-                <button type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #DDD1BE", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "800", cursor: "pointer" }}>
-                  {"שליחה נוספת"}
-                </button>
-              </div>
-            </div>
-            
-          </>) : null}
+          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} />
         </div>
       </section>
       {" "}

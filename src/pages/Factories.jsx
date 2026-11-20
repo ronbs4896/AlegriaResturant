@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
+import FactoryQuote from '../components/brand/FactoryQuote.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
 
@@ -782,96 +783,7 @@ export default function Factories({ seoPath }) {
               </li>
             </ul>
           </div>
-          {formOpen ? (<>
-            
-            <form style={{ flex: "1.4 1 480px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "14px" }} onSubmit={(e) => { e.preventDefault(); send(e) }} noValidate>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"שם המפעל "}
-                <input type="text" style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="שם המפעל" />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"עיר "}
-                <input type="text" style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="עיר" />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"כמה מנות ביום "}
-                <select style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="כמה מנות ביום">
-                  <option>
-                    {"30–80"}
-                  </option>
-                  <option>
-                    {"80–150"}
-                  </option>
-                  <option>
-                    {"150–300"}
-                  </option>
-                  <option>
-                    {"300+"}
-                  </option>
-                </select>
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"איך אוכלים אצלכם? "}
-                <select style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="איך אוכלים אצלכם?">
-                  <option>
-                    {"חדר אוכל (תפזורת)"}
-                  </option>
-                  <option>
-                    {"חמגשיות אישיות"}
-                  </option>
-                  <option>
-                    {"עוד לא בטוחים"}
-                  </option>
-                </select>
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"איש קשר "}
-                <input type="text" style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500" }} name="איש קשר" />
-              </label>
-              <label style={{ display: "flex", flexDirection: "column", gap: "6px", fontSize: "14px", fontWeight: "700" }}>
-                {"טלפון "}
-                <input type="tel" dir="ltr" style={{ minHeight: "50px", borderRadius: "999px", border: "1px solid #DDD1BE", background: "#FFFFFF", padding: "0 18px", font: "inherit", fontWeight: "500", textAlign: "right" }} name="טלפון" required />
-              </label>
-              <button type="button" onClick={send} style={{ gridColumn: "1 / -1", minHeight: "52px", border: "0", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", font: "inherit", fontSize: "16px", fontWeight: "700", cursor: "pointer" }}>
-                {idle ? (<>
-                  <span>
-                    {"אני רוצה הצעת מחיר"}
-                  </span>
-                </>) : null}
-                {sending ? (<>
-                  <span style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
-                    <span className="spin" aria-hidden="true" style={{ width: "16px", height: "16px", borderRadius: "50%", border: "2px solid rgba(46, 42, 39, 0.3)", borderTopColor: "#2E2A27" }} />
-                    {"שולחים"}
-                  </span>
-                </>) : null}
-              </button>
-            </form>
-            
-          </>) : null}
-          {sent ? (<>
-            
-            <div data-a="thanks" role="status" style={{ flex: "1.4 1 480px", minHeight: "300px", background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "22px", padding: "36px 28px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "16px", textAlign: "center" }}>
-              <span data-a="tk-badge" style={{ width: "88px", height: "88px", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="88" height="88" viewBox="0 0 88 88" fill="none" aria-hidden="true">
-                  <circle cx="44" cy="44" r="40" fill="#DDD1BE" />
-                  <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#A24A1B" strokeWidth="3" transform="rotate(-90 44 44)" />
-                  <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#A24A1B" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-              <div data-a="tk-txt" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                <h3 style={{ margin: "0", fontSize: "24px", fontWeight: "900", color: "#2E2A27" }}>
-                  {"קיבלנו את פרטי המפעל"}
-                </h3>
-                <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.7", color: "#2E2A27", maxWidth: "420px" }}>
-                  {"נחזור אליכם עם הצעה כתובה, לרוב עוד באותו יום. דחוף? חייגו 054-543-7526."}
-                </p>
-                <button type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #DDD1BE", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "800", cursor: "pointer" }}>
-                  {"שליחה נוספת"}
-                </button>
-              </div>
-            </div>
-            
-          </>) : null}
+          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} title="שתי בחירות ושלושה שדות" />
         </div>
       </section>
       {" "}
