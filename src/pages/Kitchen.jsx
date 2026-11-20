@@ -207,7 +207,7 @@ export default function Kitchen({ seoPath }) {
                   {"ייצור עצמי"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"הכל מתבשל אצלנו, בלי קבלני משנה."}
+                  {"הכל מתבשל אצלנו ביד, בלי מכונות ובלי קבלני משנה."}
                 </p>
               </div>
             </div>
@@ -379,11 +379,11 @@ export default function Kitchen({ seoPath }) {
                   <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                 </svg>
               </span>
-              <span dir="ltr" data-count="40" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
-                {"40+"}
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
-                {"חברות ומפעלים מרוצים"}
+                {"מהסועדים מרוצים, בסקר של 250 סועדים"}
               </span>
             </div>
           </div>
@@ -397,7 +397,7 @@ export default function Kitchen({ seoPath }) {
             {"מהמטבח שלנו"}
           </h2>
           <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
-            {"אוכל ביתי שמתבשל כל בוקר, מהמתכונים של המטבח הראשון שלנו."}
+            {"בישול מרוקאי ביתי, ביד, מהמתכונים של אלגריה."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>

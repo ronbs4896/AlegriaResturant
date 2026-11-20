@@ -36,13 +36,13 @@ export default function About({ seoPath }) {
               {" "}
               <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                 <span data-a="hero-line" style={{ display: "block" }}>
-                  {"25 שנה של סירים מלאים"}
+                  {"יותר מ-25 שנה של סירים מלאים"}
                 </span>
               </span>
               {" "}
             </h1>
             <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "rgba(255, 255, 255, 0.9)", maxWidth: "560px" }}>
-              {"מהמטבח הראשון של סבתא ועד מטבח מרכזי שמבשל מעל 3,000 ארוחות ביום למפעלים בכל הדרום."}
+              {"מהמטבח של אלגריה ועד מטבח מרכזי שמבשל מעל 3,000 ארוחות ביום למפעלים בכל הדרום."}
             </p>
           </div>
         </div>
@@ -71,25 +71,13 @@ export default function About({ seoPath }) {
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"אחד,"}
+                {"של"}
               </span>
             </span>
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"עם"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"סבתא"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"אחת."}
+                {"אלגריה."}
               </span>
             </span>
           </h2>
@@ -127,13 +115,13 @@ export default function About({ seoPath }) {
             </div>
             <div data-a="fade" style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "18px" }}>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"הדיוקן שעל הלוגו הוא האישה שממנה הכל התחיל. המתכונים שלה, הריחות מהמטבח שלה, וכלל אחד שלא זז מאז: מה שלא היית מגיש למשפחה שלך, לא מגישים לאף אחד."}
+                {"אלגריה היא החמות של אושרית. אושרית למדה ממנה לבשל, הייתה צמודה אליה שנים, ובחרה לקרוא לעסק על שמה, כדי שהבישול המרוקאי שלה וטוב הלב שלה יגיעו לעוד הרבה שולחנות."}
               </p>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"עברו יותר מ-25 שנה. הסירים גדלו, והיום המטבח שלנו בקרית גת מוציא מעל 3,000 ארוחות ביום למפעלים ולמשפחות בכל הדרום. המתכונים נשארו שלה."}
+                {"עברו יותר מ-25 שנה. הסירים גדלו, והיום המטבח שלנו בקרית גת מוציא מעל 3,000 ארוחות ביום למפעלים ולמשפחות בכל הדרום. הבישול נשאר שלה, ביד ומכל הלב."}
               </p>
               <blockquote style={{ margin: "4px 0 0", paddingInlineStart: "18px", borderInlineStart: "3px solid #B4511E", fontSize: "20px", lineHeight: "1.5", fontWeight: "900", color: "#2E2A27" }}>
-                {"סבתא טעמה כל סיר לפני שיצא מהמטבח. היום זה התפקיד שלנו."}
+                {"אהבת חינם שבאה לידי ביטוי באוכל. ככה אלגריה בישלה, וככה אנחנו ממשיכים."}
               </blockquote>
             </div>
           </div>
@@ -183,10 +171,10 @@ export default function About({ seoPath }) {
                   <path d="M10 8h22l6 6v26H10zM32 8v6h6M16 22h16M16 28h16M16 34h10" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"המתכונים של סבתא"}
+                  {"בישול מרוקאי, ביד"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"מה שלא היית מגיש למשפחה שלך, לא מגישים לאף אחד."}
+                  {"בלי מכונות ובלי פס ייצור, כמו שאלגריה בישלה בבית."}
                 </p>
               </div>{" "}
               {" "}<div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 20px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "270px", boxSizing: "border-box" }}>
@@ -249,7 +237,7 @@ export default function About({ seoPath }) {
                     {"מטבח אחד בקרית גת"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"המתכונים של סבתא, והכלל שלה: מה שלא היית מגיש למשפחה שלך, לא מגישים לאף אחד."}
+                    {"אלגריה מבשלת בבית את המטבח המרוקאי, ואושרית לומדת לידה כל מתכון."}
                   </span>
                 </span>
               </li>
@@ -264,7 +252,7 @@ export default function About({ seoPath }) {
                     {"הסירים גדלו, המפעלים נשארו"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"רוב המפעלים שעובדים איתנו התחילו לפני שנים ולא החליפו ספק מאז."}
+                    {"16 מתוך 17 המפעלים שלנו איתנו יותר משנתיים, והשבעה עשר עזב רק כי נסגר."}
                   </span>
                 </span>
               </li>
@@ -279,7 +267,7 @@ export default function About({ seoPath }) {
                     {"מטבח מרכזי, מעל 3,000 ארוחות ביום"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"אותם סירים יוצאים לעשרות מפעלים בדרום, לאירועים ולשולחנות שבת."}
+                    {"אותם סירים יוצאים למפעלים בדרום, לאירועים ולשולחן של שישי."}
                   </span>
                 </span>
               </li>
@@ -298,7 +286,7 @@ export default function About({ seoPath }) {
             </span>
           </h2>
           <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "17px", lineHeight: "1.75", color: "#5A544E", maxWidth: "680px" }}>
-            {"עסק משפחתי מקרית גת. אלה האנשים שמובילים את המטבח, את המפעלים ואת המשאיות שיוצאות כל בוקר."}
+            {"עסק משפחתי מקרית גת. אלה האנשים שמובילים את המטבח ואת המשאיות שיוצאות כל בוקר."}
           </p>
           <div style={{ marginTop: "48px", width: "100%", maxWidth: "1100px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "40px 24px" }}>
             {" "}<div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", textAlign: "center" }}>
@@ -441,11 +429,11 @@ export default function About({ seoPath }) {
                   <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                 </svg>
               </span>
-              <span dir="ltr" data-count="40" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
-                {"40+"}
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
-                {"חברות ומפעלים מרוצים"}
+                {"מהסועדים מרוצים, בסקר של 250 סועדים"}
               </span>
             </div>{" "}
           </div>
@@ -485,7 +473,7 @@ export default function About({ seoPath }) {
                     <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                   </svg>
                 </span>
-                {"40+ חברות ומפעלים מרוצים"}
+                {"97% מהסועדים מרוצים"}
               </li>
             </ul>
           </div>

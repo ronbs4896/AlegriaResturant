@@ -31,7 +31,7 @@ export default function Corporate({ seoPath }) {
             <h1 id="h1" style={{ margin: "0", fontSize: "clamp(2.3rem, 4.2vw, 3.5rem)", lineHeight: "1.12", fontWeight: "900", maxWidth: "760px" }}>
               <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                 <span data-a="hero-line" style={{ display: "block" }}>
-                  {"300 עובדים ביום גיבוש,"}
+                  {"500 עובדים ביום גיבוש,"}
                 </span>
               </span>
               <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
@@ -41,7 +41,7 @@ export default function Corporate({ seoPath }) {
               </span>
             </h1>
             <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.75", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
-              {"ימי גיבוש, כנסים וארוחות צוות, מ-20 משתתפים ועד 300. אותו מטבח בשרי שמאכיל עשרות מפעלים כל בוקר, בגרסה החגיגית."}
+              {"ימי גיבוש, כנסים וארוחות צוות, מ-20 משתתפים ועד 500. אותו מטבח בשרי שמבשל ל-17 מפעלים כל בוקר, בגרסה החגיגית."}
             </p>
             <div data-a="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
@@ -122,7 +122,7 @@ export default function Corporate({ seoPath }) {
                   {"אירועים של"}
                 </span>
                 <b dir="auto" style={{ fontSize: "18px", lineHeight: "1.15" }}>
-                  {"20 עד 300"}
+                  {"20 עד 500"}
                 </b>
               </span>
               {" "}
@@ -132,7 +132,7 @@ export default function Corporate({ seoPath }) {
                 {"אם המגשים מתרוקנים אחרי חצי שעה, זה מה שיזכרו מהיום. לכן אנחנו מתחילים מהמספרים: כמה משתתפים, כמה זמן האירוע, ומי לא אוכל מה."}
               </p>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"ביום עצמו הסירים עולים על האש בבוקר בקרית גת, ואנחנו מגיעים, מסדרים את השולחנות ומגישים."}
+                {"ביום עצמו הסירים עולים על האש בבוקר בקרית גת, והאוכל מגיע אליכם חם ומוכן להגשה. אנחנו דואגים לאוכל, ואתם לאנשים."}
               </p>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"אני רוצה הצעה"}
@@ -199,10 +199,10 @@ export default function Corporate({ seoPath }) {
                   <path d="M6 30V14h22v16M28 20h8l6 6v4H28M13 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM35 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 34h14" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"הובלה, סידור והגשה"}
+                  {"משלוח עד אליכם"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"מגיעים עם הכל ומסדרים את השולחנות."}
+                  {"מ-10 מנות, ובקרית גת המשלוח חינם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
@@ -284,7 +284,7 @@ export default function Corporate({ seoPath }) {
                     {"ביום האירוע"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"מבשלים בבוקר, מגיעים, מסדרים ומגישים."}
+                    {"מבשלים בבוקר, והאוכל מגיע אליכם חם ומוכן להגשה."}
                   </span>
                 </span>
               </li>
@@ -326,7 +326,7 @@ export default function Corporate({ seoPath }) {
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"לאירוע קטן מספיקים כמה ימים. לאירוע של מאה משתתפים ומעלה, שבועיים מראש."}
+                {"הזמנה קטנה אפשר גם באותו יום, בשעות הפעילות. לאירוע של מאה משתתפים ומעלה, כדאי שבועיים מראש."}
               </p>
               {" "}
             </details>
@@ -340,7 +340,7 @@ export default function Corporate({ seoPath }) {
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"מ-20 משתתפים."}
+                {"לאירוע, מ-20 משתתפים. משלוח למשרד אפשר כבר מ-10 מנות, ובקרית גת הוא חינם."}
               </p>
               {" "}
             </details>
@@ -447,6 +447,9 @@ export default function Corporate({ seoPath }) {
                   </option>
                   <option>
                     {"200–300"}
+                  </option>
+                  <option>
+                    {"300–500"}
                   </option>
                 </select>
               </label>

@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Home.html, עיצוב הרפרנס המקורי). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import ClientLogos from '../components/brand/ClientLogos.jsx'
 import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
@@ -27,22 +28,22 @@ export default function Home({ seoPath }) {
               <h1 id="h1" style={{ margin: "0", fontSize: "clamp(2.4rem, 4.4vw, 3.6rem)", lineHeight: "1.12", fontWeight: "900", letterSpacing: "-0.01em" }}>
                 <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                   <span data-a="hero-line" style={{ display: "block" }}>
-                    {"הצלצול להפסקה,"}
+                    {"הסעדה יומית"}
                   </span>
                 </span>
                 <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                   <span data-a="hero-line" style={{ display: "block" }}>
-                    {"והאוכל כבר"}
+                    {"למפעלים וחברות"}
                   </span>
                 </span>
                 <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                   <span data-a="hero-line" style={{ display: "block" }}>
-                    {"על השולחן."}
+                    {"בכל הדרום."}
                   </span>
                 </span>
               </h1>
               <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "rgba(255, 255, 255, 0.9)" }}>
-                {"מטבח בשרי כשר בקרית גת שמבשל כל בוקר מעל 3,000 ארוחות חמות לעשרות מפעלים בדרום. בתפזורת לחדר האוכל או בחמגשיות אישיות, לפי איך שהמפעל שלכם עובד."}
+                {"ארוחה חמה לפני כל הפסקה, מבושלת ביד באותו בוקר במטבח הבשרי והכשר שלנו בקרית גת. מעל 3,000 ארוחות ביום, בתפזורת לחדר האוכל או בחמגשיות אישיות."}
               </p>
               <div data-a="hero-fade">
                 <a href="#contact" style={{ minHeight: "46px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
@@ -152,7 +153,7 @@ export default function Home({ seoPath }) {
             </div>
             <div data-a="fade" style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "22px" }}>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"כשההפסקה של 200 עובדים תלויה במשאית אחת, כל איחור הופך לתלונה שמגיעה אליכם. לכן אצלנו הסירים עולים על האש ביום האספקה עצמו, והמשאיות יוצאות מקרית גת בבוקר של יום האספקה. העובדים בוחרים מנה באפליקציה של אלגריה, ואנחנו מבשלים בדיוק לפי ההזמנות. ככה זה עובד אצל מפעלים בדרום כבר 25 שנה."}
+                {"כשההפסקה של 200 עובדים תלויה במשאית אחת, כל איחור הופך לתלונה שמגיעה אליכם. לכן אצלנו הסירים עולים על האש ביום האספקה עצמו, והמשאיות יוצאות מקרית גת בבוקר של יום האספקה. העובדים בוחרים מנה באפליקציה של אלגריה, ואנחנו מבשלים בדיוק לפי ההזמנות. 16 מתוך 17 המפעלים שלנו איתנו יותר משנתיים, והשבעה עשר עזב רק כי נסגר."}
               </p>
               <a href="#services" style={{ minHeight: "46px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"מה אנחנו מבשלים"}
@@ -162,6 +163,7 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
+      <ClientLogos />
       <section id="services" aria-labelledby="s3" style={{ padding: "0" }}>
         <div style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
           {" "}
@@ -214,7 +216,7 @@ export default function Home({ seoPath }) {
                   {"ארוחות מסובסדות לעובדים"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"המעסיק משתתף, העובד משלם מחיר מוזל, ומחלקת השכר מקבלת דוח אחד בחודש."}
+                  {"המעסיק משתתף, העובד משלם מחיר מוזל, ואפשר לשלם גם בסיבוס."}
                 </p>
                 <Link to="/services/subsidized-meals" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
                   {"לפרטים"}
@@ -228,7 +230,7 @@ export default function Home({ seoPath }) {
                   {"אירועי חברה וימי גיבוש"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"מ-20 ועד 300 משתתפים. מבשלים באותו בוקר, מגיעים עם הכל ומסדרים את השולחנות."}
+                  {"עד 500 משתתפים. מבשלים באותו בוקר, והאוכל מגיע אליכם חם ומוכן להגשה."}
                 </p>
                 <Link to="/services/corporate-events" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
                   {"לפרטים"}
@@ -648,11 +650,11 @@ export default function Home({ seoPath }) {
                   <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                 </svg>
               </span>
-              <span dir="ltr" data-count="40" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
-                {"40+"}
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
-                {"חברות ומפעלים מרוצים"}
+                {"מהסועדים מרוצים, בסקר של 250 סועדים"}
               </span>
             </div>{" "}
           </div>
@@ -666,7 +668,7 @@ export default function Home({ seoPath }) {
             {"מהמטבח שלנו בקרית גת"}
           </h2>
           <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "15px", lineHeight: "1.7", color: "#5A544E", maxWidth: "520px" }}>
-            {"אוכל ביתי שמתבשל כל בוקר, מהמתכונים של המטבח הראשון שלנו."}
+            {"בישול מרוקאי ביתי, ביד, מהמתכונים של אלגריה."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
@@ -794,7 +796,7 @@ export default function Home({ seoPath }) {
                   </Link>
                 </h3>
                 <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"מדרגות כמות, שמירת חום ותפריט יומי מתחלף, מניסיון של 25 שנה במטבח בקרית גת."}
+                  {"מדרגות כמות, שמירת חום ותפריט יומי מתחלף, מניסיון של יותר מ-25 שנה במטבח."}
                 </p>
                 <div style={{ marginTop: "auto" }}>
                   <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "13px", color: "#5A544E" }}>

@@ -1,6 +1,7 @@
 // Generated from the approved canvas design (Ref-Factories.html). הקופי של העמוד נמצא כאן.
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
+import ClientLogos from '../components/brand/ClientLogos.jsx'
 import WaButton from '../components/brand/WaButton.jsx'
 import { usePageMotion } from '../lib/motion.js'
 import { useLeadForm } from '../lib/useLeadForm.js'
@@ -42,7 +43,7 @@ export default function Factories({ seoPath }) {
               </span>
             </h1>
             <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.75", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
-              {"מטבח בשרי כשר בקרית גת שמבשל כל בוקר מעל 3,000 ארוחות חמות לעשרות מפעלים בדרום. בתפזורת לחדר האוכל או בחמגשיות אישיות, לפי איך שהמפעל שלכם עובד."}
+              {"מטבח בשרי כשר בקרית גת שמבשל כל בוקר מעל 3,000 ארוחות חמות למפעלים בדרום. בתפזורת לחדר האוכל או בחמגשיות אישיות, לפי איך שהמפעל שלכם עובד."}
             </p>
             <div data-a="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
@@ -63,61 +64,31 @@ export default function Factories({ seoPath }) {
           <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"מנהל"}
+                {"הספק"}
               </span>
             </span>
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"רכש"}
+                {"הקודם"}
               </span>
             </span>
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"שמע"}
+                {"התחיל"}
               </span>
             </span>
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"את"}
+                {"לזלזל"}
               </span>
             </span>
             {" "}
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
-                {"זה"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"כבר:"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"\"מחר"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"זה"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"יגיע"}
-              </span>
-            </span>
-            {" "}
-            <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
-              <span data-w="" style={{ display: "inline-block" }}>
-                {"בזמן\"."}
+                {"באוכל?"}
               </span>
             </span>
           </h2>
@@ -145,17 +116,17 @@ export default function Factories({ seoPath }) {
               {" "}
               <span data-a="badge" style={{ position: "absolute", bottom: "26px", insetInlineEnd: "44%", width: "100px", height: "100px", borderRadius: "50%", background: "#FFFFFF", border: "3px solid #B4511E", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", zIndex: "3", padding: "6px", boxSizing: "border-box" }}>
                 <span style={{ fontSize: "11px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2" }}>
-                  {"מפעלים וחברות"}
+                  {"איתנו 2+ שנים"}
                 </span>
                 <b dir="auto" style={{ fontSize: "18px", lineHeight: "1.15" }}>
-                  {"40+"}
+                  {"16 מ-17"}
                 </b>
               </span>
               {" "}
             </div>
             <div data-a="fade" style={{ flex: "1 1 420px", maxWidth: "640px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "18px" }}>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"כשההפסקה של 200 עובדים תלויה במשאית אחת, כל איחור הופך לתלונה שמגיעה אליכם ולא למטבח. בדיוק בגלל זה הסירים שלנו עולים על האש ביום האספקה עצמו, והמשאיות יוצאות מקרית גת בבוקר של יום האספקה."}
+                {"זו הסיבה הכי נפוצה שמפעלים עוברים אלינו. אצלנו כל סיר מתבשל ביד, בלי מכונות ובלי פס ייצור, מהמתכונים המרוקאיים של אלגריה, ועולה על האש ביום האספקה עצמו. 16 מתוך 17 המפעלים שלנו איתנו יותר משנתיים, והשבעה עשר עזב רק כי נסגר."}
               </p>
               <a href="#start" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"איך זה עובד אצל מפעל"}
@@ -222,10 +193,10 @@ export default function Factories({ seoPath }) {
                   <path d="M10 6h22l6 6v30H10zM32 6v6h6M16 20h16M16 26h16M16 32h10" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"תפריט שמתחלף כל יום"}
+                  {"תפריט שנבנה למפעל שלכם"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"עובד שאוכל אצלכם כל יום לא פוגש את אותו מגש פעמיים באותו שבוע."}
+                  {"מגוון רחב שמותאם לכל מפעל, ומתעדכן לפי סקרים שהעובדים ממלאים ובקרת איכות שוטפת."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
@@ -233,10 +204,10 @@ export default function Factories({ seoPath }) {
                   <path d="M24 4l16 6v12c0 10-7 17-16 22C15 39 8 32 8 22V10zM17 24l5 5 9-10" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"בשרי, כשר, חם"}
+                  {"פספסנו? מפצים באותו יום"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"מטבח בשרי בהשגחת הרבנות הראשית קרית גת, ושרשרת חום מבוקרת עד דלת חדר האוכל."}
+                  {"חסרה מנה? מקבלים שלוש במקומה. מנה התבלבלה? מביאים עוד אחת. ותמיד יש תוכנית ב׳ מוכנה."}
                 </p>
               </div>
             </div>
@@ -245,6 +216,7 @@ export default function Factories({ seoPath }) {
         </div>
       </section>
       {" "}
+      <ClientLogos />
       <section aria-labelledby="start" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
           <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
@@ -289,10 +261,10 @@ export default function Factories({ seoPath }) {
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px", alignItems: "flex-end" }}>
                   <b style={{ fontSize: "17px" }}>
-                    {"הצעה וחוזה"}
+                    {"טעימה, הצעה וחוזה"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"מחיר למנה ומינימום מנות, כתוב וסגור. בלי סעיפים שמופיעים רק בחשבונית."}
+                    {"טועמים, מקבלים מחיר למנה ומינימום מנות בכתב, ומתחילים לספק תוך כ-30 יום."}
                   </span>
                 </span>
               </li>
@@ -601,11 +573,11 @@ export default function Factories({ seoPath }) {
                   <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                 </svg>
               </span>
-              <span dir="ltr" data-count="40" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
-                {"40+"}
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
-                {"חברות ומפעלים מרוצים"}
+                {"מהסועדים מרוצים, בסקר של 250 סועדים"}
               </span>
             </div>
           </div>
@@ -637,14 +609,14 @@ export default function Factories({ seoPath }) {
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
-                {"איך העובדים מזמינים?"}
+                {"מה קורה אם משהו מתפספס?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"באפליקציה של אלגריה. כל עובד בוחר מנה מהתפריט היומי, והמטבח מבשל לפי ההזמנות שנכנסו."}
+                {"לוקחים אחריות ומפצים באותו יום. חסרה מנה, מקבלים שלוש במקומה. מנה התבלבלה, מביאים עוד אחת. ובכל רגע יש תוכנית ב׳ מוכנה."}
               </p>
               {" "}
             </details>
@@ -672,7 +644,7 @@ export default function Factories({ seoPath }) {
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"כן. העבודה היא לפי חוזה עם מינימום מנות ליום, ואת המינימום סוגרים כבר בהצעת המחיר."}
+                {"כן, בערך 30 מנות ביום. העבודה היא לפי חוזה, ואת המינימום המדויק סוגרים בהצעת המחיר."}
               </p>
               {" "}
             </details>

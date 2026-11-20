@@ -42,7 +42,7 @@ export default function PrivateEvents({ seoPath }) {
               </span>
             </h1>
             <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.75", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
-              {"אותו מטבח שמבשל כל בוקר לעשרות מפעלים, מבשל גם לשמחות שלכם. מ-20 אורחים בסלון ועד 300 באולם."}
+              {"אותו מטבח שמבשל כל בוקר ל-17 מפעלים, מבשל גם לשמחות שלכם, בבישול מרוקאי ביתי. מ-20 אורחים בסלון ועד 300 באולם."}
             </p>
             <div data-a="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
@@ -151,7 +151,7 @@ export default function PrivateEvents({ seoPath }) {
                 {"עוף בזיתים, חריימה, קציצות ותבשילי בשר, לצד תוספות, סלטים קצוצים ומאפים. בונים איתכם תפריט לפי הקהל, כולל כמה ילדים יש ומי לא אוכל חריף."}
               </p>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"ביום האירוע מבשלים בבוקר, מגיעים עם הכל ומסדרים את השולחנות."}
+                {"ביום האירוע מבשלים בבוקר, והאוכל מגיע אליכם חם ומוכן להגשה. אנחנו דואגים לאוכל, ואתם לאורחים."}
               </p>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"אני רוצה הצעה"}
@@ -232,7 +232,7 @@ export default function PrivateEvents({ seoPath }) {
                   {"אזכרות"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"אוכל חם ומסודר, בלי שתצטרכו לחשוב על זה."}
+                  {"אוכל חם ומוכן להגשה, ואתם נשארים עם האורחים."}
                 </p>
               </div>
             </div>
@@ -303,7 +303,7 @@ export default function PrivateEvents({ seoPath }) {
                     {"ביום האירוע"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"מבשלים בבוקר, מגיעים, מסדרים ומגישים."}
+                    {"מבשלים בבוקר, והאוכל מגיע אליכם חם ומוכן להגשה."}
                   </span>
                 </span>
               </li>
@@ -358,7 +358,7 @@ export default function PrivateEvents({ seoPath }) {
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"לאירוע קטן מספיקים כמה ימים. לאירוע של מאה אורחים ומעלה, שבועיים."}
+                {"הזמנה קטנה אפשר גם באותו יום, בשעות הפעילות. לאירוע של מאה אורחים ומעלה, כדאי שבועיים מראש."}
               </p>
               {" "}
             </details>
@@ -731,7 +731,7 @@ export default function PrivateEvents({ seoPath }) {
                       <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
                     </svg>
                     <span>
-                      {"סידור והגשה במקום"}
+                      {"משלוח עד המקום"}
                     </span>
                   </label>
                 </div>

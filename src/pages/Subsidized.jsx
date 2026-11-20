@@ -41,7 +41,7 @@ export default function Subsidized({ seoPath }) {
               </span>
             </h1>
             <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.75", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
-              {"המפעל משתתף במחיר, העובד משלם פחות, ומחלקת השכר מקבלת דוח אחד בסוף החודש. את אחוזי ההשתתפות קובעים אתם."}
+              {"המפעל משתתף במחיר, העובד משלם פחות, ואפשר לשלם גם בסיבוס. את גובה ההשתתפות קובעים אתם."}
             </p>
             <div data-a="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
               <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
@@ -119,10 +119,10 @@ export default function Subsidized({ seoPath }) {
               {" "}
               <span data-a="badge" style={{ position: "absolute", bottom: "26px", insetInlineEnd: "44%", width: "100px", height: "100px", borderRadius: "50%", background: "#FFFFFF", border: "3px solid #B4511E", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", zIndex: "3", padding: "6px", boxSizing: "border-box" }}>
                 <span style={{ fontSize: "11px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2" }}>
-                  {"מתחילים עם"}
+                  {"מתחילים"}
                 </span>
                 <b dir="auto" style={{ fontSize: "18px", lineHeight: "1.15" }}>
-                  {"חודש ניסיון"}
+                  {"בטעימה"}
                 </b>
               </span>
               {" "}
@@ -132,7 +132,7 @@ export default function Subsidized({ seoPath }) {
                 {"תוספת לתלוש נבלעת תוך חודש. ארוחה חמה כל צהריים, במחיר שהמפעל מוריד לעובד, היא הטבה שרואים כל יום ב-12:00."}
               </p>
               <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
-                {"אתם קובעים כמה המפעל משלם וכמה העובד. העובדים מזמינים באפליקציה, אנחנו מבשלים ומספקים, ובסוף החודש יוצא דוח אחד מסודר לשכר."}
+                {"אתם קובעים כמה המפעל משלם וכמה העובד. העובדים מזמינים באפליקציה, אנחנו מבשלים ומספקים, ואפשר לשלם גם בסיבוס."}
               </p>
               <a href="#start" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"איך זה עובד"}
@@ -199,10 +199,10 @@ export default function Subsidized({ seoPath }) {
                   <path d="M12 4h18l8 8v32H12zM30 4v8h8M18 26l4 4 8-8" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"לקבל דוח אחד בחודש"}
+                  {"לשלם איך שנוח לכם"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"כמה ארוחות לכל עובד, מוכן להעברה לשכר."}
+                  {"אנחנו מקבלים גם סיבוס, כך שהסבסוד עובר דרך מה שכבר יש לכם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
@@ -210,10 +210,10 @@ export default function Subsidized({ seoPath }) {
                   <path d="M8 10h32v30H8zM8 18h32M16 6v8M32 6v8M15 26h6M27 26h6M15 33h6" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
-                  {"לנסות חודש"}
+                  {"להתחיל בטעימה"}
                 </h3>
                 <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                  {"רואים איך זה מתנהל, ורק אז מתחייבים."}
+                  {"טועמים לפני שסוגרים, ומתחילים לספק תוך כ-30 יום."}
                 </p>
               </div>
             </div>
@@ -281,10 +281,10 @@ export default function Subsidized({ seoPath }) {
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
                   <b style={{ fontSize: "17px" }}>
-                    {"דוח לשכר"}
+                    {"תשלום"}
                   </b>
                   <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
-                    {"בסוף החודש, דוח אחד מסודר לפי עובד."}
+                    {"המפעל משלם את חלקו והעובד את שלו, ואפשר גם בסיבוס."}
                   </span>
                 </span>
               </li>
@@ -330,11 +330,11 @@ export default function Subsidized({ seoPath }) {
                   <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
                 </svg>
               </span>
-              <span dir="ltr" data-count="40" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
-                {"40+"}
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+                {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
-                {"חברות ומפעלים מרוצים"}
+                {"מהסועדים מרוצים, בסקר של 250 סועדים"}
               </span>
             </div>
           </div>
@@ -380,14 +380,14 @@ export default function Subsidized({ seoPath }) {
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
-                {"איך מגיע הדיווח לשכר?"}
+                {"אפשר לשלם בסיבוס?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"פעם בחודש, בדוח אחד מסודר לפי עובד."}
+                {"כן, אנחנו מקבלים סיבוס."}
               </p>
               {" "}
             </details>
@@ -401,7 +401,7 @@ export default function Subsidized({ seoPath }) {
               </summary>
               {" "}
               <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
-                {"כן. מתחילים בחודש ניסיון, ואם זה עובד ממשיכים."}
+                {"כן. מתחילים בטעימה, ואחרי שסוגרים חוזה מתחילים לספק, בדרך כלל תוך כ-30 יום."}
               </p>
               {" "}
             </details>
