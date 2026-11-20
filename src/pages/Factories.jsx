@@ -734,8 +734,8 @@ export default function Factories({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="cta-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
-        <div data-a="panel" style={{ width: "100%", background: "#EADFCD", borderRadius: "26px", padding: "clamp(28px, 4vw, 56px)", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
+      <section id="contact" className="fq-section" aria-labelledby="cta-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+        <div data-a="panel" style={{ width: "100%", borderRadius: "26px", padding: "0", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
           <div style={{ flex: "1 1 360px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 id="cta-h" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"הצעת מחיר למפעל"}
@@ -783,7 +783,7 @@ export default function Factories({ seoPath }) {
               </li>
             </ul>
           </div>
-          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} title="שתי בחירות ושלושה שדות" />
+          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} source="הסעדה יומית למפעלים" />
         </div>
       </section>
       {" "}

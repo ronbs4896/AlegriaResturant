@@ -811,8 +811,8 @@ export default function Home({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section id="contact" aria-labelledby="s7" style={{ padding: "0 clamp(24px, 5vw, 80px) 96px" }}>
-        <div data-a="panel" style={{ width: "100%", margin: "0", background: "#EADFCD", borderRadius: "26px", padding: "clamp(20px, 4vw, 56px)", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
+      <section id="contact" className="fq-section" aria-labelledby="s7" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
+        <div data-a="panel" style={{ width: "100%", borderRadius: "26px", padding: "0", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
           <div style={{ flex: "1 1 340px", display: "flex", flexDirection: "column", gap: "14px" }}>
             <h2 id="s7" data-a="title" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"בואו נדבר על המפעל שלכם"}
@@ -850,7 +850,7 @@ export default function Home({ seoPath }) {
               </li>
             </ul>
           </div>
-          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} />
+          <FactoryQuote formOpen={formOpen} sent={sent} idle={idle} sending={sending} send={send} reset={reset} source="הסעדה למפעלים (דף הבית)" />
         </div>
       </section>
       {" "}

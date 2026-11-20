@@ -75,39 +75,59 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
   .hdr-name { font-size: 15px !important; }
 }
 
-/* כרטיס הצעת מחיר למפעלים */
-.fq-card { box-sizing: border-box; }
-.fq-form { display: flex; flex-direction: column; gap: 22px; }
-.fq-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px; padding-bottom: 18px; border-bottom: 1px solid #DDD1BE; }
-.fq-title { font-size: 20px; font-weight: 900; color: #2E2A27; }
-.fq-note { font-size: 13px; font-weight: 700; color: #2E2A27; background: #FFFFFF; border-radius: 999px; padding: 4px 12px; white-space: nowrap; }
-.fq-set { border: 0; margin: 0; padding: 0; min-width: 0; }
-.fq-set legend { padding: 0; margin-bottom: 10px; font-size: 15px; font-weight: 800; color: #2E2A27; }
-.fq-chips { display: grid; gap: 10px; }
-.fq-chips-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.fq-chips-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.opt.opt-chip { min-height: 50px; padding: 8px 12px; font-size: 15px; font-weight: 700; border-radius: 14px; text-align: center; }
-.opt.opt-chip:hover { border-color: #8C857C; }
-.opt.opt-chip:has(input:checked) { background: #FFFFFF; border-color: #2E2A27; box-shadow: inset 0 0 0 1px #2E2A27; }
-.opt.opt-chip:active { transform: scale(0.97); }
-.opt.opt-chip { transition: border-color 0.2s, background-color 0.2s, transform 0.12s; }
-.fq-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.fq-lbl { display: flex; flex-direction: column; gap: 8px; font-size: 15px; font-weight: 800; color: #2E2A27; }
-.fq-lbl .fld { min-height: 52px; font-weight: 500; }
-.fq-lbl .fld::placeholder { color: #8C857C; }
-.fq-btn { min-height: 56px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FCC50D 0%, #F5871F 100%); color: #2E2A27; font: inherit; font-size: 17px; font-weight: 800; cursor: pointer; transition: transform 0.12s, box-shadow 0.2s; box-shadow: 0 10px 22px -12px rgba(245, 135, 31, 0.8); }
-.fq-btn:hover { box-shadow: 0 14px 28px -12px rgba(245, 135, 31, 0.9); }
-.fq-btn:active { transform: scale(0.98); }
-.fq-btn:focus-visible { outline: 3px solid #2E2A27; outline-offset: 3px; }
-.fq-foot { margin: -8px 0 0; text-align: center; text-wrap: balance; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; color: #2E2A27; }
-.fq-foot svg { color: #A24A1B; flex-shrink: 0; }
-.fq-thanks { background: #FFFFFF; border: 1px solid #DDD1BE; border-radius: 22px; padding: 36px 28px; box-sizing: border-box; min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; }
+/* טופס הצעת מחיר למפעלים, שני שלבים (FactoryQuote) */
+.fq-section { background: #FFF5E9; }
+.fq2-card { background: #FFFFFF; border-radius: 20px; padding: 28px 32px 32px; box-sizing: border-box; box-shadow: 0 1px 0 rgba(46, 42, 39, 0.06), 0 24px 48px -28px rgba(162, 74, 27, 0.35); }
+.fq2-steps { list-style: none; margin: 0 0 26px; padding: 0; display: grid; grid-template-columns: 1fr 1fr; }
+.fq2-steps li { display: flex; align-items: center; gap: 10px; padding-bottom: 14px; border-bottom: 3px solid #F1E6D8; font-size: 15px; font-weight: 700; color: #8C857C; }
+.fq2-steps li.is-on { color: #2E2A27; border-bottom-color: #F5871F; }
+.fq2-steps li.is-done { color: #2E2A27; border-bottom-color: #2E2A27; }
+.fq2-num { width: 26px; height: 26px; flex-shrink: 0; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 800; background: #F1E6D8; color: #2E2A27; }
+.fq2-steps li.is-on .fq2-num { background: #F5871F; color: #2E2A27; }
+.fq2-steps li.is-done .fq2-num { background: #2E2A27; color: #FFFFFF; }
+.fq2-body { display: flex; flex-direction: column; gap: 20px; }
+.fq2-body[hidden] { display: none; }
+.fq2-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.fq2-field { display: flex; flex-direction: column; gap: 7px; }
+.fq2-label { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; font-size: 15px; font-weight: 700; color: #2E2A27; padding: 0; }
+.fq2-opt { font-size: 12px; font-weight: 500; color: #8C857C; }
+.fq2-input { width: 100%; min-height: 50px; border: 1px solid #D9CBB8; border-radius: 10px; background: #FFFCF8; padding: 0 14px; font: inherit; font-size: 16px; color: #2E2A27; box-sizing: border-box; transition: border-color 0.15s, box-shadow 0.15s; }
+.fq2-input::placeholder { color: #A39A90; }
+.fq2-input:hover { border-color: #B9AA96; }
+.fq2-input:focus { outline: none; border-color: #F5871F; background: #FFFFFF; box-shadow: 0 0 0 3px rgba(245, 135, 31, 0.18); }
+.fq2-input:user-invalid { border-color: #A24A1B; }
+.fq2-area { padding: 12px 14px; min-height: 92px; resize: vertical; line-height: 1.6; }
+.fq2-set { border: 0; margin: 0; padding: 0; min-width: 0; }
+.fq2-set > .fq2-label { width: 100%; margin-bottom: 10px; justify-content: flex-start; }
+.fq2-set > .fq2-label .fq2-opt { margin-inline-start: 6px; }
+.fq2-choices { display: grid; gap: 8px; }
+.fq2-c4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.fq2-c3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.fq2-c2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.fq2-choice { position: relative; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 12px; border: 1px solid #D9CBB8; border-radius: 10px; background: #FFFCF8; font-size: 15px; font-weight: 600; color: #2E2A27; cursor: pointer; transition: border-color 0.15s, background-color 0.15s; }
+.fq2-choice:hover { border-color: #B9AA96; }
+.fq2-choice input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.fq2-mark { width: 18px; height: 18px; flex-shrink: 0; border: 1.5px solid #A39A90; border-radius: 50%; background: #FFFFFF; box-sizing: border-box; transition: border 0.15s; }
+.fq2-mark.fq2-box { border-radius: 5px; }
+.fq2-choice:has(input:checked) { border-color: #F5871F; background: #FFF5E9; }
+.fq2-choice:has(input:checked) .fq2-mark { border: 5px solid #F5871F; }
+.fq2-choice:has(input:checked) .fq2-box { border: 0; background: #F5871F url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M4.5 9.5l3 3 6-7' fill='none' stroke='%232E2A27' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 18px no-repeat; }
+.fq2-choice:has(input:focus-visible) { outline: 3px solid #2E2A27; outline-offset: 2px; }
+.fq2-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 4px; }
+.fq2-btn { min-height: 54px; padding: 0 30px; border: 0; border-radius: 999px; background: linear-gradient(135deg, #FCC50D 0%, #F5871F 100%); color: #2E2A27; font: inherit; font-size: 16px; font-weight: 800; cursor: pointer; transition: transform 0.12s; }
+.fq2-btn:active { transform: scale(0.98); }
+.fq2-btn:focus-visible, .fq2-back:focus-visible { outline: 3px solid #2E2A27; outline-offset: 3px; }
+.fq2-btn:disabled { cursor: progress; }
+.fq2-alt { font-size: 15px; color: #2E2A27; }
+.fq2-alt a { color: #2E2A27; font-weight: 800; text-decoration: underline; text-underline-offset: 3px; }
+.fq2-back { min-height: 44px; padding: 0 6px; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 700; color: #2E2A27; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.fq2-thanks { min-height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; }
 @media (max-width: 640px) {
-  .fq-title { font-size: 18px; }
-  .fq-head { gap: 8px; }
-  .fq-note { display: none; }
-  .fq-form { gap: 20px; }
-  .fq-chips-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .fq-chips-3 { grid-template-columns: 1fr; }
-  .fq-row { grid-template-columns: 1fr; }
+  .fq2-card { padding: 20px 18px 24px; border-radius: 16px; }
+  .fq2-grid { grid-template-columns: 1fr; }
+  .fq2-c4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .fq2-c3, .fq2-c2 { grid-template-columns: 1fr; }
+  .fq2-steps li { font-size: 14px; }
+  .fq2-btn { width: 100%; }
+  .fq2-actions { justify-content: center; }
 }
