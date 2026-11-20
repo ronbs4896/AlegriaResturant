@@ -188,7 +188,7 @@ export default function Blog({ seoPath }) {
                   </span>
                 </>) : null}
               </button>
-              <WaButton variant="inline" label="או כתבו לעמית בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
+              <WaButton variant="inline" label="או בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
             </form>
             
           </>) : null}

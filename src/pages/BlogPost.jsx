@@ -22,7 +22,7 @@ const slugify = (t) => String(t).trim().replace(/[^\p{L}\p{N}\s-]/gu, '').replac
 const textOf = (children) => (Array.isArray(children) ? children.map(textOf).join('') : typeof children === 'string' ? children : children?.props ? textOf(children.props.children) : '')
 
 const md = {
-  h2: ({ children }) => <h2 id={slugify(textOf(children))} style={{ margin: '48px 0 14px', fontSize: 'clamp(1.5rem, 2.4vw, 1.9rem)', lineHeight: 1.25, fontWeight: 900, color: '#B4511E', scrollMarginTop: 110 }}>{children}</h2>,
+  h2: ({ children }) => <h2 id={slugify(textOf(children))} style={{ margin: '48px 0 14px', fontSize: 'clamp(1.5rem, 2.4vw, 1.9rem)', lineHeight: 1.25, fontWeight: 900, color: '#2E2A27', scrollMarginTop: 110 }}>{children}</h2>,
   h3: ({ children }) => <h3 style={{ margin: '32px 0 10px', fontSize: 21, lineHeight: 1.35, fontWeight: 900, color: INK }}>{children}</h3>,
   p: ({ children }) => <p style={{ margin: '0 0 18px', fontSize: 18, lineHeight: 1.9, color: INK }}>{children}</p>,
   ul: ({ children }) => <ul style={{ margin: '0 0 22px', paddingInlineStart: 22, fontSize: 18, lineHeight: 1.85, color: INK, listStyle: 'disc' }}>{children}</ul>,
@@ -77,7 +77,7 @@ export default function BlogPost() {
               <Link to="/">בית</Link> / <Link to="/blog">בלוג</Link>{post.category ? ` / ${post.category}` : ''}
             </nav>
             {post.category && <span data-a="hero-fade" style={chip}>{post.category}</span>}
-            <h1 id="h1" style={{ margin: 0, fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.15, fontWeight: 900, maxWidth: 900, color: '#B4511E' }}>
+            <h1 id="h1" style={{ margin: 0, fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.15, fontWeight: 900, maxWidth: 900, color: '#2E2A27' }}>
               <span style={{ display: 'block', overflow: 'hidden', paddingBottom: '0.06em' }}><span data-a="hero-line" style={{ display: 'block' }}>{post.title}</span></span>
             </h1>
             <div data-a="hero-fade" style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 14 }}>
@@ -103,7 +103,7 @@ export default function BlogPost() {
                 </div>
               )}
               <div style={{ background: '#FFF5E8', color: INK, borderRadius: 20, padding: 22, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                <b style={{ fontSize: 19, fontWeight: 900, color: '#B4511E' }}>{cta.title}</b>
+                <b style={{ fontSize: 19, fontWeight: 900, color: INK }}>{cta.title}</b>
                 <span style={{ fontSize: 15, lineHeight: 1.6 }}>{cta.text}</span>
                 <Link to={cta.to} style={{ minHeight: 48, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', marginTop: 4 }}>{cta.label}</Link>
                 <a href="tel:+972545437526" style={{ color: INK, fontSize: 15, fontWeight: 700, textAlign: 'center' }}><span dir="ltr">054-543-7526</span></a>
@@ -121,7 +121,7 @@ export default function BlogPost() {
           <section aria-labelledby="rel-h" style={{ padding: '80px clamp(20px, 5vw, 80px) 96px', background: '#FFF5E8' }}>
             <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 28 }}>
               <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
-                <h2 id="rel-h" style={{ margin: 0, fontSize: 'clamp(1.6rem, 2.6vw, 2.1rem)', fontWeight: 900, color: '#B4511E' }}>עוד מהבלוג</h2>
+                <h2 id="rel-h" style={{ margin: 0, fontSize: 'clamp(1.6rem, 2.6vw, 2.1rem)', fontWeight: 900, color: '#2E2A27' }}>עוד מהבלוג</h2>
                 <Link to="/blog" style={{ fontWeight: 800, textDecoration: 'underline', textUnderlineOffset: 4 }}>לכל המאמרים</Link>
               </div>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>

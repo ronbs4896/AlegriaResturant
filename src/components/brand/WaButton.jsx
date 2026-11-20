@@ -25,7 +25,7 @@ const VARIANTS = {
   icon: { ...BASE, width: 44, height: 44, borderRadius: '50%', background: '#FFFFFF', border: '1px solid #FDEBD3' },
 }
 
-export default function WaButton({ variant = 'outline', label = 'וואטסאפ לעמית', topic, source, showNumber = false, style, className }) {
+export default function WaButton({ variant = 'outline', label = 'וואטסאפ', topic, source, showNumber = false, style, className }) {
   const message = topic
     ? `היי עמית, הגעתי מהאתר של קייטרינג אלגריה ואשמח לשמוע על ${topic}.`
     : 'היי עמית, הגעתי מהאתר של קייטרינג אלגריה ואשמח לפרטים.'
@@ -33,7 +33,7 @@ export default function WaButton({ variant = 'outline', label = 'וואטסאפ 
   const props = { href: buildWaLink(message), target: '_blank', rel: 'noopener noreferrer', onClick }
   if (variant === 'icon') {
     return (
-      <a {...props} className={className} aria-label="וואטסאפ לעמית" style={{ ...VARIANTS.icon, ...style }}>
+      <a {...props} className={className} aria-label="וואטסאפ" style={{ ...VARIANTS.icon, ...style }}>
         <WaIcon size={22} />
       </a>
     )

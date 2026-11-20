@@ -44,7 +44,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offs
 }
 
 /* טקסט ארוך (עמודים משפטיים) */
-.brand-prose h2 { margin: 40px 0 12px; font-size: 26px; line-height: 1.25; font-weight: 900; color: #B4511E; }
+.brand-prose h2 { margin: 40px 0 12px; font-size: 26px; line-height: 1.25; font-weight: 900; color: #2E2A27; }
 .brand-prose h3 { margin: 28px 0 8px; font-size: 20px; font-weight: 900; }
 .brand-prose p { margin: 0 0 16px; }
 .brand-prose ul { margin: 0 0 18px; padding-inline-start: 22px; list-style: disc; }

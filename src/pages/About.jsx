@@ -50,7 +50,7 @@ export default function About({ seoPath }) {
       {" "}
       <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
                 {"הכל"}
@@ -146,7 +146,7 @@ export default function About({ seoPath }) {
           <img src="/images/site/tagine_orange.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"ארבעה דברים"}
               <br />
               {"שלא השתנו מאז המטבח הראשון."}
@@ -219,7 +219,7 @@ export default function About({ seoPath }) {
       {" "}
       <section aria-labelledby="s4" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             {"מהמטבח הראשון ועד מעל 3,000 ארוחות ביום"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -456,7 +456,7 @@ export default function About({ seoPath }) {
       <section id="contact" aria-labelledby="s7" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div data-a="panel" style={{ width: "100%", margin: "0", background: "#FFF5E8", borderRadius: "26px", padding: "48px", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "32px", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ flex: "1 1 420px", display: "flex", flexDirection: "column", gap: "12px" }}>
-            <h2 id="s7" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+            <h2 id="s7" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"רוצים להכיר אותנו מקרוב?"}
             </h2>
             <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.8", color: "#5A544E" }}>

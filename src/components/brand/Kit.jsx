@@ -56,7 +56,7 @@ export function PageHero({ crumb, title, intro, children }) {
         <nav aria-label="פירורי לחם" data-a="hero-fade" style={{ fontSize: 14, color: MUTED }}>
           <Link to="/">בית</Link> / {crumb}
         </nav>
-        <h1 id="h1" data-a="words" style={{ margin: 0, fontSize: 'clamp(2.2rem, 4.6vw, 3.6rem)', lineHeight: 1.1, fontWeight: 900, maxWidth: 900, color: TERRA }}>
+        <h1 id="h1" data-a="words" style={{ margin: 0, fontSize: 'clamp(2.2rem, 4.6vw, 3.6rem)', lineHeight: 1.1, fontWeight: 900, maxWidth: 900, color: INK }}>
           <Words text={title} />
         </h1>
         <SigBar />
@@ -72,7 +72,7 @@ export function CtaBand({ title = 'בואו נדבר על מה שאתם צריכ
     <section aria-label="יצירת קשר" style={{ padding: `0 ${PAD} 96px` }}>
       <div data-a="panel" style={{ width: '100%', maxWidth: 1180, margin: '0 auto', background: SAND, color: INK, borderRadius: 32, padding: 'clamp(32px, 5vw, 56px)', boxSizing: 'border-box', display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 28 }}>
         <div style={{ flex: '1 1 420px', display: 'flex', flexDirection: 'column', gap: 10 }}>
-          <h2 style={{ margin: 0, fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', lineHeight: 1.2, fontWeight: 900, color: TERRA }}>{title}</h2>
+          <h2 style={{ margin: 0, fontSize: 'clamp(1.7rem, 3vw, 2.4rem)', lineHeight: 1.2, fontWeight: 900, color: INK }}>{title}</h2>
           <p style={{ margin: 0, fontSize: 17, lineHeight: 1.75, color: MUTED }}>{text}</p>
         </div>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>

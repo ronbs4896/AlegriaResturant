@@ -17,7 +17,7 @@ export default function MobileActionBar() {
         <a href={buildWaLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'mobile_bar' })}
           style={{ ...btn, background: 'transparent', color: '#FFFFFF', boxShadow: 'inset 0 0 0 1.5px rgba(255, 255, 255, 0.6)' }}>
           <WaIcon size={20} />
-          וואטסאפ לעמית
+          וואטסאפ
         </a>
       </div>
     </div>

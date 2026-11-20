@@ -112,7 +112,7 @@ export default function SiteFooter() {
                   </a>
                 </li>
                 <li>
-                  <WaButton variant="inline" label="וואטסאפ לעמית" source="footer" />
+                  <WaButton variant="inline" label="וואטסאפ" source="footer" />
                 </li>
                 <li style={{ color: "#5A544E", lineHeight: "1.7" }}>
                   {"ראשון עד חמישי "}

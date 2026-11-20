@@ -58,7 +58,7 @@ export default function Friday({ seoPath }) {
       {" "}
       <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
                 {"יום"}
@@ -169,7 +169,7 @@ export default function Friday({ seoPath }) {
           <img src="/images/site/tagine_orange.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"התפריט של השבוע"}
             </h2>
             <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
@@ -192,7 +192,7 @@ export default function Friday({ seoPath }) {
             </div>
             <div style={{ marginTop: "30px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "22px" }}>
               <div data-a="menu" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "46px 24px 26px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#B4511E" }}>
+                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#2E2A27" }}>
                   {"מנות עיקריות"}
                 </h3>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "10px 0", borderBottom: "1px dashed #F0C99A" }}>
@@ -227,7 +227,7 @@ export default function Friday({ seoPath }) {
                 </div>
               </div>
               <div data-a="menu" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "46px 24px 26px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#B4511E" }}>
+                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#2E2A27" }}>
                   {"תוספות"}
                 </h3>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "10px 0", borderBottom: "1px dashed #F0C99A" }}>
@@ -258,7 +258,7 @@ export default function Friday({ seoPath }) {
                 </div>
               </div>
               <div data-a="menu" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "46px 24px 26px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#B4511E" }}>
+                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#2E2A27" }}>
                   {"סלטים וממרחים"}
                 </h3>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "10px 0", borderBottom: "1px dashed #F0C99A" }}>
@@ -287,7 +287,7 @@ export default function Friday({ seoPath }) {
                 </div>
               </div>
               <div data-a="menu" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "46px 24px 26px", boxSizing: "border-box", display: "flex", flexDirection: "column", gap: "4px" }}>
-                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#B4511E" }}>
+                <h3 style={{ margin: "0 0 8px", textAlign: "center", fontSize: "19px", fontWeight: "900", color: "#2E2A27" }}>
                   {"מאפים וקינוחים"}
                 </h3>
                 <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "10px 0", borderBottom: "1px dashed #F0C99A" }}>
@@ -319,7 +319,7 @@ export default function Friday({ seoPath }) {
       {" "}
       <section aria-labelledby="start" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             {"איך מזמינים לשישי"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -392,7 +392,7 @@ export default function Friday({ seoPath }) {
       {" "}
       <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             {"שאלות על מכירת שישי"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -501,7 +501,7 @@ export default function Friday({ seoPath }) {
       {" "}
       <section id="contact" aria-labelledby="order-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             {"מזמינים לשישי"}
           </h2>
           <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
@@ -1001,7 +1001,7 @@ export default function Friday({ seoPath }) {
                     <path d="M15 6l-6 6 6 6" />
                   </svg>
                 </button>
-              <WaButton variant="inline" label="שאלה על שישי? וואטסאפ לעמית" topic="האוכל לשישי" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
+              <WaButton variant="inline" label="שאלה על שישי? וואטסאפ" topic="האוכל לשישי" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
                 <span style={{ flex: "1 1 280px", fontSize: "14px", lineHeight: "1.6", color: "#5A544E" }}>
                   {"זו בקשה לשיחה, ההזמנה נסגרת רק בטלפון מול נציג. ההזמנות לשישי נסגרות ביום רביעי בערב."}
                 </span>

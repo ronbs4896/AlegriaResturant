@@ -117,7 +117,7 @@ export default function FactoryQuote({ formOpen, sent, idle, sending, send, rese
               <div className="fq2-actions" data-fq="in">
                 <button type="submit" className="fq2-btn">המשך לשאלות על המפעל</button>
                 <span className="fq2-alt">או בטלפון: <a href="tel:+972545437526" dir="ltr">054-543-7526</a></span>
-                <WaButton variant="inline" label="או בוואטסאפ לעמית" topic="הסעדה למפעל" source="factory_form" />
+                <WaButton variant="inline" label="או בוואטסאפ" topic="הסעדה למפעל" source="factory_form" />
               </div>
             </div>
 
@@ -156,7 +156,7 @@ export default function FactoryQuote({ formOpen, sent, idle, sending, send, rese
                   ) : null}
                 </button>
                 <button type="button" className="fq2-back" onClick={back}>חזרה לפרטים</button>
-                <WaButton variant="inline" label="או בוואטסאפ לעמית" topic="הסעדה למפעל" source="factory_form" />
+                <WaButton variant="inline" label="או בוואטסאפ" topic="הסעדה למפעל" source="factory_form" />
               </div>
             </div>
           </div>

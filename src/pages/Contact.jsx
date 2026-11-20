@@ -62,7 +62,7 @@ export default function Contact({ seoPath }) {
           <img src="/images/site/couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s2" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+            <h2 id="s2" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"ארבע דרכים להגיע אלינו"}
             </h2>
             <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
@@ -103,7 +103,7 @@ export default function Contact({ seoPath }) {
                   {"וואטסאפ"}
                 </h2>
                 <div style={{ fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
-                  <WaButton variant="inline" label="שלחו הודעה לעמית" />
+                  <WaButton variant="inline" label="שלחו הודעה" />
                 </div>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "10px", textAlign: "center", minHeight: "230px", boxSizing: "border-box" }}>
@@ -171,7 +171,7 @@ export default function Contact({ seoPath }) {
       <section id="contact" aria-labelledby="cta-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div data-a="panel" style={{ width: "100%", background: "#FFF5E8", borderRadius: "26px", padding: "clamp(28px, 4vw, 56px)", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "48px", alignItems: "center" }}>
           <div style={{ flex: "1 1 360px", display: "flex", flexDirection: "column", gap: "14px" }}>
-            <h2 id="cta-h" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+            <h2 id="cta-h" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
               {"ספרו לנו מה צריך"}
             </h2>
             <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.8", color: "#5A544E", maxWidth: "480px" }}>
@@ -273,7 +273,7 @@ export default function Contact({ seoPath }) {
                   </span>
                 </>) : null}
               </button>
-              <WaButton variant="inline" label="או כתבו לעמית בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
+              <WaButton variant="inline" label="או בוואטסאפ" style={{ gridColumn: "1 / -1", justifySelf: "center" }} />
             </form>
             
           </>) : null}
@@ -307,7 +307,7 @@ export default function Contact({ seoPath }) {
       {" "}
       <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
+          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
             {"לפני שמתקשרים"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
