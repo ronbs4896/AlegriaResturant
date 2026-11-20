@@ -8,7 +8,7 @@ export default function Accessibility() {
   const root = usePageMotion()
   const seo = getSeo('/accessibility')
   return (
-    <div ref={root} dir="rtl" style={{ background: '#F2EADE', color: '#2E2A27' }}>
+    <div ref={root} dir="rtl" style={{ background: '#FFFFFF', color: '#2E2A27' }}>
       <Seo title={seo.title} description={seo.description} path="/accessibility" />
       <PageHero crumb="הצהרת נגישות" title="הצהרת נגישות" />
       <Prose>

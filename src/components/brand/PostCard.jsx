@@ -14,12 +14,12 @@ export function formatDate(d) {
   return y && m && day ? `${day}.${m}.${y}` : String(d)
 }
 
-export const chip = { alignSelf: 'flex-start', fontSize: 13, fontWeight: 800, color: '#2E2A27', background: '#EADFCD', borderRadius: 999, padding: '5px 12px' }
+export const chip = { alignSelf: 'flex-start', fontSize: 13, fontWeight: 800, color: '#2E2A27', background: '#FFF5E8', borderRadius: 999, padding: '5px 12px' }
 
 export default function PostCard({ post, hidden }) {
   const to = `/blog/${post.slug}`
   return (
-    <article data-post="" data-a="card" style={{ background: '#FFFFFF', border: '1px solid #DDD1BE', borderRadius: 18, overflow: 'hidden', display: hidden ? 'none' : 'flex', flexDirection: 'column' }}>
+    <article data-post="" data-a="card" style={{ background: '#FFFFFF', border: '1px solid #FDEBD3', borderRadius: 18, overflow: 'hidden', display: hidden ? 'none' : 'flex', flexDirection: 'column' }}>
       <Link to={to} style={{ display: 'block' }} tabIndex={-1} aria-hidden="true">
         <img src={coverOf(post)} alt={post.coverAlt || ''} loading="lazy" onError={(e) => { e.currentTarget.src = '/images/site/spread.jpg' }}
           style={{ display: 'block', width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: '18px 18px 0 0' }} />

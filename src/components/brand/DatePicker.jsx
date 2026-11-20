@@ -8,7 +8,7 @@ const MONTHS = ['ינואר', 'פברואר', 'מרץ', 'אפריל', 'מאי', 
 const DAYS = ['ראשון', 'שני', 'שלישי', 'רביעי', 'חמישי', 'שישי', 'שבת']
 const WEEK = ['א׳', 'ב׳', 'ג׳', 'ד׳', 'ה׳', 'ו׳', 'ש׳']
 const INK = '#2E2A27'
-const LINE = '#DDD1BE'
+const LINE = '#FDEBD3'
 const pad = (n) => (n < 10 ? '0' + n : '' + n)
 const isoOf = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
 
@@ -55,7 +55,7 @@ export default function DatePicker({ name = 'תאריך האירוע' }) {
       <button type="button" onClick={() => setOpen((o) => !o)} aria-haspopup="dialog" aria-expanded={open}
         aria-label={sel ? `תאריך האירוע: ${display}. לשינוי` : 'בחרו תאריך לאירוע'}
         style={{ width: '100%', minHeight: 52, display: 'flex', alignItems: 'center', gap: 12, padding: '0 16px', boxSizing: 'border-box', background: '#FFFFFF', borderRadius: 999, font: 'inherit', fontSize: 16, textAlign: 'start', cursor: 'pointer', border: `1.5px solid ${open ? INK : LINE}`, boxShadow: open ? '0 0 0 4px rgba(245, 135, 31, 0.25)' : 'none' }}>
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#A24A1B" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><rect x="3.5" y="5" width="17" height="15.5" rx="3" /><path d="M3.5 10h17M8 3v4M16 3v4" /></svg>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4511E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><rect x="3.5" y="5" width="17" height="15.5" rx="3" /><path d="M3.5 10h17M8 3v4M16 3v4" /></svg>
         <span style={{ fontWeight: sel ? 800 : 500, color: INK }}>{display}</span>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={INK} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0, marginInlineStart: 'auto' }}><path d="M6 9l6 6 6-6" /></svg>
       </button>
@@ -101,7 +101,7 @@ export default function DatePicker({ name = 'תאריך האירוע' }) {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingTop: 12, borderTop: `1px solid ${LINE}` }}>
             <span style={{ fontSize: 13, lineHeight: 1.5 }}>מאה אורחים ומעלה? כדאי שבועיים מראש.</span>
-            <button type="button" onClick={() => setSel(null)} style={{ minHeight: 36, padding: '0 14px', border: 0, borderRadius: 999, background: '#EADFCD', color: INK, font: 'inherit', fontSize: 14, fontWeight: 800, cursor: 'pointer', flexShrink: 0 }}>ניקוי</button>
+            <button type="button" onClick={() => setSel(null)} style={{ minHeight: 36, padding: '0 14px', border: 0, borderRadius: 999, background: '#FFF5E8', color: INK, font: 'inherit', fontSize: 14, fontWeight: 800, cursor: 'pointer', flexShrink: 0 }}>ניקוי</button>
           </div>
         </div>
       )}

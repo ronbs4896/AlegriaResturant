@@ -8,7 +8,7 @@ export default function Privacy() {
   const root = usePageMotion()
   const seo = getSeo('/privacy')
   return (
-    <div ref={root} dir="rtl" style={{ background: '#F2EADE', color: '#2E2A27' }}>
+    <div ref={root} dir="rtl" style={{ background: '#FFFFFF', color: '#2E2A27' }}>
       <Seo title={seo.title} description={seo.description} path="/privacy" />
       <PageHero crumb="מדיניות פרטיות" title="מדיניות פרטיות" />
       <Prose>

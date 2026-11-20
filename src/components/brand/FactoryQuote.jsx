@@ -164,9 +164,9 @@ export default function FactoryQuote({ formOpen, sent, idle, sending, send, rese
         <div data-a="thanks" role="status" className="fq2-card fq2-thanks">
           <span data-a="tk-badge" style={{ width: '88px', height: '88px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <svg width="88" height="88" viewBox="0 0 88 88" fill="none" aria-hidden="true">
-              <circle cx="44" cy="44" r="40" fill="#FFF5E9" />
-              <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#A24A1B" strokeWidth="3" transform="rotate(-90 44 44)" />
-              <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#A24A1B" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+              <circle cx="44" cy="44" r="40" fill="#FFF5E8" />
+              <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#B4511E" strokeWidth="3" transform="rotate(-90 44 44)" />
+              <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#B4511E" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
           <div data-a="tk-txt" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>

@@ -31,7 +31,7 @@ const SERVICE_PATHS = ['/factories', '/friday', '/services']
 
 const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function Icon({ d, size = 34, color = '#A24A1B', sw = 2 }) {
+function Icon({ d, size = 34, color = '#B4511E', sw = 2 }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" fill="none" stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
       <path d={d} />
@@ -89,10 +89,10 @@ export default function SiteHeader() {
   })
 
   return (
-    <header ref={wrap} dir="rtl" className="site-header" style={{ position: 'sticky', top: 0, zIndex: 50, background: '#FFFFFF', color: INK, padding: '0 clamp(16px, 5vw, 80px)', boxShadow: '0 1px 0 #DDD1BE' }}>
+    <header ref={wrap} dir="rtl" className="site-header" style={{ position: 'sticky', top: 0, zIndex: 50, background: '#FFFFFF', color: INK, padding: '0 clamp(16px, 5vw, 80px)', boxShadow: '0 1px 0 #FDEBD3' }}>
       <div style={{ minHeight: 84, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px 32px' }}>
         <Link to="/" aria-label="קייטרינג אלגריה, לדף הבית" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: INK }}>
-          <img className="hdr-logo" src="/images/site/mark.jpg" alt="" width="50" height="50" style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover', border: '1px solid #DDD1BE' }} />
+          <img className="hdr-logo" src="/images/site/mark.jpg" alt="" width="50" height="50" style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover', border: '1px solid #FDEBD3' }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
             <span className="hdr-name" style={{ fontSize: 20, fontWeight: 900, whiteSpace: 'nowrap' }}>קייטרינג אלגריה</span>
             <span className="hdr-sub" style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>הסעדה למפעלים בדרום</span>
@@ -124,11 +124,11 @@ export default function SiteHeader() {
 
       {/* מגה-מניו, מחשב */}
       <div id="mega-panel" ref={panel} className="hdr-desktop-block" style={{ position: 'absolute', top: '100%', insetInline: 'clamp(16px, 5vw, 80px)', visibility: 'hidden', opacity: 0 }}>
-        <div style={{ background: '#F2EADE', padding: '30px 30px 54px', clipPath: 'polygon(0 0, 100% 0, 100% 90%, 82% 97%, 64% 91%, 46% 98%, 28% 92%, 12% 97%, 0 91%)', boxShadow: '0 30px 60px -30px rgba(0, 0, 0, 0.35)' }}>
+        <div style={{ background: '#FFFFFF', padding: '30px 30px 54px', clipPath: 'polygon(0 0, 100% 0, 100% 90%, 82% 97%, 64% 91%, 46% 98%, 28% 92%, 12% 97%, 0 91%)', boxShadow: '0 30px 60px -30px rgba(0, 0, 0, 0.35)' }}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(230px, 1fr))', gap: '10px 18px' }}>
             {SERVICES.map((it) => (
               <Link key={it.to} to={it.to} data-mega="item" onClick={() => setOpen(false)}
-                style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '16px 18px', borderRadius: 6, textDecoration: 'none', minHeight: 44, background: it.hl ? '#EADFCD' : 'transparent' }}>
+                style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '16px 18px', borderRadius: 6, textDecoration: 'none', minHeight: 44, background: it.hl ? '#FFF5E8' : 'transparent' }}>
                 <Icon d={it.icon} />
                 <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                   <span style={{ fontSize: 17, fontWeight: 900, color: INK }}>{it.title}</span>
@@ -148,23 +148,23 @@ export default function SiteHeader() {
 
       {/* תפריט נייד */}
       {mobile && (
-        <div id="mobile-menu" style={{ position: 'fixed', top: 84, insetInline: 0, bottom: 0, background: '#F2EADE', overflowY: 'auto', padding: '20px 20px 120px', zIndex: 60 }}>
+        <div id="mobile-menu" style={{ position: 'fixed', top: 84, insetInline: 0, bottom: 0, background: '#FFFFFF', overflowY: 'auto', padding: '20px 20px 120px', zIndex: 60 }}>
           <p style={{ margin: '0 0 8px', fontSize: 13, fontWeight: 800, letterSpacing: '0.04em' }}>השירותים שלנו</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {SERVICES.map((it) => (
-              <Link key={it.to} to={it.to} style={{ display: 'flex', gap: 12, alignItems: 'center', minHeight: 56, padding: '8px 12px', borderRadius: 14, textDecoration: 'none', color: INK, background: it.hl ? '#EADFCD' : 'transparent' }}>
+              <Link key={it.to} to={it.to} style={{ display: 'flex', gap: 12, alignItems: 'center', minHeight: 56, padding: '8px 12px', borderRadius: 14, textDecoration: 'none', color: INK, background: it.hl ? '#FFF5E8' : 'transparent' }}>
                 <Icon d={it.icon} size={28} />
                 <span style={{ fontSize: 17, fontWeight: 800 }}>{it.title}</span>
               </Link>
             ))}
           </div>
-          <div style={{ height: 1, background: '#DDD1BE', margin: '16px 0' }} />
+          <div style={{ height: 1, background: '#FDEBD3', margin: '16px 0' }} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {LINKS.map((l) => (
               <Link key={l.to} to={l.to} style={{ minHeight: 52, display: 'flex', alignItems: 'center', fontSize: 18, fontWeight: 800, color: INK, textDecoration: 'none' }}>{l.label}</Link>
             ))}
           </div>
-          <a href="tel:+972545437526" style={{ marginTop: 18, minHeight: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: INK, color: '#F2EADE', fontWeight: 800, textDecoration: 'none' }}>
+          <a href="tel:+972545437526" style={{ marginTop: 18, minHeight: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: INK, color: '#FFFFFF', fontWeight: 800, textDecoration: 'none' }}>
             <span dir="ltr">054-543-7526</span>
           </a>
         </div>

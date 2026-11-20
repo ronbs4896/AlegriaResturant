@@ -14,7 +14,7 @@ export default function MobileActionBar() {
           חייגו אלינו
         </a>
         <a href={buildWaLink()} target="_blank" rel="noopener noreferrer" onClick={() => trackContact('whatsapp', { source: 'mobile_bar' })}
-          style={{ ...btn, background: 'transparent', color: '#F2EADE', boxShadow: 'inset 0 0 0 1.5px rgba(242, 234, 222, 0.6)' }}>
+          style={{ ...btn, background: 'transparent', color: '#FFFFFF', boxShadow: 'inset 0 0 0 1.5px rgba(255, 255, 255, 0.6)' }}>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#25D366" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z" /></svg>
           וואטסאפ
         </a>

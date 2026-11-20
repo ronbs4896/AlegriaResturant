@@ -5,7 +5,7 @@ import MobileActionBar from './MobileActionBar.jsx'
 export default function Layout({ children }) {
   return (
     // pb במובייל: מקום לרצועת הפעולה התחתונה כדי שלא תכסה את הפוטר
-    <div className="flex min-h-screen flex-col pb-[4.5rem] sm:pb-0" style={{ background: '#F2EADE' }}>
+    <div className="flex min-h-screen flex-col pb-[4.5rem] sm:pb-0" style={{ background: '#FFFFFF' }}>
       <a href="#main" className="skip-link">דילוג לתוכן</a>
       <SiteHeader />
       <main id="main" className="flex-1">{children}</main>

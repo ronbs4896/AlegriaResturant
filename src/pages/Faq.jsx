@@ -12,7 +12,7 @@ export default function Faq() {
   const seo = getSeo('/faq')
   const [cat, setCat] = useState(faqCategories[0].key)
   return (
-    <div ref={root} dir="rtl" data-page="Faq" style={{ background: '#F2EADE', color: INK }}>
+    <div ref={root} dir="rtl" data-page="Faq" style={{ background: '#FFFFFF', color: INK }}>
       <Seo title={seo.title} description={seo.description} path="/faq" jsonLd={faqSchema(faq)} />
       <PageHero crumb="שאלות נפוצות" title="מה שואלים אותנו הכי הרבה" intro="לא מצאתם תשובה? התקשרו, עדיף לשאול לפני שמזמינים." />
       <section aria-label="שאלות ותשובות" style={{ padding: `8px ${PAD} 96px` }}>
@@ -22,7 +22,7 @@ export default function Faq() {
               const sel = c.key === cat
               return (
                 <button key={c.key} type="button" aria-pressed={sel} onClick={() => setCat(c.key)}
-                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? INK : '#DDD1BE'}`, background: sel ? INK : '#FFFFFF', color: sel ? '#F2EADE' : INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
+                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
                   {c.label}
                 </button>
               )
@@ -30,7 +30,7 @@ export default function Faq() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {faq.filter((f) => f.cat === cat).map((f) => (
-              <details key={f.q} className="faq-item" data-a="faq" style={{ background: '#FFFFFF', border: '1px solid #DDD1BE', borderRadius: 18, padding: '0 22px' }}>
+              <details key={f.q} className="faq-item" data-a="faq" style={{ background: '#FFFFFF', border: '1px solid #FDEBD3', borderRadius: 18, padding: '0 22px' }}>
                 <summary style={{ minHeight: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, fontSize: 18, fontWeight: 900 }}>
                   {f.q}
                   <svg className="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><path d="M6 9l6 6 6-6" /></svg>

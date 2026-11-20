@@ -14,7 +14,7 @@ export default function PrivateEvents({ seoPath }) {
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seoPath} />
-      <div ref={root} dir="rtl" style={{ background: "#F2EADE", color: "#2E2A27", fontFamily: "'Birzia', 'Heebo', system-ui, sans-serif", fontWeight: "500" }} data-page="PrivateEvents">
+      <div ref={root} dir="rtl" style={{ background: "#FFFFFF", color: "#2E2A27", fontFamily: "'Birzia', 'Heebo', system-ui, sans-serif", fontWeight: "500" }} data-page="PrivateEvents">
       {" "}
       {" "}
       <section data-a="hero" aria-labelledby="h1" style={{ padding: "0" }}>
@@ -57,7 +57,7 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
                 {"בשמחה,"}
@@ -114,17 +114,17 @@ export default function PrivateEvents({ seoPath }) {
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
-            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#EADFCD", color: "#A24A1B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
               </svg>
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
           <div style={{ width: "100%", marginTop: "30px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "64px" }}>
@@ -134,8 +134,8 @@ export default function PrivateEvents({ seoPath }) {
               {" "}
               <img src="/images/site/tagine_orange.jpg" data-a="col2" alt="טאג׳ין כתום עם קוסקוס" style={{ position: "absolute", top: "16px", insetInlineEnd: "0", width: "56%", height: "400px", objectFit: "cover", borderRadius: "22px 22px 70px 22px" }} />
               {" "}
-              <span data-a="badge" style={{ position: "absolute", bottom: "26px", insetInlineEnd: "44%", width: "100px", height: "100px", borderRadius: "50%", background: "#FFFFFF", border: "3px solid #A24A1B", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", zIndex: "3", padding: "6px", boxSizing: "border-box" }}>
-                <span style={{ fontSize: "11px", fontWeight: "700", color: "#2E2A27", lineHeight: "1.2" }}>
+              <span data-a="badge" style={{ position: "absolute", bottom: "26px", insetInlineEnd: "44%", width: "100px", height: "100px", borderRadius: "50%", background: "#FFFFFF", border: "3px solid #B4511E", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", zIndex: "3", padding: "6px", boxSizing: "border-box" }}>
+                <span style={{ fontSize: "11px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2" }}>
                   {"אירועים של"}
                 </span>
                 <b dir="auto" style={{ fontSize: "18px", lineHeight: "1.15" }}>
@@ -145,13 +145,13 @@ export default function PrivateEvents({ seoPath }) {
               {" "}
             </div>
             <div data-a="fade" style={{ flex: "1 1 420px", maxWidth: "640px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "18px" }}>
-              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#2E2A27" }}>
+              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
                 {"עוף בזיתים, חריימה, קציצות ותבשילי בשר, לצד תוספות, סלטים קצוצים ומאפים. בונים איתכם תפריט לפי הקהל, כולל כמה ילדים יש ומי לא אוכל חריף."}
               </p>
-              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#2E2A27" }}>
+              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
                 {"ביום האירוע מבשלים בבוקר, מגיעים עם הכל ומסדרים את השולחנות."}
               </p>
-              <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "#2E2A27", color: "#F2EADE", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+              <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"אני רוצה הצעה"}
               </a>
             </div>
@@ -160,76 +160,76 @@ export default function PrivateEvents({ seoPath }) {
       </section>
       {" "}
       <section aria-labelledby="s3" style={{ padding: "54px 0 0" }}>
-        <div id="values" style={{ width: "100%", margin: "0", background: "#EADFCD", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
+        <div id="values" style={{ width: "100%", margin: "0", background: "#FFF5E8", position: "relative", padding: "80px clamp(24px, 5vw, 80px) 96px", boxSizing: "border-box" }}>
           {" "}
           <img src="/images/site/tagine_beef_couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
               {"השמחות"}
               <br />
               {"שאנחנו מבשלים להן."}
             </h2>
-            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#2E2A27", maxWidth: "620px" }}>
+            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
               {"תפריט אחר לכל שמחה, אותו מטבח בשרי כשר."}
             </p>
             <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
               <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
-                <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-                <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+                <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+                <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
               </span>
-              <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#EADFCD", color: "#A24A1B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
                 </svg>
               </span>
               <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
-                <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-                <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+                <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+                <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
               </span>
             </div>
             <div style={{ marginTop: "30px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "22px" }}>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M10 20h28v20H10zM6 14h36v6H6zM24 14v26M24 14c-4-8-12-6-8 0M24 14c4-8 12-6 8 0" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
                   {"בריתות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                   {"אירוע בוקר או צהריים, עם תפריט שמתאים לשעה."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
                   {"בר ובת מצווה"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                   {"מסעודה משפחתית ועד אירוע באולם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M24 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM6 42v-6a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v6M18 30v12M30 30v12" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
                   {"שבע ברכות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                   {"ארוחה חגיגית לערב, בבית או באולם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                   <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
                 </svg>
                 <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
                   {"אזכרות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                   {"אוכל חם ומסודר, בלי שתצטרכו לחשוב על זה."}
                 </p>
               </div>
@@ -241,66 +241,66 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section aria-labelledby="start" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
             {"איך מזמינים"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
-            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#EADFCD", color: "#A24A1B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
               </svg>
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
           <div style={{ width: "100%", marginTop: "30px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "64px" }}>
             <ol data-a="steps" style={{ flex: "1 1 460px", maxWidth: "720px", listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column" }}>
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #DDD1BE", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
                   {"01"}
                 </span>
-                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#A24A1B" }} />
+                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
                   <b style={{ fontSize: "17px" }}>
                     {"מספרים על השמחה"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                     {"מה חוגגים, כמה אורחים, איפה ומתי."}
                   </span>
                 </span>
               </li>
-              <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "74px", marginInlineEnd: "110px", border: "1px solid #DDD1BE", borderTop: "0", borderInlineEnd: "0", borderRadius: "0 0 18px 0" }} />
+              <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "74px", marginInlineEnd: "110px", border: "1px solid #F0C99A", borderTop: "0", borderInlineEnd: "0", borderRadius: "0 0 18px 0" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px", flexDirection: "row-reverse", textAlign: "left" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #DDD1BE", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
                   {"02"}
                 </span>
-                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#A24A1B" }} />
+                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px", alignItems: "flex-end" }}>
                   <b style={{ fontSize: "17px" }}>
                     {"תפריט והצעת מחיר"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                     {"בונים יחד תפריט, ומקבלים הצעה כתובה."}
                   </span>
                 </span>
               </li>
-              <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "110px", marginInlineEnd: "74px", border: "1px solid #DDD1BE", borderTop: "0", borderInlineStart: "0", borderRadius: "0 0 0 18px" }} />
+              <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "110px", marginInlineEnd: "74px", border: "1px solid #F0C99A", borderTop: "0", borderInlineStart: "0", borderRadius: "0 0 0 18px" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #DDD1BE", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
                   {"03"}
                 </span>
-                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#A24A1B" }} />
+                <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
                   <b style={{ fontSize: "17px" }}>
                     {"ביום האירוע"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
                     {"מבשלים בבוקר, מגיעים, מסדרים ומגישים."}
                   </span>
                 </span>
@@ -311,79 +311,79 @@ export default function PrivateEvents({ seoPath }) {
         </div>
       </section>
       {" "}
-      <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#EADFCD" }}>
+      <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
             {"שאלות על אירועים פרטיים"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
-            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#EADFCD", color: "#A24A1B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
               </svg>
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
           <div style={{ marginTop: "24px", width: "100%", maxWidth: "900px", display: "flex", flexDirection: "column", gap: "12px" }}>
-            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "16px", padding: "18px 22px" }}>
+            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
                 {"מה המינימום להזמנה?"}
-                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#EADFCD", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
+                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#2E2A27" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
                 {"מ-20 אורחים. לאירוח קטן יותר בבית, מכירת השישי שלנו בלי מינימום הזמנה."}
               </p>
               {" "}
             </details>
-            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "16px", padding: "18px 22px" }}>
+            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
                 {"כמה זמן מראש?"}
-                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#EADFCD", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
+                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#2E2A27" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
                 {"לאירוע קטן מספיקים כמה ימים. לאירוע של מאה אורחים ומעלה, שבועיים."}
               </p>
               {" "}
             </details>
-            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "16px", padding: "18px 22px" }}>
+            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
                 {"איך מחשבים כמויות לילדים?"}
-                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#EADFCD", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
+                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#2E2A27" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
                 {"ילד עד גיל 12 נחשב כחצי מנה. לכן אנחנו שואלים כמה ילדים יהיו."}
               </p>
               {" "}
             </details>
-            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "16px", padding: "18px 22px" }}>
+            <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
               <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
                 {"האוכל בשרי?"}
-                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#EADFCD", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
+                <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#2E2A27" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
                 {"כן, המטבח שלנו בשרי בלבד ובהשגחת הרבנות הראשית קרית גת."}
               </p>
               {" "}
@@ -394,35 +394,35 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section id="contact" aria-labelledby="order-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#B4511E" }}>
             {"בונים תפריט לשמחה"}
           </h2>
-          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#2E2A27", maxWidth: "620px" }}>
+          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
             {"ספרו לנו על האירוע, ונחזור אליכם עם הצעת תפריט ומחיר. לאירוע של מאה אורחים ומעלה כדאי לפנות שבועיים מראש."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-start" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
-            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "#EADFCD", color: "#A24A1B", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
               </svg>
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
-              <span style={{ width: "90px", height: "1px", background: "#DDD1BE" }} />
-              <span style={{ width: "56px", height: "1px", background: "#DDD1BE" }} />
+              <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
+              <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
           </div>
           {formOpen ? (<>
             
-            <form data-a="panel" style={{ marginTop: "30px", width: "100%", maxWidth: "1100px", background: "#EADFCD", padding: "clamp(32px, 5vw, 64px) clamp(22px, 5vw, 64px) clamp(28px, 4vw, 48px)", boxSizing: "border-box", clipPath: "polygon(0 0, 100% 3%, 100% 100%, 0 100%)", display: "flex", flexDirection: "column", gap: "34px" }} onSubmit={(e) => { e.preventDefault(); send(e) }} noValidate>
+            <form data-a="panel" style={{ marginTop: "30px", width: "100%", maxWidth: "1100px", background: "#FFF9F1", padding: "clamp(32px, 5vw, 64px) clamp(22px, 5vw, 64px) clamp(28px, 4vw, 48px)", boxSizing: "border-box", clipPath: "polygon(0 0, 100% 3%, 100% 100%, 0 100%)", display: "flex", flexDirection: "column", gap: "34px" }} onSubmit={(e) => { e.preventDefault(); send(e) }} noValidate>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "22px 24px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"שם מלא"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -431,7 +431,7 @@ export default function PrivateEvents({ seoPath }) {
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"טלפון"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -442,7 +442,7 @@ export default function PrivateEvents({ seoPath }) {
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"מה חוגגים?"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -473,7 +473,7 @@ export default function PrivateEvents({ seoPath }) {
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", position: "relative", zIndex: "5" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"תאריך האירוע"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -503,7 +503,7 @@ export default function PrivateEvents({ seoPath }) {
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"כמה אורחים בערך?"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -577,7 +577,7 @@ export default function PrivateEvents({ seoPath }) {
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"עיר או מקום האירוע"}
-                    <span aria-hidden="true" style={{ color: "#2E2A27", marginInlineStart: "4px" }}>
+                    <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
                     </span>
                   </span>
@@ -589,7 +589,7 @@ export default function PrivateEvents({ seoPath }) {
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"מה חשוב לכם בתפריט?"}
                   </span>
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#2E2A27" }}>
+                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
                     {"אפשר לבחור כמה."}
                   </span>
                 </legend>
@@ -601,7 +601,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
                     </svg>
                     <span>
@@ -615,7 +615,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
                     </svg>
                     <span>
@@ -629,7 +629,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M10 6h22l6 6v30H10zM32 6v6h6M16 20h16M16 26h16M16 32h10" />
                     </svg>
                     <span>
@@ -643,7 +643,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M24 4l16 6v12c0 10-7 17-16 22C15 39 8 32 8 22V10zM17 24l5 5 9-10" />
                     </svg>
                     <span>
@@ -657,7 +657,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M24 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM6 42v-6a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v6M18 30v12M30 30v12" />
                     </svg>
                     <span>
@@ -671,7 +671,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M10 20h28v20H10zM6 14h36v6H6zM24 14v26M24 14c-4-8-12-6-8 0M24 14c4-8 12-6 8 0" />
                     </svg>
                     <span>
@@ -685,7 +685,7 @@ export default function PrivateEvents({ seoPath }) {
                   <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                     {"במה נעזור לכם?"}
                   </span>
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#2E2A27" }}>
+                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
                     {"אפשר לבחור כמה."}
                   </span>
                 </legend>
@@ -697,7 +697,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M8 10h32v22H20l-8 8v-8H8zM16 19h16M16 25h10" />
                     </svg>
                     <span>
@@ -711,7 +711,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M6 30V14h22v16M28 20h8l6 6v4H28M13 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM35 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 34h14" />
                     </svg>
                     <span>
@@ -725,7 +725,7 @@ export default function PrivateEvents({ seoPath }) {
                         <path d="M5 12l5 5 9-10" />
                       </svg>
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#A24A1B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
+                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
                       <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
                     </svg>
                     <span>
@@ -738,12 +738,12 @@ export default function PrivateEvents({ seoPath }) {
                 <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                   {"ספרו לנו עוד על האירוע"}
                 </span>
-                <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#2E2A27" }}>
+                <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
                   {"תקציב משוער, מנות שחייבות להיות, או כל דבר שחשוב לכם."}
                 </span>
                 <textarea className="fld" name="notes" />
               </label>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 24px", paddingTop: "22px", borderTop: "1px solid #DDD1BE" }}>
+              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 24px", paddingTop: "22px", borderTop: "1px solid #FDEBD3" }}>
                 <button type="button" onClick={send} style={{ minHeight: "56px", padding: "0 40px", border: "0", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", font: "inherit", fontSize: "17px", fontWeight: "800", display: "inline-flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                   {idle ? (<>
                     <span>
@@ -760,16 +760,16 @@ export default function PrivateEvents({ seoPath }) {
                     <path d="M15 6l-6 6 6 6" />
                   </svg>
                 </button>
-                <div style={{ marginInlineStart: "auto", maxWidth: "100%", boxSizing: "border-box", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px", background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "18px", paddingBlock: "14px", paddingInline: "22px 14px" }}>
+                <div style={{ marginInlineStart: "auto", maxWidth: "100%", boxSizing: "border-box", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px", background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "18px", paddingBlock: "14px", paddingInline: "22px 14px" }}>
                   <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                     <b style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
                       {"מעדיפים לדבר?"}
                     </b>
-                    <span style={{ fontSize: "14px", lineHeight: "1.5", color: "#2E2A27" }}>
+                    <span style={{ fontSize: "14px", lineHeight: "1.5", color: "#5A544E" }}>
                       {"כתבו לעמית בוואטסאפ, והוא יחזור אליכם עם תפריט."}
                     </span>
                   </span>
-                  <a href="https://wa.me/972545437526" style={{ minHeight: "50px", display: "inline-flex", alignItems: "center", gap: "10px", padding: "0 22px", borderRadius: "999px", border: "1.5px solid #A24A1B", color: "#2E2A27", fontSize: "16px", fontWeight: "800", textDecoration: "none", whiteSpace: "nowrap" }}>
+                  <a href="https://wa.me/972545437526" style={{ minHeight: "50px", display: "inline-flex", alignItems: "center", gap: "10px", padding: "0 22px", borderRadius: "999px", border: "1.5px solid #B4511E", color: "#B4511E", fontSize: "16px", fontWeight: "800", textDecoration: "none", whiteSpace: "nowrap" }}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                       <path d="M4 20l1.3-3.9A8 8 0 1 1 8 18.8z" />
                       <path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1.5-1.5-2-1-1 1a3.5 3.5 0 0 1-2-2l1-1-1-2z" />
@@ -783,8 +783,8 @@ export default function PrivateEvents({ seoPath }) {
                   </a>
                 </div>
               </div>
-              <span style={{ fontSize: "13px", color: "#2E2A27" }}>
-                <span style={{ color: "#2E2A27" }}>
+              <span style={{ fontSize: "13px", color: "#5A544E" }}>
+                <span style={{ color: "#B4511E" }}>
                   {"*"}
                 </span>
                 {" שדות חובה"}
@@ -795,22 +795,22 @@ export default function PrivateEvents({ seoPath }) {
           <div style={{ width: "100%", maxWidth: "1100px", marginTop: "30px", display: "flex" }}>
             {sent ? (<>
               
-              <div data-a="thanks" role="status" style={{ flex: "1.4 1 480px", minHeight: "360px", background: "#FFFFFF", border: "1px solid #DDD1BE", borderRadius: "22px", padding: "36px 28px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "16px", textAlign: "center" }}>
+              <div data-a="thanks" role="status" style={{ flex: "1.4 1 480px", minHeight: "360px", background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "22px", padding: "36px 28px", boxSizing: "border-box", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "16px", textAlign: "center" }}>
                 <span data-a="tk-badge" style={{ width: "88px", height: "88px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                   <svg width="88" height="88" viewBox="0 0 88 88" fill="none" aria-hidden="true">
-                    <circle cx="44" cy="44" r="40" fill="#DDD1BE" />
-                    <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#A24A1B" strokeWidth="3" transform="rotate(-90 44 44)" />
-                    <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#A24A1B" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+                    <circle cx="44" cy="44" r="40" fill="#FDEBD3" />
+                    <circle data-a="tk-ring" cx="44" cy="44" r="40" stroke="#B4511E" strokeWidth="3" transform="rotate(-90 44 44)" />
+                    <path data-a="tk-check" d="M28 45l11 11 22-24" stroke="#B4511E" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </span>
                 <div data-a="tk-txt" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
                   <h3 style={{ margin: "0", fontSize: "24px", fontWeight: "900", color: "#2E2A27" }}>
                     {"קיבלנו את פרטי השמחה"}
                   </h3>
-                  <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.7", color: "#2E2A27", maxWidth: "420px" }}>
+                  <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.7", color: "#5A544E", maxWidth: "420px" }}>
                     {"נחזור אליכם עם הצעת תפריט ומחיר. רוצים לדבר כבר עכשיו? וואטסאפ לעמית, 054-543-7526."}
                   </p>
-                  <button type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #DDD1BE", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "800", cursor: "pointer" }}>
+                  <button type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #FDEBD3", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "800", cursor: "pointer" }}>
                     {"שליחה נוספת"}
                   </button>
                 </div>

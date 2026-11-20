@@ -11,7 +11,7 @@ export default function Gallery() {
   const seo = getSeo('/gallery')
   const [cat, setCat] = useState('all')
   return (
-    <div ref={root} dir="rtl" data-page="Gallery" style={{ background: '#F2EADE', color: INK }}>
+    <div ref={root} dir="rtl" data-page="Gallery" style={{ background: '#FFFFFF', color: INK }}>
       <Seo title={seo.title} description={seo.description} path="/gallery" />
       <PageHero crumb="גלריה" title="ככה זה נראה כשזה יוצא מהסיר" intro="מנות, מגשים ואירועים, הכל מהמטבח שלנו בקרית גת." />
       <section aria-label="תמונות" style={{ padding: `8px ${PAD} 96px` }}>
@@ -21,7 +21,7 @@ export default function Gallery() {
               const sel = c.key === cat
               return (
                 <button key={c.key} type="button" aria-pressed={sel} onClick={() => setCat(c.key)}
-                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? INK : '#DDD1BE'}`, background: sel ? INK : '#FFFFFF', color: sel ? '#F2EADE' : INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
+                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
                   {c.label}
                 </button>
               )
