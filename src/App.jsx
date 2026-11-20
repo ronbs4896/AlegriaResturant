@@ -22,6 +22,8 @@ const Faq = lazy(() => import('./pages/Faq.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
 const Accessibility = lazy(() => import('./pages/Accessibility.jsx'))
 const Privacy = lazy(() => import('./pages/Privacy.jsx'))
+const Terms = lazy(() => import('./pages/Terms.jsx'))
+const Cookies = lazy(() => import('./pages/Cookies.jsx'))
 const NotFound = lazy(() => import('./pages/NotFound.jsx'))
 
 export default function App() {
@@ -47,6 +49,8 @@ export default function App() {
             <Route path="/faq" element={<Faq />} />
             <Route path="/contact" element={<Contact seoPath="/contact" />} />
             <Route path="/accessibility" element={<Accessibility />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/cookies" element={<Cookies />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="*" element={<NotFound />} />
           </Routes>

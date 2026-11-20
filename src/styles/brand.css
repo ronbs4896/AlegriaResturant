@@ -172,3 +172,10 @@ p, li { text-wrap: pretty; }
 .ds-badge { letter-spacing: 0.01em; line-height: 1.2; }
 /* b ו-strong: תמיד Bold (ברירת המחדל "bolder" מעל Light נותנת 400, שזה עדיין Light) */
 b, strong { font-weight: 700; }
+
+/* הודעת עוגיות: בפינה במחשב, מעל רצועת הפעולה בנייד */
+.cookie-banner { position: fixed; z-index: 70; inset-inline: 16px; bottom: 16px; max-width: 760px; margin-inline: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding: 18px 22px; background: #FFFFFF; border: 1px solid #FDEBD3; border-radius: 18px; box-shadow: 0 24px 48px -20px rgba(46, 42, 39, 0.35); color: #2E2A27; }
+@media (max-width: 639px) { .cookie-banner { bottom: calc(76px + env(safe-area-inset-bottom)); inset-inline: 10px; padding: 16px; } }
+.fq2-note-legal { margin: 0; font-size: 13px; line-height: 1.6; color: #4A4540; }
+.fq2-note-legal a { color: #2E2A27; font-weight: 700; }
+.brand-prose a[dir="ltr"], .brand-prose span[dir="ltr"] { white-space: nowrap; }

@@ -2,6 +2,7 @@
 // ds-normalized
 import { Link } from 'react-router-dom'
 import WaButton from './WaButton.jsx'
+import { openCookieSettings } from '../../lib/consent.js'
 import { ShieldCheck as PhShieldCheck } from '@phosphor-icons/react'
 
 export default function SiteFooter() {
@@ -35,34 +36,34 @@ export default function SiteFooter() {
               </li>
             </ul>
           </div>
-          <div style={{ flex: "1 1 560px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "32px clamp(24px, 4vw, 72px)" }}>
+          <div style={{ flex: "1 1 720px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "32px clamp(20px, 3vw, 48px)" }}>
             <nav aria-label="השירותים שלנו">
               <h3 style={{ margin: "0 0 16px", fontSize: "var(--fs-h5)", fontWeight: "700", color: "#2E2A27", lineHeight: "1.35" }}>
                 {"השירותים שלנו"}
               </h3>
               <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "6px", fontSize: "16px" }}>
                 <li>
-                  <Link to="/factories" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/factories" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"הסעדה יומית למפעלים"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/subsidized-meals" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/services/subsidized-meals" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"ארוחות מסובסדות לעובדים"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/corporate-events" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/services/corporate-events" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"אירועי חברה וימי גיבוש"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/services/event-catering" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/services/event-catering" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"אירועים פרטיים"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/friday" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/friday" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"מכירת שישי"}
                   </Link>
                 </li>
@@ -74,27 +75,27 @@ export default function SiteFooter() {
               </h3>
               <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "6px", fontSize: "16px" }}>
                 <li>
-                  <Link to="/" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"דף הבית"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/about" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"הסיפור שלנו"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/kitchen" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/kitchen" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"המטבח שלנו וכשרות"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/blog" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/blog" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"בלוג"}
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/contact" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     {"צור קשר"}
                   </Link>
                 </li>
@@ -128,12 +129,24 @@ export default function SiteFooter() {
                   {"קרית גת וכל הדרום"}
                 </li>
                 <li>
-                  <Link to="/contact" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "700", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
+                  <Link to="/contact" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
                     <span style={{ color: "#2E2A27", fontWeight: "700" }}>
                       {"אני רוצה הצעת מחיר"}
                     </span>
                   </Link>
                 </li>
+              </ul>
+            </nav>
+            <nav aria-label="מדיניות">
+              <h3 style={{ margin: "0 0 16px", fontSize: "var(--fs-h5)", fontWeight: "700", color: "#2E2A27", lineHeight: "1.35" }}>
+                {"מדיניות"}
+              </h3>
+              <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "6px", fontSize: "16px" }}>
+                <li><Link to="/terms" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>{"תקנון האתר"}</Link></li>
+                <li><Link to="/privacy" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>{"מדיניות פרטיות"}</Link></li>
+                <li><Link to="/cookies" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>{"מדיניות עוגיות"}</Link></li>
+                <li><Link to="/accessibility" style={{ color: "#4A4540", textDecoration: "none", fontWeight: "300", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>{"הצהרת נגישות"}</Link></li>
+                <li><button type="button" onClick={openCookieSettings} style={{ border: "0", padding: "0", background: "none", font: "inherit", color: "#4A4540", fontWeight: "300", minHeight: "32px", cursor: "pointer" }}>{"הגדרות עוגיות"}</button></li>
               </ul>
             </nav>
           </div>
@@ -147,18 +160,9 @@ export default function SiteFooter() {
             </span>
             {" קייטרינג אלגריה. כל הזכויות שמורות."}
           </p>
-          <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", flexWrap: "wrap", gap: "4px 24px" }}>
-            <li>
-              <Link to="/privacy" style={{ color: "#4A4540", textDecoration: "none", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
-                {"מדיניות פרטיות"}
-              </Link>
-            </li>
-            <li>
-              <Link to="/accessibility" style={{ color: "#4A4540", textDecoration: "none", minHeight: "32px", display: "inline-flex", alignItems: "center" }}>
-                {"הצהרת נגישות"}
-              </Link>
-            </li>
-          </ul>
+          <p style={{ margin: "0", fontWeight: "300", color: "#4A4540" }}>
+            {"קייטרינג אלגריה, הזית 118, קרית גת"}
+          </p>
         </div>
         {" "}
       </div>

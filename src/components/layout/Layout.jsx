@@ -1,6 +1,7 @@
 import SiteHeader from '../brand/SiteHeader.jsx'
 import SiteFooter from '../brand/SiteFooter.jsx'
 import MobileActionBar from './MobileActionBar.jsx'
+import CookieBanner from '../brand/CookieBanner.jsx'
 
 export default function Layout({ children }) {
   return (
@@ -11,6 +12,7 @@ export default function Layout({ children }) {
       <main id="main" className="flex-1">{children}</main>
       <SiteFooter />
       <MobileActionBar />
+      <CookieBanner />
     </div>
   )
 }

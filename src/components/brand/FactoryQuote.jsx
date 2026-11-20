@@ -5,6 +5,7 @@
 // כדי שאף טלפון לא ילך לאיבוד.
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { Link } from 'react-router-dom'
 import WaButton from './WaButton.jsx'
 
 const SIZES = ['30–80', '80–150', '150–300', '300+']
@@ -120,6 +121,7 @@ export default function FactoryQuote({ formOpen, sent, idle, sending, send, rese
                 <span className="fq2-alt">או בטלפון: <a href="tel:+972545437526" dir="ltr">054-543-7526</a></span>
                 <WaButton variant="inline" label="או בוואטסאפ" topic="הסעדה למפעל" source="factory_form" />
               </div>
+              <p className="fq2-note-legal">בלחיצה על המשך, פרטי הקשר נשמרים אצלנו כדי שנוכל לחזור אליכם. <Link to="/privacy">מדיניות הפרטיות</Link></p>
             </div>
 
             <div hidden={step !== 2} className="fq2-body">

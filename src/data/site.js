@@ -24,7 +24,9 @@ export const site = {
     number: '972545437526',
     defaultMessage: 'שלום, הגעתי דרך האתר ואשמח לקבל הצעת מחיר 🙂',
   },
-  email: 'info@alegria.co.il', // TODO: מייל אמיתי
+  email: 'info@alegria.co.il', // TODO: מייל אמיתי. מופיע בצור קשר ובכל עמודי המדיניות
+  // תאריך העדכון האחרון של עמודי המדיניות (תקנון, פרטיות, עוגיות, נגישות)
+  policiesUpdated: 'נובמבר 2026',
 
   // --- שעות פעילות ---
   hours: [
@@ -36,7 +38,7 @@ export const site = {
   // --- אזור שירות / כתובת ---
   serviceArea: 'קרית גת והסביבה',
   address: {
-    street: '', // TODO
+    street: 'הזית 118',
     city: 'קרית גת',
     full: 'קרית גת והסביבה',
   },
@@ -51,7 +53,7 @@ export const site = {
   // --- מדדי מותג (למונים) ---
   stats: {
     years: 25,
-    factories: 40,
+    factories: 17,
     mealsPerDay: 3000,
   },
 

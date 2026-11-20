@@ -25,6 +25,7 @@
 //     בחרו מסלול אחד (ישיר או דרך GTM), לא את שניהם לאותו תג.
 // ============================================================
 import { site } from '../data/site.js'
+import { marketingAllowed } from './consent.js'
 
 const { ga4Id, googleAdsId, gtmId, metaPixelId } = site.analytics
 let initialized = false
@@ -75,6 +76,7 @@ function initMetaPixel() {
 
 export function initAnalytics() {
   if (initialized || typeof window === 'undefined') return
+  if (!marketingAllowed()) return
   initialized = true
   initGoogleTag()
   initGTM()
@@ -122,4 +124,11 @@ export function trackEvent(name, params = {}) {
   if (window.gtag && (ga4Id || googleAdsId)) window.gtag('event', name, params)
   if (window.fbq && metaPixelId) window.fbq('trackCustom', name, params)
   if (window.dataLayer && gtmId) window.dataLayer.push({ event: name, ...params })
+}
+
+// הגולש בחר "רק הכרחיות" אחרי שהכלים כבר נטענו: עוצרים אותם בביקור הנוכחי
+export function revokeAnalytics() {
+  if (typeof window === 'undefined') return
+  if (window.fbq) window.fbq('consent', 'revoke')
+  if (window.gtag) window.gtag('consent', 'update', { ad_storage: 'denied', analytics_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' })
 }
