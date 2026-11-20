@@ -1,4 +1,5 @@
 // Generated from the approved canvas design (Ref-Private.html). הקופי של העמוד נמצא כאן.
+// ds-normalized
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import WaButton from '../components/brand/WaButton.jsx'
@@ -7,6 +8,7 @@ import { useLeadForm } from '../lib/useLeadForm.js'
 import DatePicker from '../components/brand/DatePicker.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
+import { CallBell as PhCallBell, CaretLeft as PhCaretLeft, ChatCircleText as PhChatCircleText, Check as PhCheck, CookingPot as PhCookingPot, FileText as PhFileText, ForkKnife as PhForkKnife, Gift as PhGift, ShieldCheck as PhShieldCheck, Truck as PhTruck, UsersThree as PhUsersThree } from '@phosphor-icons/react'
 
 export default function PrivateEvents({ seoPath }) {
   const root = usePageMotion()
@@ -15,7 +17,7 @@ export default function PrivateEvents({ seoPath }) {
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seoPath} />
-      <div ref={root} dir="rtl" style={{ background: "#FFFFFF", color: "#2E2A27", fontFamily: "'Birzia', 'Heebo', system-ui, sans-serif", fontWeight: "500" }} data-page="PrivateEvents">
+      <div ref={root} dir="rtl" style={{ background: "#FFFFFF", color: "#2E2A27", fontFamily: "'Straight', 'Heebo', system-ui, sans-serif", fontWeight: "300" }} data-page="PrivateEvents">
       {" "}
       {" "}
       <section data-a="hero" aria-labelledby="h1" style={{ padding: "0" }}>
@@ -29,7 +31,7 @@ export default function PrivateEvents({ seoPath }) {
               </Link>
               {" / אירועים פרטיים"}
             </nav>
-            <h1 id="h1" style={{ margin: "0", fontSize: "clamp(2.3rem, 4.2vw, 3.5rem)", lineHeight: "1.12", fontWeight: "900", maxWidth: "760px" }}>
+            <h1 id="h1" style={{ margin: "0", fontSize: "var(--fs-h1)", lineHeight: "1.08", fontWeight: "700", maxWidth: "760px" }}>
               <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                 <span data-a="hero-line" style={{ display: "block" }}>
                   {"מברית ועד שבע ברכות,"}
@@ -41,14 +43,14 @@ export default function PrivateEvents({ seoPath }) {
                 </span>
               </span>
             </h1>
-            <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.75", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
+            <p data-a="hero-fade" style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "rgba(255, 255, 255, 0.9)", maxWidth: "600px" }}>
               {"אותו מטבח שמבשל כל בוקר ל-17 מפעלים, מבשל גם לשמחות שלכם, בבישול מרוקאי ביתי. מ-20 אורחים בסלון ועד 300 באולם."}
             </p>
             <div data-a="hero-fade" style={{ display: "flex", flexWrap: "wrap", gap: "12px" }}>
-              <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+              <a className="ds-btn" href="#contact" style={{ minHeight: "52px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "16px", fontWeight: "700", textDecoration: "none" }}>
                 {"אני רוצה תפריט לשמחה"}
               </a>
-              <a href="tel:+972545437526" dir="ltr" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+              <a className="ds-btn" href="tel:+972545437526" dir="ltr" style={{ minHeight: "52px", display: "inline-flex", alignItems: "center", padding: "0 22px", borderRadius: "999px", border: "1.5px solid rgba(255, 255, 255, 0.8)", color: "#FFFFFF", fontSize: "16px", fontWeight: "700", textDecoration: "none" }}>
                 {"054-543-7526"}
               </a>
               <WaButton variant="hero" topic="אירוע פרטי" />
@@ -59,7 +61,7 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
                 {"בשמחה,"}
@@ -120,9 +122,7 @@ export default function PrivateEvents({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -137,7 +137,7 @@ export default function PrivateEvents({ seoPath }) {
               <img src="/images/site/tagine_orange.jpg" data-a="col2" alt="טאג׳ין כתום עם קוסקוס" style={{ position: "absolute", top: "16px", insetInlineEnd: "0", width: "56%", height: "400px", objectFit: "cover", borderRadius: "22px 22px 70px 22px" }} />
               {" "}
               <span data-a="badge" style={{ position: "absolute", bottom: "26px", insetInlineEnd: "44%", width: "100px", height: "100px", borderRadius: "50%", background: "#FFFFFF", border: "3px solid #B4511E", boxShadow: "0 8px 24px rgba(0, 0, 0, 0.18)", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", zIndex: "3", padding: "6px", boxSizing: "border-box" }}>
-                <span style={{ fontSize: "11px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2" }}>
+                <span style={{ fontSize: "12px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2" }}>
                   {"אירועים של"}
                 </span>
                 <b dir="auto" style={{ fontSize: "18px", lineHeight: "1.15" }}>
@@ -147,13 +147,13 @@ export default function PrivateEvents({ seoPath }) {
               {" "}
             </div>
             <div data-a="fade" style={{ flex: "1 1 420px", maxWidth: "640px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "18px" }}>
-              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
+              <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"עוף בזיתים, חריימה, קציצות ותבשילי בשר, לצד תוספות, סלטים קצוצים ומאפים. בונים איתכם תפריט לפי הקהל, כולל כמה ילדים יש ומי לא אוכל חריף."}
               </p>
-              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
+              <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"ביום האירוע מבשלים בבוקר, והאוכל מגיע אליכם חם ומוכן להגשה. אנחנו דואגים לאוכל, ואתם לאורחים."}
               </p>
-              <a href="#contact" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+              <a className="ds-btn" href="#contact" style={{ minHeight: "52px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "16px", fontWeight: "700", textDecoration: "none" }}>
                 {"אני רוצה הצעה"}
               </a>
             </div>
@@ -167,12 +167,12 @@ export default function PrivateEvents({ seoPath }) {
           <img src="/images/site/tagine_beef_couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
               {"השמחות"}
               <br />
               {"שאנחנו מבשלים להן."}
             </h2>
-            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
+            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540", maxWidth: "620px" }}>
               {"תפריט אחר לכל שמחה, אותו מטבח בשרי כשר."}
             </p>
             <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -181,9 +181,7 @@ export default function PrivateEvents({ seoPath }) {
                 <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
               </span>
               <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-                </svg>
+                <PhForkKnife size={18} weight="regular" aria-hidden="true" />
               </span>
               <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
                 <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -192,46 +190,38 @@ export default function PrivateEvents({ seoPath }) {
             </div>
             <div style={{ marginTop: "30px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "22px" }}>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M10 20h28v20H10zM6 14h36v6H6zM24 14v26M24 14c-4-8-12-6-8 0M24 14c4-8 12-6 8 0" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhGift size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"בריתות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"אירוע בוקר או צהריים, עם תפריט שמתאים לשעה."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhCallBell size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"בר ובת מצווה"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"מסעודה משפחתית ועד אירוע באולם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M24 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM6 42v-6a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v6M18 30v12M30 30v12" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhUsersThree size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"שבע ברכות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"ארוחה חגיגית לערב, בבית או באולם."}
                 </p>
               </div>
               <div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 22px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "280px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhCookingPot size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"אזכרות"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"אוכל חם ומוכן להגשה, ואתם נשארים עם האורחים."}
                 </p>
               </div>
@@ -243,7 +233,7 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section aria-labelledby="start" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="start" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"איך מזמינים"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -252,9 +242,7 @@ export default function PrivateEvents({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -264,45 +252,45 @@ export default function PrivateEvents({ seoPath }) {
           <div style={{ width: "100%", marginTop: "30px", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "64px" }}>
             <ol data-a="steps" style={{ flex: "1 1 460px", maxWidth: "720px", listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column" }}>
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"01"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"מספרים על השמחה"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"מה חוגגים, כמה אורחים, איפה ומתי."}
                   </span>
                 </span>
               </li>
               <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "74px", marginInlineEnd: "110px", border: "1px solid #F0C99A", borderTop: "0", borderInlineEnd: "0", borderRadius: "0 0 18px 0" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px", flexDirection: "row-reverse", textAlign: "left" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"02"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px", alignItems: "flex-end" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"תפריט והצעת מחיר"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"בונים יחד תפריט, ומקבלים הצעה כתובה."}
                   </span>
                 </span>
               </li>
               <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "110px", marginInlineEnd: "74px", border: "1px solid #F0C99A", borderTop: "0", borderInlineStart: "0", borderRadius: "0 0 0 18px" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ minWidth: "50px", height: "50px", padding: "0 10px", boxSizing: "border-box", flexShrink: "0", borderRadius: "999px", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"03"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"ביום האירוע"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"מבשלים בבוקר, והאוכל מגיע אליכם חם ומוכן להגשה."}
                   </span>
                 </span>
@@ -315,7 +303,7 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section aria-labelledby="s5" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s5" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"שאלות על אירועים פרטיים"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -324,9 +312,7 @@ export default function PrivateEvents({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -336,56 +322,56 @@ export default function PrivateEvents({ seoPath }) {
           <div style={{ marginTop: "24px", width: "100%", maxWidth: "900px", display: "flex", flexDirection: "column", gap: "12px" }}>
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
-              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
+              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "18px", fontWeight: "700", minHeight: "32px", listStyle: "none" }}>
                 {"מה המינימום להזמנה?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"מ-20 אורחים. לאירוח קטן יותר בבית, מכירת השישי שלנו בלי מינימום הזמנה."}
               </p>
               {" "}
             </details>
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
-              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
+              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "18px", fontWeight: "700", minHeight: "32px", listStyle: "none" }}>
                 {"כמה זמן מראש?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"הזמנה קטנה אפשר גם באותו יום, בשעות הפעילות. לאירוע של מאה אורחים ומעלה, כדאי שבועיים מראש."}
               </p>
               {" "}
             </details>
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
-              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
+              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "18px", fontWeight: "700", minHeight: "32px", listStyle: "none" }}>
                 {"איך מחשבים כמויות לילדים?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"ילד עד גיל 12 נחשב כחצי מנה. לכן אנחנו שואלים כמה ילדים יהיו."}
               </p>
               {" "}
             </details>
             <details data-a="faq" style={{ background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "16px", padding: "18px 22px" }}>
               {" "}
-              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "17px", fontWeight: "900", minHeight: "32px", listStyle: "none" }}>
+              <summary style={{ cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "16px", fontSize: "18px", fontWeight: "700", minHeight: "32px", listStyle: "none" }}>
                 {"האוכל בשרי?"}
                 <span aria-hidden="true" style={{ width: "30px", height: "30px", flexShrink: "0", borderRadius: "50%", background: "#FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"+"}
                 </span>
               </summary>
               {" "}
-              <p style={{ margin: "12px 0 0", fontSize: "15px", lineHeight: "1.75", color: "#5A544E" }}>
+              <p style={{ margin: "12px 0 0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"כן, המטבח שלנו בשרי בלבד ובהשגחת הרבנות הראשית קרית גת."}
               </p>
               {" "}
@@ -396,10 +382,10 @@ export default function PrivateEvents({ seoPath }) {
       {" "}
       <section id="contact" aria-labelledby="order-h" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="order-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"בונים תפריט לשמחה"}
           </h2>
-          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
+          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540", maxWidth: "620px" }}>
             {"ספרו לנו על האירוע, ונחזור אליכם עם הצעת תפריט ומחיר. לאירוע של מאה אורחים ומעלה כדאי לפנות שבועיים מראש."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -408,9 +394,7 @@ export default function PrivateEvents({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -422,7 +406,7 @@ export default function PrivateEvents({ seoPath }) {
             <form data-a="panel" style={{ marginTop: "30px", width: "100%", maxWidth: "1100px", background: "#FFF9F1", padding: "clamp(32px, 5vw, 64px) clamp(22px, 5vw, 64px) clamp(28px, 4vw, 48px)", boxSizing: "border-box", clipPath: "polygon(0 0, 100% 3%, 100% 100%, 0 100%)", display: "flex", flexDirection: "column", gap: "34px" }} onSubmit={(e) => { e.preventDefault(); send(e) }} noValidate>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "22px 24px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"שם מלא"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -431,7 +415,7 @@ export default function PrivateEvents({ seoPath }) {
                   <input className="fld" type="text" name="name" required aria-required="true" />
                 </label>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"טלפון"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -442,7 +426,7 @@ export default function PrivateEvents({ seoPath }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "22px 24px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"מה חוגגים?"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -473,7 +457,7 @@ export default function PrivateEvents({ seoPath }) {
                   </select>
                 </label>
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", position: "relative", zIndex: "5" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"תאריך האירוע"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -482,7 +466,7 @@ export default function PrivateEvents({ seoPath }) {
                   <DatePicker name="תאריך האירוע" />
                 </div>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"מתי ביום?"}
                   </span>
                   <select className="fld" name="time">
@@ -503,7 +487,7 @@ export default function PrivateEvents({ seoPath }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "22px 24px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"כמה אורחים בערך?"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -528,7 +512,7 @@ export default function PrivateEvents({ seoPath }) {
                   </select>
                 </label>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"כמה מהאורחים ילדים?"}
                   </span>
                   <select className="fld" name="kids">
@@ -550,7 +534,7 @@ export default function PrivateEvents({ seoPath }) {
                   </select>
                 </label>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"איפה האירוע?"}
                   </span>
                   <select className="fld" name="venue">
@@ -577,7 +561,7 @@ export default function PrivateEvents({ seoPath }) {
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "22px 24px" }}>
                 <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"עיר או מקום האירוע"}
                     <span aria-hidden="true" style={{ color: "#B4511E", marginInlineStart: "4px" }}>
                       {"*"}
@@ -588,10 +572,10 @@ export default function PrivateEvents({ seoPath }) {
               </div>
               <fieldset style={{ border: "0", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "12px", minWidth: "0" }}>
                 <legend style={{ padding: "0", marginBottom: "12px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"מה חשוב לכם בתפריט?"}
                   </span>
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
+                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "300", color: "#4A4540" }}>
                     {"אפשר לבחור כמה."}
                   </span>
                 </legend>
@@ -599,13 +583,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="מנות בשר ועוף" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
-                    </svg>
+                    <PhCookingPot size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"מנות בשר ועוף"}
                     </span>
@@ -613,13 +593,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="דגים" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
-                    </svg>
+                    <PhCallBell size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"דגים"}
                     </span>
@@ -627,13 +603,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="מנה צמחונית לפי בקשה" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M10 6h22l6 6v30H10zM32 6v6h6M16 20h16M16 26h16M16 32h10" />
-                    </svg>
+                    <PhFileText size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"מנה צמחונית לפי בקשה"}
                     </span>
@@ -641,13 +613,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="ללא גלוטן" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M24 4l16 6v12c0 10-7 17-16 22C15 39 8 32 8 22V10zM17 24l5 5 9-10" />
-                    </svg>
+                    <PhShieldCheck size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"ללא גלוטן"}
                     </span>
@@ -655,13 +623,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="מנות לילדים" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M24 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM6 42v-6a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v6M18 30v12M30 30v12" />
-                    </svg>
+                    <PhUsersThree size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"מנות לילדים"}
                     </span>
@@ -669,13 +633,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="menu" defaultValue="מאפים וקינוחים" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M10 20h28v20H10zM6 14h36v6H6zM24 14v26M24 14c-4-8-12-6-8 0M24 14c4-8 12-6 8 0" />
-                    </svg>
+                    <PhGift size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"מאפים וקינוחים"}
                     </span>
@@ -684,10 +644,10 @@ export default function PrivateEvents({ seoPath }) {
               </fieldset>
               <fieldset style={{ border: "0", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "12px", minWidth: "0" }}>
                 <legend style={{ padding: "0", marginBottom: "12px" }}>
-                  <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                  <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                     {"במה נעזור לכם?"}
                   </span>
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
+                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "300", color: "#4A4540" }}>
                     {"אפשר לבחור כמה."}
                   </span>
                 </legend>
@@ -695,13 +655,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="help" defaultValue="בניית התפריט איתכם" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M8 10h32v22H20l-8 8v-8H8zM16 19h16M16 25h10" />
-                    </svg>
+                    <PhChatCircleText size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"בניית התפריט איתכם"}
                     </span>
@@ -709,13 +665,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="help" defaultValue="בישול והובלה" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M6 30V14h22v16M28 20h8l6 6v4H28M13 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM35 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 34h14" />
-                    </svg>
+                    <PhTruck size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"בישול והובלה"}
                     </span>
@@ -723,13 +675,9 @@ export default function PrivateEvents({ seoPath }) {
                   <label className="opt chk">
                     <input type="checkbox" name="help" defaultValue="סידור והגשה במקום" />
                     <span className="box">
-                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" strokeWidth="3.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                        <path d="M5 12l5 5 9-10" />
-                      </svg>
+                      <PhCheck size={14} weight="bold" color="#FFFFFF" aria-hidden="true" />
                     </span>
-                    <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: "0" }}>
-                      <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
-                    </svg>
+                    <PhCallBell size={30} weight="duotone" color="#B4511E" style={{ flexShrink: "0" }} aria-hidden="true" />
                     <span>
                       {"משלוח עד המקום"}
                     </span>
@@ -737,16 +685,16 @@ export default function PrivateEvents({ seoPath }) {
                 </div>
               </fieldset>
               <label style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-                <span style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                <span style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                   {"ספרו לנו עוד על האירוע"}
                 </span>
-                <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "500", color: "#5A544E" }}>
+                <span style={{ display: "block", marginTop: "4px", fontSize: "14px", fontWeight: "300", color: "#4A4540" }}>
                   {"תקציב משוער, מנות שחייבות להיות, או כל דבר שחשוב לכם."}
                 </span>
                 <textarea className="fld" name="notes" />
               </label>
               <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 24px", paddingTop: "22px", borderTop: "1px solid #FDEBD3" }}>
-                <button type="button" onClick={send} style={{ minHeight: "56px", padding: "0 40px", border: "0", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", font: "inherit", fontSize: "17px", fontWeight: "800", display: "inline-flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
+                <button className="ds-btn" type="button" onClick={send} style={{ minHeight: "56px", padding: "0 40px", border: "0", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", font: "inherit", fontSize: "18px", fontWeight: "700", display: "inline-flex", alignItems: "center", gap: "10px", cursor: "pointer" }}>
                   {idle ? (<>
                     <span>
                       {"אני רוצה הצעת תפריט"}
@@ -758,23 +706,21 @@ export default function PrivateEvents({ seoPath }) {
                       {"שולחים"}
                     </span>
                   </>) : null}
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M15 6l-6 6 6 6" />
-                  </svg>
+                  <PhCaretLeft size={16} weight="regular" aria-hidden="true" />
                 </button>
                 <div style={{ marginInlineStart: "auto", maxWidth: "100%", boxSizing: "border-box", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "14px 20px", background: "#FFFFFF", border: "1px solid #FDEBD3", borderRadius: "18px", paddingBlock: "14px", paddingInline: "22px 14px" }}>
                   <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
-                    <b style={{ fontSize: "17px", fontWeight: "900", color: "#2E2A27" }}>
+                    <b style={{ fontSize: "18px", fontWeight: "700", color: "#2E2A27" }}>
                       {"מעדיפים לדבר?"}
                     </b>
-                    <span style={{ fontSize: "14px", lineHeight: "1.5", color: "#5A544E" }}>
+                    <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                       {"כתבו לעמית בוואטסאפ, והוא יחזור אליכם עם תפריט."}
                     </span>
                   </span>
                   <WaButton topic="אירוע פרטי" showNumber />
                 </div>
               </div>
-              <span style={{ fontSize: "13px", color: "#5A544E" }}>
+              <span style={{ fontSize: "14px", color: "#4A4540" }}>
                 <span style={{ color: "#B4511E" }}>
                   {"*"}
                 </span>
@@ -795,13 +741,13 @@ export default function PrivateEvents({ seoPath }) {
                   </svg>
                 </span>
                 <div data-a="tk-txt" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "8px" }}>
-                  <h3 style={{ margin: "0", fontSize: "24px", fontWeight: "900", color: "#2E2A27" }}>
+                  <h3 style={{ margin: "0", fontSize: "var(--fs-h4)", fontWeight: "700", color: "#2E2A27", lineHeight: "1.3" }}>
                     {"קיבלנו את פרטי השמחה"}
                   </h3>
-                  <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.7", color: "#5A544E", maxWidth: "420px" }}>
+                  <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540", maxWidth: "420px" }}>
                     {"נחזור אליכם עם הצעת תפריט ומחיר. רוצים לדבר כבר עכשיו? וואטסאפ לעמית, 054-543-7526."}
                   </p>
-                  <button type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #FDEBD3", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "800", cursor: "pointer" }}>
+                  <button className="ds-btn" type="button" onClick={reset} style={{ marginTop: "8px", minHeight: "44px", padding: "0 20px", borderRadius: "999px", border: "1.5px solid #FDEBD3", background: "#FFFFFF", color: "#2E2A27", font: "inherit", fontSize: "15px", fontWeight: "700", cursor: "pointer" }}>
                     {"שליחה נוספת"}
                   </button>
                 </div>

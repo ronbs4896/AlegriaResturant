@@ -1,3 +1,4 @@
+// ds-normalized
 import Seo from '../components/seo/Seo.jsx'
 import { PageHero, Prose } from '../components/brand/Kit.jsx'
 import { usePageMotion } from '../lib/motion.js'
@@ -31,7 +32,7 @@ export default function Privacy() {
             <p>
               בכל שאלה בנושא פרטיות ניתן לפנות אלינו במייל <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>
-            <p style={{ fontSize: 14 }}>מדיניות זו עודכנה לאחרונה בחודש יולי 2026.</p>
+            <p style={{ fontSize: "var(--fs-body-sm)", lineHeight: '1.7' }}>מדיניות זו עודכנה לאחרונה בחודש יולי 2026.</p>
 </Prose>
     </div>
   )

@@ -1,4 +1,5 @@
 // ============================================================
+// ds-normalized
 //  בוחר תאריך מותאם (לא הדיפולט של הדפדפן): לוח חודשי בעברית,
 //  ימים שעברו חסומים, התאריך הנבחר בגרדיאנט החתימה.
 // ============================================================
@@ -67,7 +68,7 @@ export default function DatePicker({ name = 'תאריך האירוע' }) {
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6" /></svg>
             </button>
             <span aria-live="polite" style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
-              <b style={{ fontSize: 19, fontWeight: 900 }}>{MONTHS[m]}</b>
+              <b style={{ fontSize: 20, fontWeight: 700 }}>{MONTHS[m]}</b>
               <span dir="ltr" style={{ fontSize: 16, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>{y}</span>
             </span>
             <button type="button" onClick={() => go(1)} aria-label="החודש הבא" style={navStyle(false)}>
@@ -75,7 +76,7 @@ export default function DatePicker({ name = 'תאריך האירוע' }) {
             </button>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, minmax(0, 1fr))', gap: 4, textAlign: 'center' }}>
-            {WEEK.map((w) => <span key={w} style={{ fontSize: 13, fontWeight: 800, padding: '2px 0 6px' }}>{w}</span>)}
+            {WEEK.map((w) => <span key={w} style={{ fontSize: 14, fontWeight: 700, padding: '2px 0 6px' }}>{w}</span>)}
             {cells.map((date, i) => {
               if (!date) return <span key={'b' + i} aria-hidden="true" style={{ height: 42 }} />
               const iso = isoOf(date)
@@ -100,8 +101,8 @@ export default function DatePicker({ name = 'תאריך האירוע' }) {
             })}
           </div>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, paddingTop: 12, borderTop: `1px solid ${LINE}` }}>
-            <span style={{ fontSize: 13, lineHeight: 1.5 }}>מאה אורחים ומעלה? כדאי שבועיים מראש.</span>
-            <button type="button" onClick={() => setSel(null)} style={{ minHeight: 36, padding: '0 14px', border: 0, borderRadius: 999, background: '#FFF5E8', color: INK, font: 'inherit', fontSize: 14, fontWeight: 800, cursor: 'pointer', flexShrink: 0 }}>ניקוי</button>
+            <span style={{ fontSize: 'var(--fs-body-sm)', lineHeight: 1.6 }}>מאה אורחים ומעלה? כדאי שבועיים מראש.</span>
+            <button type="button" onClick={() => setSel(null)} style={{ minHeight: 36, padding: '0 14px', border: 0, borderRadius: 999, background: '#FFF5E8', color: INK, font: 'inherit', fontSize: 14, fontWeight: 700, cursor: 'pointer', flexShrink: 0 }}>ניקוי</button>
           </div>
         </div>
       )}

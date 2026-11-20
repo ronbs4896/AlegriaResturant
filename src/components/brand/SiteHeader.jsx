@@ -1,4 +1,5 @@
 // ============================================================
+// ds-normalized
 //  כותרת עליונה: לוגו, תפריט שירותים נפתח (מגה-מניו), קישורים
 //  וכפתור הצעת מחיר. בנייד: כפתור תפריט שפותח מסך מלא.
 //  עיצוב לפי ספר המותג: טקסט בפחם, גרדיאנט רק על כפתור הפעולה.
@@ -7,6 +8,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
 import { gsap } from 'gsap'
 import WaButton from './WaButton.jsx'
+import { CaretDown as PhCaretDown, CaretLeft as PhCaretLeft, Truck as PhTruck, UsersThree as PhUsersThree, CallBell as PhCallBell, Gift as PhGift, CookingPot as PhCookingPot, ChefHat as PhChefHat, ShieldCheck as PhShieldCheck, ForkKnife as PhForkKnife } from '@phosphor-icons/react'
 
 const GRAD = 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)'
 const INK = '#2E2A27'
@@ -32,12 +34,17 @@ const SERVICE_PATHS = ['/factories', '/friday', '/services']
 
 const reduced = () => window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-function Icon({ d, size = 34, color = '#B4511E', sw = 2 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 48 48" fill="none" stroke={color} strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}>
-      <path d={d} />
-    </svg>
-  )
+// האייקונים של השירותים: Phosphor, לפי חתימת הנתיב של האייקון המקורי
+const SERVICE_ICONS = [
+  ['M6 30V14h22v16', PhTruck], ['M24 14a6 6 0 1 0', PhUsersThree], ['M4 34h40M8 34', PhCallBell],
+  ['M10 20h28v20H10z', PhGift], ['M8 22h32v6', PhCookingPot], ['M14 26a8 8 0 1 1', PhChefHat], ['M24 4l16 6v12', PhShieldCheck],
+]
+export function ServiceIcon({ d, size = 34, color = '#B4511E' }) {
+  const C = (SERVICE_ICONS.find(([p]) => d.startsWith(p)) || [null, PhForkKnife])[1]
+  return <C size={size} weight="duotone" color={color} aria-hidden="true" style={{ flexShrink: 0 }} />
+}
+function Icon({ d, size = 34, color = '#B4511E' }) {
+  return <ServiceIcon d={d} size={size} color={color} />
 }
 
 export default function SiteHeader() {
@@ -95,25 +102,25 @@ export default function SiteHeader() {
         <Link to="/" aria-label="קייטרינג אלגריה, לדף הבית" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', color: INK }}>
           <img className="hdr-logo" src="/images/site/mark.jpg" alt="" width="50" height="50" style={{ width: 50, height: 50, borderRadius: '50%', objectFit: 'cover', border: '1px solid #FDEBD3' }} />
           <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
-            <span className="hdr-name" style={{ fontSize: 20, fontWeight: 900, whiteSpace: 'nowrap' }}>קייטרינג אלגריה</span>
+            <span className="hdr-name" style={{ fontSize: 20, fontWeight: 700, whiteSpace: 'nowrap' }}>קייטרינג אלגריה</span>
             <span className="hdr-sub" style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.08em', whiteSpace: 'nowrap' }}>הסעדה למפעלים בדרום</span>
           </span>
         </Link>
 
-        <nav aria-label="ניווט ראשי" className="hdr-desktop" style={{ alignItems: 'center', gap: '4px 30px', fontSize: 15, fontWeight: 700 }}>
+        <nav aria-label="ניווט ראשי" className="hdr-desktop" style={{ alignItems: 'center', gap: '4px 30px', fontSize: 16, fontWeight: 700 }}>
           <button type="button" aria-expanded={open} aria-controls="mega-panel" onClick={() => setOpen((o) => !o)}
             style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 6, border: 0, background: 'transparent', padding: 0, font: 'inherit', fontWeight: 700, color: INK, cursor: 'pointer', boxShadow: servicesActive ? 'inset 0 -3px 0 #F5871F' : 'none' }}>
             השירותים שלנו
-            <svg ref={chev} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+            <PhCaretDown size={14} weight="regular" aria-hidden="true" />
           </button>
           {LINKS.map((l) => <NavLink key={l.to} to={l.to} style={linkStyle}>{l.label}</NavLink>)}
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <WaButton variant="icon" source="header" className="hdr-wa" />
-          <Link to="/contact" className="hdr-cta" style={{ minHeight: 46, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', whiteSpace: 'nowrap' }}>
+          <Link to="/contact" className="hdr-cta ds-btn" style={{ minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 700, textDecoration: 'none', whiteSpace: 'nowrap' }}>
             הצעת מחיר
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6" /></svg>
+            <PhCaretLeft size={14} weight="regular" aria-hidden="true" />
           </Link>
           <button type="button" className="hdr-burger" aria-label={mobile ? 'סגירת התפריט' : 'פתיחת התפריט'} aria-expanded={mobile} aria-controls="mobile-menu" onClick={() => setMobile((m) => !m)}
             style={{ width: 46, height: 46, borderRadius: '50%', border: '1.5px solid #2E2A27', background: 'transparent', color: INK, alignItems: 'center', justifyContent: 'center', cursor: 'pointer' }}>
@@ -133,14 +140,14 @@ export default function SiteHeader() {
                 style={{ display: 'flex', gap: 14, alignItems: 'flex-start', padding: '16px 18px', borderRadius: 6, textDecoration: 'none', minHeight: 44, background: it.hl ? '#FFF5E8' : 'transparent' }}>
                 <Icon d={it.icon} />
                 <span style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-                  <span style={{ fontSize: 17, fontWeight: 900, color: INK }}>{it.title}</span>
-                  <span style={{ fontSize: 14, lineHeight: 1.55, color: INK }}>{it.text}</span>
+                  <span style={{ fontSize: 18, fontWeight: 700, color: INK }}>{it.title}</span>
+                  <span style={{ fontSize: 'var(--fs-body-sm)', lineHeight: 1.6, color: INK }}>{it.text}</span>
                 </span>
               </Link>
             ))}
             <div data-mega="promo" style={{ alignSelf: 'center', background: GRAD, color: INK, padding: '22px 22px 20px', transform: 'rotate(-1.5deg)', clipPath: 'polygon(0 3%, 100% 0, 98% 100%, 2% 97%)', display: 'flex', flexDirection: 'column', gap: 14 }}>
-              <span style={{ fontSize: 18, fontWeight: 900, lineHeight: 1.35 }}>מחיר למנה ומינימום יומי,<br />בכתב ועוד באותו יום.</span>
-              <Link to="/factories#contact" onClick={() => setOpen(false)} style={{ alignSelf: 'flex-start', minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 18px', background: '#FFFFFF', color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', transform: 'rotate(1.5deg)' }}>
+              <span style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.35 }}>מחיר למנה ומינימום יומי,<br />בכתב ועוד באותו יום.</span>
+              <Link to="/factories#contact" onClick={() => setOpen(false)} style={{ alignSelf: 'flex-start', minHeight: 44, display: 'inline-flex', alignItems: 'center', gap: 8, padding: '0 18px', background: '#FFFFFF', color: INK, fontSize: 15, fontWeight: 700, textDecoration: 'none', transform: 'rotate(1.5deg)' }}>
                 הצעת מחיר למפעל
               </Link>
             </div>
@@ -151,22 +158,22 @@ export default function SiteHeader() {
       {/* תפריט נייד */}
       {mobile && (
         <div id="mobile-menu" style={{ position: 'fixed', top: 84, insetInline: 0, bottom: 0, background: '#FFFFFF', overflowY: 'auto', padding: '20px 20px 120px', zIndex: 60 }}>
-          <p style={{ margin: '0 0 8px', fontSize: 13, fontWeight: 800, letterSpacing: '0.04em' }}>השירותים שלנו</p>
+          <p style={{ margin: '0 0 8px', fontSize: 14, fontWeight: 700, letterSpacing: '0.04em' }}>השירותים שלנו</p>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             {SERVICES.map((it) => (
               <Link key={it.to} to={it.to} style={{ display: 'flex', gap: 12, alignItems: 'center', minHeight: 56, padding: '8px 12px', borderRadius: 14, textDecoration: 'none', color: INK, background: it.hl ? '#FFF5E8' : 'transparent' }}>
                 <Icon d={it.icon} size={28} />
-                <span style={{ fontSize: 17, fontWeight: 800 }}>{it.title}</span>
+                <span style={{ fontSize: 18, fontWeight: 700 }}>{it.title}</span>
               </Link>
             ))}
           </div>
           <div style={{ height: 1, background: '#FDEBD3', margin: '16px 0' }} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {LINKS.map((l) => (
-              <Link key={l.to} to={l.to} style={{ minHeight: 52, display: 'flex', alignItems: 'center', fontSize: 18, fontWeight: 800, color: INK, textDecoration: 'none' }}>{l.label}</Link>
+              <Link key={l.to} to={l.to} style={{ minHeight: 52, display: 'flex', alignItems: 'center', fontSize: 18, fontWeight: 700, color: INK, textDecoration: 'none' }}>{l.label}</Link>
             ))}
           </div>
-          <a href="tel:+972545437526" style={{ marginTop: 18, minHeight: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: INK, color: '#FFFFFF', fontWeight: 800, textDecoration: 'none' }}>
+          <a className="ds-btn" href="tel:+972545437526" style={{ marginTop: 18, minHeight: 52, display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 999, background: INK, color: '#FFFFFF', fontWeight: 700, textDecoration: 'none' }}>
             <span dir="ltr">054-543-7526</span>
           </a>
           <WaButton source="mobile_menu" style={{ marginTop: 10, minHeight: 52, width: '100%' }} />

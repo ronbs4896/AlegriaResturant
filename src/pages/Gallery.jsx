@@ -21,7 +21,7 @@ export default function Gallery() {
               const sel = c.key === cat
               return (
                 <button key={c.key} type="button" aria-pressed={sel} onClick={() => setCat(c.key)}
-                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
+                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                   {c.label}
                 </button>
               )

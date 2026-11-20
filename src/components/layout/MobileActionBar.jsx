@@ -5,7 +5,7 @@ import { WaIcon } from '../brand/WaButton.jsx'
 
 // רצועת פעולה תחתונה, נייד בלבד: טלפון ווואטסאפ במשקל שווה
 export default function MobileActionBar() {
-  const btn = { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, minHeight: 48, borderRadius: 999, fontWeight: 800, fontSize: 16, textDecoration: 'none' }
+  const btn = { display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, minHeight: 48, borderRadius: 999, fontWeight: 700, fontSize: 16, textDecoration: 'none' }
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 sm:hidden" style={{ background: 'rgba(46, 42, 39, 0.96)', paddingBottom: 'env(safe-area-inset-bottom)' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8, padding: 10 }}>

@@ -1,4 +1,5 @@
 // שאלות נפוצות, לפי נושא, עם סכמת FAQ לגוגל
+// ds-normalized
 import { useState } from 'react'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
@@ -6,6 +7,7 @@ import { usePageMotion } from '../lib/motion.js'
 import { faq, faqCategories } from '../data/faq.js'
 import { faqSchema } from '../data/structuredData.js'
 import { PageHero, CtaBand, PAD, INK } from '../components/brand/Kit.jsx'
+import { CaretDown as PhCaretDown } from '@phosphor-icons/react'
 
 export default function Faq() {
   const root = usePageMotion()
@@ -22,7 +24,7 @@ export default function Faq() {
               const sel = c.key === cat
               return (
                 <button key={c.key} type="button" aria-pressed={sel} onClick={() => setCat(c.key)}
-                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 800, cursor: 'pointer' }}>
+                  style={{ minHeight: 44, padding: '0 18px', borderRadius: 999, border: `1.5px solid ${sel ? '#B4511E' : '#FDEBD3'}`, background: sel ? 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)' : '#FFFFFF', color: INK, font: 'inherit', fontSize: 15, fontWeight: 700, cursor: 'pointer' }}>
                   {c.label}
                 </button>
               )
@@ -31,11 +33,11 @@ export default function Faq() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
             {faq.filter((f) => f.cat === cat).map((f) => (
               <details key={f.q} className="faq-item" data-a="faq" style={{ background: '#FFFFFF', border: '1px solid #FDEBD3', borderRadius: 18, padding: '0 22px' }}>
-                <summary style={{ minHeight: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, fontSize: 18, fontWeight: 900 }}>
+                <summary style={{ minHeight: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, fontSize: 18, fontWeight: 700 }}>
                   {f.q}
-                  <svg className="faq-chev" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ flexShrink: 0 }}><path d="M6 9l6 6 6-6" /></svg>
+                  <PhCaretDown size={18} weight="regular" style={{ flexShrink: 0 }} aria-hidden="true" />
                 </summary>
-                <p style={{ margin: '0 0 20px', fontSize: 17, lineHeight: 1.85 }}>{f.a}</p>
+                <p style={{ margin: '0 0 20px', fontSize: "var(--fs-body)", lineHeight: '1.7' }}>{f.a}</p>
               </details>
             ))}
           </div>

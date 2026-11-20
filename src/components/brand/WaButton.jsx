@@ -17,10 +17,10 @@ export function WaIcon({ size = 20, color = GREEN }) {
   )
 }
 
-const BASE = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, textDecoration: 'none', fontWeight: 800, whiteSpace: 'nowrap', boxSizing: 'border-box' }
+const BASE = { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, textDecoration: 'none', fontWeight: 700, whiteSpace: 'nowrap', boxSizing: 'border-box' }
 const VARIANTS = {
-  outline: { ...BASE, minHeight: 48, padding: '0 22px', borderRadius: 999, background: '#FFFFFF', border: `1.5px solid ${TERRA}`, color: TERRA, fontSize: 16 },
-  hero: { ...BASE, minHeight: 48, padding: '0 22px', borderRadius: 999, background: 'transparent', border: '1.5px solid rgba(255, 255, 255, 0.8)', color: '#FFFFFF', fontSize: 15, fontWeight: 700 },
+  outline: { ...BASE, minHeight: 52, padding: '0 22px', borderRadius: 999, background: '#FFFFFF', border: `1.5px solid ${TERRA}`, color: TERRA, fontSize: 16 },
+  hero: { ...BASE, minHeight: 52, padding: '0 22px', borderRadius: 999, background: 'transparent', border: '1.5px solid rgba(255, 255, 255, 0.8)', color: '#FFFFFF', fontSize: 16, fontWeight: 700 },
   inline: { ...BASE, gap: 8, minHeight: 44, color: '#2E2A27', fontSize: 15, fontWeight: 700, whiteSpace: 'normal' },
   icon: { ...BASE, width: 44, height: 44, borderRadius: '50%', background: '#FFFFFF', border: '1px solid #FDEBD3' },
 }
@@ -39,7 +39,7 @@ export default function WaButton({ variant = 'outline', label = 'וואטסאפ'
     )
   }
   return (
-    <a {...props} className={className} style={{ ...VARIANTS[variant], ...style }}>
+    <a {...props} className={[variant === 'inline' ? '' : 'ds-btn', className].filter(Boolean).join(' ') || undefined} style={{ ...VARIANTS[variant], ...style }}>
       <WaIcon size={variant === 'inline' ? 18 : 20} />
       {variant === 'inline' ? <span style={{ textDecoration: 'underline', textUnderlineOffset: 3 }}>{label}</span> : <span>{label}</span>}
       {showNumber ? <span dir="ltr" style={{ fontWeight: 700 }}>054-543-7526</span> : null}

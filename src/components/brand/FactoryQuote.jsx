@@ -1,4 +1,5 @@
 // טופס הצעת מחיר למפעלים, בשני שלבים, כמו בטפסים של Compass, Aramark ו-ezCater:
+// ds-normalized
 // קודם איך לחזור אליכם, ורק אחר כך השאלות על המפעל.
 // מי שמילא את שלב 1 ויצא מהעמוד בלי לסיים, הפרטים שלו עדיין נשלחים (ליד חלקי),
 // כדי שאף טלפון לא ילך לאיבוד.
@@ -173,8 +174,8 @@ export default function FactoryQuote({ formOpen, sent, idle, sending, send, rese
             </svg>
           </span>
           <div data-a="tk-txt" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
-            <h3 style={{ margin: 0, fontSize: '24px', fontWeight: 900, color: '#2E2A27' }}>קיבלנו את פרטי המפעל</h3>
-            <p style={{ margin: 0, fontSize: '16px', lineHeight: 1.7, color: '#2E2A27', maxWidth: '420px' }}>
+            <h3 style={{ margin: 0, fontSize: "var(--fs-h4)", fontWeight: 700, color: '#2E2A27', lineHeight: '1.3' }}>קיבלנו את פרטי המפעל</h3>
+            <p style={{ margin: 0, fontSize: "var(--fs-body)", lineHeight: '1.7', color: '#2E2A27', maxWidth: '420px' }}>
               נחזור אליכם עם הצעה כתובה, לרוב עוד באותו יום. דחוף? חייגו <span dir="ltr">054-543-7526</span>.
             </p>
             <button type="button" onClick={() => { setStep(1); partial.current = { armed: false, done: false }; reset() }} className="fq2-back" style={{ marginTop: '8px' }}>

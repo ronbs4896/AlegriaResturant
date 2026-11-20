@@ -45,8 +45,8 @@ export default {
         danger: { DEFAULT: '#A32B1C', soft: '#F8ECEA' },
       },
       fontFamily: {
-        sans: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
-        display: ['Birzia', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
+        sans: ['Straight', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
+        display: ['Straight', 'Heebo', 'Assistant', 'system-ui', 'sans-serif'],
         // פנים למספרים ומטא־דאטה — ספרות טבלאיות, חתימה עריכתית
         num: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
       },

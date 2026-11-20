@@ -1,4 +1,5 @@
 // Generated from the approved canvas design (Ref-Home.html, עיצוב הרפרנס המקורי). הקופי של העמוד נמצא כאן.
+// ds-normalized
 import { Link } from 'react-router-dom'
 import { sx } from '../lib/sx.js'
 import ClientLogos from '../components/brand/ClientLogos.jsx'
@@ -8,6 +9,7 @@ import { useLeadForm } from '../lib/useLeadForm.js'
 import FactoryQuote from '../components/brand/FactoryQuote.jsx'
 import Seo from '../components/seo/Seo.jsx'
 import { getSeo } from '../data/seoRoutes.js'
+import { ArrowLeft as PhArrowLeft, ArrowRight as PhArrowRight, CallBell as PhCallBell, Check as PhCheck, Clock as PhClock, CookingPot as PhCookingPot, Factory as PhFactory, FileText as PhFileText, ForkKnife as PhForkKnife, Medal as PhMedal, Path as PhPath, Phone as PhPhone, Truck as PhTruck, UsersThree as PhUsersThree } from '@phosphor-icons/react'
 
 export default function Home({ seoPath }) {
   const root = usePageMotion()
@@ -16,7 +18,7 @@ export default function Home({ seoPath }) {
   return (
     <>
       <Seo title={seo.title} description={seo.description} path={seoPath} />
-      <div ref={root} dir="rtl" style={{ background: "#FFFFFF", color: "#2E2A27", fontFamily: "'Birzia', 'Heebo', system-ui, sans-serif", fontWeight: "500" }} data-page="Home">
+      <div ref={root} dir="rtl" style={{ background: "#FFFFFF", color: "#2E2A27", fontFamily: "'Straight', 'Heebo', system-ui, sans-serif", fontWeight: "300" }} data-page="Home">
       {" "}
       {" "}
       <section id="top" data-a="hero" aria-labelledby="h1" style={{ padding: "0" }}>
@@ -25,7 +27,7 @@ export default function Home({ seoPath }) {
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(270deg, rgba(20, 17, 15, 0.78) 0%, rgba(20, 17, 15, 0.55) 45%, rgba(20, 17, 15, 0.25) 100%)" }} />
           <div style={{ position: "relative", width: "100%", margin: "0", padding: "64px clamp(24px, 5vw, 80px) 110px", boxSizing: "border-box", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "32px" }}>
             <div style={{ maxWidth: "560px", display: "flex", flexDirection: "column", gap: "20px", color: "#FFFFFF" }}>
-              <h1 id="h1" style={{ margin: "0", fontSize: "clamp(2.4rem, 4.4vw, 3.6rem)", lineHeight: "1.12", fontWeight: "900", letterSpacing: "-0.01em" }}>
+              <h1 id="h1" style={{ margin: "0", fontSize: "var(--fs-h1)", lineHeight: "1.08", fontWeight: "700", letterSpacing: "-0.01em" }}>
                 <span style={{ display: "block", overflow: "hidden", paddingBottom: "0.06em" }}>
                   <span data-a="hero-line" style={{ display: "block" }}>
                     {"הסעדה יומית"}
@@ -42,25 +44,21 @@ export default function Home({ seoPath }) {
                   </span>
                 </span>
               </h1>
-              <p data-a="hero-fade" style={{ margin: "0", fontSize: "17px", lineHeight: "1.7", color: "rgba(255, 255, 255, 0.9)" }}>
+              <p data-a="hero-fade" style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "rgba(255, 255, 255, 0.9)" }}>
                 {"ארוחה חמה לפני כל הפסקה, מבושלת ביד באותו בוקר במטבח הבשרי והכשר שלנו בקרית גת. מעל 3,000 ארוחות ביום, בתפזורת לחדר האוכל או בחמגשיות אישיות."}
               </p>
               <div data-a="hero-fade">
-                <a href="#contact" style={{ minHeight: "46px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+                <a className="ds-btn" href="#contact" style={{ minHeight: "44px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                   {"אני רוצה הצעת מחיר"}
                 </a>
               </div>
             </div>
             <div data-a="hero-fade" className="hero-arrows" style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "18px", alignSelf: "stretch", justifyContent: "center" }}>
               <button type="button" aria-label="התמונה הקודמת" style={{ width: "44px", height: "44px", border: "0", background: "transparent", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 12h16M14 6l6 6-6 6" />
-                </svg>
+                <PhArrowRight size={26} weight="duotone" aria-hidden="true" />
               </button>
               <button type="button" aria-label="התמונה הבאה" style={{ width: "44px", height: "44px", border: "0", background: "transparent", color: "#FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M20 12H4M10 6l-6 6 6 6" />
-                </svg>
+                <PhArrowLeft size={26} weight="duotone" aria-hidden="true" />
               </button>
               <span style={{ width: "1px", height: "70px", borderInlineStart: "1px dashed rgba(255, 255, 255, 0.6)" }} />
               <span style={{ width: "26px", height: "26px", borderRadius: "50%", border: "1px solid #FFFFFF", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -74,7 +72,7 @@ export default function Home({ seoPath }) {
       {" "}
       <section aria-labelledby="s2" style={{ padding: "72px clamp(24px, 5vw, 80px) 96px" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s2" data-a="words" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
               <span data-w="" style={{ display: "inline-block" }}>
                 {"יש"}
@@ -123,9 +121,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -143,7 +139,7 @@ export default function Home({ seoPath }) {
                 <b style={{ fontSize: "20px", lineHeight: "1", color: "#2E2A27" }}>
                   {"כשר"}
                 </b>
-                <span style={{ fontSize: "11px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2", marginTop: "4px" }}>
+                <span style={{ fontSize: "12px", fontWeight: "700", color: "#B4511E", lineHeight: "1.2", marginTop: "4px" }}>
                   {"רבנות"}
                   <br />
                   {"קרית גת"}
@@ -152,10 +148,10 @@ export default function Home({ seoPath }) {
               {" "}
             </div>
             <div data-a="fade" style={{ flex: "1 1 380px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "22px" }}>
-              <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
+              <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
                 {"כשההפסקה של 200 עובדים תלויה במשאית אחת, כל איחור הופך לתלונה שמגיעה אליכם. לכן אצלנו הסירים עולים על האש ביום האספקה עצמו, והמשאיות יוצאות מקרית גת בבוקר של יום האספקה. העובדים בוחרים מנה באפליקציה של אלגריה, ואנחנו מבשלים בדיוק לפי ההזמנות. 16 מתוך 17 המפעלים שלנו איתנו יותר משנתיים, והשבעה עשר עזב רק כי נסגר."}
               </p>
-              <a href="#services" style={{ minHeight: "46px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+              <a className="ds-btn" href="#services" style={{ minHeight: "44px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
                 {"מה אנחנו מבשלים"}
               </a>
             </div>
@@ -170,12 +166,12 @@ export default function Home({ seoPath }) {
           <img src="/images/site/tagine_beef_couscous.jpg" data-a="spin" alt="" style={{ position: "absolute", top: "-54px", insetInlineEnd: "7%", width: "170px", height: "170px", borderRadius: "50%", objectFit: "cover", boxShadow: "0 18px 40px -12px rgba(0, 0, 0, 0.35)", border: "6px solid #FFFFFF" }} />
           {" "}
           <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="s3" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
               {"ספק אחד,"}
               <br />
               {"ארבעה שירותי הסעדה לעסק שלכם."}
             </h2>
-            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "15px", lineHeight: "1.7", color: "#5A544E", maxWidth: "460px" }}>
+            <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540", maxWidth: "460px" }}>
               {"מטבח אחד בשרי וכשר, שמבשל כל בוקר למפעלים, לאירועים ולשולחנות שבת."}
             </p>
             <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -184,9 +180,7 @@ export default function Home({ seoPath }) {
                 <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
               </span>
               <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-                </svg>
+                <PhForkKnife size={18} weight="regular" aria-hidden="true" />
               </span>
               <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
                 <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -195,58 +189,50 @@ export default function Home({ seoPath }) {
             </div>
             <div style={{ marginTop: "30px", width: "100%", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "22px" }}>
               {" "}<div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 20px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "290px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 30V14h22v16M28 20h8l6 6v4H28M13 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM35 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM17 34h14M10 19h12M10 24h8" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhTruck size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"הסעדה יומית למפעלים"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"ארוחה חמה כל יום לפני ההפסקה, בתפזורת או בחמגשיות אישיות. העובדים מזמינים באפליקציה."}
                 </p>
-                <Link to="/factories" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
+                <Link to="/factories" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "700", color: "#B4511E" }}>
                   {"לפרטים"}
                 </Link>
               </div>{" "}
               {" "}<div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 20px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "290px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M24 14a6 6 0 1 0 0-12 6 6 0 0 0 0 12zM6 42v-6a8 8 0 0 1 8-8h20a8 8 0 0 1 8 8v6M18 30v12M30 30v12M20 8h8" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhUsersThree size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"ארוחות מסובסדות לעובדים"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"המעסיק משתתף, העובד משלם מחיר מוזל, ואפשר לשלם גם בסיבוס."}
                 </p>
-                <Link to="/services/subsidized-meals" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
+                <Link to="/services/subsidized-meals" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "700", color: "#B4511E" }}>
                   {"לפרטים"}
                 </Link>
               </div>{" "}
               {" "}<div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 20px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "290px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M4 34h40M8 34a16 16 0 0 1 32 0M24 18v-4M20 14h8M8 40h32" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhCallBell size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"אירועי חברה וימי גיבוש"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"עד 500 משתתפים. מבשלים באותו בוקר, והאוכל מגיע אליכם חם ומוכן להגשה."}
                 </p>
-                <Link to="/services/corporate-events" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
+                <Link to="/services/corporate-events" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "700", color: "#B4511E" }}>
                   {"לפרטים"}
                 </Link>
               </div>{" "}
               {" "}<div data-a="card" style={{ background: "#FFFFFF", borderRadius: "120px 120px 14px 14px", padding: "40px 20px 30px", display: "flex", flexDirection: "column", alignItems: "center", gap: "12px", textAlign: "center", minHeight: "290px", boxSizing: "border-box" }}>
-                <svg width="46" height="46" viewBox="0 0 48 48" fill="none" stroke="#B4511E" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
-                </svg>
-                <h3 style={{ margin: "4px 0 0", fontSize: "18px", lineHeight: "1.3", fontWeight: "900" }}>
+                <PhCookingPot size={46} weight="duotone" color="#B4511E" aria-hidden="true" />
+                <h3 style={{ margin: "4px 0 0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   {"מכירת שישי"}
                 </h3>
-                <p style={{ margin: "0", fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"האוכל של שבת לפי משקל, בלי מינימום. מזמינים בטלפון עד רביעי, משלוח חינם מעל 250 ₪."}
                 </p>
-                <Link to="/friday" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "800", color: "#B4511E" }}>
+                <Link to="/friday" style={{ marginTop: "auto", fontSize: "14px", fontWeight: "700", color: "#B4511E" }}>
                   {"לפרטים"}
                 </Link>
               </div>{" "}
@@ -258,7 +244,7 @@ export default function Home({ seoPath }) {
       {" "}
       <section aria-labelledby="s4" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s4" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהשיחה הראשונה ועד הצלצול"}
           </h2>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -267,9 +253,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -279,45 +263,45 @@ export default function Home({ seoPath }) {
           <div style={{ width: "100%", marginTop: "30px", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "48px" }}>
             <ol data-a="steps" style={{ flex: "1 1 440px", listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column" }}>
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"01"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"מספרים לנו על המפעל"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"כמה עובדים, באילו משמרות, ואיך אוכלים היום: חדר אוכל או חמגשיות. שיחה קצרה בטלפון."}
                   </span>
                 </span>
               </li>
               <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "74px", marginInlineEnd: "110px", border: "1px solid #F0C99A", borderTop: "0", borderInlineEnd: "0", borderRadius: "0 0 18px 0" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px", flexDirection: "row-reverse", textAlign: "left" }}>
-                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"02"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px", alignItems: "flex-end" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"הצעה וחוזה"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"מחיר למנה ומינימום מנות ליום, כתוב וסגור, לרוב עוד באותו יום. בלי סעיפים שמופיעים רק בחשבונית."}
                   </span>
                 </span>
               </li>
               <li data-a="conn" aria-hidden="true" style={{ height: "48px", marginInlineStart: "110px", marginInlineEnd: "74px", border: "1px solid #F0C99A", borderTop: "0", borderInlineStart: "0", borderRadius: "0 0 0 18px" }} />
               <li data-a="step" style={{ display: "flex", alignItems: "flex-start", gap: "18px" }}>
-                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "19px", fontWeight: "900" }}>
+                <span dir="ltr" style={{ width: "50px", height: "50px", flexShrink: "0", borderRadius: "50%", border: "3px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "20px", fontWeight: "700" }}>
                   {"03"}
                 </span>
                 <span style={{ width: "12px", height: "12px", flexShrink: "0", marginTop: "19px", borderRadius: "50%", background: "#F5A33B" }} />
                 <span style={{ display: "flex", flexDirection: "column", gap: "6px", paddingTop: "6px" }}>
-                  <b style={{ fontSize: "17px" }}>
+                  <b style={{ fontSize: "18px" }}>
                     {"העובדים מזמינים באפליקציה"}
                   </b>
-                  <span style={{ fontSize: "14px", lineHeight: "1.7", color: "#5A544E" }}>
+                  <span style={{ fontSize: "var(--fs-body-sm)", lineHeight: "1.6", color: "#4A4540" }}>
                     {"כל עובד בוחר מנה, אנחנו מבשלים לפי ההזמנות, והאוכל מגיע לפני ההפסקה. ואיש קשר אחד עם טלפון ישיר."}
                   </span>
                 </span>
@@ -338,7 +322,7 @@ export default function Home({ seoPath }) {
             {" "}
           </div>
           <div style={{ flex: "1 1 460px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
-            <h2 id="s5" data-a="words" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="s5" data-a="words" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
               <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
                 <span data-w="" style={{ display: "inline-block" }}>
                   {"מה"}
@@ -375,36 +359,30 @@ export default function Home({ seoPath }) {
                 </span>
               </span>
             </h2>
-            <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
+            <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
               {"מוסיפים אותם באפליקציה, והמטבח מבשל יותר כבר למחרת. מפעל של 40 עובדים ומפעל של 400 מקבלים את אותם סירים באותו בוקר, כי המטבח שלנו מבשל מעל 3,000 ארוחות ביום."}
             </p>
             <ul style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", flexDirection: "column", gap: "12px", fontSize: "16px" }}>
               {" "}<li data-a="point" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                 <span style={{ width: "22px", height: "22px", flexShrink: "0", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12l5 5 9-10" />
-                  </svg>
+                  <PhCheck size={12} weight="bold" aria-hidden="true" />
                 </span>
                 {"מטבח מרכזי שמבשל מעל 3,000 ארוחות ביום"}
               </li>{" "}
               {" "}<li data-a="point" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                 <span style={{ width: "22px", height: "22px", flexShrink: "0", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12l5 5 9-10" />
-                  </svg>
+                  <PhCheck size={12} weight="bold" aria-hidden="true" />
                 </span>
                 {"תפזורת או חמגשיות, לפי מה שמתאים למפעל"}
               </li>{" "}
               {" "}<li data-a="point" style={{ display: "flex", gap: "12px", alignItems: "flex-start" }}>
                 <span style={{ width: "22px", height: "22px", flexShrink: "0", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M5 12l5 5 9-10" />
-                  </svg>
+                  <PhCheck size={12} weight="bold" aria-hidden="true" />
                 </span>
                 {"איש קשר אחד שמכיר את המפעל שלכם"}
               </li>{" "}
             </ul>
-            <a href="#contact" style={{ minHeight: "46px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
+            <a className="ds-btn" href="#contact" style={{ minHeight: "44px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 28px", borderRadius: "999px", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", fontSize: "15px", fontWeight: "700", textDecoration: "none" }}>
               {"אני רוצה לשמוע איך זה ייראה אצלנו"}
             </a>
           </div>
@@ -414,13 +392,11 @@ export default function Home({ seoPath }) {
       <section id="map" aria-labelledby="map-h" style={{ padding: "96px clamp(24px, 5vw, 80px)", maxWidth: "1308px", width: "100%" }}>
         <div style={{ width: "100%", display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "56px" }}>
           <div style={{ flex: "1 1 420px", maxWidth: "600px", display: "flex", flexDirection: "column", alignItems: "flex-start", gap: "20px" }}>
-            <span style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "14px", fontWeight: "800", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "6px 14px" }}>
-              <svg width="18" height="18" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                <path d="M10 40a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM38 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM14 36h14a6 6 0 0 0 0-12H20a6 6 0 0 1 0-12h14" />
-              </svg>
+            <span className="ds-badge" style={{ display: "inline-flex", alignItems: "center", gap: "8px", fontSize: "13px", fontWeight: "700", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "6px 14px" }}>
+              <PhPath size={18} weight="regular" aria-hidden="true" />
               {"אזור החלוקה שלנו"}
             </span>
-            <h2 id="map-h" data-a="words" style={{ margin: "0", fontSize: "clamp(2rem, 3.4vw, 2.8rem)", lineHeight: "1.15", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="map-h" data-a="words" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
               <span style={{ display: "inline-block", overflow: "hidden", verticalAlign: "top", paddingBottom: "0.14em", marginBottom: "-0.14em" }}>
                 <span data-w="" style={{ display: "inline-block" }}>
                   {"מקרית"}
@@ -457,51 +433,45 @@ export default function Home({ seoPath }) {
                 </span>
               </span>
             </h2>
-            <p data-a="title" style={{ margin: "0", fontSize: "17px", lineHeight: "1.85", color: "#5A544E" }}>
+            <p data-a="title" style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
               {"המשאיות יוצאות מהמטבח בקרית גת בבוקר של יום האספקה, ומגיעות לחדרי האוכל לפני ההפסקה. מפעל במקום אחר בדרום? נבדוק את המסלול."}
             </p>
             <ul style={{ listStyle: "none", margin: "4px 0 0", padding: "0", display: "flex", flexDirection: "column", gap: "14px" }}>
               <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                 <span style={{ width: "48px", height: "48px", flexShrink: "0", borderRadius: "50%", background: "#FFF5E8", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
-                  </svg>
+                  <PhCookingPot size={24} weight="regular" aria-hidden="true" />
                 </span>
                 <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                   <b style={{ fontSize: "16px", color: "#2E2A27" }}>
                     {"מבושל באותו בוקר"}
                   </b>
-                  <span style={{ fontSize: "14px", color: "#5A544E" }}>
+                  <span style={{ fontSize: "14px", color: "#4A4540" }}>
                     {"הסירים עולים על האש ביום האספקה עצמו"}
                   </span>
                 </span>
               </li>
               <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                 <span style={{ width: "48px", height: "48px", flexShrink: "0", borderRadius: "50%", background: "#FFF5E8", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M4 30V12h24v18M28 18h9l7 7v5H28M12 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM36 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM16 34h16" />
-                  </svg>
+                  <PhTruck size={24} weight="regular" aria-hidden="true" />
                 </span>
                 <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                   <b style={{ fontSize: "16px", color: "#2E2A27" }}>
                     {"מסלולי חלוקה קבועים"}
                   </b>
-                  <span style={{ fontSize: "14px", color: "#5A544E" }}>
+                  <span style={{ fontSize: "14px", color: "#4A4540" }}>
                     {"כל מפעל מקבל שעת הגעה קבועה"}
                   </span>
                 </span>
               </li>
               <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "14px" }}>
                 <span style={{ width: "48px", height: "48px", flexShrink: "0", borderRadius: "50%", background: "#FFF5E8", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="24" height="24" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M24 42a18 18 0 1 0 0-36 18 18 0 0 0 0 36zM24 14v10l7 5" />
-                  </svg>
+                  <PhClock size={24} weight="regular" aria-hidden="true" />
                 </span>
                 <span style={{ display: "flex", flexDirection: "column", gap: "2px" }}>
                   <b style={{ fontSize: "16px", color: "#2E2A27" }}>
                     {"לפני ההפסקה"}
                   </b>
-                  <span style={{ fontSize: "14px", color: "#5A544E" }}>
+                  <span style={{ fontSize: "14px", color: "#4A4540" }}>
                     {"בתפזורת או בחמגשיות אישיות"}
                   </span>
                 </span>
@@ -620,11 +590,9 @@ export default function Home({ seoPath }) {
           <div style={{ width: "100%", margin: "0", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "32px", textAlign: "center" }}>
             {" "}<div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
               <span data-a="stat-ic" style={{ width: "64px", height: "64px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.5)", border: "1px solid rgba(255, 255, 255, 0.8)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M24 30a12 12 0 1 0 0-24 12 12 0 0 0 0 24zM24 12l2 4.5 4.8.5-3.6 3.2 1 4.8L24 22.6 19.8 25l1-4.8-3.6-3.2 4.8-.5zM16 28l-3 15 11-6 11 6-3-15" />
-                </svg>
+                <PhMedal size={30} weight="duotone" aria-hidden="true" />
               </span>
-              <span dir="ltr" data-count="25" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+              <span dir="ltr" data-count="25" data-suf="+" style={{ fontSize: "var(--fs-display)", fontWeight: "700", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
                 {"25+"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
@@ -633,11 +601,9 @@ export default function Home({ seoPath }) {
             </div>{" "}
             {" "}<div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
               <span data-a="stat-ic" style={{ width: "64px", height: "64px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.5)", border: "1px solid rgba(255, 255, 255, 0.8)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M8 22h32v6a12 12 0 0 1-12 12h-8A12 12 0 0 1 8 28zM4 22h40M18 16c0-4 3-4 3-8M27 16c0-4 3-4 3-8" />
-                </svg>
+                <PhCookingPot size={30} weight="duotone" aria-hidden="true" />
               </span>
-              <span dir="ltr" data-count="3000" data-suf="+" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+              <span dir="ltr" data-count="3000" data-suf="+" style={{ fontSize: "var(--fs-display)", fontWeight: "700", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
                 {"3,000+"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
@@ -646,11 +612,9 @@ export default function Home({ seoPath }) {
             </div>{" "}
             {" "}<div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "12px" }}>
               <span data-a="stat-ic" style={{ width: "64px", height: "64px", borderRadius: "50%", background: "rgba(255, 255, 255, 0.5)", border: "1px solid rgba(255, 255, 255, 0.8)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                <svg width="30" height="30" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M6 42V20l10 6v-6l10 6V12l16 8v22zM6 42h36M14 34h4M24 34h4M34 34h4" />
-                </svg>
+                <PhFactory size={30} weight="duotone" aria-hidden="true" />
               </span>
-              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "48px", fontWeight: "900", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
+              <span dir="ltr" data-count="97" data-suf="%" style={{ fontSize: "var(--fs-display)", fontWeight: "700", lineHeight: "1", letterSpacing: "-0.02em", fontVariantNumeric: "tabular-nums" }}>
                 {"97%"}
               </span>
               <span style={{ fontSize: "16px", fontWeight: "700", color: "rgba(46, 42, 39, 0.82)" }}>
@@ -664,10 +628,10 @@ export default function Home({ seoPath }) {
       {" "}
       <section id="about" aria-labelledby="s6" style={{ padding: "96px clamp(24px, 5vw, 80px)" }}>
         <div style={{ width: "100%", margin: "0", display: "flex", flexDirection: "column", alignItems: "center", gap: "18px" }}>
-          <h2 id="s6" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="s6" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהמטבח שלנו בקרית גת"}
           </h2>
-          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "15px", lineHeight: "1.7", color: "#5A544E", maxWidth: "520px" }}>
+          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540", maxWidth: "520px" }}>
             {"בישול מרוקאי ביתי, ביד, מהמתכונים של אלגריה."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -676,9 +640,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -698,10 +660,10 @@ export default function Home({ seoPath }) {
       {" "}
       <section aria-labelledby="blog-h" style={{ padding: "96px clamp(24px, 5vw, 80px) 40px" }}>
         <div style={{ width: "100%", display: "flex", flexDirection: "column", alignItems: "center", gap: "16px" }}>
-          <h2 id="blog-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+          <h2 id="blog-h" data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
             {"מהבלוג"}
           </h2>
-          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "16px", lineHeight: "1.75", color: "#5A544E", maxWidth: "620px" }}>
+          <p data-a="title" style={{ margin: "0", textAlign: "center", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540", maxWidth: "620px" }}>
             {"מדריכים קצרים מהמטבח, למנהלי רכש ולמי שמתכנן אירוע."}
           </p>
           <div data-a="orn" aria-hidden="true" style={{ display: "flex", alignItems: "center", gap: "12px" }}>
@@ -710,9 +672,7 @@ export default function Home({ seoPath }) {
               <span style={{ width: "56px", height: "1px", background: "#F0C99A" }} />
             </span>
             <span style={{ width: "34px", height: "34px", borderRadius: "50%", background: "linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)", color: "#2E2A27", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3v7a2 2 0 0 1-4 0V3M6 10v11M16 3c-2 0-3 2-3 6 0 2 1 3 3 3v9" />
-              </svg>
+              <PhForkKnife size={18} weight="regular" aria-hidden="true" />
             </span>
             <span style={{ display: "flex", flexDirection: "column", gap: "5px", alignItems: "flex-end" }}>
               <span style={{ width: "90px", height: "1px", background: "#F0C99A" }} />
@@ -725,19 +685,19 @@ export default function Home({ seoPath }) {
                 <img src="/images/site/spread.jpg" alt="עוף עם חומוס, סלטים בקערות ולחם" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: "18px 18px 0 0" }} />
               </Link>
               <div style={{ padding: "20px 22px 24px", display: "flex", flexDirection: "column", gap: "10px", flexGrow: "1" }}>
-                <span style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "800", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
+                <span className="ds-badge" style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "700", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
                   {"אירועים"}
                 </span>
-                <h3 style={{ margin: "0", fontSize: "19px", lineHeight: "1.35", fontWeight: "900" }}>
+                <h3 style={{ margin: "0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   <Link to="/blog/how-much-food-per-guest-event-catering" style={{ color: "#2E2A27", textDecoration: "none" }}>
                     {"כמה אוכל להזמין לאירוע? מדריך כמויות למנה לאדם"}
                   </Link>
                 </h3>
-                <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"כמה סלטים, עיקריות ותוספות לכל אורח, איך מחשבים ילדים, וכמה רזרבה להוסיף בלי לזרוק אוכל."}
                 </p>
                 <div style={{ marginTop: "auto" }}>
-                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "13px", color: "#5A544E" }}>
+                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "14px", color: "#4A4540" }}>
                     <span>
                       {"עמית בן שושן"}
                     </span>
@@ -756,19 +716,19 @@ export default function Home({ seoPath }) {
                 <img src="/images/site/factory.jpg" alt="מגש צהריים עם שניצל, אורז ושעועית ירוקה" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: "18px 18px 0 0" }} />
               </Link>
               <div style={{ padding: "20px 22px 24px", display: "flex", flexDirection: "column", gap: "10px", flexGrow: "1" }}>
-                <span style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "800", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
+                <span className="ds-badge" style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "700", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
                   {"הסעדה למפעלים"}
                 </span>
-                <h3 style={{ margin: "0", fontSize: "19px", lineHeight: "1.35", fontWeight: "900" }}>
+                <h3 style={{ margin: "0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   <Link to="/blog/industrial-catering-guide" style={{ color: "#2E2A27", textDecoration: "none" }}>
                     {"הסעדה למפעלים: מה לבדוק לפני שחותמים על חוזה"}
                   </Link>
                 </h3>
-                <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"תמחור לעובד, זמני אספקה, שמירת טמפרטורה והתאמות תזונתיות. מדריך מעשי למנהלי רכש בדרום."}
                 </p>
                 <div style={{ marginTop: "auto" }}>
-                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "13px", color: "#5A544E" }}>
+                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "14px", color: "#4A4540" }}>
                     <span>
                       {"עמית בן שושן"}
                     </span>
@@ -787,19 +747,19 @@ export default function Home({ seoPath }) {
                 <img src="/images/site/tagine_white.jpg" alt="טאג׳ין לבן עם תבשיל בקר ואורז" style={{ display: "block", width: "100%", aspectRatio: "4 / 3", objectFit: "cover", borderRadius: "18px 18px 0 0" }} />
               </Link>
               <div style={{ padding: "20px 22px 24px", display: "flex", flexDirection: "column", gap: "10px", flexGrow: "1" }}>
-                <span style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "800", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
+                <span className="ds-badge" style={{ alignSelf: "flex-start", fontSize: "13px", fontWeight: "700", color: "#B4511E", background: "#FDEBD3", borderRadius: "999px", padding: "5px 12px" }}>
                   {"הסעדה למפעלים"}
                 </span>
-                <h3 style={{ margin: "0", fontSize: "19px", lineHeight: "1.35", fontWeight: "900" }}>
+                <h3 style={{ margin: "0", fontSize: "var(--fs-h4)", lineHeight: "1.3", fontWeight: "700" }}>
                   <Link to="/blog/business-catering-south-israel" style={{ color: "#2E2A27", textDecoration: "none" }}>
                     {"הסעדה למפעלים בדרום: ארוחה חמה בכל יום עבודה"}
                   </Link>
                 </h3>
-                <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.7", color: "#5A544E" }}>
+                <p style={{ margin: "0", fontSize: "var(--fs-body-sm)", lineHeight: "1.7", color: "#4A4540" }}>
                   {"מדרגות כמות, שמירת חום ותפריט יומי מתחלף, מניסיון של יותר מ-25 שנה במטבח."}
                 </p>
                 <div style={{ marginTop: "auto" }}>
-                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "13px", color: "#5A544E" }}>
+                  <span style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", fontSize: "14px", color: "#4A4540" }}>
                     <span>
                       {"עמית בן שושן"}
                     </span>
@@ -814,7 +774,7 @@ export default function Home({ seoPath }) {
               </div>
             </article>
           </div>
-          <Link to="/blog" style={{ minHeight: "48px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 26px", borderRadius: "999px", border: "1.5px solid #B4511E", color: "#B4511E", fontSize: "15px", fontWeight: "700", textDecoration: "none", marginTop: "12px" }}>
+          <Link className="ds-btn" to="/blog" style={{ minHeight: "52px", display: "inline-flex", alignItems: "center", justifyContent: "center", padding: "0 26px", borderRadius: "999px", border: "1.5px solid #B4511E", color: "#B4511E", fontSize: "16px", fontWeight: "700", textDecoration: "none", marginTop: "12px" }}>
             {"לכל המאמרים"}
           </Link>
         </div>
@@ -823,38 +783,32 @@ export default function Home({ seoPath }) {
       <section id="contact" aria-labelledby="s7" style={{ padding: "96px clamp(24px, 5vw, 80px)", background: "#FFF5E8" }}>
         <div data-a="panel" style={{ width: "100%", margin: "0", borderRadius: "26px", padding: "0", boxSizing: "border-box", display: "flex", flexWrap: "wrap", gap: "40px", alignItems: "center" }}>
           <div style={{ flex: "1 1 340px", display: "flex", flexDirection: "column", gap: "14px" }}>
-            <h2 id="s7" data-a="title" style={{ margin: "0", fontSize: "clamp(1.8rem, 3vw, 2.4rem)", lineHeight: "1.2", fontWeight: "900", color: "#2E2A27" }}>
+            <h2 id="s7" data-a="title" style={{ margin: "0", fontSize: "var(--fs-h2)", lineHeight: "1.12", fontWeight: "700", color: "#2E2A27" }}>
               {"בואו נדבר על המפעל שלכם"}
             </h2>
-            <p style={{ margin: "0", fontSize: "16px", lineHeight: "1.8", color: "#5A544E" }}>
+            <p style={{ margin: "0", fontSize: "var(--fs-body)", lineHeight: "1.7", color: "#4A4540" }}>
               {"כמה פרטים, ותקבלו הצעה כתובה עם מחיר למנה ומינימום יומי, לרוב עוד באותו יום."}
             </p>
-            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "900", color: "#2E2A27", textDecoration: "none" }}>
+            <a href="tel:+972545437526" dir="ltr" style={{ textAlign: "right", fontSize: "30px", fontWeight: "700", color: "#2E2A27", textDecoration: "none" }}>
               {"054-543-7526"}
             </a>
             <WaButton topic="הסעדה למפעל" style={{ alignSelf: "flex-start" }} />
             <ul style={{ listStyle: "none", margin: "8px 0 0", padding: "0", display: "flex", flexDirection: "column", gap: "12px" }}>
-              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "15px", fontWeight: "700", color: "#2E2A27" }}>
+              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "16px", fontWeight: "700", color: "#2E2A27" }}>
                 <span style={{ width: "40px", height: "40px", flexShrink: "0", borderRadius: "50%", background: "#FFFFFF", border: "1px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M12 4h18l8 8v32H12zM30 4v8h8M18 24h12M18 30h12M18 36h8" />
-                  </svg>
+                  <PhFileText size={20} weight="regular" aria-hidden="true" />
                 </span>
                 {"מחיר למנה ומינימום יומי, בכתב"}
               </li>
-              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "15px", fontWeight: "700", color: "#2E2A27" }}>
+              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "16px", fontWeight: "700", color: "#2E2A27" }}>
                 <span style={{ width: "40px", height: "40px", flexShrink: "0", borderRadius: "50%", background: "#FFFFFF", border: "1px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M4 30V12h24v18M28 18h9l7 7v5H28M12 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM36 38a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM16 34h16" />
-                  </svg>
+                  <PhTruck size={20} weight="regular" aria-hidden="true" />
                 </span>
                 {"תפזורת או חמגשיות אישיות"}
               </li>
-              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "15px", fontWeight: "700", color: "#2E2A27" }}>
+              <li data-a="perk" style={{ display: "flex", alignItems: "center", gap: "12px", fontSize: "16px", fontWeight: "700", color: "#2E2A27" }}>
                 <span style={{ width: "40px", height: "40px", flexShrink: "0", borderRadius: "50%", background: "#FFFFFF", border: "1px solid #FDEBD3", color: "#B4511E", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                  <svg width="20" height="20" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M12 6h8l4 10-5 3a22 22 0 0 0 10 10l3-5 10 4v8a4 4 0 0 1-4 4C20 40 8 28 8 10a4 4 0 0 1 4-4z" />
-                  </svg>
+                  <PhPhone size={20} weight="regular" aria-hidden="true" />
                 </span>
                 {"איש קשר אחד עם טלפון ישיר"}
               </li>
