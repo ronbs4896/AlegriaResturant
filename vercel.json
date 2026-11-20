@@ -2,6 +2,23 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/services/factory-catering",
+      "destination": "/factories",
+      "permanent": true
+    },
+    {
+      "source": "/services/friday-meals",
+      "destination": "/friday",
+      "permanent": true
+    },
+    {
+      "source": "/testimonials",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/books",
@@ -11,20 +28,38 @@
       "source": "/books/:path*",
       "destination": "https://alegria-books.vercel.app/books/:path*"
     },
-    { "source": "/((?!api/)(?!.*\\.).*)", "destination": "/index.html" }
+    {
+      "source": "/((?!api/)(?!.*\\.).*)",
+      "destination": "/index.html"
+    }
   ],
   "headers": [
     {
       "source": "/fonts/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/images/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     },
     {
       "source": "/assets/(.*)",
-      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
     }
   ]
 }

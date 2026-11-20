@@ -1,16 +1,15 @@
-import Header from './Header.jsx'
-import Footer from './Footer.jsx'
-import FloatingWhatsApp from './FloatingWhatsApp.jsx'
+import SiteHeader from '../brand/SiteHeader.jsx'
+import SiteFooter from '../brand/SiteFooter.jsx'
 import MobileActionBar from './MobileActionBar.jsx'
 
 export default function Layout({ children }) {
   return (
-    // pb-20 במובייל — מרחב לרצועת הפעולה התחתונה כדי שלא תכסה את הפוטר
-    <div className="flex min-h-screen flex-col pb-[4.5rem] sm:pb-0">
-      <Header />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <FloatingWhatsApp />
+    // pb במובייל: מקום לרצועת הפעולה התחתונה כדי שלא תכסה את הפוטר
+    <div className="flex min-h-screen flex-col pb-[4.5rem] sm:pb-0" style={{ background: '#F2EADE' }}>
+      <a href="#main" className="skip-link">דילוג לתוכן</a>
+      <SiteHeader />
+      <main id="main" className="flex-1">{children}</main>
+      <SiteFooter />
       <MobileActionBar />
     </div>
   )

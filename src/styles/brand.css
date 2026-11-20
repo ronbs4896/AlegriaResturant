@@ -1,0 +1,76 @@
+/* ============================================================
+   כללים משותפים מהעיצוב המאושר (קנבס) — שדות טופס, בחירה,
+   ספינר טעינה. הצבעים לפי ספר המותג: טקסט בפחם, קווים בחול.
+   ============================================================ */
+a { color: #2E2A27; }
+a:hover { color: #2E2A27; }
+
+.spin { animation: spin 0.8s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.fld { width: 100%; min-height: 56px; border: 1.5px solid #DDD1BE; border-radius: 14px; background: #FFFFFF; padding: 0 16px; font: inherit; font-size: 16px; font-weight: 500; color: #2E2A27; box-sizing: border-box; }
+.fld:focus { outline: none; border-color: #2E2A27; box-shadow: 0 0 0 4px rgba(245, 135, 31, 0.25); }
+select.fld { -webkit-appearance: none; appearance: none; cursor: pointer; padding-inline-end: 48px; background-image: url(/images/site/chevron.svg); background-repeat: no-repeat; background-position: left 18px center; }
+textarea.fld { padding: 14px 16px; min-height: 130px; resize: vertical; }
+input:focus-visible, select:focus-visible, textarea:focus-visible { outline: none; border-color: #2E2A27 !important; box-shadow: 0 0 0 4px rgba(245, 135, 31, 0.25); }
+
+.opt { position: relative; display: flex; align-items: center; justify-content: center; gap: 12px; min-height: 60px; padding: 12px 18px; background: #FFFFFF; border: 1.5px solid #DDD1BE; border-radius: 14px; font-size: 16px; font-weight: 800; color: #2E2A27; cursor: pointer; box-sizing: border-box; transition: border-color 0.2s, background-color 0.2s; }
+.opt input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.opt:has(input:checked) { border-color: #2E2A27; background: #EADFCD; }
+.opt:has(input:focus-visible) { outline: 3px solid #2E2A27; outline-offset: 2px; }
+.chk { justify-content: flex-start; text-align: start; }
+.box { width: 24px; height: 24px; flex-shrink: 0; border: 1.5px solid #8C857C; border-radius: 6px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; box-sizing: border-box; }
+.box svg { opacity: 0; }
+.opt:has(input:checked) .box { background: #2E2A27; border-color: #2E2A27; color: #F2EADE; }
+.opt:has(input:checked) .box svg { opacity: 1; }
+
+a:focus-visible, button:focus-visible { outline: 3px solid #2E2A27; outline-offset: 3px; }
+
+/* header: desktop nav vs. burger */
+.hdr-desktop { display: flex; }
+.hdr-desktop-block { display: block; }
+.hdr-burger { display: none; }
+@media (max-width: 1023px) {
+  .hdr-desktop, .hdr-desktop-block { display: none !important; }
+  .hdr-burger { display: inline-flex; }
+}
+@media (max-width: 420px) {
+  .hdr-cta { padding: 0 14px !important; font-size: 14px !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin { animation-duration: 2s; }
+  html { scroll-behavior: auto; }
+}
+
+/* טקסט ארוך (עמודים משפטיים) */
+.brand-prose h2 { margin: 40px 0 12px; font-size: 26px; line-height: 1.25; font-weight: 900; color: #2E2A27; }
+.brand-prose h3 { margin: 28px 0 8px; font-size: 20px; font-weight: 900; }
+.brand-prose p { margin: 0 0 16px; }
+.brand-prose ul { margin: 0 0 18px; padding-inline-start: 22px; list-style: disc; }
+.brand-prose ol { margin: 0 0 18px; padding-inline-start: 22px; list-style: decimal; }
+.brand-prose li { margin-bottom: 6px; }
+.brand-prose a { font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+.brand-prose strong { font-weight: 900; }
+
+/* שאלות נפוצות */
+.faq-item summary { list-style: none; cursor: pointer; }
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item[open] .faq-chev { transform: rotate(180deg); }
+.faq-chev { transition: transform 0.25s ease; }
+
+.skip-link { position: absolute; inset-inline-start: 12px; top: -60px; z-index: 100; background: #2E2A27; color: #F2EADE; padding: 10px 16px; border-radius: 999px; font-weight: 800; }
+.skip-link:focus { top: 12px; color: #F2EADE; }
+
+@media (max-width: 520px) {
+  .hdr-sub { display: none; }
+  .hdr-name { font-size: 17px !important; }
+}
+/* המנה המרחפת מעל פאנל השירותים מסתירה את הכותרת בנייד */
+@media (max-width: 760px) {
+  [data-a="spin"] { display: none !important; }
+}
+@media (max-width: 420px) {
+  .hdr-logo { width: 40px !important; height: 40px !important; }
+  .hdr-name { font-size: 15px !important; }
+}

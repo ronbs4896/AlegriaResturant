@@ -1,27 +1,25 @@
+import { Link } from 'react-router-dom'
 import { Helmet } from 'react-helmet-async'
-import Container from '../components/ui/Container.jsx'
-import Button from '../components/ui/Button.jsx'
+import { btnPrimary, btnSecondary, PAD, INK } from '../components/brand/Kit.jsx'
 
 export default function NotFound() {
   return (
-    <>
+    <div dir="rtl" style={{ background: '#F2EADE', color: INK }}>
       <Helmet>
         <title>הדף לא נמצא · קייטרינג אלגריה</title>
         <meta name="robots" content="noindex" />
       </Helmet>
-      <section className="flex min-h-[70vh] items-center bg-charcoal-950 text-cream">
-        <Container className="text-center">
-          <div className="text-display font-black text-charcoal/20">404</div>
-          <h1 className="mt-4 text-h2 font-black">אופס, הדף לא נמצא</h1>
-          <p className="mx-auto mt-3 max-w-md text-cream/70">
-            כנראה שהמנה הזו כבר נגמרה. בואו נחזור לתפריט הראשי.
-          </p>
-          <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <Button variant="primary" size="lg" to="/">חזרה לעמוד הבית</Button>
-            <Button variant="outline-light" size="lg" to="/contact">צור קשר</Button>
+      <section style={{ minHeight: '60vh', display: 'flex', alignItems: 'center', justifyContent: 'center', textAlign: 'center', padding: `80px ${PAD}` }}>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, maxWidth: 520 }}>
+          <b dir="ltr" style={{ fontSize: 96, lineHeight: 1, fontWeight: 900, background: 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>404</b>
+          <h1 style={{ margin: 0, fontSize: 32, fontWeight: 900 }}>הדף הזה לא נמצא</h1>
+          <p style={{ margin: 0, fontSize: 18, lineHeight: 1.7 }}>אולי הקישור השתנה. אפשר לחזור לדף הבית או לדבר איתנו.</p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12, marginTop: 8 }}>
+            <Link to="/" style={btnPrimary}>לדף הבית</Link>
+            <Link to="/contact" style={btnSecondary}>צור קשר</Link>
           </div>
-        </Container>
+        </div>
       </section>
-    </>
+    </div>
   )
 }

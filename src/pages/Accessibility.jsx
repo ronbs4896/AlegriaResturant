@@ -1,21 +1,20 @@
 import Seo from '../components/seo/Seo.jsx'
-import PageHeader from '../components/sections/PageHeader.jsx'
-import Container from '../components/ui/Container.jsx'
+import { PageHero, Prose } from '../components/brand/Kit.jsx'
+import { usePageMotion } from '../lib/motion.js'
 import { getSeo } from '../data/seoRoutes.js'
 import { site } from '../data/site.js'
 
 export default function Accessibility() {
+  const root = usePageMotion()
   const seo = getSeo('/accessibility')
   return (
-    <>
+    <div ref={root} dir="rtl" style={{ background: '#F2EADE', color: '#2E2A27' }}>
       <Seo title={seo.title} description={seo.description} path="/accessibility" />
-      <PageHeader eyebrow="נגישות" title="הצהרת נגישות" />
-      <section className="bg-cream py-16 sm:py-20">
-        <Container className="max-w-3xl">
-          <div className="prose prose-lg max-w-none text-charcoal-soft prose-headings:font-black prose-headings:text-charcoal prose-strong:text-charcoal">
+      <PageHero crumb="הצהרת נגישות" title="הצהרת נגישות" />
+      <Prose>
             <p>
               אתר קייטרינג אלגריה שואף לאפשר גלישה נוחה ונגישה לכלל המשתמשים, לרבות אנשים עם מוגבלויות,
-              בהתאם לתקן הישראלי (ת"י 5568) ולהנחיות <span dir="ltr" className="num">WCAG 2.1</span> ברמה AA.
+              בהתאם לתקן הישראלי (ת"י 5568) ולהנחיות <span dir="ltr">WCAG 2.1</span> ברמה AA.
             </p>
             <h2>מה עשינו כדי להנגיש את האתר</h2>
             <ul>
@@ -30,14 +29,12 @@ export default function Accessibility() {
             <p>
               נתקלתם בבעיית נגישות? נשמח לדעת ולתקן. פנו אלינו:
               <br />
-              טלפון: <a href={`tel:${site.phone.dial}`} dir="ltr" className="num">{site.phone.display}</a>
+              טלפון: <a href={`tel:${site.phone.dial}`} dir="ltr">{site.phone.display}</a>
               <br />
               אימייל: <a href={`mailto:${site.email}`}>{site.email}</a>
             </p>
-            <p className="text-meta">הצהרה זו עודכנה לאחרונה בחודש יולי 2026.</p>
-          </div>
-        </Container>
-      </section>
-    </>
+            <p style={{ fontSize: 14 }}>הצהרה זו עודכנה לאחרונה בחודש יולי 2026.</p>
+</Prose>
+    </div>
   )
 }

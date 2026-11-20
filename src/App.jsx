@@ -9,13 +9,15 @@ import AnalyticsTracker from './components/seo/AnalyticsTracker.jsx'
 const Home = lazy(() => import('./pages/Home.jsx'))
 const About = lazy(() => import('./pages/About.jsx'))
 const Services = lazy(() => import('./pages/Services.jsx'))
-const ServiceDetail = lazy(() => import('./pages/ServiceDetail.jsx'))
 const Factories = lazy(() => import('./pages/Factories.jsx'))
+const Subsidized = lazy(() => import('./pages/Subsidized.jsx'))
+const Corporate = lazy(() => import('./pages/Corporate.jsx'))
+const PrivateEvents = lazy(() => import('./pages/PrivateEvents.jsx'))
 const Friday = lazy(() => import('./pages/Friday.jsx'))
+const Kitchen = lazy(() => import('./pages/Kitchen.jsx'))
 const Gallery = lazy(() => import('./pages/Gallery.jsx'))
 const Blog = lazy(() => import('./pages/Blog.jsx'))
 const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
-const Testimonials = lazy(() => import('./pages/Testimonials.jsx'))
 const Faq = lazy(() => import('./pages/Faq.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
 const Accessibility = lazy(() => import('./pages/Accessibility.jsx'))
@@ -30,18 +32,20 @@ export default function App() {
       <Layout>
         <Suspense fallback={<PageLoader />}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
+            <Route path="/" element={<Home seoPath="/" />} />
+            <Route path="/about" element={<About seoPath="/about" />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/services/:slug" element={<ServiceDetail />} />
-            <Route path="/factories" element={<Factories />} />
-            <Route path="/friday" element={<Friday />} />
+            <Route path="/factories" element={<Factories seoPath="/factories" />} />
+            <Route path="/services/subsidized-meals" element={<Subsidized seoPath="/services/subsidized-meals" />} />
+            <Route path="/services/corporate-events" element={<Corporate seoPath="/services/corporate-events" />} />
+            <Route path="/services/event-catering" element={<PrivateEvents seoPath="/services/event-catering" />} />
+            <Route path="/friday" element={<Friday seoPath="/friday" />} />
+            <Route path="/kitchen" element={<Kitchen seoPath="/kitchen" />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog" element={<Blog seoPath="/blog" />} />
             <Route path="/blog/:slug" element={<BlogPost />} />
-            <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/faq" element={<Faq />} />
-            <Route path="/contact" element={<Contact />} />
+            <Route path="/contact" element={<Contact seoPath="/contact" />} />
             <Route path="/accessibility" element={<Accessibility />} />
             <Route path="/privacy" element={<Privacy />} />
             <Route path="*" element={<NotFound />} />

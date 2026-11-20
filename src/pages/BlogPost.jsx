@@ -1,73 +1,64 @@
-import { useParams, Navigate, Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+// ============================================================
+//  עמוד מאמר, לפי העיצוב המאושר (Ref-Article): כותרת ופרטי כותב,
+//  תמונת שער, תוכן עניינים דביק שנבנה מכותרות המאמר, גוף המאמר
+//  וכרטיסים של מאמרים נוספים. התוכן מגיע מ-content/blog.
+// ============================================================
+import { useEffect, useMemo } from 'react'
+import { Link, Navigate, useParams } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { trackViewContent } from '../lib/analytics.js'
-import { CalendarDays, ArrowRight, User, Clock, MessageCircle, ChevronLeft } from 'lucide-react'
-import { getAuthor } from '../data/authors.js'
 import Seo from '../components/seo/Seo.jsx'
-import Button from '../components/ui/Button.jsx'
+import PostCard, { coverOf, formatDate, chip } from '../components/brand/PostCard.jsx'
 import { getPost, posts } from '../lib/posts.js'
 import { articleSchema, breadcrumbSchema } from '../data/structuredData.js'
-import { useLeadModal } from '../context/LeadModalContext.jsx'
-import { buildWaLink } from '../lib/whatsapp.js'
+import { trackViewContent } from '../lib/analytics.js'
+import { usePageMotion } from '../lib/motion.js'
 
-function formatDate(d) {
-  try {
-    return new Date(d).toLocaleDateString('he-IL', { day: 'numeric', month: 'long', year: 'numeric' })
-  } catch {
-    return d
-  }
-}
+const INK = '#2E2A27'
+const GRAD = 'linear-gradient(135deg, #FCC50D 0%, #F5871F 100%)'
 
-// תאריך קצר לכרטיסים (בלי שנה) — נכנס יפה בפוטר הכרטיס
-function formatDateShort(d) {
-  try {
-    return new Date(d).toLocaleDateString('he-IL', { day: 'numeric', month: 'long' })
-  } catch {
-    return d
-  }
-}
+const slugify = (t) => String(t).trim().replace(/[^\p{L}\p{N}\s-]/gu, '').replace(/\s+/g, '-').slice(0, 80)
+const textOf = (children) => (Array.isArray(children) ? children.map(textOf).join('') : typeof children === 'string' ? children : children?.props ? textOf(children.props.children) : '')
 
-// אווטאר כותב — תמונת פרופיל אם קיימת, אחרת אייקון fallback
-function AuthorAvatar({ name, small }) {
-  const author = getAuthor(name)
-  const [failed, setFailed] = useState(false)
-  const box = small ? 'h-6 w-6' : 'h-8 w-8'
-  if (author.avatar && !failed) {
-    return (
-      <img
-        src={author.avatar}
-        alt={name}
-        onError={() => setFailed(true)}
-        className={`${box} rounded-full object-cover`}
-      />
-    )
-  }
-  return (
-    <span className={`flex ${box} items-center justify-center rounded-full bg-cream-200 text-charcoal`}>
-      <User size={small ? 13 : 16} />
-    </span>
-  )
+const md = {
+  h2: ({ children }) => <h2 id={slugify(textOf(children))} style={{ margin: '48px 0 14px', fontSize: 'clamp(1.5rem, 2.4vw, 1.9rem)', lineHeight: 1.25, fontWeight: 900, color: INK, scrollMarginTop: 110 }}>{children}</h2>,
+  h3: ({ children }) => <h3 style={{ margin: '32px 0 10px', fontSize: 21, lineHeight: 1.35, fontWeight: 900, color: INK }}>{children}</h3>,
+  p: ({ children }) => <p style={{ margin: '0 0 18px', fontSize: 18, lineHeight: 1.9, color: INK }}>{children}</p>,
+  ul: ({ children }) => <ul style={{ margin: '0 0 22px', paddingInlineStart: 22, fontSize: 18, lineHeight: 1.85, color: INK, listStyle: 'disc' }}>{children}</ul>,
+  ol: ({ children }) => <ol style={{ margin: '0 0 22px', paddingInlineStart: 22, fontSize: 18, lineHeight: 1.85, color: INK, listStyle: 'decimal' }}>{children}</ol>,
+  li: ({ children }) => <li style={{ marginBottom: 6 }}>{children}</li>,
+  a: ({ href, children }) => (href && href.startsWith('/')
+    ? <Link to={href} style={{ color: INK, fontWeight: 800, textDecoration: 'underline', textUnderlineOffset: 4 }}>{children}</Link>
+    : <a href={href} target="_blank" rel="noopener noreferrer" style={{ color: INK, fontWeight: 800, textDecoration: 'underline', textUnderlineOffset: 4 }}>{children}</a>),
+  strong: ({ children }) => <strong style={{ fontWeight: 900 }}>{children}</strong>,
+  blockquote: ({ children }) => <blockquote style={{ margin: '24px 0', padding: '18px 22px', background: '#EADFCD', borderRadius: 18, borderInlineStart: '6px solid #F5871F' }}>{children}</blockquote>,
+  table: ({ children }) => <div style={{ overflowX: 'auto', margin: '0 0 24px', border: '1px solid #DDD1BE', borderRadius: 16 }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, background: '#FFFFFF' }}>{children}</table></div>,
+  th: ({ children }) => <th style={{ padding: '12px 14px', background: '#EADFCD', textAlign: 'start', fontWeight: 900, borderBottom: '1px solid #DDD1BE' }}>{children}</th>,
+  td: ({ children }) => <td style={{ padding: '12px 14px', borderBottom: '1px solid #DDD1BE' }}>{children}</td>,
+  img: ({ src, alt }) => <img src={src} alt={alt || ''} loading="lazy" style={{ display: 'block', width: '100%', borderRadius: 20, margin: '12px 0 24px' }} />,
+  hr: () => <hr style={{ border: 0, height: 1, background: '#DDD1BE', margin: '32px 0' }} />,
 }
 
 export default function BlogPost() {
   const { slug } = useParams()
   const post = getPost(slug)
-  const { openLead } = useLeadModal()
+  const root = usePageMotion()
 
   useEffect(() => {
     if (post) trackViewContent({ content_type: 'article', content_name: post.title, content_category: post.category })
   }, [post])
 
-  if (!post) return <Navigate to="/blog" replace />
+  const toc = useMemo(() => (post ? [...String(post.body).matchAll(/^##\s+(.+)$/gm)].map((m) => m[1].replace(/[*_`]/g, '').trim()) : []), [post])
 
-  const related = posts.filter((p) => p.slug !== slug).slice(0, 4)
+  if (!post) return <Navigate to="/blog" replace />
+  const related = posts.filter((p) => p.slug !== slug).slice(0, 3)
+  const isEvent = /אירוע/.test(post.category || '') || /אירוע/.test(post.title)
+  const cta = isEvent
+    ? { title: 'מתכננים אירוע?', text: 'נבנה לכם תפריט וכמויות לפי מספר האורחים, עם הצעה כתובה.', to: '/services/event-catering#contact', label: 'אני רוצה הצעה לאירוע' }
+    : { title: 'מחפשים ספק הסעדה?', text: 'מחיר למנה ומינימום יומי בכתב, לרוב עוד באותו יום.', to: '/factories#contact', label: 'אני רוצה הצעת מחיר' }
 
   return (
     <>
-      {/* חוזה המערכת: <title> = title, meta description = description.
-          jsonLd מה-frontmatter (מחרוזת) גובר על הסכימה שנבנית אוטומטית. */}
       <Seo
         title={post.seoTitle || post.title}
         description={post.description}
@@ -75,157 +66,68 @@ export default function BlogPost() {
         image={post.cover}
         jsonLd={[
           post.jsonLd || articleSchema(post),
-          breadcrumbSchema([
-            { name: 'בית', path: '/' },
-            { name: 'בלוג', path: '/blog' },
-            { name: post.title, path: `/blog/${slug}` },
-          ]),
+          breadcrumbSchema([{ name: 'בית', path: '/' }, { name: 'בלוג', path: '/blog' }, { name: post.title, path: `/blog/${slug}` }]),
         ]}
       />
+      <div ref={root} dir="rtl" data-page="BlogPost" style={{ background: '#F2EADE', color: INK }}>
+        <section aria-labelledby="h1" style={{ padding: '40px clamp(20px, 5vw, 80px) 0' }}>
+          <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <nav aria-label="פירורי לחם" data-a="hero-fade" style={{ fontSize: 14 }}>
+              <Link to="/">בית</Link> / <Link to="/blog">בלוג</Link>{post.category ? ` / ${post.category}` : ''}
+            </nav>
+            {post.category && <span data-a="hero-fade" style={chip}>{post.category}</span>}
+            <h1 id="h1" style={{ margin: 0, fontSize: 'clamp(2rem, 4vw, 3.2rem)', lineHeight: 1.15, fontWeight: 900, maxWidth: 900 }}>
+              <span style={{ display: 'block', overflow: 'hidden', paddingBottom: '0.06em' }}><span data-a="hero-line" style={{ display: 'block' }}>{post.title}</span></span>
+            </h1>
+            <div data-a="hero-fade" style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 14 }}>
+              <img src="/images/site/mark.jpg" alt="" style={{ width: 40, height: 40, borderRadius: '50%', objectFit: 'cover', border: '1px solid #DDD1BE' }} />
+              <span><b>{post.author}</b> · קייטרינג אלגריה · <span dir="ltr">{formatDate(post.date)}</span> · {post.readingMinutes} דק׳ קריאה</span>
+            </div>
+            <img src={coverOf(post)} alt={post.coverAlt || post.title} data-a="reveal" fetchpriority="high" onError={(e) => { e.currentTarget.src = '/images/site/spread.jpg' }}
+              style={{ marginTop: 12, display: 'block', width: '100%', aspectRatio: '21 / 9', objectFit: 'cover', borderRadius: 26 }} />
+          </div>
+        </section>
 
-      {/* תמונת שער — hero רחב מלא ברוחב, מתחת להדר */}
-      <section className="relative w-full bg-charcoal-950">
-        <img
-          src={post.cover}
-          onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
-          alt={post.coverAlt || post.title}
-          width={1600}
-          height={900}
-          fetchpriority="high"
-          decoding="async"
-          className="h-[300px] w-full object-cover sm:h-[400px] lg:h-[460px]"
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-charcoal-950/25 to-transparent" />
-      </section>
-
-      {/* תוכן — רקע לבן, פריסה רחבה: מאמר + סיידבר */}
-      <div className="bg-white">
-        <div className="mx-auto w-full max-w-[1360px] px-5 py-12 sm:px-8 sm:py-16">
-          <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-14">
-            {/* מאמר */}
-            <article>
-              {/* breadcrumb */}
-              <nav className="mb-4 flex items-center gap-2 text-meta text-charcoal-soft" aria-label="breadcrumb">
-                <Link to="/blog" className="hover:text-orange">בלוג</Link>
-                <ArrowRight size={14} />
-                <span className="font-bold text-charcoal">{post.category}</span>
-              </nav>
-
-              {/* כותרת */}
-              <h1 className="text-hero font-black leading-tight text-charcoal">
-                {post.title}
-              </h1>
-              {post.excerpt && (
-                <p className="mt-4 text-lead leading-relaxed text-charcoal-soft">{post.excerpt}</p>
-              )}
-
-              {/* מטא — כותב, תאריך, זמן קריאה */}
-              <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 border-y border-charcoal/10 py-4 text-meta text-charcoal-soft">
-                <span className="inline-flex items-center gap-2 font-bold text-charcoal">
-                  <AuthorAvatar name={post.author} />
-                  {post.author}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <CalendarDays size={15} className="text-charcoal-muted" /> {formatDate(post.date)}
-                </span>
-                <span className="inline-flex items-center gap-1.5">
-                  <Clock size={15} className="text-charcoal-muted" /> {post.readingMinutes} דק׳ קריאה
-                </span>
-              </div>
-
-              {/* גוף המאמר */}
-              <div
-                className="prose prose-lg mt-8 max-w-none text-charcoal-soft
-                  prose-headings:font-black prose-headings:text-charcoal prose-headings:mt-10
-                  prose-h2:text-h2 prose-h3:text-h3
-                  prose-p:leading-relaxed prose-strong:text-charcoal
-                  prose-a:text-orange prose-a:font-bold prose-a:no-underline hover:prose-a:underline
-                  prose-li:marker:text-orange
-                  prose-table:text-meta prose-th:bg-cream-200 prose-th:text-charcoal prose-td:border-charcoal/10
-                  prose-img:rounded-2xl"
-              >
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.body}</ReactMarkdown>
-              </div>
-
-              {Array.isArray(post.tags) && post.tags.length > 0 && (
-                <div className="mt-10 flex flex-wrap gap-2 border-t border-charcoal/10 pt-6">
-                  {post.tags.map((t) => (
-                    <span key={t} className="rounded-full bg-cream-100 px-3 py-1 text-meta font-bold text-charcoal-soft">
-                      #{t}
-                    </span>
-                  ))}
+        <section aria-label="תוכן המאמר" style={{ padding: '48px clamp(20px, 5vw, 80px) 80px' }}>
+          <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto', display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: 56 }}>
+            <aside aria-label="תוכן העניינים" style={{ flex: '0 1 280px', position: 'sticky', top: 110, display: 'flex', flexDirection: 'column', gap: 16 }}>
+              {toc.length > 0 && (
+                <div style={{ background: '#EADFCD', borderRadius: 20, padding: '22px 22px 14px', boxSizing: 'border-box' }}>
+                  <span style={{ display: 'block', fontSize: 15, fontWeight: 900, marginBottom: 6 }}>בעמוד הזה</span>
+                  <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
+                    {toc.map((t) => (
+                      <li key={t}><a href={`#${slugify(t)}`} style={{ display: 'block', padding: '8px 0', color: INK, textDecoration: 'none', fontSize: 15, lineHeight: 1.5, borderBottom: '1px solid #DDD1BE' }}>{t}</a></li>
+                    ))}
+                  </ul>
                 </div>
               )}
-            </article>
-
-            {/* סיידבר דביק */}
-            <aside className="lg:sticky lg:top-24 lg:self-start">
-              <div className="rounded-3xl bg-charcoal-950 p-7 text-cream shadow-warm">
-                <h2 className="text-h3 font-black">מתכננים אירוע?</h2>
-                <p className="mt-2 text-meta text-cream/75">
-                  נבנה לכם תפריט וכמויות מדויקות לאירוע שלכם. קבלו הצעת מחיר מהירה ומותאמת.
-                </p>
-                <div className="mt-5 space-y-2.5">
-                  <Button variant="primary" size="md" onClick={() => openLead('event')} className="w-full">
-                    קבלו הצעת מחיר <ChevronLeft size={18} />
-                  </Button>
-                  <Button variant="whatsapp" size="md" href={buildWaLink()} target="_blank" rel="noopener noreferrer" className="w-full">
-                    <MessageCircle size={18} /> וואטסאפ
-                  </Button>
-                </div>
+              <div style={{ background: INK, color: '#F2EADE', borderRadius: 20, padding: 22, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                <b style={{ fontSize: 19, fontWeight: 900 }}>{cta.title}</b>
+                <span style={{ fontSize: 15, lineHeight: 1.6 }}>{cta.text}</span>
+                <Link to={cta.to} style={{ minHeight: 48, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', padding: '0 22px', borderRadius: 999, background: GRAD, color: INK, fontSize: 15, fontWeight: 800, textDecoration: 'none', marginTop: 4 }}>{cta.label}</Link>
+                <a href="tel:+972545437526" style={{ color: '#F2EADE', fontSize: 15, fontWeight: 700, textAlign: 'center' }}><span dir="ltr">054-543-7526</span></a>
               </div>
             </aside>
+            <article style={{ flex: '1 1 560px', minWidth: 0, maxWidth: 760 }}>
+              {post.excerpt && <p style={{ margin: '0 0 28px', fontSize: 21, lineHeight: 1.75, fontWeight: 700 }}>{post.excerpt}</p>}
+              <ReactMarkdown remarkPlugins={[remarkGfm]} components={md}>{post.body}</ReactMarkdown>
+            </article>
           </div>
+        </section>
 
-          {/* מאמרים נוספים לקריאה — סקשן רחב בתחתית, 4 כרטיסים */}
-          {related.length > 0 && (
-            <section className="mt-16 border-t border-charcoal/10 pt-12">
-              <h2 className="mb-8 text-h2 font-black text-charcoal">מאמרים נוספים לקריאה</h2>
-              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                {related.map((p) => (
-                  <Link
-                    key={p.slug}
-                    to={`/blog/${p.slug}`}
-                    className="group flex flex-col overflow-hidden rounded-3xl bg-cream-50 shadow-warm transition-all hover:-translate-y-1 hover:shadow-warm-lg"
-                  >
-                    <div className="relative">
-                      <img
-                        src={p.cover}
-                        onError={(e) => { e.currentTarget.src = '/images/dishes/alegria-spread.jpg' }}
-                        alt={p.coverAlt || p.title}
-                        loading="lazy"
-                        className="aspect-[16/10] w-full object-cover"
-                      />
-                      {p.category && (
-                        <span className="absolute right-3 top-3 rounded-full bg-white/90 px-3 py-1 text-micro font-bold text-charcoal shadow-sm backdrop-blur">
-                          {p.category}
-                        </span>
-                      )}
-                    </div>
-                    <div className="flex flex-1 flex-col p-5">
-                      <h3 className="font-black leading-snug text-charcoal transition-colors group-hover:text-orange line-clamp-2">
-                        {p.title}
-                      </h3>
-                      <p className="mt-2 flex-1 text-meta leading-relaxed text-charcoal-soft line-clamp-2">
-                        {p.excerpt || p.description}
-                      </p>
-                      <div className="mt-4 flex items-center justify-between gap-2 border-t border-charcoal/10 pt-3 text-micro text-charcoal-soft">
-                        <span className="inline-flex min-w-0 items-center gap-2 font-bold text-charcoal">
-                          <AuthorAvatar name={p.author} small />
-                          <span className="truncate">{p.author}</span>
-                        </span>
-                        <span className="inline-flex shrink-0 items-center gap-2">
-                          <span>{formatDateShort(p.date)}</span>
-                          <span className="inline-flex items-center gap-1"><Clock size={12} /> {p.readingMinutes} דק׳</span>
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
+        {related.length > 0 && (
+          <section aria-labelledby="rel-h" style={{ padding: '80px clamp(20px, 5vw, 80px) 96px', background: '#EADFCD' }}>
+            <div style={{ width: '100%', maxWidth: 1180, margin: '0 auto', display: 'flex', flexDirection: 'column', gap: 28 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
+                <h2 id="rel-h" style={{ margin: 0, fontSize: 'clamp(1.6rem, 2.6vw, 2.1rem)', fontWeight: 900 }}>עוד מהבלוג</h2>
+                <Link to="/blog" style={{ fontWeight: 800, textDecoration: 'underline', textUnderlineOffset: 4 }}>לכל המאמרים</Link>
               </div>
-            </section>
-          )}
-        </div>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 24 }}>
+                {related.map((p) => <PostCard key={p.slug} post={p} />)}
+              </div>
+            </div>
+          </section>
+        )}
       </div>
     </>
   )

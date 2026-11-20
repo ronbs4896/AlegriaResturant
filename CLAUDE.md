@@ -21,7 +21,13 @@
 - קצב אסימטרי, סימן קריאה אחד לכל היותר לנכס.
 
 ## ארכיטקטורה
-- כל הקופי ב-`src/data/*.js` (Content-in-Data). `site.js` = מקור אמת יחיד.
+- עיצוב 2026 (ספר המותג): העמודים הראשיים (`Home`, `Factories`, `Subsidized`, `Corporate`, `PrivateEvents`,
+  `Friday`, `Kitchen`, `About`, `Contact`) נבנו מהעיצוב המאושר בקנבס, והקופי שלהם נמצא בתוך קובץ העמוד.
+- רכיבי מותג משותפים ב-`src/components/brand/` (כותרת, פוטר, בוחר תאריך, Kit לעמודים משניים).
+- צבעים: קרם #F2EADE, פחם #2E2A27 לכל הטקסט, זית #4F5B31 לפאנל אחד, גרדיאנט הלוגו רק לכפתור הראשי.
+- תנועה: GSAP + ScrollTrigger ב-`src/lib/motion.js`, מופעל דרך `data-a` על אלמנטים. מכבד reduced-motion.
+- טפסים: `src/lib/useLeadForm.js` → `/api/lead`, ובכישלון מעבר לוואטסאפ עם הפרטים.
+- `site.js` = מקור אמת לפרטי העסק, שעות ואנליטיקס.
 - SEO: `scripts/postbuild-seo.mjs` מזריק head לכל route + מפרה-רנדר גוף מאמרים + sitemap/robots.
 - מדידה: `src/lib/analytics.js` (Meta Pixel פעיל; GA4/Google Ads/GTM env-driven).
 - לידים: מודאל 3 שלבים → וואטסאפ + פופ-אפ אישור.

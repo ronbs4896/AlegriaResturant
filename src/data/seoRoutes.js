@@ -2,7 +2,6 @@
 //  מניפסט SEO — מקור אמת יחיד לכל route.
 //  נצרך גם ב-runtime (Seo.jsx) וגם ב-postbuild (הזרקה סטטית + sitemap).
 // ============================================================
-import { services } from './services.js'
 
 const BRAND = 'קייטרינג אלגריה'
 
@@ -49,12 +48,6 @@ export const staticRoutes = [
     lastmod: '2026-07-14',
   },
   {
-    path: '/testimonials',
-    title: `המלצות · ${BRAND}`,
-    description: 'מה מנהלי מפעלים ולקוחות מספרים על ההסעדה, הקייטרינג ומכירת השישי של אלגריה.',
-    lastmod: '2026-07-13',
-  },
-  {
     path: '/about',
     title: `אודות · ${BRAND}`,
     description: 'הסיפור של אלגריה: 25 שנה ויותר שאנחנו מבשלים לדרום, מהמטבח של סבתא ועד אלפי מנות ביום.',
@@ -86,15 +79,29 @@ export const staticRoutes = [
   },
 ]
 
-// עמודי שירות דינמיים
-export const serviceRoutes = services.map((s) => ({
-  path: `/services/${s.slug}`,
-  title: `${s.title} · ${BRAND}`,
-  description: s.description.slice(0, 155),
-  lastmod: '2026-07-13',
+// עמודי שירות. הסעדה למפעלים ומכירת שישי חיים ב-/factories וב-/friday
+// (הכתובות הישנות מפנות לשם ב-vercel.json), לכן הם לא נכנסים כאן.
+const SERVICE_PAGES = {
+  'subsidized-meals': { title: `ארוחות מסובסדות לעובדים · ${BRAND}`, description: 'המעסיק משתתף, העובד משלם מחיר מוזל, ומחלקת השכר מקבלת דוח אחד בחודש. מטבח בשרי כשר בקרית גת, לכל הדרום.' },
+  'corporate-events': { title: `אירועי חברה וימי גיבוש · ${BRAND}`, description: 'קייטרינג לאירועי חברה וימי גיבוש בדרום, מ-20 ועד 300 משתתפים. מבושל באותו בוקר במטבח שלנו בקרית גת.' },
+  'event-catering': { title: `קייטרינג לאירועים פרטיים · ${BRAND}`, description: 'בריתות, בר ובת מצווה, שבע ברכות ואזכרות. תפריט ביתי בשרי וכשר, עם כמויות לפי מספר האורחים.' },
+}
+export const serviceRoutes = Object.entries(SERVICE_PAGES).map(([slug, v]) => ({
+  path: `/services/${slug}`,
+  ...v,
+  lastmod: '2026-11-20',
 }))
 
-export const seoRoutes = [...staticRoutes, ...serviceRoutes]
+export const extraRoutes = [
+  {
+    path: '/kitchen',
+    title: `המטבח שלנו, כשרות ובטיחות מזון · ${BRAND}`,
+    description: 'המטבח הבשרי של אלגריה בקרית גת: 3,000 מנות ביום, בהשגחת הרבנות הראשית קרית גת ושרשרת חום מבוקרת עד המפעל.',
+    lastmod: '2026-11-20',
+  },
+]
+
+export const seoRoutes = [...staticRoutes, ...serviceRoutes, ...extraRoutes]
 
 export const getSeo = (pathname) =>
   seoRoutes.find((r) => r.path === pathname) || staticRoutes[0]
